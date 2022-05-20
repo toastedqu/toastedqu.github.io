@@ -8,14 +8,14 @@
     <language>en-us</language><atom:link href="https://toastedqu.github.io/docs/dl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Activation</title>
-      <link>https://toastedqu.github.io/docs/dl/with-toc/</link>
+      <link>https://toastedqu.github.io/docs/dl/activation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://toastedqu.github.io/docs/dl/with-toc/</guid>
-      <description>Activation functions#Sigmoid#\[\sigma(z)=\frac{1}{1&amp;#43;\exp{(-x)}}\]Usage: add non-linearity to linear outputs s.t. \(\sigma(z)\in(0,1)\)and \(\sigma(0)=0.5\). 
-Tanh#\[\tanh(z)=\frac{\exp{(x)}-\exp{(-x)}}{\exp{(x)}&amp;#43;\exp{(-x)}}\]Usage: add non-linearity to linear outputs s.t. \(\tanh(z)\in(-1,1)\)and \(\tanh(0)=0\). 
-ReLU*#\[\text{ReLU}(x)=\max{(0,x)}\]Name: Rectified Linear Unit
-Usage: convert negative linear outputs to 0.</description>
+      <guid>https://toastedqu.github.io/docs/dl/activation/</guid>
+      <description>Activation functions#Binary-like#Sigmoid#\[\sigma(x)=\frac{1}{1&amp;#43;e^{-x}}\]Function:
+ add non-linearity to linear outputs s.t. \(\sigma(z)\in(0,1)\)and \(\sigma(0)=0.5\).  Pros:
+ imitation of the firing rate of a neuron, 0 if too negative and 1 if too positive. smooth gradient  Cons:
+ vanishing gradient: gradients rapidly shrink to 0 along backprop as long as any input is too positive or too negative.</description>
     </item>
     
     <item>

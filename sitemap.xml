@@ -2,10 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://toastedqu.github.io/docs/dl/table-of-contents/with-toc/</loc>
-    <lastmod>2022-05-20T09:51:30+09:00</lastmod>
+    <loc>https://toastedqu.github.io/docs/dl/activation/</loc>
   </url><url>
-    <loc>https://toastedqu.github.io/docs/dl/with-toc/</loc>
+    <loc>https://toastedqu.github.io/docs/dl/table-of-contents/with-toc/</loc>
     <lastmod>2022-05-20T09:51:30+09:00</lastmod>
   </url><url>
     <loc>https://toastedqu.github.io/docs/dl/</loc>
@@ -47,10 +46,10 @@
     <loc>https://toastedqu.github.io/categories/</loc>
     <lastmod>2022-05-20T09:51:30+09:00</lastmod>
   </url><url>
-    <loc>https://toastedqu.github.io/tags/development/</loc>
+    <loc>https://toastedqu.github.io/categories/Development/</loc>
     <lastmod>2022-05-20T09:51:30+09:00</lastmod>
   </url><url>
-    <loc>https://toastedqu.github.io/categories/Development/</loc>
+    <loc>https://toastedqu.github.io/tags/development/</loc>
     <lastmod>2022-05-20T09:51:30+09:00</lastmod>
   </url><url>
     <loc>https://toastedqu.github.io/posts/hugoisforlovers/</loc>

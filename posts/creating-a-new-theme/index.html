@@ -19,7 +19,7 @@ We&rsquo;ll start with creating a new site with a very basic template." />
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css" integrity="sha256-gsXb0jRHzuC0wqo&#43;0Izglh&#43;qQOH6Nw7uT4yfAuDUa18=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.0e98e1ffe0a4221f2bdc7148ec1486e2b01acf5abbe72fa864f6d83186cb263b.js" integrity="sha256-Dpjh/&#43;CkIh8r3HFI7BSG4rAaz1q75y&#43;oZPbYMYbLJjs=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ec16b6244b4be791e5ac173e3b3350ae379b1c9fae5287e3e43f610833c4eb51.js" integrity="sha256-7Ba2JEtL55HlrBc&#43;OzNQrjebHJ&#43;uUofj5D9hCDPE61E=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 <!--
@@ -89,7 +89,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/dl/with-toc/" class="">Activation</a>
+    <a href="/docs/dl/activation/" class="">Activation</a>
   
 
         </li>
@@ -521,7 +521,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
 
 
  
@@ -654,8 +654,8 @@ this is a command
 ## edit the file
 $ vi foo.md
 +++
-date = &#34;2014-09-28&#34;
-title = &#34;creating a new theme&#34;
+date = &quot;2014-09-28&quot;
+title = &quot;creating a new theme&quot;
 +++
 
 bah and humbug
@@ -664,8 +664,8 @@ bah and humbug
 ## show it
 $ cat foo.md
 +++
-date = &#34;2014-09-28&#34;
-title = &#34;creating a new theme&#34;
+date = &quot;2014-09-28&quot;
+title = &quot;creating a new theme&quot;
 +++
 
 bah and humbug
@@ -858,18 +858,18 @@ $
 </code></pre><p>The skeleton includes templates (the files ending in .html), license file, a description of your theme (the theme.toml file), and an empty archetype.</p>
 <p>Please take a minute to fill out the theme.toml and LICENSE.md files. They&rsquo;re optional, but if you&rsquo;re going to be distributing your theme, it tells the world who to praise (or blame). It&rsquo;s also nice to declare the license so that people will know how they can use the theme.</p>
 <pre tabindex="0"><code>$ vi themes/zafta/theme.toml
-author = &#34;michael d henderson&#34;
-description = &#34;a minimal working template&#34;
-license = &#34;MIT&#34;
-name = &#34;zafta&#34;
-source_repo = &#34;&#34;
-tags = [&#34;tags&#34;, &#34;categories&#34;]
+author = &quot;michael d henderson&quot;
+description = &quot;a minimal working template&quot;
+license = &quot;MIT&quot;
+name = &quot;zafta&quot;
+source_repo = &quot;&quot;
+tags = [&quot;tags&quot;, &quot;categories&quot;]
 :wq
 
 ## also edit themes/zafta/LICENSE.md and change
-## the bit that says &#34;YOUR_NAME_HERE&#34;
+## the bit that says &quot;YOUR_NAME_HERE&quot;
 </code></pre><p>Note that the the skeleton&rsquo;s template files are empty. Don&rsquo;t worry, we&rsquo;ll be changing that shortly.</p>
-<pre tabindex="0"><code>$ find themes/zafta -name &#39;*.html&#39; | xargs ls -l
+<pre tabindex="0"><code>$ find themes/zafta -name '*.html' | xargs ls -l
 -rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/_default/list.html
 -rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/_default/single.html
 -rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/index.html
@@ -883,11 +883,11 @@ $
 <p>Now that we&rsquo;ve got a theme to work with, it&rsquo;s a good idea to add the theme name to the configuration file. This is optional, because you can always add &ldquo;-t zafta&rdquo; on all your commands. I like to put it the configuration file because I like shorter command lines. If you don&rsquo;t put it in the configuration file or specify it on the command line, you won&rsquo;t use the template that you&rsquo;re expecting to.</p>
 <p>Edit the file to add the theme, add a title for the site, and specify that all of our content will use the TOML format.</p>
 <pre tabindex="0"><code>$ vi config.toml
-theme = &#34;zafta&#34;
-baseurl = &#34;&#34;
-languageCode = &#34;en-us&#34;
-title = &#34;zafta - totally refreshing&#34;
-MetaDataFormat = &#34;toml&#34;
+theme = &quot;zafta&quot;
+baseurl = &quot;&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;zafta - totally refreshing&quot;
+MetaDataFormat = &quot;toml&quot;
 :wq
 
 $
@@ -1013,7 +1013,7 @@ Watching for changes in /Users/quoha/Sites/zafta/content
 Serving pages from /Users/quoha/Sites/zafta/public
 Web Server is available at http://localhost:1313
 Press Ctrl+C to stop
-INFO: 2014/09/29 File System Event: [&#34;/Users/quoha/Sites/zafta/themes/zafta/layouts/index.html&#34;: MODIFY|ATTRIB]
+INFO: 2014/09/29 File System Event: [&quot;/Users/quoha/Sites/zafta/themes/zafta/layouts/index.html&quot;: MODIFY|ATTRIB]
 Change detected, rebuilding site
 
 WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
@@ -1062,7 +1062,7 @@ WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 categories created
 in 2 ms
 
-$ find public -type f -name &#39;*.html&#39; | xargs ls -l
+$ find public -type f -name '*.html' | xargs ls -l
 -rw-r--r--  1 quoha  staff  78 Sep 29 21:26 public/index.html
 
 $ cat public/index.html 
@@ -1081,10 +1081,10 @@ $ cat public/index.html
 &lt;html&gt; 
 &lt;body&gt; 
   &lt;p&gt;hugo says hello!&lt;/p&gt; 
-&lt;script&gt;document.write(&#39;&lt;script src=&#34;http://&#39; 
-        + (location.host || &#39;localhost&#39;).split(&#39;:&#39;)[0] 
-    + &#39;:1313/livereload.js?mindelay=10&#34;&gt;&lt;/&#39; 
-        + &#39;script&gt;&#39;)&lt;/script&gt;&lt;/body&gt; 
+&lt;script&gt;document.write('&lt;script src=&quot;http://' 
+        + (location.host || 'localhost').split(':')[0] 
+    + ':1313/livereload.js?mindelay=10&quot;&gt;&lt;/' 
+        + 'script&gt;')&lt;/script&gt;&lt;/body&gt; 
 &lt;/html&gt;
 </code></pre><p>When you use <code>--watch</code>, the Live Reload script is added by Hugo. Look for live reload in the documentation to see what it does and how to disable it.</p>
 <h3 id="build-a-dynamic-home-page">
@@ -1109,7 +1109,7 @@ $
 <p>The &ldquo;new&rdquo; command uses an archetype to create the post file. Hugo created an empty default archetype file, but that causes an error when there&rsquo;s a theme. For me, the workaround was to create an archetypes file specifically for the post type.</p>
 <pre tabindex="0"><code>$ vi themes/zafta/archetypes/post.md
 +++
-Description = &#34;&#34;
+Description = &quot;&quot;
 Tags = []
 Categories = []
 +++
@@ -1141,10 +1141,10 @@ total 16
 $ cat content/post/first.md 
 +++
 Categories = []
-Description = &#34;&#34;
+Description = &quot;&quot;
 Tags = []
-date = &#34;2014-09-29T21:54:53-05:00&#34;
-title = &#34;first&#34;
+date = &quot;2014-09-29T21:54:53-05:00&quot;
+title = &quot;first&quot;
 
 +++
 my first post
@@ -1152,10 +1152,10 @@ my first post
 $ cat content/post/second.md 
 +++
 Categories = []
-Description = &#34;&#34;
+Description = &quot;&quot;
 Tags = []
-date = &#34;2014-09-29T21:57:09-05:00&#34;
-title = &#34;second&#34;
+date = &quot;2014-09-29T21:57:09-05:00&quot;
+title = &quot;second&quot;
 
 +++
 my second post
@@ -1167,7 +1167,7 @@ $ hugo --verbose
 INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
-INFO: 2014/09/29 found taxonomies: map[string]string{&#34;category&#34;:&#34;categories&#34;, &#34;tag&#34;:&#34;tags&#34;}
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;category&quot;:&quot;categories&quot;, &quot;tag&quot;:&quot;tags&quot;}
 WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 draft content 
 0 future content 
@@ -1177,7 +1177,7 @@ WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 in 4 ms
 $
 </code></pre><p>The output says that it created 2 pages. Those are our new posts:</p>
-<pre tabindex="0"><code>$ find public -type f -name &#39;*.html&#39; | xargs ls -l
+<pre tabindex="0"><code>$ find public -type f -name '*.html' | xargs ls -l
 -rw-r--r--  1 quoha  staff  78 Sep 29 22:13 public/index.html
 -rw-r--r--  1 quoha  staff   0 Sep 29 22:13 public/post/first/index.html
 -rw-r--r--  1 quoha  staff   0 Sep 29 22:13 public/post/index.html
@@ -1224,7 +1224,7 @@ $ hugo --verbose
 INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
-INFO: 2014/09/29 found taxonomies: map[string]string{&#34;tag&#34;:&#34;tags&#34;, &#34;category&#34;:&#34;categories&#34;}
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;tag&quot;:&quot;tags&quot;, &quot;category&quot;:&quot;categories&quot;}
 WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 draft content 
 0 future content 
@@ -1232,7 +1232,7 @@ WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 tags created
 0 categories created
 in 4 ms
-$ find public -type f -name &#39;*.html&#39; | xargs ls -l 
+$ find public -type f -name '*.html' | xargs ls -l 
 -rw-r--r--  1 quoha  staff  94 Sep 29 22:23 public/index.html
 -rw-r--r--  1 quoha  staff   0 Sep 29 22:23 public/post/first/index.html
 -rw-r--r--  1 quoha  staff   0 Sep 29 22:23 public/post/index.html
@@ -1287,7 +1287,7 @@ $ hugo --verbose
 INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
-INFO: 2014/09/29 found taxonomies: map[string]string{&#34;tag&#34;:&#34;tags&#34;, &#34;category&#34;:&#34;categories&#34;}
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;tag&quot;:&quot;tags&quot;, &quot;category&quot;:&quot;categories&quot;}
 WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 draft content 
 0 future content 
@@ -1296,7 +1296,7 @@ WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 categories created
 in 4 ms
 
-$ find public -type f -name &#39;*.html&#39; | xargs ls -l
+$ find public -type f -name '*.html' | xargs ls -l
 -rw-r--r--  1 quoha  staff   94 Sep 29 22:40 public/index.html
 -rw-r--r--  1 quoha  staff  125 Sep 29 22:40 public/post/first/index.html
 -rw-r--r--  1 quoha  staff    0 Sep 29 22:40 public/post/index.html
@@ -1339,7 +1339,7 @@ $
 &lt;html&gt;
 &lt;body&gt;
   {{ range first 10 .Data.Pages }}
-    &lt;h1&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h1&gt;
   {{ end }}
 &lt;/body&gt;
 &lt;/html&gt;
@@ -1349,7 +1349,7 @@ $ hugo --verbose
 INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
 INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
-INFO: 2014/09/29 found taxonomies: map[string]string{&#34;tag&#34;:&#34;tags&#34;, &#34;category&#34;:&#34;categories&#34;}
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;tag&quot;:&quot;tags&quot;, &quot;category&quot;:&quot;categories&quot;}
 WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 draft content 
 0 future content 
@@ -1358,7 +1358,7 @@ WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
 0 categories created
 in 4 ms
 
-$ find public -type f -name &#39;*.html&#39; | xargs ls -l
+$ find public -type f -name '*.html' | xargs ls -l
 -rw-r--r--  1 quoha  staff  149 Sep 29 22:44 public/index.html
 -rw-r--r--  1 quoha  staff  125 Sep 29 22:44 public/post/first/index.html
 -rw-r--r--  1 quoha  staff    0 Sep 29 22:44 public/post/index.html
@@ -1369,9 +1369,9 @@ $ cat public/index.html
 &lt;html&gt;
 &lt;body&gt;
   
-    &lt;h1&gt;&lt;a href=&#34;/post/second/&#34;&gt;second&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;/post/second/&quot;&gt;second&lt;/a&gt;&lt;/h1&gt;
   
-    &lt;h1&gt;&lt;a href=&#34;/post/first/&#34;&gt;first&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;/post/first/&quot;&gt;first&lt;/a&gt;&lt;/h1&gt;
   
 &lt;/body&gt;
 &lt;/html&gt;
@@ -1394,18 +1394,18 @@ $
 <p>The default in Hugo is to use the directory structure of the content/ directory to guide the location of the generated html in the public/ directory. Let&rsquo;s verify that by creating an &ldquo;about&rdquo; page at the top level:</p>
 <pre tabindex="0"><code>$ vi content/about.md 
 +++
-title = &#34;about&#34;
-description = &#34;about this site&#34;
-date = &#34;2014-09-27&#34;
-slug = &#34;about time&#34;
+title = &quot;about&quot;
+description = &quot;about this site&quot;
+date = &quot;2014-09-27&quot;
+slug = &quot;about time&quot;
 +++
 
 ## about us
 
-i&#39;m speechless
+i'm speechless
 :wq
 </code></pre><p>Generate the web site and verify the results.</p>
-<pre tabindex="0"><code>$ find public -name &#39;*.html&#39; | xargs ls -l
+<pre tabindex="0"><code>$ find public -name '*.html' | xargs ls -l
 -rw-rw-r--  1 mdhender  staff   334 Sep 27 15:08 public/about-time/index.html
 -rw-rw-r--  1 mdhender  staff   527 Sep 27 15:08 public/index.html
 -rw-rw-r--  1 mdhender  staff   358 Sep 27 15:08 public/post/first-post/index.html
@@ -1417,14 +1417,14 @@ i&#39;m speechless
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;body&gt;
-    &lt;h1&gt;&lt;a href=&#34;http://localhost:1313/post/theme/&#34;&gt;creating a new theme&lt;/a&gt;&lt;/h1&gt;
-    &lt;h1&gt;&lt;a href=&#34;http://localhost:1313/about-time/&#34;&gt;about&lt;/a&gt;&lt;/h1&gt;
-    &lt;h1&gt;&lt;a href=&#34;http://localhost:1313/post/second-post/&#34;&gt;second&lt;/a&gt;&lt;/h1&gt;
-    &lt;h1&gt;&lt;a href=&#34;http://localhost:1313/post/first-post/&#34;&gt;first&lt;/a&gt;&lt;/h1&gt;
-&lt;script&gt;document.write(&#39;&lt;script src=&#34;http://&#39;
-        + (location.host || &#39;localhost&#39;).split(&#39;:&#39;)[0]
-		+ &#39;:1313/livereload.js?mindelay=10&#34;&gt;&lt;/&#39;
-        + &#39;script&gt;&#39;)&lt;/script&gt;&lt;/body&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/post/theme/&quot;&gt;creating a new theme&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/about-time/&quot;&gt;about&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/post/second-post/&quot;&gt;second&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/post/first-post/&quot;&gt;first&lt;/a&gt;&lt;/h1&gt;
+&lt;script&gt;document.write('&lt;script src=&quot;http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10&quot;&gt;&lt;/'
+        + 'script&gt;')&lt;/script&gt;&lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>Notice that the &ldquo;about&rdquo; link is listed with the posts? That&rsquo;s not desirable, so let&rsquo;s change that first.</p>
 <pre tabindex="0"><code>$ vi themes/zafta/layouts/index.html
@@ -1433,15 +1433,15 @@ i&#39;m speechless
 &lt;body&gt;
   &lt;h1&gt;posts&lt;/h1&gt;
   {{ range first 10 .Data.Pages }}
-    {{ if eq .Type &#34;post&#34;}}
-      &lt;h2&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
+    {{ if eq .Type &quot;post&quot;}}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
     {{ end }}
   {{ end }}
 
   &lt;h1&gt;pages&lt;/h1&gt;
   {{ range .Data.Pages }}
-    {{ if eq .Type &#34;page&#34; }}
-      &lt;h2&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
+    {{ if eq .Type &quot;page&quot; }}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
     {{ end }}
   {{ end }}
 &lt;/body&gt;
@@ -1449,7 +1449,7 @@ i&#39;m speechless
 :wq
 </code></pre><p>Generate the web site and verify the results. The home page has two sections, posts and pages, and each section has the right set of headings and links in it.</p>
 <p>But, that about page still renders to about-time/index.html.</p>
-<pre tabindex="0"><code>$ find public -name &#39;*.html&#39; | xargs ls -l
+<pre tabindex="0"><code>$ find public -name '*.html' | xargs ls -l
 -rw-rw-r--  1 mdhender  staff    334 Sep 27 15:33 public/about-time/index.html
 -rw-rw-r--  1 mdhender  staff    645 Sep 27 15:33 public/index.html
 -rw-rw-r--  1 mdhender  staff    358 Sep 27 15:33 public/post/first-post/index.html
@@ -1458,8 +1458,8 @@ i&#39;m speechless
 </code></pre><p>Knowing that hugo is using the slug to generate the file name, the simplest solution is to change the slug. Let&rsquo;s do it the hard way and change the permalink in the configuration file.</p>
 <pre tabindex="0"><code>$ vi config.toml
 [permalinks]
-	page = &#34;/:title/&#34;
-	about = &#34;/:filename/&#34;
+	page = &quot;/:title/&quot;
+	about = &quot;/:filename/&quot;
 </code></pre><p>Generate the web site and verify that this didn&rsquo;t work. Hugo lets &ldquo;slug&rdquo; or &ldquo;URL&rdquo; override the permalinks setting in the configuration file. Go ahead and comment out the slug in content/about.md, then generate the web site to get it to be created in the right place.</p>
 <h2 id="sharing-templates">
   Sharing Templates
@@ -1490,29 +1490,29 @@ $ vi themes/zafta/layouts/partials/footer.html
   <a class="anchor" href="#update-the-home-page-template-to-use-the-partials">#</a>
 </h3>
 <p>The most noticeable difference between a template call and a partials call is the lack of path:</p>
-<pre tabindex="0"><code>{{ template &#34;theme/partials/header.html&#34; . }}
+<pre tabindex="0"><code>{{ template &quot;theme/partials/header.html&quot; . }}
 </code></pre><p>versus</p>
-<pre tabindex="0"><code>{{ partial &#34;header.html&#34; . }}
+<pre tabindex="0"><code>{{ partial &quot;header.html&quot; . }}
 </code></pre><p>Both pass in the context.</p>
 <p>Let&rsquo;s change the home page template to use these new partials.</p>
 <pre tabindex="0"><code>$ vi themes/zafta/layouts/index.html
-{{ partial &#34;header.html&#34; . }}
+{{ partial &quot;header.html&quot; . }}
 
   &lt;h1&gt;posts&lt;/h1&gt;
   {{ range first 10 .Data.Pages }}
-    {{ if eq .Type &#34;post&#34;}}
-      &lt;h2&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
+    {{ if eq .Type &quot;post&quot;}}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
     {{ end }}
   {{ end }}
 
   &lt;h1&gt;pages&lt;/h1&gt;
   {{ range .Data.Pages }}
-    {{ if or (eq .Type &#34;page&#34;) (eq .Type &#34;about&#34;) }}
-      &lt;h2&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Type }} - {{ .Title }} - {{ .RelPermalink }}&lt;/a&gt;&lt;/h2&gt;
+    {{ if or (eq .Type &quot;page&quot;) (eq .Type &quot;about&quot;) }}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Type }} - {{ .Title }} - {{ .RelPermalink }}&lt;/a&gt;&lt;/h2&gt;
     {{ end }}
   {{ end }}
 
-{{ partial &#34;footer.html&#34; . }}
+{{ partial &quot;footer.html&quot; . }}
 :wq
 </code></pre><p>Generate the web site and verify the results. The title on the home page is now &ldquo;your title here&rdquo;, which comes from the &ldquo;title&rdquo; variable in the config.toml file.</p>
 <h3 id="update-the-default-single-template-to-use-the-partials">
@@ -1520,12 +1520,12 @@ $ vi themes/zafta/layouts/partials/footer.html
   <a class="anchor" href="#update-the-default-single-template-to-use-the-partials">#</a>
 </h3>
 <pre tabindex="0"><code>$ vi themes/zafta/layouts/_default/single.html
-{{ partial &#34;header.html&#34; . }}
+{{ partial &quot;header.html&quot; . }}
 
   &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
   {{ .Content }}
 
-{{ partial &#34;footer.html&#34; . }}
+{{ partial &quot;footer.html&quot; . }}
 :wq
 </code></pre><p>Generate the web site and verify the results. The title on the posts and the about page should both reflect the value in the markdown file.</p>
 <h2 id="add-date-published-to-posts">
@@ -1538,16 +1538,16 @@ $ vi themes/zafta/layouts/partials/footer.html
   <a class="anchor" href="#add-date-published-to-the-template">#</a>
 </h3>
 <p>We&rsquo;ll start by updating the template used to render the posts. The template code will look like:</p>
-<pre tabindex="0"><code>{{ .Date.Format &#34;Mon, Jan 2, 2006&#34; }}
+<pre tabindex="0"><code>{{ .Date.Format &quot;Mon, Jan 2, 2006&quot; }}
 </code></pre><p>Posts use the default single template, so we&rsquo;ll change that file.</p>
 <pre tabindex="0"><code>$ vi themes/zafta/layouts/_default/single.html
-{{ partial &#34;header.html&#34; . }}
+{{ partial &quot;header.html&quot; . }}
 
   &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
-  &lt;h2&gt;{{ .Date.Format &#34;Mon, Jan 2, 2006&#34; }}&lt;/h2&gt;
+  &lt;h2&gt;{{ .Date.Format &quot;Mon, Jan 2, 2006&quot; }}&lt;/h2&gt;
   {{ .Content }}
 
-{{ partial &#34;footer.html&#34; . }}
+{{ partial &quot;footer.html&quot; . }}
 :wq
 </code></pre><p>Generate the web site and verify the results. The posts now have the date displayed in them. There&rsquo;s a problem, though. The &ldquo;about&rdquo; page also has the date displayed.</p>
 <p>As usual, there are a couple of ways to make the date display only on posts. We could do an &ldquo;if&rdquo; statement like we did on the home page. Another way would be to create a separate template for posts.</p>
@@ -1556,23 +1556,24 @@ $ vi themes/zafta/layouts/partials/footer.html
 <p>Let&rsquo;s restore the default single template before we forget.</p>
 <pre tabindex="0"><code>$ mkdir themes/zafta/layouts/post
 $ vi themes/zafta/layouts/_default/single.html
-{{ partial &#34;header.html&#34; . }}
+{{ partial &quot;header.html&quot; . }}
 
   &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
   {{ .Content }}
 
-{{ partial &#34;footer.html&#34; . }}
+{{ partial &quot;footer.html&quot; . }}
 :wq
 </code></pre><p>Now we&rsquo;ll update the post&rsquo;s version of the single template. If you remember Hugo&rsquo;s rules, the template engine will use this version over the default.</p>
 <pre tabindex="0"><code>$ vi themes/zafta/layouts/post/single.html
-{{ partial &#34;header.html&#34; . }}
+{{ partial &quot;header.html&quot; . }}
 
   &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
-  &lt;h2&gt;{{ .Date.Format &#34;Mon, Jan 2, 2006&#34; }}&lt;/h2&gt;
+  &lt;h2&gt;{{ .Date.Format &quot;Mon, Jan 2, 2006&quot; }}&lt;/h2&gt;
   {{ .Content }}
 
-{{ partial &#34;footer.html&#34; . }}
+{{ partial &quot;footer.html&quot; . }}
 :wq
+
 </code></pre><p>Note that we removed the date logic from the default template and put it in the post template. Generate the web site and verify the results. Posts have dates and the about page doesn&rsquo;t.</p>
 <h3 id="dont-repeat-yourself">
   Don&rsquo;t Repeat Yourself
@@ -1595,7 +1596,7 @@ $ vi themes/zafta/layouts/_default/single.html
 
 
 
-  <script>(function(){function e(n){const e=window.getSelection(),t=document.createRange();t.selectNodeContents(n),e.removeAllRanges(),e.addRange(t)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+  <script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
 
 
  
