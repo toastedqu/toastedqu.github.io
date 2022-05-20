@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deep Learning on AI Handbook</title>
+    <link>https://toastedqu.github.io/docs/dl/</link>
+    <description>Recent content in Deep Learning on AI Handbook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://toastedqu.github.io/docs/dl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Activation</title>
+      <link>https://toastedqu.github.io/docs/dl/with-toc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://toastedqu.github.io/docs/dl/with-toc/</guid>
+      <description>Activation functions#Sigmoid#\[\sigma(z)=\frac{1}{1&amp;#43;\exp{(-x)}}\]Usage: add non-linearity to linear outputs s.t. \(\sigma(z)\in(0,1)\)and \(\sigma(0)=0.5\). 
+Tanh#\[\tanh(z)=\frac{\exp{(x)}-\exp{(-x)}}{\exp{(x)}&amp;#43;\exp{(-x)}}\]Usage: add non-linearity to linear outputs s.t. \(\tanh(z)\in(-1,1)\)and \(\tanh(0)=0\). 
+ReLU*#\[\text{ReLU}(x)=\max{(0,x)}\]Name: Rectified Linear Unit
+Usage: convert negative linear outputs to 0.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://toastedqu.github.io/docs/dl/hidden/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://toastedqu.github.io/docs/dl/hidden/</guid>
+      <description>This page is hidden in menu#Quondam non pater est dignior ille Eurotas#Latent te facies#Lorem markdownum arma ignoscas vocavit quoque ille texit mandata mentis ultimus, frementes, qui in vel. Hippotades Peleus pennas conscia cuiquam Caeneus quas.
+ Pater demittere evincitque reddunt Maxime adhuc pressit huc Danaas quid freta Soror ego Luctus linguam saxa ultroque prior Tatiumque inquit Saepe liquitur subita superata dederat Anius sudor  Cum honorum Latona#O fallor in sustinui iussorum equidem.</description>
+    </item>
+    
+  </channel>
+</rss>
