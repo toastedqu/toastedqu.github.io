@@ -1,4 +1,4 @@
-baseurl = "https://toastedqu.github.io/"
+baseurl = "https://toastedqu.netlify.app/"
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
