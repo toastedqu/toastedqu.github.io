@@ -2,14 +2,28 @@
   name = "docs"
   url = "/docs/"
   identifier = "docs"
-  weight = 10
+  weight = 1
 
 [[main]]
   name = "ML"
   url = "/docs/ml/"
   identifier = "ml"
   parent = "docs"
-  weight = 10
+  weight = 1
+
+[[main]]
+  name = "DL"
+  url = "/docs/dl/"
+  identifier = "dl"
+  parent = "docs"
+  weight = 2
+
+[[main]]
+  name = "RL"
+  url = "/docs/rl/"
+  identifier = "rl"
+  parent = "docs"
+  weight = 3
 
 [[main]]
   name = "blog"
