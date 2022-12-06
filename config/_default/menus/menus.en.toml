@@ -1,26 +1,25 @@
 [[main]]
+  name = "docs"
+  url = "/docs/"
+  identifier = "docs"
+  weight = 10
+
+[[main]]
   name = "ML"
   url = "/docs/ml/"
   identifier = "ml"
+  parent = "docs"
   weight = 10
 
 [[main]]
-  name = "Models"
-  weight = 10
-  identifier = "models"
-  url = "/docs/ml/ml_models/"
-  parent = "ml"
-
-[[main]]
-  name = "Blog"
+  name = "blog"
   url = "/blog/"
   weight = 20
 
 [[main]]
   name = "CV"
-  url = "/assets/files/cv.pdf"
+  url = "https://drive.google.com/file/d/1oaiaBeoVIytQCwdp8UZ1guzi3D8vk1xq/view?usp=sharing"
   weight = 20
-
 
 [[social]]
   name = "GitHub"
@@ -90,3 +89,11 @@
 #   name = "Privacy"
 #   url = "/privacy-policy/"
 #   weight = 10
+
+
+# [[main]]
+#   name = "Models"
+#   weight = 10
+#   identifier = "models"
+#   url = "/docs/ml/models/"
+#   parent = "ml"
