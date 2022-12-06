@@ -2,9 +2,9 @@
 
 ## Homepage
 title = "Q's Handbook"
-titleSeparator = "-"
-titleAddition = "Modern Documentation Theme"
-description = "Doks is a Hugo theme for building secure, fast, and SEO-ready documentation websites, which you can easily update and customize."
+titleSeparator = ""
+titleAddition = ""
+description = "A collection of notes on AI-related topics"
 
 ## Documentation
 # docsVersion = "0.3"
@@ -16,17 +16,17 @@ domainTLD = "doks.netlify.app"
 titleHome = "Doks Theme"
 
 ## Twitter Cards
-twitterSite = "@getdoks"
-twitterCreator = "@henkverlinde"
+# twitterSite = "@getdoks"
+# twitterCreator = "@henkverlinde"
 
 ## JSON-LD
-# schemaType = "Person"
-schemaType = "Organization"
-schemaName = "Doks"
-schemaAuthor = "Henk Verlinde"
-schemaAuthorTwitter = "https://twitter.com/henkverlinde"
-schemaAuthorLinkedIn = "https://www.linkedin.com/in/henkverlinde/"
-schemaAuthorGitHub = "https://github.com/h-enk"
+schemaType = "Person"
+# schemaType = "Organization"
+schemaName = "Q's Handbook"
+schemaAuthor = "Renyi Qu"
+# schemaAuthorTwitter = "https://twitter.com/henkverlinde"
+schemaAuthorLinkedIn = "https://www.linkedin.com/in/renyi-qu-6645a8150/"
+schemaAuthorGitHub = "https://github.com/toastedqu/toastedqu.github.io"
 schemaLocale = "en-US"
 schemaLogo = "logo-doks.png"
 schemaLogoWidth = 512
@@ -34,9 +34,9 @@ schemaLogoHeight = 512
 schemaImage = "doks.png"
 schemaImageWidth = 1280
 schemaImageHeight = 640
-schemaTwitter = "https://twitter.com/getdoks"
-schemaLinkedIn = ""
-schemaGitHub = "https://github.com/h-enk/doks"
+# schemaTwitter = "https://twitter.com/getdoks"
+schemaLinkedIn = "https://www.linkedin.com/in/renyi-qu-6645a8150/"
+schemaGitHub = "https://github.com/toastedqu/toastedqu.github.io"
 schemaSection = "blog"
 
 ## Sitelinks Search Box
@@ -80,7 +80,7 @@ alertText = "Introducing the Doks child theme, several DX + UX updates, and more
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
 repoHost = "GitHub"
 #repoHost = "Gitea"
-docsRepo = "https://github.com/h-enk/doks"
+docsRepo = "https://github.com/toastedqu/toastedqu.github.io"
 docsRepoBranch = "master"
 docsRepoSubPath = ""
 editPage = false
