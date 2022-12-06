@@ -99,9 +99,9 @@ Why log-likelihood?
     - $x,y$: test set
 
 -  Graph:
-<div align="center">
-<img src="images/bv_tradeoff.jpg" width="500"/>
-</div align="center">
+<center>
+<img src="./assets/images/ml_concepts/bv_tradeoff.jpg"/>
+</center>
 
 ## Hyperparamater Tuning
 
@@ -318,9 +318,6 @@ plt.ylim(0,4)
 plt.legend()
 plt.show()
 ```
-
-![Image](docs/ml/loss.png "show!")
-
 
 The following losses require $y_i\geq0$.
 
