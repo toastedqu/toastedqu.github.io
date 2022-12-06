@@ -100,7 +100,7 @@ Why log-likelihood?
 
 -  Graph:
 <center>
-<img src="./assets/images/ml_concepts/bv_tradeoff.jpg"/>
+<img src="/images/ml_concepts/bv_tradeoff.jpg" width="500"/>
 </center>
 
 ## Hyperparamater Tuning
@@ -318,6 +318,10 @@ plt.ylim(0,4)
 plt.legend()
 plt.show()
 ```
+
+<center>
+<img src="/images/ml_concepts/loss.png" width="500"/>
+</center>
 
 The following losses require $y_i\geq0$.
 
