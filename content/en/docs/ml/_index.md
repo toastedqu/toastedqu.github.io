@@ -8,8 +8,3 @@ draft: false
 images: []
 weight: 1
 ---
-<!-- References:
-- UPenn CIS 520
-- [GeeksforGeeks](https://www.geeksforgeeks.org/machine-learning/?ref=shm#dp)
-- [Scikit-learn](https://scikit-learn.org/stable/) -->
-<!-- - [PyTorch](https://pytorch.org/docs/stable/index.html) -->

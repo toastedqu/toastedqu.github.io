@@ -8,10 +8,25 @@ draft: false
 images: []
 weight: 100
 ---
-```python
-import numpy as np
-```
+# Components of ML
+1. **Feature Representation**
+2. **Model Architecture**
+    - Linear vs Nonlinear
+    - Parametric vs Non-parametric
+    - Discriminative vs Generative
+3. **Objective Function**
+    - Loss function
+    - Regularization
+4. **Optimization Method**
+    - Parameter estimation
+    - Hyperparameter tuning
+    - Model selection
 
+# MLE & MAP
+- Minimize loss = Maximize likelihood
+- Regularization = Adding prior belief
+- MAP = MLE + Prior
+<!-- 
 ## Types
 
 **Supervised vs Unsupervised**:
@@ -188,9 +203,40 @@ Solutions:
 | Boosting | Both | YES | NO | NO | NO | YES |
 | Neural Networks | Both | YES | NO | NO | NO | NO |
 
-</center>
+</center> -->
 
-# Loss Functions
+# Distance and Similarity
+
+## Norm
+Properties:
+- $L_p(\textbf{x})=0\leftrightarrow \textbf{x}=\textbf{0}$
+- $L_p(\textbf{x}+\textbf{y})\leq L_p(\textbf{x})+L_p(\textbf{y})$
+- $L_p(c\textbf{x})=|c|L_p(\textbf{x})\ \ \ \forall c\in\mathbb{R}$
+
+Types:
+- $L_p$: $||\textbf{x}||_p=\left(\sum_i{|x_i|^p}\right)^\frac{1}{p}$
+- $L_0$: $||\textbf{x}||_0=\\#x_i:x_i>0,x_i\in\textbf{x}$ 
+- $L_1$: $||\textbf{x}||_1=\sum_i{|x_i|}$
+- $L_2$: $||\textbf{x}||_2=\sqrt{\sum_i{(x_i)^2}}$
+- $L_\infty$: $||\textbf{x}||_\infty=\max{\{|x_i|:x_i\in\textbf{x}\}}$
+
+## Kernel
+Def: measure of similarity between 2 vectors.
+
+Properties:
+- $\mathbf{K}=k(\mathbf{x},\mathbf{x}')$ is positive semi-definite.
+    - PSD: $\mathbf{K}=\sum_{i=1}^{m}{\lambda_i\mathbf{z}_i\mathbf{z}_i^T}$.
+    - $\lambda_i$: non-negative real eigenvalues.
+    - $\mathbf{z}_i$: real eigenvectors.
+- $k(\mathbf{x},\mathbf{x}')=ck_1(\mathbf{x},\mathbf{x}'),c>0$
+- $k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}')$
+- $k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}')$
+- $k(\mathbf{x},\mathbf{x}')=q(k_1(\mathbf{x},\mathbf{x}'))$, where $q(\cdot)$ is polynomial func with positive coeffs.
+- $k(\mathbf{x},\mathbf{x}')=f(\mathbf{x})k_1(\mathbf{x},\mathbf{x}')f(\mathbf{x}')$
+- $k(\mathbf{x},\mathbf{x}')=\mathbf{x}^T\mathbf{A}\mathbf{x}'$
+- $k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}')$
+
+# Loss
 
 Loss is a measure of difference between predicted output $\hat{y}_i$ and actual output $y_i$.
 
@@ -204,7 +250,7 @@ Reduced loss:
 
 $$
 \mathcal{L}(\mathbf{y},\mathbf{\hat{y}})=\begin{cases}
-\text{sum}(\mathcal{L})=\sum_{i=1}^{m}l_i\\
+\text{sum}(\mathcal{L})=\sum_{i=1}^{m}l_i\\\\
 \text{mean}(\mathcal{L})=\frac{1}{m}\sum_{i=1}^{m}l_i
 \end{cases}
 $$
@@ -217,81 +263,53 @@ $$
 \mathcal{l}_i=|y_i-\hat{y}_i|
 $$
 
+Pros:
+- Robust to outliers
+
+Cons:
+- Non-differentiable
+- Less related to the underlying assumption of Gaussian distribution on the errors (for most problems)
+
 ### L2 (Squared Error)
 
 $$
 \mathcal{l}_i=(y_i-\hat{y}_i)^2
 $$
 
+Pros:
+- Penalize large errors more heavily
+- Differentiable
+- Closely related to the underlying assumption of Gaussian distribution on the errors (for most problems)
+
+Cons:
+- Sensitive to outliers
+
 ### Huber
 
 $$
 l_i(\delta)=\begin{cases}
-\frac{1}{2}(y_i-\hat{y_i})^2 & \text{if }|y_i-\hat{y_i}|\leq\delta\\
+\frac{1}{2}(y_i-\hat{y_i})^2 & \text{if }|y_i-\hat{y_i}|\leq\delta\\\\
 \delta|y_i-\hat{y_i}|-\frac{1}{2}\delta^2 & \text{if }|y_i-\hat{y_i}|>\delta
 \end{cases}
 $$
 
 ## Classification
 
-The following losses require $y_i\in\{-1,1\}$.
-
-### Squared
-
-$$
-l_i=(1-y_i\hat{y}_i)^2, y_i\in\{-1,1\}
-$$
-
-
-```python
-def squared_loss(v):
-    return np.square(1-v)
-```
-
-### Logistic
-
-$$
-l_i=\frac{1}{\log{2}}\log{(1+e^{-y_i\hat{y_i}})}, y_i\in\{-1,1\}
-$$
-
-
-```python
-def logistic_loss(v):
-    return 1/np.log(2)*np.log(1+np.exp(-v))
-```
-
-### Hinge
-
-$$
-l_i=\max{(0,1-y_i\hat{y}_i)}, y_i\in\{-1,1\}
-$$
-
-
-```python
-def hinge_loss(v):
-    return np.vectorize(lambda x: max(0,1-x))(v)
-```
-
-### Exponential
-
-$$
-l_i=e^{-y_i\hat{y}_i}, y_i\in\{-1,1\}
-$$
-
-
-```python
-def exponential_loss(v):
-    return np.exp(-v)
-```
-
-### Heaviside Step Function
+### 0-1 (Heaviside)
 
 $$
 l_i=\begin{cases}
-0 & \text{if }y_i\hat{y_i}>0\\
+0 & \text{if }y_i\hat{y_i}>0\\\\
 1 & \text{if }y_i\hat{y_i}<0
-\end{cases}
+\end{cases}, y_i\in\\{-1,1\\}
 $$
+
+Usage: rare
+
+Cons:
+- Penalize all incorrect predictions equally
+- Non-convex
+- Non-differentiable
 
 
 ```python
@@ -299,8 +317,84 @@ def misclassification(v):
     return np.vectorize(lambda x: 0 if x>0 else 1)(v)
 ```
 
-Visualization of all the above losses:
+### Hinge
 
+$$
+l_i=\max{(0,1-y_i\hat{y}_i)}, y_i\in\\{-1,1\\}
+$$
+
+Usage: SVM
+
+Pros:
+- Allow misclassification (penalize more heavily for confident incorrect predictions than for uncertain predictions)
+- No penalty on confident correct predictions
+- Convex
+
+Cons:
+- Non-differentiable at 0
+
+```python
+def hinge_loss(v):
+    return np.vectorize(lambda x: max(0,1-x))(v)
+```
+
+### Logistic
+
+$$
+l_i=\frac{1}{\log{2}}\log{(1+e^{-y_i\hat{y_i}})}, y_i\in\\{-1,1\\}
+$$
+
+Usage: LogReg
+
+Pros:
+- Convex
+- Differentiable
+
+Cons:
+- Penalize confidently correct predictions
+- Penalize confidently incorrect predictions less compared to other losses
+
+```python
+def logistic_loss(v):
+    return 1/np.log(2)*np.log(1+np.exp(-v))
+```
+
+### Exponential
+
+$$
+l_i=e^{-y_i\hat{y}_i}, y_i\in\\{-1,1\\}
+$$
+
+Usage: AdaBoost
+
+Pros:
+- Convex
+- Differentiable
+- Much heavier penalty on much stronger misclassification (effective for weight assignments to examples for AdaBoost)
+
+Cons:
+- Penalize confidently correct predictions
+
+```python
+def exponential_loss(v):
+    return np.exp(-v)
+```
+
+### Squared
+
+$$
+l_i=(1-y_i\hat{y}_i)^2, y_i\in\\{-1,1\\}
+$$
+
+Usage: rare
+
+```python
+def squared_loss(v):
+    return np.square(1-v)
+```
+
+Visualization of all the above losses:
+<!-- 
 
 ```python
 import numpy as np
@@ -317,33 +411,34 @@ plt.ylabel('l_i')
 plt.ylim(0,4)
 plt.legend()
 plt.show()
-```
+``` -->
 
 <center>
 <img src="/images/ml_concepts/loss.png" width="500"/>
 </center>
 
-The following losses require $y_i\geq0$.
+### Cross Entropy
 
-### Cross Entropy (Binary, identical to logistic loss)
+$$\begin{align*}
+&\text{Binary}: &&\mathcal{l}_i=-[y_i\log{\hat{y}_i}+(1-y_i)\log{(1-\hat{y}_i)}], y_i\in\\{0,1\\} \\\\
+&\text{Multiclass}: &&l_i=-\sum\_{k=1}^K\textbf{1}[y_i=k]\log{\left(\frac{\exp{(\hat{y}\_{ik})}}{\sum\_{c=1}^{K}{\exp{(\hat{y}\_{ic})}}}\right)}, y_i\in\\{0,\cdots,K\\}
+\end{align*}$$
 
-$$
-\mathcal{l}_i=-[y_i\log{\hat{y}_i}+(1-y_i)\log{(1-\hat{y}_i)}], y_i\in\{0,1\}
-$$
+Usage: most (= Log loss for binary, with a much more prevalent label definition)
 
-### Cross Entropy (Multiclass)
+Pros:
+- Extremely easy to compute (all terms become 0 except one)
 
-$$
-l_i=-\sum_{k=1}^{K}{\textbf{1}[y_i=k]\log{\left(\frac{\exp{(z_{ik})}}{\sum_{c=1}^{K}{\exp{(z_{ic})}}}\right)}}, \mathbf{z}_i=\text{logit}_i
-$$
-
-## Information
+Cons:
+- Sensitive to imbalanced datasets
 
 ### Kullback-Leibler Divergence (Relative Entropy)
 
 $$
 l_i=y_i\log\frac{y_i}{\hat{y}_i}
 $$
+
+Usage: anywhere necessary to calculate difference between true and predicted probability distributions (i.e., information loss)
 
 # Regularization
 
@@ -355,28 +450,28 @@ $$
 
 ### L1
 
-\begin{align*}
-&\text{Frequentist:}\ &&\lambda||\mathbf{w}||_1\\
+$$\begin{align*}
+&\text{Frequentist:}\ &&\lambda||\mathbf{w}||_1\\\\
 &\text{Bayesian:}\    &&w_j\sim\text{Laplace}(0,\gamma^2)
-\end{align*}
+\end{align*}$$
 
 Pros:
 - Sparse $\leftarrow$ Feature selection (reduce weights of trash features to 0)
+- Robust to outliers
 - Equal weight shrinkage ($\frac{\partial L_1}{\partial w_{j}}=1$)
 - Effective with multicollinearity
-- Robust to outliers
 - Able to handle $n>>m$ cases
 
 Cons:
-- No closed-form solution. High computational cost with LinReg
+- No closed-form solution (high computational cost with LinReg)
 - Need to select perfect $\lambda=\frac{\sigma^2}{\gamma^2}$
 
 ### L2
 
-\begin{align*}
-&\text{Frequentist:}\ &&\lambda||\mathbf{w}||_2^2\\
+$$\begin{align*}
+&\text{Frequentist:}\ &&\lambda||\mathbf{w}||_2^2\\\\
 &\text{Bayesian:}\    &&w_j\sim N(0,\gamma^2)
-\end{align*}
+\end{align*}$$
 
 Pros:
 - More/Less shrinkage on larger/smaller weights ($\frac{\partial L_2}{\partial w_{j}}=2w_{j}$)
@@ -391,11 +486,50 @@ Cons:
 
 ### L0
 
-\begin{align*}
-&\text{Frequentist:}\ &&\lambda||\mathbf{w}||_0
-\end{align*}
+$$\begin{align*}
+&\text{Frequentist:} &&\lambda||\mathbf{w}||_0\\\\
+&\text{Bayesian:} &&w_j\sim\text{Spike and Slab}
+\end{align*}$$
 
+Optimization: Search
+- **Streamwise Regression**:
+    1. Init model. Init $Err_0=||y_i||_2^2$.
+    2. For $j$ in range(1,n+1):
+        1. Add feature $\mathbf{x}_j$ to model.
+        2. If $Err=||y_i-\sum\_{j\in\text{model}}{w_{j}x\_{ij}}||_2^2+\lambda||\textbf{w}\_{\text{model}}||_0 <\ Err\_{j-1}$:
+            1. Keep $\mathbf{x}_j$.
+            2. $Err_j = Err$
+        3. Else:
+            1. $Err_j = Err_{j-1}$
+    - Pros: low cost: $O(n)$
+    - Cons: no guarantee to find optimal solution. order of features matters
 
+- **Stepwise Regression**:
+    1. Init model. Init $Err_0=||y_i||_2^2$.
+    2. While True (n loops):
+        1. Try to add each of all remaining features $\mathbf{x}_k$ to model.
+        2. Pick the feature with $Err=\min(||y_i-\sum\_{j\in\text{model}}{w_{j}x\_{ij}}||_2^2+\lambda||\textbf{w}\_\text{model}||_0$:
+        3. If $Err<Err_0$:
+            1. Add feature to model.
+            2. $Err_0 = Err$
+        4. Else:
+            1. Break
+    - Pros: much more likely to find optimal solution
+    - Cons: high cost: $O(mn)$. overfitting. multicollinearity
 
+- **Stagewise Regression**:
+    1. Init model. Init $Err_0=||y_i||_2^2$. Init cache $\textbf{w}$.
+    2. While True (n loops):
+        1. Try to add each of all remaining features $\mathbf{x}_k$ to model.
+        2. Pick the feature with $Err=\min(||r_i-w_{k}x\_{ik}||_2^2+\lambda||\textbf{w}||_0)$, where $r_i=y_i-\sum\_{j\in\text{model}}{w_jx\_{ij}}$:
+        3. If $Err<Err_0$:
+            1. Add feature to model. Add $w_{k}$ to cache.
+            2. $Err_0 = Err$
+        4. Else:
+            1. Break
+    - Pros: faster than stepwise regression because of no need to create new long models each time. no multicollinearity. used for boosting
+    - Cons: high cost: $O(mn)$
 
-[def]: loss.png
+Cons:
+- Severe limitations in optimization methods
+- Extreme computational cost

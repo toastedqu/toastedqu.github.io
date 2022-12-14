@@ -1,0 +1,648 @@
+---
+title : "Models - Supervised Learning"
+description: ""
+lead: ""
+date: 2020-10-06T08:48:45+00:00
+lastmod: 2020-10-06T08:48:45+00:00
+draft: false
+images: []
+weight: 300
+---
+Common Notations:
+
+- $m$: #samples in the input batch
+- $n$: #features in the input sample
+- $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$
+- $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of shape $(m,1)$
+
+# Linear Models
+- All linear models are parametric
+
+Types:
+
+* Linear Regression
+
+$$
+\hat{y_i}=\sum_{j=1}^{n}{w_jx_{ij}}
+$$
+
+* Generalized Linear Models ($f$: link function; $\mathbf{w}^T\mathbf{x}$: logits)
+
+$$
+\hat{y_i}=f\left(\sum_{j=1}^{n}{w_jx_{ij}}\right)
+$$
+
+* Basis Transformation ($\phi_j(\mathbf{x}_i)$: transformation of non-linear inputs into linear inputs)
+
+$$
+\hat{y_i}=\sum_{j=1}^{d}{w_j\phi_j(\mathbf{x}_i)}
+$$
+
+## Linear Regression
+
+Model:
+$$\begin{align*}
+&\text{Frequentist:} &&\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
+&\text{Bayesian:}    &&p(\mathbf{y}|X,w)=N(X\mathbf{w},\sigma^2)
+\end{align*}$$
+
+Assumptions:
+- **Linearity**: The underlying relationship between $\textbf{y}$ and $X$ is linear.
+- **Independence**: $\varepsilon_i$ is independent of each other.
+- **Normality**: $\varepsilon_i$ follows Gaussian distribution.
+- **Non-Collinearity**: No/Minimal explanatory variables correlate with each other.
+- **Homoskedasticity**: The variance of all noises is the same constant $\sigma^2$.
+
+Prediction:
+$$
+\hat{y}_i=\mathbf{w}^T\mathbf{x}_i
+$$
+
+Objective:
+- Loss: MSE
+- Regularization: L1, L2, ElasticNet, L0
+
+Optimization:
+
+$$\begin{aligned}
+&\text{OLS/MLE}:\ &&\hat{\mathbf{w}}=(X^TX)^{-1}X^T\mathbf{y} \\\\
+&\text{Ridge}:\ &&\hat{\mathbf{w}}=(X^TX+\lambda I)^{-1}X^T\mathbf{y} \\\\
+&\text{Lasso}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda\cdot\text{sign}(w_j) \\\\
+&\text{ElasticNet}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda r_1\cdot\text{sign}(w_j)+(1-\lambda r_1)w_j
+\end{aligned}$$
+
+Pros:
+- Simple and Interpretable
+- Scale invariant
+- Consistent and Unbiased (OLS/MLE ver.)
+
+Cons:
+- Sensitive to outliers
+- Limited to assumptions (if any assumption fails, LinReg fails)
+
+Time complexity:
+- Train:
+    - Exact Solution: $O(n^2(m+n))$
+    - Gradient Descent: $O(mn)$
+- Test: $O(n)$
+
+Code:
+```python
+class LinearRegression:
+    def __init__(self):
+        self.w = None
+    
+    def fit(self, X, y, intercept=False):
+        if intercept: X = np.hstack(np.ones((X.shape[0],1)),X)
+        self.w = (np.linalg.inv(X.T @ X) @ X.T @ y).reshape(-1)
+
+    def predict(self, X):
+        return np.dot(self.w, X.T)
+```
+
+## Logistic Regression
+
+Model:
+$$\begin{align*}
+&\text{Binary}: &&P(y_i=1|\mathbf{x}_i,\mathbf{w})=\sigma(\mathbf{w}^T\mathbf{x}_i)=\frac{1}{1+\exp{(-\mathbf{w}^T\mathbf{x}_i)}}=\frac{\exp{(\mathbf{w}^T\mathbf{x}_i)}}{1+\exp{(\mathbf{w}^T\mathbf{x}_i)}}\\\\
+&\text{Multiclass}: &&P(y_i=k|\mathbf{x}_i,W)=\text{softmax}(W^T\mathbf{x}_i)=\frac{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}{\sum\_{k=1}^{K}{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}}
+\end{align*}$$
+
+Prediction:
+$$
+\hat{y}_i=\arg\max_k\hat{p}\_{ik}
+$$
+
+Objective:
+- Loss: Cross Entropy
+- Regularization: L1, L2, ElasticNet
+
+Optimization: Gradient Descent
+$$
+\frac{\partial \mathcal{L}}{\partial w_{jk}}=\frac{1}{m}\sum_{i=1}\^{m}[x\_{ij}(\hat{p}_{ik}-y_i)]
+$$
+
+Pros:
+- Scale invariant
+- Easy expansion to multiclass
+- Coefficients resemble feature importance
+- Easy gradient calculation
+
+Cons:
+- Named regression but can only work for discrete classification
+- Poor performance when $n>>m$
+- Poor performance for nonlinear cases (assume linearity by log odds)
+
+Time Complexity: Train: $O(mn)$; Test: $O(n)$
+
+Space Complexity: $O(n)$
+
+<!-- Code:
+```python
+class LinearRegression:
+    def __init__(self):
+        self.w = None
+    
+    def fit(self, X, y, intercept=False):
+        if intercept: X = np.hstack(np.ones((X.shape[0],1)),X)
+        self.w = (np.linalg.inv(X.T @ X) @ X.T @ y).reshape(-1)
+
+    def predict(self, X):
+        return np.dot(self.w, X.T)
+``` -->
+
+<!-- 
+### Radial Basis Function
+
+$$
+\phi_j(\mathbf{x})=\exp{\left(-\frac{||\mathbf{x}-\mu_j||_2^2}{c}\right)}
+$$
+
+Steps:
+1. Cluster points $\mu_j$ with k-means clustering.
+2. Pick a width $c=2\sigma^2$ for all the Gaussian pdfs $N(\mu_j,\sigma^2)$ at each cluster.
+3. Fit a linear regression.
+
+Usage:
+- $d<n$: dimensionality reduction
+- $d>n$: convert nonlinear problem to linear
+- $d=n$: switch to a dual representation
+
+Pros:
+
+Cons:
+- Scale variant.
+- Need to find perfect $c$. Low $c$ leads to overfitting. High $c$ leads to learning nothing (different centroids may cover each other, which is horrible). -->
+
+
+# Naive Bayes
+
+Model: 
+
+Assumption: Features are **conditionally independent** of each other given the label:
+$$
+P(x_{i1},\cdots,x_{in}|y_i)=\prod_{j=1}^{n}P(x_{ij}|y_i)
+$$
+
+Pros: 
+- Easy, Fast, Simple
+- Robust to outliers and noisy data.
+- Low computation cost
+- No overfitting
+- Scale invariant
+- Much more efficient than SVM or neural networks on Large datasets.
+- Can handle real-time prediction very easily.
+
+Cons:
+- Assumption of feature independence fails in real life.
+- Very low accuracy in terms of output probability estimates.
+
+
+# Support Vector Machine
+
+Separable Primal:
+$$\begin{align*}
+\min_{\mathbf{w},b}\ &{\frac{1}{2}||\textbf{w}||_2} \\\\
+\text{s.t.}\ &y_i(\textbf{w}^T\textbf{x}_i+b)\geq 1\\\\ 
+\end{align*}$$
+
+Separable Dual:
+
+
+Hypothesis:
+$$
+h_w(x)=\begin{cases}
+1 & \text{if}\ \mathbf{w}^T\mathbf{x}_i\geq0 \\\\
+0 & \text{if}\ \mathbf{w}^T\mathbf{x}_i<0 \\\\
+\end{cases}
+$$
+
+Loss: Hinge Loss
+
+Terminology:
+- Support vector: points closest to the boundary.
+
+Steps:
+1. Use kernel trick to calculate higher-dimensional relationships for all pairs of observations in the training set.
+2. Determine a hyperplane decision boundary and its soft margin for the (pseudo-)high-dimensional data points with cross validation.
+
+Pros:
+- Can handle outliers.
+- Can handle overlapping classes (multiple classes share same parts of feature values).
+- Guaranteed convexity. Easy to optimize.
+- Work well with high-dimensional data.
+- Low memory cost (only support vectors matter)
+
+Cons:
+- High time cost, especially with Kernels when data set is too large.
+- Low interpretability: no probability estimates are given.
+- Bad performance when $n>>m$.
+- Bad performance on large datasets (i.e., $m>>0$).
+- Bad performance with noisy data (when target classes overlap).
+
+Time Complexity:
+- Train: $O(m^2)$
+- Test: $O(kn)$, where $k=$ #support vectors.
+
+
+# Local Learning
+
+## K Nearest Neighbors
+
+Algorithm:
+1. Calculate distance between sample point and every training point.
+2. Find the $K$ nearest neighbors with minimal distances.
+3. Take the majority vote and output it as the label for the sample point.
+
+Model: None
+
+Objective: None
+
+Optimization: None
+
+Pros:
+- No training: instance-based learning (i.e., lazy learner)
+- Seamless data augmentation at any step
+- Simple and interpretable
+
+Cons:
+- Scale variant
+- High computational cost for large datasets
+- High computational cost + Low variance in distance measure for high-dimensional data
+- Sensitive to noisy data, missing values, and outliers
+
+Time Complexity: Test: $O(kmn)$
+
+Space Complexity: $O(mn)$
+
+Code:
+
+```python
+###### Scratch ######
+def distance(metric_type,v1,v2):
+    if metric_type == "L0":
+        return np.count_nonzero(v1-v2)
+    if metric_type == "L1":
+        return np.sum(np.abs(v1-v2))
+    if metric_type == "L2":
+        return np.sqrt(np.sum(np.square(v1-v2)))
+    if metric_type == "Linf":
+        return np.max(np.abs(v1-v2))
+    
+def KNN(X_train,y_train,samples,K=5,metric_type="L2"):
+    def KNN_for_single_sample(K,metric_type,X_train,y_train,sample):
+        # Calculate dist between each X_train[i] and sample
+        dis_vec = np.array([distance(metric_type,X_train[i],sample) for i in range(len(X_train))])
+        
+        # Find index of top-K neighbors
+        ids = np.argsort(dis_vec)[:K]
+        
+        # Find neighbors' labels from y_train
+        neighbors = list(y_train[ids])
+        
+        # Return majority vote for the sample
+        return max(set(neighbors),key=neighbors.count)
+    
+    return [KNN_for_single_sample(K,metric_type,X_train,y_train,sample) for sample in samples]
+```
+
+## Kernel Methods
+
+Kernel Regression:
+
+$$\begin{align*}
+\text{Regression}: &\hat{y}=\frac{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
+\text{Binary Classification}: &\hat{y}=\text{sign}(\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
+\end{align*}$$
+
+- Steps:
+    1. Calculate kernel function (similarity) between input sample feature and training data features.
+    2. Estimate $y$ with the above formulae.
+    3. Use cross validation to tune hyperparameters (kernel width in most cases).
+
+
+Pros:
+- Save computation cost (for SVM) since no need to actually convert features to higher-dimensional data to find nonlinear patterns.
+- Easy to test whether a proposed kernel is valid by finding arbitrary 2 points with negative determinant (i.e., negative eigenvalue).
+- Can be extended on literally any data type.
+
+Cons:
+- Hard to choose the suitable kernel.
+- Hard to comprehend what kernels learned exactly.
+- Easy overfitting.
+
+### Summary
+
+<center>
+
+|               KNN              |                   Kernel                  |
+|:------------------------------:|:-----------------------------------------:|
+|         distance metric        |              kernel function              |
+|         $K$ neighbors          |               all neighbors               |
+| same impact from all neighbors | weighted impact favoring closer neighbors |
+|          Scale variant         |               Scale variant               |
+
+</center>
+
+# Decision Tree
+
+Idea: build a tree where each node is a feature split to classify data points into different leaf outputs.
+
+Algorithm:
+1. Calculate info gain for each feature.
+2. Select the feature that maximizes info gain as the decision threshold.
+3. Split data based on the decision. Repeat Step 1-2 until stop.
+
+Information gain:
+$$
+IG(Y|X)=H(Y)-H(Y|X)
+$$
+- $X,Y$: random vars.
+- $H(\cdot)$: Impurity measure:
+    - Gini: $H(Y)=\sum_{y}{p_y(1-p_y)}$
+    - Entropy: $H(Y)=-\sum_{y}{p_y\log_2{p_y}}$
+        - (Average) Conditional entropy: $H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)}$
+        - Specific conditional entropy: $H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}}$
+            - $y\in\mathcal{Y}$: a possible value for $Y$.
+            - $\mathcal{Y}$: set of all possible values for $Y$.
+            - $x\in\mathcal{X}$: a possible value for $X$.
+            - $\mathcal{X}$: set of all possible values for $X$
+    
+
+Pros:
+- Non-parametric.
+- No feature scaling required. (i.e., scale invariant)
+- Low computation cost for prediction: $O(\log{m})$ (if balanced binary tree).
+- Can handle multi-class classification.
+- Easy to interpret and validate. Easy model visualization.
+<!-- - Good performance in practice even if assumptions are violated by the data generator model. -->
+
+Cons:
+- Easy overfitting, especially when $n$ is large.
+- Sensitive to noisy data, missing value, and outliers.
+- Discrete predictions only.
+- Difficult to find globally optimal decisions. Current modules only support locally optimal decisions at each node.
+- High computation cost for training: $O(mn\log{m})$
+- Inaccurate in practice.
+
+Time complexity:
+- Train: $O(mn\log{m})$
+- Test: $O(d)$, where $d=$ depth. (Ideally $O(\log{m})$)
+
+Code:
+```python
+###### SCRATCH ######
+# This scratch is only meant for binary classification.
+
+def IG(X_train,y_train,feature_index,impurity="entropy"):
+    # Compute impurity
+    def H(probs):
+        if impurity=="entropy":
+            return -np.sum(np.multiply(probs[probs!=0],np.log2(probs[probs!=0])))
+        if impurity=="gini":
+            return np.sum(np.multiply(probs,1-probs))
+    
+    # Calculate H(Y)
+    m = len(y_train)
+    p_y_1 = np.count_nonzero(y_train)/m
+    p_y = np.array([1-p_y_1,p_y_1])
+    H_y = H(p_y)
+    
+    x_col = X_train[:,feature_index].reshape(-1)
+    y_col = y_train.reshape(-1)
+    p_y_x = {}  # for each value of the selected feature, store its y count. 
+    p_x = {}    # for each value of the selected feature, store its own count.
+    
+    # Count all occurrences of all values of the selected feature, together with their corresponding y value counts.
+    for i in range(m):
+        p_x[x_col[i]] = p_x.get(x_col[i],0)+1
+        if x_col[i] not in p_y_x:
+            p_y_x[x_col[i]] = [0,0]
+        if y_col[i] == 0:
+            p_y_x[x_col[i]][0] += 1
+        elif y_col[i] == 1:
+            p_y_x[x_col[i]][1] += 1
+            
+    # Calculate H(Y|X=v)
+    H_y_x_specs = {} # for each value v of the selected feature, store H(Y|X=v).
+    x_total_count = sum(p_x.values())
+    for key in p_y_x:
+        y_total = sum(p_y_x[key])
+        p_x[key] /= x_total_count   # normalize counts to P(X=v)
+        p_y_x[key] = [p_y_x[key][0]/y_total, p_y_x[key][1]/y_total] # normalize counts to P(Y=u|X=v)
+        H_y_x_specs[key] = H(np.array(p_y_x[key])) 
+        
+    # Calculate H(Y|X)
+    H_y_x = sum([p_x[key]*H_y_x_specs[key] for key in p_x])
+    
+    # Return IG
+    return H_y-H_y_x
+
+def select_feature_max_IG(X_train,y_train,impurity="entropy"):
+    IG_cache = [IG(X_train,y_train,i,impurity="entropy") for i in range(X_train.shape[1])]
+    return IG_cache.index(max(IG_cache))
+
+# to be continued
+```
+
+# Ensemble Methods
+
+Terminology:
+
+- **Bagging**: create a bootstrapped dataset by randomly select samples with replacement from training set.
+- **Boosting**: train multiple models sequentially and dependently to improve accuracy.
+
+## Random Forest
+
+Training:
+1. Create a bootstrapped dataset by randomly select samples (with replacement) from training set.
+2. Create a full decision tree (no pruning) on a randomly selected subset of features of the bootstrapped dataset. (size determined by out-of-bag error in step 4.)
+3. Repeat 1-2 to create a random forest till #tree limit.
+4. Use out-of-bag samples to determine the accuracy of each tree.
+
+Prediction:
+1. Take a majority vote / average vote from all trees.
+
+Pros:
+- Reduce overfitting in decision tree $\rightarrow$ much more accurate than a single decision tree.
+- Flexible to both categorical and continuous outputs.
+- Scale invariant.
+- Automatically handle missing values by dropping or filling with median/mode.
+- Robust of outliers and noisy data.
+- Best used in banking and healthcare.
+
+Cons:
+- High computation cost.
+- High training time.
+- Low interpretability.
+
+Time Complexity:
+- Train: $O(kmn\log{m})$, where $k=$ #trees
+- Test: $O(kd)$, where $d=$ max depth
+
+## AdaBoost
+
+Idea: train a bunch of stumps (weak learners) sequentially and take a weighted majority vote.
+
+Training:
+1. Init all samples with equal sample weight.
+2. Find optimal feature for first stump. Calculate total error. Calculate amount of say:
+$$
+\text{Amount of Say}=\frac{1}{2}\log{\frac{1-Err_\text{tot}}{Err_\text{tot}}}
+$$
+3. Modify sample weights for incorrectly and correctly predicted samples as follows:
+$$\begin{align*}
+w_\text{incorrect}&\leftarrow w_\text{incorrect}\cdot e^\text{Amount of Say}\\\\
+w_\text{correct}&\leftarrow w_\text{correct}\cdot e^{-\text{Amount of Say}}\\\\
+\end{align*}$$
+4. Normalize all sample weights.
+5. Select new samples based on new sample weights as probabilities with replacement to generate a new training set.
+6. Give equal sample weights to all samples in the new training set.
+7. Repeat Steps 1-6 till #stumps reach limit.
+
+Prediction:
+1. Take a weighted majority vote using the Amount of Say from each stump.
+
+Random Forest vs AdaBoost
+
+<center>
+
+|         Random Forest         |                 AdaBoost                 |
+|:-----------------------------:|:----------------------------------------:|
+|   No tree shape requirement   | Each tree is a stump (1 node + 2 leaves) |
+| Each tree has equal influence |      Stumps have weighted influence      |
+|    Each tree is independent   |  Each stump is dependent of its previous |
+
+</center>
+
+Pros:
+- Reduce overfitting because parameters are not optimized jointly but stagewise.
+- Much fewer hyperparameters than most other algorithms.
+- Boosting converges exponentially with #iterations.
+
+Cons:
+- Extremely sensitive to outliers and noisy data.
+- Slower than XGBoost.
+- No bagging.
+
+## Gradient Boosting
+
+Idea: train a bunch of fixed-size trees to fit residuals sequentially. take a weighted majority vote.
+
+Training:
+1. Init a leaf as the average of $\mathbf{y}$. Calculate residuals.
+2. Train a tree (#leaves < $m$) on the residuals. Scale it with a fixed learning rate.
+3. Combine leaf (and previous trees) and current tree to make new predictions on the same data. Calculate new residuals.
+4. Repeat Steps 2-3 till limit.
+
+Essential Hyperparameters:
+- #stages: $T$
+- bag size (fraction): $f$
+- learning rate: $\eta$
+- tree depth: $d$
+
+AdaBoost vs Gradient Boosting
+
+<center>
+
+|         AdaBoost         |       Gradient Boosting       |
+|:------------------------:|:-----------------------------:|
+|     Init with a stump    | Init with a leaf of $\bar{y}$ |
+|          Stumps          |        Fixed-size trees       |
+| Scale stumps differently |      Scale trees equally      |
+| Train on $y$ |      Train on residuals      |
+
+</center>
+
+Pros:
+- Very accurate.
+- Fast prediction.
+- High flexibility: multiple hyperparameters to tune, multiple loss functions to use.
+- Can handle missing data.
+- Reduce overfitting by using a small learning rate and bagging.
+
+Cons:
+- Highly sensitive to outliers and noisy data.
+- May cause overfitting by overemphasizing outliers and noisy data.
+- High computation cost.
+- Low interpretability.
+- Require a large grid search for hyperparameter tuning.
+- Longer training due to sequential building.
+
+Code:
+
+## XGBoost
+
+Idea: use a unique tree to make decisions based on similarity scores.
+
+Training:
+1. Calculate residuals for all samples based on current prediction. Calculate similarity score for the root node of a new tree.
+$$
+\text{Similarity}=\frac{\sum_{i=1}^{m_r}{r_i^2}}{m_r+\lambda}
+$$
+2. Find similarity gain of each possible split. Choose the split with the max gain at root node.
+$$
+\text{Gain}=\text{Similarity}_\text{left}+\text{Similarity}_\text{right}-\text{Similarity}_\text{root}
+$$
+3. Repeat Step 2 till limit. Prune branches bottom-up by checking whether the gain of the branch is higher than a predefined threshold $\gamma$. If it is higher, stop. If it is lower, prune it, move on to the next branch.
+4. Define the output value for each leaf of this tree.
+$$
+\text{Output}=\frac{\sum_{i=1}^{m_r}{r_i}}{m_r+\lambda}
+$$
+5. Define the predicted value for each sample.
+$$
+\hat{y}_i=\bar{y}+\eta\sum{\text{Tree}(\mathbf{x}_i)} 
+$$
+6. Repeat Steps 1-5 till limit.
+
+Essential Hyperparameters:
+- Regularization: $\lambda$ (the higher $\lambda$, the lower gain, thus easier to prune.)
+- Prune threshold: $\gamma$ ($\gamma=0$ prunes negative gains.)
+- Learning rate: $\eta$
+
+Key points:
+- Pre-sort-based algorithm: sort samples by the feature value, then split linearly.
+- Histogram-based algorithm: bucket continuous feature values into discrete bins.
+- Level-wise tree growth (BFS)
+
+Pros:
+- Perform well when #features is small.
+
+Cons:
+- Cannot handle categorical features (must do encoding)
+- Perform poor on sparse and unstructured data.
+- Sensitive to outliers and noisy data.
+
+## LightGBM
+
+Idea:
+- GOSS (Gradient-based One-Side Sampling): focus more on under-trained samples without changing the original data distribution.
+    1. Sort all samples based on abs(gradient). Select top $\alpha$% samples as the samples with large gradients. Keep them.
+    2. Randomly sample $b$% of the remaining samples with small gradients. Amplify them with a constant $\frac{1-a}{b}$.
+- EFB (Exclusive Feature Bundling): bundle mutually exclusive features together into much fewer dense features by conflict rate (more nonzero values lead to higher probability of conflicts).
+    1. Sort features based on conflicts in a descending order. Assign each to an existing bundle with a small conflict or create a new bundle.
+    2. Merge exclusive features in the same bundle. If two features have joint ranges, add an offset value so that the two features can be merged into one range.
+
+Key points:
+- Leaf-wise tree growth: choose the leaf with max delta loss to grow. (DFS)
+
+<center>
+
+|                      |                                       XGBoost                                       |                                         CatBoost                                        |                                   LightGBM                                  |
+|:--------------------:|:-----------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------:|
+|      Tree growth     |                          Asymmetric level-wise tree growth                          |                            Symmetric growth                             |                               Asymmetric leaf-wise tree growth                              |
+|         Split        |                                 Pre-sort + Histogram                                |                                          Greedy                                         |                                  GOSS + EFB                                 |
+|  Numerical features  |                                       Support                                       |                                         Support                                         |                                   Support                                   |
+| Categorical features | Need external encoding into numerical features<br>Cannot interpret ordinal category |                          Support with default encoding methods                          |   Support with default encoding methods<br>Can interpret ordinal category   |
+|     Text features    |                                          NO                                         | YES by converting them to numerical features<br>via bag-of-words, BM-25, or Naive Bayes |                                      NO                                     |
+|    Missing values    |     Interpret as NaN<br>Assign to side that reduces loss the most in each split     |                          Interpret as NaN<br>Process as min/max                         | Interpret as NaN<br>Assign to side that reduces loss the most in each split |
+
+</center>
+
+Pros:
+- Can handle categorical features by taking the input of feature names.
+- Much faster and efficient training both in time and space.
+- High accuracy than most other boosting algorithms, especially on large datasets.
+
+Cons:
+- Overfitting: because of leaf-wise splitting, the tree can be much more complex. Thus poor performance on small dataset.
