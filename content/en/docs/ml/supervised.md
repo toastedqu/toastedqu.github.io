@@ -12,8 +12,24 @@ Common Notations:
 
 - $m$: #samples in the input batch
 - $n$: #features in the input sample
+- $i$: $i$th sample
+- $j$: $j$th feature
+- $k$: class $k$
 - $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$
 - $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of shape $(m,1)$
+- $X,Y$: (occasionally) used to represent input feature and label as random variables
+
+Each subsection roughly follows this order:
+- Usage
+- Background
+- Assumption
+- Model/Algorithm
+- Inference
+- Objective (mainly Loss Function)
+- Optimization (mainly Parameter Estimation)
+- (extra sections)
+- Pros
+- Cons
 
 # Linear Models
 - All linear models are parametric
@@ -40,12 +56,6 @@ $$
 
 ## Linear Regression
 
-Model:
-$$\begin{align*}
-&\text{Frequentist:} &&\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
-&\text{Bayesian:}    &&p(\mathbf{y}|X,w)=N(X\mathbf{w},\sigma^2)
-\end{align*}$$
-
 Assumptions:
 - **Linearity**: The underlying relationship between $\textbf{y}$ and $X$ is linear.
 - **Independence**: $\varepsilon_i$ is independent of each other.
@@ -53,7 +63,13 @@ Assumptions:
 - **Non-Collinearity**: No/Minimal explanatory variables correlate with each other.
 - **Homoskedasticity**: The variance of all noises is the same constant $\sigma^2$.
 
-Prediction:
+Model:
+$$\begin{align*}
+&\text{Frequentist:} &&\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
+&\text{Bayesian:}    &&p(\mathbf{y}|X,w)=N(X\mathbf{w},\sigma^2)
+\end{align*}$$
+
+Inference:
 $$
 \hat{y}_i=\mathbf{w}^T\mathbf{x}_i
 $$
@@ -108,7 +124,7 @@ $$\begin{align*}
 &\text{Multiclass}: &&P(y_i=k|\mathbf{x}_i,W)=\text{softmax}(W^T\mathbf{x}_i)=\frac{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}{\sum\_{k=1}^{K}{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}}
 \end{align*}$$
 
-Prediction:
+Inference:
 $$
 \hat{y}_i=\arg\max_k\hat{p}\_{ik}
 $$
@@ -173,30 +189,6 @@ Pros:
 Cons:
 - Scale variant.
 - Need to find perfect $c$. Low $c$ leads to overfitting. High $c$ leads to learning nothing (different centroids may cover each other, which is horrible). -->
-
-
-# Naive Bayes
-
-Model: 
-
-Assumption: Features are **conditionally independent** of each other given the label:
-$$
-P(x_{i1},\cdots,x_{in}|y_i)=\prod_{j=1}^{n}P(x_{ij}|y_i)
-$$
-
-Pros: 
-- Easy, Fast, Simple
-- Robust to outliers and noisy data.
-- Low computation cost
-- No overfitting
-- Scale invariant
-- Much more efficient than SVM or neural networks on Large datasets.
-- Can handle real-time prediction very easily.
-
-Cons:
-- Assumption of feature independence fails in real life.
-- Very low accuracy in terms of output probability estimates.
-
 
 # Support Vector Machine
 
@@ -372,7 +364,7 @@ $$
 Pros:
 - Non-parametric.
 - No feature scaling required. (i.e., scale invariant)
-- Low computation cost for prediction: $O(\log{m})$ (if balanced binary tree).
+- Low computation cost for Inference: $O(\log{m})$ (if balanced binary tree).
 - Can handle multi-class classification.
 - Easy to interpret and validate. Easy model visualization.
 <!-- - Good performance in practice even if assumptions are violated by the data generator model. -->
@@ -460,7 +452,7 @@ Training:
 3. Repeat 1-2 to create a random forest till #tree limit.
 4. Use out-of-bag samples to determine the accuracy of each tree.
 
-Prediction:
+Inference:
 1. Take a majority vote / average vote from all trees.
 
 Pros:
@@ -500,7 +492,7 @@ w_\text{correct}&\leftarrow w_\text{correct}\cdot e^{-\text{Amount of Say}}\\\\
 6. Give equal sample weights to all samples in the new training set.
 7. Repeat Steps 1-6 till #stumps reach limit.
 
-Prediction:
+Inference:
 1. Take a weighted majority vote using the Amount of Say from each stump.
 
 Random Forest vs AdaBoost
@@ -568,8 +560,6 @@ Cons:
 - Low interpretability.
 - Require a large grid search for hyperparameter tuning.
 - Longer training due to sequential building.
-
-Code:
 
 ## XGBoost
 
@@ -646,3 +636,182 @@ Pros:
 
 Cons:
 - Overfitting: because of leaf-wise splitting, the tree can be much more complex. Thus poor performance on small dataset.
+
+# Generative Models
+
+The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
+
+Discriminative models predict label given sample features, but Generative models uses a completely different thinking process, where we
+1) propose/calculate the prior of labels $P(Y)$, using relevant params for the prior distribution,
+2) calculate the likelihood of the current combination of values of sample features given the label $P(X_1,\cdots,X_n|Y)$, using relevant params for the likelihood distribution,
+3) calculate $P(X,Y)=P(Y)P(X_1,\cdots,X_n|Y)$ for generation;
+    
+    calculate $P(Y|X)\propto P(Y)P(X_1,\cdots,X_n|Y)$ for discrimination.
+
+During training, we estimate the params which maximize the combination of prior distribution $\times$ likelihood distribution.
+
+During inference, we directly use those params to either generate samples or compute label for the given sample.
+
+The following models are already abandoned in practice because of neural nets, but the ideas behind them are still important for forming a deep understanding of ML.
+
+## Naive Bayes
+
+Assumption: Features are **conditionally independent** of each other given the label:
+$$
+P(x_{i1},\cdots,x_{in}|y_i=k)=\prod_{j=1}^{n}P(x_{ij}|y_i=k)
+$$
+
+Model/Algorithm:
+1. Build a feature space (e.g., vocabulary) $\mathcal{V}$ from training set (where each feature (e.g., word) takes a YES/NO binary value in text classification)
+2. Estimate $P(k)$ for all $k\in\\{1,\cdots,K\\}$:
+$$
+P(k)=\frac{\\#\\{Y=k\\}}{m}
+$$
+where $\\#\\{Y=k\\}$ is #samples of class $k$.
+3. Estimate $P(X_j=v|k)$ for all $v\in\mathcal{V}(X_j)$ for all $X_j\in\mathcal{V}$:
+$$\begin{align*}
+&\text{MLE}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}}{\\#\\{Y=k\\}}\\\\
+&\text{MAP (Laplace Smoothing)}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}+1}{\\#\\{Y=k\\}+V}
+\end{align*}$$
+where $\\#\\{X_j=v,Y=k\\}$ is #occurrences of feature-value pair $X_j=v$ in all samples of class $k$.
+
+Inference:
+$$
+\hat{y}_i=\arg\max_k\prod\_{k\in\\{1,\cdots,K\\}}P(k)\prod\_{x\_{ij}\in\mathbf{x}_i}P(x\_{ij}|k)
+$$
+
+#params: 
+- Formula: $P(a_1,\cdots,a_n|b_1,\cdots,b_m)$: $(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j|$
+- Joint distribution if all binary: $P(x_1,\cdots,x_n|y)$: $(2^n-1)\cdot2$
+- NB if all binary: $\prod_{j=1}^{n}P(x_j|y)$: $2n$ (a significant reduction in #params)
+- NB if arbitrary: $\prod_{j=1}^{n}P(x_j|y)$: $O((|X|-1)n)$ (again, a significant reduction in #params)
+
+Objective: 0-1
+
+Optimization: none
+
+Pros: 
+- Easy, Fast, Simple
+- Significant reduction in #params with CI assumption
+- Robust to outliers and noisy data
+- Low computational cost
+- No overfitting (only overfit in a sense of never seeing a feature value in a test set)
+- Scale invariant
+- Can handle real-time prediction very easily
+- Widely used in spam detection or text classification in general
+
+Cons:
+- Assumption of feature independence fails in real life
+- Very low accuracy in terms of output probability estimates
+
+## Latent Dirichlet Allocation
+
+Usage: Topic Modeling
+
+Background:
+- Multinomial (like Binomial) distribution models the outcomes of a series of i.i.d. experiments (e.g., dice rolling).
+- Dirichlet (like Beta) distribution models probability vectors.
+- We do not know anything about the probabilities of each outcome at the beginning (i.e., the params of Multinomial distribution), so we use Dirichlet distribution to offer us a prior over these params.
+- Therefore, Dirichlet (like Beta) distribution is a conjugate prior for Multinomial (like Binomial) distribution.
+
+Model/Algorithm: For each document $d$,
+1. Choose its topic distribution $\boldsymbol{\theta}_d\sim\text{Dirichlet}(\alpha)$, where $\theta\_{dk}=p(\text{topic}=k|\text{document}=d)$
+2. For each word $w_j$ in $d$:
+    1. Choose this word's topic $z_{dj}\sim\text{Multinomial}(\boldsymbol{\theta}_d)$
+    2. Choose a word $w_j\sim\text{Multinomial}(\beta_{z_{dj}})$ where $\beta_{z_{dj}}=p(w_j|z_{dj})$
+
+Objective: 0-1
+
+Optimization: EM (Variational EM in practice)
+- E-step: Compute $p(\boldsymbol{\theta},\textbf{z}|d;\alpha,\boldsymbol{\beta})$ (posterior of hidden vars $(\boldsymbol{\theta},\textbf{z})$ given each document $d$)
+- M-step: Estimate params $(\alpha,\boldsymbol{\beta})$ given posterior estimates
+
+Naive Bayes vs LDA:
+- Naive Bayes assumes each doc is on a single topic.
+- LDA allows each doc to be a mixture of topics (i.e., each word can be on a different topic).
+
+Pros: 
+- Discovery of implicit topics that were not explicit in the documents
+- Applicable on semi-supervised learning
+
+Cons:
+- High computational cost (Param Estimation is a bit messy)
+- Not interpretable
+
+## Hidden Markov Model
+
+Usage: Seq2Seq Synthesis (Speech recognition, POS Tagging, Named Entity Recognition, etc.)
+
+Assumptions:
+- Markov Assumption: $P(X_t|X_{t-1},\cdots,X_1)=P(X_t|X_{t-1})$
+- Stationarity: Transition matrix and emission probabilities stay the same over time.
+
+Model:
+1. Start in some initial state $s_i$ with probability $p(s_i)=\pi$.
+2. Move to a new state $s_j$ with probability $p(s_j|s_i)=a_{ij}$, where $a_{ij}$ is a cell value in transition matrix $A$.
+3. Emit an observation $x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a lookup value in emission probability function $B(x_v,s_i)$.
+
+Optimization:
+1. Evaluation: compute $P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
+2. Decoding: find the best $S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
+3. Learning: estimate $(A,B,\pi)$ which maximize $P(X|A,B,\pi)$.
+
+Pros:
+- Can handle inputs of variable lengths
+- Efficient learning
+- Wild range of applications (until DL bloomed)
+
+Cons:
+- A large number of unstructured params
+- Limited by Markov Assumption
+- No dependency between hidden states
+- Completely destroyed by DL
+
+
+## Bayesian Network
+
+Usage: compact specification of full joint distributions with CI assertions using Conditional Probability Table (CPT)
+
+Background:
+- CI properties:
+    - Symmetry: $(X\perp Y|Z)\rightarrow(Y\perp X|Z)$
+    - Decomposition: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z)$
+    - Weak union: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W)$
+    - Contraction: $(X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z)$
+    - $P(X|Y)+P(X|\neg Y)\neq1$ (they are NOT related)
+    - $P(X|Y)+P(\neg X|Y)=1$
+- **Active Trail** (in an acyclic graph): for each consecutive triplet in the trail:
+    - $X\rightarrow Y\rightarrow Z$ and $Y$ is NOT observed.
+    - $X\leftarrow Y\rightarrow Z$ and $Y$ is NOT observed.
+    - $X\rightarrow Y\leftarrow Z$ and $Y$ or one of its descendants IS observed.
+- If there is NO active trail between $X$ and $Y$, then they are CI.
+- D-separation: block a trail.
+- NB = basic BayesNet with 1 parent (label) and multiple children (features)
+- Complexity scales exponentially with #parents; Complexity scales linearly with #children.
+
+Assumption: A variable $X$ is independent of its non-descendants given its parents (Local Markov Assumption)
+
+Model/Algorithm: Graph (built from data/people, or automatic search)
+
+Objective: NLL or 0-1
+
+Optimization:
+- Annealing (if all vars are observable):
+    1. Estimate params from data.
+    2. Randomly change the net structure by one link.
+    3. Re-estimate params.
+    4. Accept change if lower loss, else repeat Step 2-4.
+- EM (if hidden vars exist):
+    1. Assuming priors onto the latent variables, estimate params from data (CPT).
+    2. With the params (probabilities), estimate expected values of the latent variables.
+
+Pros:
+- Guaranteed to be a consistent specification
+- Clear visualization of conditional independence (a compact representation of joint distributions)
+- Nets that capture causality tend to be sparser
+- Easy estimation when everything is observable and when the net structure is available
+
+Cons:
+- There is still no universal method for constructing BayesNet from data (require serious search if net structure is unknown)
+- Fail to define cyclic relationships
+- Poor performance on high-dimensional data
