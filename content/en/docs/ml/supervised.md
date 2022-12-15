@@ -32,7 +32,7 @@ Each subsection roughly follows this order:
 - Cons
 
 # Linear Models
-- All linear models are parametric
+- All linear models are parametric.
 
 Types:
 
@@ -153,20 +153,6 @@ Time Complexity: Train: $O(mn)$; Test: $O(n)$
 
 Space Complexity: $O(n)$
 
-<!-- Code:
-```python
-class LinearRegression:
-    def __init__(self):
-        self.w = None
-    
-    def fit(self, X, y, intercept=False):
-        if intercept: X = np.hstack(np.ones((X.shape[0],1)),X)
-        self.w = (np.linalg.inv(X.T @ X) @ X.T @ y).reshape(-1)
-
-    def predict(self, X):
-        return np.dot(self.w, X.T)
-``` -->
-
 <!-- 
 ### Radial Basis Function
 
@@ -190,67 +176,15 @@ Cons:
 - Scale variant.
 - Need to find perfect $c$. Low $c$ leads to overfitting. High $c$ leads to learning nothing (different centroids may cover each other, which is horrible). -->
 
-# Support Vector Machine
-
-Separable Primal:
-$$\begin{align*}
-\min_{\mathbf{w},b}\ &{\frac{1}{2}||\textbf{w}||_2} \\\\
-\text{s.t.}\ &y_i(\textbf{w}^T\textbf{x}_i+b)\geq 1\\\\ 
-\end{align*}$$
-
-Separable Dual:
-
-
-Hypothesis:
-$$
-h_w(x)=\begin{cases}
-1 & \text{if}\ \mathbf{w}^T\mathbf{x}_i\geq0 \\\\
-0 & \text{if}\ \mathbf{w}^T\mathbf{x}_i<0 \\\\
-\end{cases}
-$$
-
-Loss: Hinge Loss
-
-Terminology:
-- Support vector: points closest to the boundary.
-
-Steps:
-1. Use kernel trick to calculate higher-dimensional relationships for all pairs of observations in the training set.
-2. Determine a hyperplane decision boundary and its soft margin for the (pseudo-)high-dimensional data points with cross validation.
-
-Pros:
-- Can handle outliers.
-- Can handle overlapping classes (multiple classes share same parts of feature values).
-- Guaranteed convexity. Easy to optimize.
-- Work well with high-dimensional data.
-- Low memory cost (only support vectors matter)
-
-Cons:
-- High time cost, especially with Kernels when data set is too large.
-- Low interpretability: no probability estimates are given.
-- Bad performance when $n>>m$.
-- Bad performance on large datasets (i.e., $m>>0$).
-- Bad performance with noisy data (when target classes overlap).
-
-Time Complexity:
-- Train: $O(m^2)$
-- Test: $O(kn)$, where $k=$ #support vectors.
-
 
 # Local Learning
 
 ## K Nearest Neighbors
 
-Algorithm:
+Model/Algorithm:
 1. Calculate distance between sample point and every training point.
 2. Find the $K$ nearest neighbors with minimal distances.
 3. Take the majority vote and output it as the label for the sample point.
-
-Model: None
-
-Objective: None
-
-Optimization: None
 
 Pros:
 - No training: instance-based learning (i.e., lazy learner)
@@ -298,20 +232,14 @@ def KNN(X_train,y_train,samples,K=5,metric_type="L2"):
     return [KNN_for_single_sample(K,metric_type,X_train,y_train,sample) for sample in samples]
 ```
 
-## Kernel Methods
+## Kernel Regression
 
-Kernel Regression:
+Model/Algorithm:
 
 $$\begin{align*}
-\text{Regression}: &\hat{y}=\frac{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
-\text{Binary Classification}: &\hat{y}=\text{sign}(\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
+&\text{Regression}: &&\hat{y}=\frac{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
+&\text{Binary Classification}: &&\hat{y}=\text{sign}(\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
 \end{align*}$$
-
-- Steps:
-    1. Calculate kernel function (similarity) between input sample feature and training data features.
-    2. Estimate $y$ with the above formulae.
-    3. Use cross validation to tune hyperparameters (kernel width in most cases).
-
 
 Pros:
 - Save computation cost (for SVM) since no need to actually convert features to higher-dimensional data to find nonlinear patterns.
@@ -335,6 +263,55 @@ Cons:
 |          Scale variant         |               Scale variant               |
 
 </center>
+
+
+# Support Vector Machine
+
+Separable Primal:
+$$\begin{align*}
+\min\_{w,\zeta}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \zeta_i \\\\
+\text{s.t.}\quad & y_i(\textbf{w}^T\textbf{x}_i) \geq 1-\zeta_i\\\\
+& \zeta_i \geq 0
+\end{align*}$$
+
+Separable Dual:
+
+
+
+Hypothesis:
+$$
+h_w(x)=\begin{cases}
+1 & \text{if}\ \mathbf{w}^T\mathbf{x}_i\geq0 \\\\
+0 & \text{if}\ \mathbf{w}^T\mathbf{x}_i<0 \\\\
+\end{cases}
+$$
+
+Loss: Hinge Loss
+
+Terminology:
+- Support vector: points closest to the boundary.
+
+Steps:
+1. Use kernel trick to calculate higher-dimensional relationships for all pairs of observations in the training set.
+2. Determine a hyperplane decision boundary and its soft margin for the (pseudo-)high-dimensional data points with cross validation.
+
+Pros:
+- Can handle outliers.
+- Can handle overlapping classes (multiple classes share same parts of feature values).
+- Guaranteed convexity. Easy to optimize.
+- Work well with high-dimensional data.
+- Low memory cost (only support vectors matter)
+
+Cons:
+- High time cost, especially with Kernels when data set is too large.
+- Low interpretability: no probability estimates are given.
+- Bad performance when $n>>m$.
+- Bad performance on large datasets (i.e., $m>>0$).
+- Bad performance with noisy data (when target classes overlap).
+
+Time Complexity:
+- Train: $O(m^2)$
+- Test: $O(kn)$, where $k=$ #support vectors.
 
 # Decision Tree
 
