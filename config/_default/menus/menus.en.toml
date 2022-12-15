@@ -20,7 +20,7 @@
 
 [[main]]
   name = "RL"
-  url = "/docs/rl/"
+  url = "/docs/ml/rl/"
   identifier = "rl"
   parent = "docs"
   weight = 3
