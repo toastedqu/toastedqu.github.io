@@ -205,6 +205,32 @@ Solutions:
 
 </center> -->
 
+
+
+<!-- 
+### Radial Basis Function
+
+$$
+\phi_j(\mathbf{x})=\exp{\left(-\frac{||\mathbf{x}-\mu_j||_2^2}{c}\right)}
+$$
+
+Steps:
+1. Cluster points $\mu_j$ with k-means clustering.
+2. Pick a width $c=2\sigma^2$ for all the Gaussian pdfs $N(\mu_j,\sigma^2)$ at each cluster.
+3. Fit a linear regression.
+
+Usage:
+- $d<n$: dimensionality reduction
+- $d>n$: convert nonlinear problem to linear
+- $d=n$: switch to a dual representation
+
+Pros:
+
+Cons:
+- Scale variant.
+- Need to find perfect $c$. Low $c$ leads to overfitting. High $c$ leads to learning nothing (different centroids may cover each other, which is horrible). -->
+
+
 # Distance and Similarity
 
 ## Norm

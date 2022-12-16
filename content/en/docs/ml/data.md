@@ -25,7 +25,7 @@ X = np.random.randint(-100,100,(10,10))
 y = np.random.randint(-10,10,(10,1))
 ```
 
-## Data Cleaning
+# Cleaning
 
 1. **Remove unwanted observations**: e.g., duplicates, irrelevant obs, etc.
 2. **Fix structural errors**: e.g., typos, mislabels, inconsistency, etc.
@@ -33,9 +33,9 @@ y = np.random.randint(-10,10,(10,1))
 4. **Handle missing data** drop them, or replace them with values based on past obs.
     - (Missingness is informative in itself, so be careful.)
 
-## Data Transformation
+# Transformation
 
-### Standardization
+## Standardization
 
 $$
 X_\text{new}=\frac{X-\bar{X}}{\sigma_X}
@@ -55,7 +55,7 @@ from sklearn.preprocessing import StandardScaler
 X_scaled = StandardScaler().fit_transform(X)
 ```
 
-### Min-Max Scaling
+## Min-Max Scaling
 
 - Default: feature_range=(0,1)
 $$
@@ -81,7 +81,7 @@ from sklearn.preprocessing import MinMaxScaler
 X_scaled = MinMaxScaler().fit_transform(X)
 ```
 
-### Max-Abs Scaling
+## Max-Abs Scaling
 
 $$
 X_\text{new}=\frac{X}{\max{(|X|)}}
@@ -102,7 +102,7 @@ from sklearn.preprocessing import MaxAbsScaler
 X_scaled = MaxAbsScaler().fit_transform(X)
 ```
 
-### Robust Scaling
+## Robust Scaling
 
 $$
 X_\text{new}=\frac{X-\text{med}{(X)}}{Q_{75\%}(X)-Q_{25\%}(X)}
@@ -121,7 +121,7 @@ from sklearn.preprocessing import RobustScaler
 X_scaled = RobustScaler().fit_transform(X)
 ```
 
-### Normalization
+## Normalization
 
 $$
 X_\text{new}=\frac{X}{\text{norm}(X)}
@@ -140,7 +140,7 @@ from sklearn.preprocessing import Normalizer
 X_scaled = Normalizer().transform(X)
 ```
 
-### Quantile Transform
+## Quantile Transform
 
 - Original form
     $$
@@ -178,7 +178,7 @@ from sklearn.preprocessing import QuantileTransformer
 X_scaled = QuantileTransformer(output_distribution='normal').fit_transform(X)
 ```
 
-### Power Transform
+## Power Transform
 
 - Yeo-Johnson Transform
     $$
@@ -218,3 +218,5 @@ from sklearn.preprocessing import PowerTransformer
 
 X_scaled = PowerTransformer().fit_transform(X)
 ```
+
+# Imputation

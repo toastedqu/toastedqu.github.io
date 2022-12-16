@@ -14,6 +14,12 @@ Some specifications:
 - **Model-based vs Model-free**: Model-based RL assumes a model of the environment, while Model-free RL does not.
 - **On-policy vs Off-policy**: On-policy learning follows the target policy, while Off-policy learning follows a different policy from the target policy.
 
+Overview:
+<center>
+<img src="/images/rl/overview.png" width="600"/>
+</center>
+
+
 # Model-based
 
 ## Markov Decision Process (MDP)
@@ -92,6 +98,7 @@ $\epsilon$-greedy:
 ## Temporal Difference Learning
 Idea: learn from current predictions rather than waiting till termination.
 
+### TD(0)
 Algorithm (TD(0). i.e., one-step look-ahead):
 - Init $V(s_{\text{end}})=0; V(s); \pi(s); \alpha\in(0,1]$ ($\forall s\in\mathcal{S}$)
 - Repeat (For each episode):
@@ -103,8 +110,8 @@ Algorithm (TD(0). i.e., one-step look-ahead):
         4. $s\leftarrow s'$
     - If $s=s_\text{end}$: return
 
-## SARSA
-Idea: On-policy TD(0) using Q-value.
+### SARSA
+Idea: On-policy TD(0) using Q-value. ($\epsilon$-greedy for action choice and future evaluation)
 
 Algorithm:
 - Init $Q(s_{\text{end}},\cdot)=0; Q(s,a)$ ($\forall s\in\mathcal{S}\ \forall a\in\mathcal{A}(s)$)
@@ -119,8 +126,8 @@ Algorithm:
     - If $s=s_\text{end}$: return
 
 
-## Q-Learning
-Idea: Off-policy TD(0).
+### Q-Learning
+Idea: Off-policy TD(0). ($\epsilon$-greedy for action choice, greedy for future evaluation)
 
 Algorithm:
 - Init $Q(s_{\text{end}},\cdot)=0; Q(s,a)$ ($\forall s\in\mathcal{S}\ \forall a\in\mathcal{A}(s)$)
@@ -133,7 +140,68 @@ Algorithm:
         4. $s\leftarrow s'$
     - If $s=s_\text{end}$: return
 
+Pros:
+- Low variance
+
+Cons:
+- High bias
+- Easy online learning
+- Necessary for non-episodic tasks
+- Faster convergence than MC on stochastic tasks
 
 ## Monte Carlo
+Idea: Estimate expected reward by sampling.
+
+Algorithm:
+- Repeat:
+    1. Sample an episode following the current policy (from $s_0$ to $s_\text{end}$ or end when $t=T$). Obtain a return $G_t$ of the episode.
+        - MC uses empirical mean return instead of expected return, starting from $s_t$ or $(s_t,a_t)$.
+        - $V_\pi(s_t)$ = average of returns following all the visits to $s_t$ in a set of episodes
+        - $Q_\pi(s_t,a_t)$ = average of returns following all the visits to $(s_t,a_t)$ in a set of episodes
+    2. Update policy with average of $[G_1,\cdots,G_N]$
+
+Pros:
+- Lower bias compared to Q-learning
+- Less sensitive to initial Q values
+
+Cons:
+- Higher variance compared to Q-learning
+- High computational cost for long episodes
+- Limited to episodic tasks
+- Slower convergence on stochastic tasks
 
 ## Deep Q-Learning
+Idea: Represent $Q(s,a)$ by a neural network.
+
+Model:
+- Input: $s$
+- Output: $Q(s,:)$ of size $|\mathcal{A}(s)|$
+- Problem: Instability (i.e., rapid changes) in Q function can cause it to diverge
+- Solution: Use 2 networks:
+    - Q-network: regularly updated, provide value for $Q(s,a)$
+    - Target network: occasionally updated, provide value for $Q(s',a')$
+
+Algorithm (DQN):
+- Init weights $W$ for NN (i.e., Q function); $\mathcal{D}$ as replay memory
+- Repeat (For each episode):
+    - Init $s$
+    - For step in episode:
+        1. $a\leftarrow\pi_Q(s)$, where $\pi_Q(s)$ is policy derived from $Q(s,\cdot)$ (e.g., $\epsilon$-greedy)
+        2. $r,s'\leftarrow s,a$
+        3. $\mathcal{D}$.append(($s,a,r,s'$))
+        4. $s\leftarrow s'$
+        5. Sample random minibatches of $\\{(s_i,a_i,r_i,s_{i+1})\\}_{i=1}^{m}$ from $\mathcal{D}$
+        6. $y_i\leftarrow\begin{cases}r_j &\text{ if }s_{i+1}=s_\text{end} \\\\ r_j+\gamma\max_{a'}Q(s_{i+1},a') &\text{ if }s_{i+1}\neq s_\text{end}\end{cases}$
+        3. GD on $(y_i-Q(s_i,a_i;W))^2$
+
+Prediction: $\pi(s)=\arg\max_a\hat{Q}(s,a)$
+
+Objective: MSE: $[r+\gamma\max_{a'}Q(s',a')-Q(s,a)]^2$
+
+Optimization: GD
+
+Pros:
+- Can play certain game(s) better than humans
+
+Cons: 
+- Poor generalization to even slightly different games

@@ -1,5 +1,5 @@
 ---
-title : "Models - Supervised Learning"
+title : "Supervised Learning"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
@@ -15,11 +15,13 @@ Common Notations:
 - $i$: $i$th sample
 - $j$: $j$th feature
 - $k$: class $k$
-- $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$
+- $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$ (add $\textbf{1}$ if bias is needed)
 - $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of shape $(m,1)$
+- $\textbf{w}=[w_1,\cdots,w_n]$ (add $b$ if bias is needed)
 - $X,Y$: (occasionally) used to represent input feature and label as random variables
 
 Each subsection roughly follows this order:
+- Idea
 - Usage
 - Background
 - Assumption
@@ -27,9 +29,9 @@ Each subsection roughly follows this order:
 - Inference
 - Objective (mainly Loss Function)
 - Optimization (mainly Parameter Estimation)
-- (extra sections)
 - Pros
 - Cons
+- (extra)
 
 # Linear Models
 - All linear models are parametric.
@@ -55,6 +57,7 @@ $$
 $$
 
 ## Linear Regression
+Idea: fit a linear hyperplane between features and labels.
 
 Assumptions:
 - **Linearity**: The underlying relationship between $\textbf{y}$ and $X$ is linear.
@@ -117,6 +120,7 @@ class LinearRegression:
 ```
 
 ## Logistic Regression
+Idea: use sigmoid/softmax as link function for linear regression for classification.
 
 Model:
 $$\begin{align*}
@@ -146,40 +150,76 @@ Pros:
 
 Cons:
 - Named regression but can only work for discrete classification
-- Poor performance when $n>>m$
-- Poor performance for nonlinear cases (assume linearity by log odds)
+- bad performance when $n>>m$
+- bad performance for nonlinear cases (assume linearity by log odds)
 
 Time Complexity: Train: $O(mn)$; Test: $O(n)$
 
 Space Complexity: $O(n)$
 
-<!-- 
-### Radial Basis Function
+## Support Vector Machine
+Idea: choose a decision boundary that maximizes the soft margin between classes.
 
+Background:
+- **Primal vs Dual**: Primal form operates in the feature space $X^TX$, while Dual form operates in the sample space $XX^T$ (i.e., Kernel Matrix)
+    - The params in Primal and Dual are transferable: $\textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i$
+- **Hard margin vs Soft margin**: Hard margin does NOT accept any misclassification (thus prone to overfitting), while Soft margin allows some misclassifications (thus regularization).
+
+Model/Inference: linear classifier
 $$
-\phi_j(\mathbf{x})=\exp{\left(-\frac{||\mathbf{x}-\mu_j||_2^2}{c}\right)}
+\hat{y}_i=\text{sign}(\textbf{w}^T\phi(\textbf{x}_i))
 $$
 
-Steps:
-1. Cluster points $\mu_j$ with k-means clustering.
-2. Pick a width $c=2\sigma^2$ for all the Gaussian pdfs $N(\mu_j,\sigma^2)$ at each cluster.
-3. Fit a linear regression.
+Objective: Hinge Loss
+- Primal (Linear):
+$$\begin{align*}
+\min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
+\text{s.t.}\quad & y_i(\textbf{w}^T\textbf{x}_i) \geq 1-\xi_i\\\\
+& \xi_i \geq 0
+\end{align*}$$
+- Primal (Kernel):
+$$\begin{align*}
+\min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
+\text{s.t.}\quad & y_i(\textbf{w}^T\phi(\textbf{x}_i)) \geq 1-\xi_i\\\\
+& \xi_i \geq 0
+\end{align*}$$
+- Dual (Linear):
+$$\begin{align*}
+\max\_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j \mathbf{x}_i^T \mathbf{x}_j \\\\
+\text{s.t.}\quad & \sum\_{i=1}^n \alpha_i y_i = 0\\\\
+& \alpha_i\leq C
+\end{align*}$$
+- Dual (Kernel):
+$$\begin{align*}
+\max\_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j k(\mathbf{x}_i, \mathbf{x}_j) \\\\
+\text{s.t.}\quad & \sum\_{i=1}^n \alpha_i y_i = 0\\\\
+& \alpha_i\leq C
+\end{align*}$$
 
-Usage:
-- $d<n$: dimensionality reduction
-- $d>n$: convert nonlinear problem to linear
-- $d=n$: switch to a dual representation
+Optimization: Decomposition (quadratic programming), Closed-form, GD, etc.
 
 Pros:
+- Good performance on high-dimensional and non-linearly separable data (with Kernel trick)
+- Good generalization to unseen data
+- Guaranteed convexity. Easy to optimize
+- Low memory cost (only support vectors matter)
 
 Cons:
-- Scale variant.
-- Need to find perfect $c$. Low $c$ leads to overfitting. High $c$ leads to learning nothing (different centroids may cover each other, which is horrible). -->
+- High computational cost, especially 1) with Kernels 2) when sample size is too large 3) with Multiclass classification (no native support for it; need 1v1 or 1-v-rest strategies)
+- Low interpretability: No probability estimates
+- Bad performance when $n>>m$.
+- Bad performance on large datasets (i.e., $m>>0$).
+- Sensitive to outliers and noisy data
+- Sensitive to overlapping classes (i.e., classes which share the same parts of some feature values)
 
+Time Complexity:
+- Train: $O(m^2)$
+- Test: $O(kn)$, where $k=$ #support vectors.
 
 # Local Learning
 
 ## K Nearest Neighbors
+Idea: generate label for a sample from its $K$ nearest neighbors.
 
 Model/Algorithm:
 1. Calculate distance between sample point and every training point.
@@ -251,7 +291,7 @@ Cons:
 - Hard to comprehend what kernels learned exactly.
 - Easy overfitting.
 
-### Summary
+KNN vs KernelReg: 
 
 <center>
 
@@ -264,99 +304,40 @@ Cons:
 
 </center>
 
-
-# Support Vector Machine
-
-Separable Primal:
-$$\begin{align*}
-\min\_{w,\zeta}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \zeta_i \\\\
-\text{s.t.}\quad & y_i(\textbf{w}^T\textbf{x}_i) \geq 1-\zeta_i\\\\
-& \zeta_i \geq 0
-\end{align*}$$
-
-Separable Dual:
-
-
-
-Hypothesis:
-$$
-h_w(x)=\begin{cases}
-1 & \text{if}\ \mathbf{w}^T\mathbf{x}_i\geq0 \\\\
-0 & \text{if}\ \mathbf{w}^T\mathbf{x}_i<0 \\\\
-\end{cases}
-$$
-
-Loss: Hinge Loss
-
-Terminology:
-- Support vector: points closest to the boundary.
-
-Steps:
-1. Use kernel trick to calculate higher-dimensional relationships for all pairs of observations in the training set.
-2. Determine a hyperplane decision boundary and its soft margin for the (pseudo-)high-dimensional data points with cross validation.
-
-Pros:
-- Can handle outliers.
-- Can handle overlapping classes (multiple classes share same parts of feature values).
-- Guaranteed convexity. Easy to optimize.
-- Work well with high-dimensional data.
-- Low memory cost (only support vectors matter)
-
-Cons:
-- High time cost, especially with Kernels when data set is too large.
-- Low interpretability: no probability estimates are given.
-- Bad performance when $n>>m$.
-- Bad performance on large datasets (i.e., $m>>0$).
-- Bad performance with noisy data (when target classes overlap).
-
-Time Complexity:
-- Train: $O(m^2)$
-- Test: $O(kn)$, where $k=$ #support vectors.
-
 # Decision Tree
-
 Idea: build a tree where each node is a feature split to classify data points into different leaf outputs.
 
-Algorithm:
+Background:
+- Information gain: $IG(Y|X)=H(Y)-H(Y|X)$
+    - $H(\cdot)$: Impurity measure
+        - Gini: $H(Y)=\sum_{y}{p_y(1-p_y)}$
+        - Entropy: $H(Y)=-\sum_{y}{p_y\log_2{p_y}}$
+- Entropy: a measure of uncertainty
+    - Conditional entropy (Average): $H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)}$
+    - Specific conditional entropy: $H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}}$
+
+Model/Algorithm:
 1. Calculate info gain for each feature.
 2. Select the feature that maximizes info gain as the decision threshold.
 3. Split data based on the decision. Repeat Step 1-2 until stop.
 
-Information gain:
-$$
-IG(Y|X)=H(Y)-H(Y|X)
-$$
-- $X,Y$: random vars.
-- $H(\cdot)$: Impurity measure:
-    - Gini: $H(Y)=\sum_{y}{p_y(1-p_y)}$
-    - Entropy: $H(Y)=-\sum_{y}{p_y\log_2{p_y}}$
-        - (Average) Conditional entropy: $H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)}$
-        - Specific conditional entropy: $H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}}$
-            - $y\in\mathcal{Y}$: a possible value for $Y$.
-            - $\mathcal{Y}$: set of all possible values for $Y$.
-            - $x\in\mathcal{X}$: a possible value for $X$.
-            - $\mathcal{X}$: set of all possible values for $X$
-    
-
 Pros:
-- Non-parametric.
-- No feature scaling required. (i.e., scale invariant)
-- Low computation cost for Inference: $O(\log{m})$ (if balanced binary tree).
-- Can handle multi-class classification.
-- Easy to interpret and validate. Easy model visualization.
-<!-- - Good performance in practice even if assumptions are violated by the data generator model. -->
+- Scale invariant
+- Low computational cost
+- Can handle multiclass classification
+- Interpretable and Easy to validate (easy model visualization)
 
 Cons:
-- Easy overfitting, especially when $n$ is large.
-- Sensitive to noisy data, missing value, and outliers.
-- Discrete predictions only.
-- Difficult to find globally optimal decisions. Current modules only support locally optimal decisions at each node.
-- High computation cost for training: $O(mn\log{m})$
-- Inaccurate in practice.
+- Prone to overfitting (perfect fit on smaller sample size)
+- Bad performance with class imbalance (biased toward most frequently occurring class)
+- Sensitive to noisy data, missing value, and outliers
+- Discrete predictions only
+- Difficult to find globally optimal decisions (only support locally optimal decisions at each node)
+- Bad performance overall
 
 Time complexity:
 - Train: $O(mn\log{m})$
-- Test: $O(d)$, where $d=$ depth. (Ideally $O(\log{m})$)
+- Test: $O(d)$, where $d=$ depth. (Ideally $O(\log{m})$ if balanced binary tree)
 
 Code:
 ```python
@@ -415,35 +396,40 @@ def select_feature_max_IG(X_train,y_train,impurity="entropy"):
 ```
 
 # Ensemble Methods
-
-Terminology:
-
-- **Bagging**: create a bootstrapped dataset by randomly select samples with replacement from training set.
-- **Boosting**: train multiple models sequentially and dependently to improve accuracy.
+- **Bootstrapping**: randomly select $fm$ samples with replacement from the original training set into subsets, where $f$ is the fraction of samples to bootstrap.
+- **Bagging** (bootstrap aggregation): bootstrap, get bunch of weak models trained on separate subsets individually, and aggregate their predictions via mean or majority.
+- **Boosting**: train multiple models sequentially and dependently.
+    - Converge exponentially with #iterations.
+    - Cons: Highly sensitive to outliers and noisy data.
+- Common Pros of Ensemble Methods:
+    - Scale invariant
+    - Reduce overfitting
+    - Greater performance
+    - Can handle high-dimensional data efficiently
+- Common Cons of Ensemble Methods: 
+    - High computational cost
+    - Low interpretability
 
 ## Random Forest
+Idea: Bagging with Decision Trees
 
-Training:
-1. Create a bootstrapped dataset by randomly select samples (with replacement) from training set.
-2. Create a full decision tree (no pruning) on a randomly selected subset of features of the bootstrapped dataset. (size determined by out-of-bag error in step 4.)
+Model/Algorithm: 
+1. Bootstrap.
+2. Create a full decision tree (no pruning). On each node, randomly select $\sqrt{n}$ features from the bootstrapped subset. Find the best split.
 3. Repeat 1-2 to create a random forest till #tree limit.
 4. Use out-of-bag samples to determine the accuracy of each tree.
 
-Inference:
-1. Take a majority vote / average vote from all trees.
+Inference: Take a majority/average vote of all trees.
 
 Pros:
-- Reduce overfitting in decision tree $\rightarrow$ much more accurate than a single decision tree.
-- Flexible to both categorical and continuous outputs.
-- Scale invariant.
-- Automatically handle missing values by dropping or filling with median/mode.
-- Robust of outliers and noisy data.
-- Best used in banking and healthcare.
+- Reduce overfitting in decision tree & much more accurate than a single decision tree
+- Flexible to both categorical & numerical outputs
+- Automatically handle missing values by dropping or filling with median/mode
+- Robust to outliers and noisy data
+- Best used in banking and healthcare
 
 Cons:
-- High computation cost.
-- High training time.
-- Low interpretability.
+- Worse performance than Boosting in general
 
 Time Complexity:
 - Train: $O(kmn\log{m})$, where $k=$ #trees
@@ -453,7 +439,7 @@ Time Complexity:
 
 Idea: train a bunch of stumps (weak learners) sequentially and take a weighted majority vote.
 
-Training:
+Model/Algorithm:
 1. Init all samples with equal sample weight.
 2. Find optimal feature for first stump. Calculate total error. Calculate amount of say:
 $$
@@ -469,48 +455,58 @@ w_\text{correct}&\leftarrow w_\text{correct}\cdot e^{-\text{Amount of Say}}\\\\
 6. Give equal sample weights to all samples in the new training set.
 7. Repeat Steps 1-6 till #stumps reach limit.
 
-Inference:
-1. Take a weighted majority vote using the Amount of Say from each stump.
+Inference: Take a weighted majority vote using the Amount of Say from each stump.
 
-Random Forest vs AdaBoost
+Objective: Exponential Loss
 
+Pros:
+- Reduce overfitting more than bagging (because parameters are not optimized jointly but stagewise)
+- Fewer hyperparameters than other models
+
+Cons:
+- Sensitive to outliers and noisy data
+- Slower and generally worse performance than Gradient Boosting
+
+Random Forest vs AdaBoost:
 <center>
 
 |         Random Forest         |                 AdaBoost                 |
 |:-----------------------------:|:----------------------------------------:|
 |   No tree shape requirement   | Each tree is a stump (1 node + 2 leaves) |
 | Each tree has equal influence |      Stumps have weighted influence      |
-|    Each tree is independent   |  Each stump is dependent of its previous |
+|    Each tree is independent   |  Each stump is dependent of its previous one |
 
 </center>
 
-Pros:
-- Reduce overfitting because parameters are not optimized jointly but stagewise.
-- Much fewer hyperparameters than most other algorithms.
-- Boosting converges exponentially with #iterations.
-
-Cons:
-- Extremely sensitive to outliers and noisy data.
-- Slower than XGBoost.
-- No bagging.
-
 ## Gradient Boosting
-
 Idea: train a bunch of fixed-size trees to fit residuals sequentially. take a weighted majority vote.
 
-Training:
+Model/Algorithm:
 1. Init a leaf as the average of $\mathbf{y}$. Calculate residuals.
 2. Train a tree (#leaves < $m$) on the residuals. Scale it with a fixed learning rate.
 3. Combine leaf (and previous trees) and current tree to make new predictions on the same data. Calculate new residuals.
 4. Repeat Steps 2-3 till limit.
 
-Essential Hyperparameters:
+Optimization (Hyperparams):
 - #stages: $T$
 - bag size (fraction): $f$
 - learning rate: $\eta$
 - tree depth: $d$
 
-AdaBoost vs Gradient Boosting
+Pros:
+- Great performance in general
+- Fast inference
+- High flexibility (multiple hyperparameters to tune, multiple loss functions to use)
+- Can handle missing data
+- Reduce overfitting by using a small learning rate and incorporate bootstrapping
+
+Cons:
+- Sensitive to outliers and noisy data (may cause overfitting by overemphasizing them)
+- Require a large grid search for hyperparameter tuning
+- Longer training due to sequential building
+
+
+AdaBoost vs Gradient Boosting:
 
 <center>
 
@@ -523,33 +519,23 @@ AdaBoost vs Gradient Boosting
 
 </center>
 
-Pros:
-- Very accurate.
-- Fast prediction.
-- High flexibility: multiple hyperparameters to tune, multiple loss functions to use.
-- Can handle missing data.
-- Reduce overfitting by using a small learning rate and bagging.
-
-Cons:
-- Highly sensitive to outliers and noisy data.
-- May cause overfitting by overemphasizing outliers and noisy data.
-- High computation cost.
-- Low interpretability.
-- Require a large grid search for hyperparameter tuning.
-- Longer training due to sequential building.
 
 ## XGBoost
-
 Idea: use a unique tree to make decisions based on similarity scores.
 
-Training:
+Background:
+- **Pre-sort algorithm**: sort samples by the feature value, then split linearly.
+- **Histogram-based algorithm**: bucket continuous feature values into discrete bins.
+- **Level-wise tree growth** (BFS)
+
+Model/Algorithm:
 1. Calculate residuals for all samples based on current prediction. Calculate similarity score for the root node of a new tree.
 $$
 \text{Similarity}=\frac{\sum_{i=1}^{m_r}{r_i^2}}{m_r+\lambda}
 $$
 2. Find similarity gain of each possible split. Choose the split with the max gain at root node.
 $$
-\text{Gain}=\text{Similarity}_\text{left}+\text{Similarity}_\text{right}-\text{Similarity}_\text{root}
+\text{Gain}=\text{Similarity}\_\text{left}+\text{Similarity}\_\text{right}-\text{Similarity}\_\text{root}
 $$
 3. Repeat Step 2 till limit. Prune branches bottom-up by checking whether the gain of the branch is higher than a predefined threshold $\gamma$. If it is higher, stop. If it is lower, prune it, move on to the next branch.
 4. Define the output value for each leaf of this tree.
@@ -562,37 +548,43 @@ $$
 $$
 6. Repeat Steps 1-5 till limit.
 
-Essential Hyperparameters:
+Optimization (hyperparams):
 - Regularization: $\lambda$ (the higher $\lambda$, the lower gain, thus easier to prune.)
 - Prune threshold: $\gamma$ ($\gamma=0$ prunes negative gains.)
 - Learning rate: $\eta$
 
-Key points:
-- Pre-sort-based algorithm: sort samples by the feature value, then split linearly.
-- Histogram-based algorithm: bucket continuous feature values into discrete bins.
-- Level-wise tree growth (BFS)
-
 Pros:
-- Perform well when #features is small.
+- Perform well when #features is small
+- The Pros of Gradient Boosting
 
 Cons:
 - Cannot handle categorical features (must do encoding)
-- Perform poor on sparse and unstructured data.
-- Sensitive to outliers and noisy data.
+- Bad performance on sparse and unstructured data
+- The Cons of Gradient Boosting
 
 ## LightGBM
 
-Idea:
-- GOSS (Gradient-based One-Side Sampling): focus more on under-trained samples without changing the original data distribution.
+Idea: Gradient Boosting + GOSS + EFB
+
+Background:
+- **GOSS (Gradient-based One-Side Sampling)**: focus more on under-trained samples without changing the original data distribution.
     1. Sort all samples based on abs(gradient). Select top $\alpha$% samples as the samples with large gradients. Keep them.
     2. Randomly sample $b$% of the remaining samples with small gradients. Amplify them with a constant $\frac{1-a}{b}$.
-- EFB (Exclusive Feature Bundling): bundle mutually exclusive features together into much fewer dense features by conflict rate (more nonzero values lead to higher probability of conflicts).
+- **EFB (Exclusive Feature Bundling)**: bundle mutually exclusive features together into much fewer dense features by conflict rate (more nonzero values lead to higher probability of conflicts).
     1. Sort features based on conflicts in a descending order. Assign each to an existing bundle with a small conflict or create a new bundle.
     2. Merge exclusive features in the same bundle. If two features have joint ranges, add an offset value so that the two features can be merged into one range.
+- **Leaf-wise tree growth**: choose the leaf with max delta loss to grow. (DFS)
 
-Key points:
-- Leaf-wise tree growth: choose the leaf with max delta loss to grow. (DFS)
+Pros:
+- Can handle categorical features
+- Much faster and efficient training both in time and space
+- Higher accuracy than most other boosting algorithms, especially on large datasets
 
+Cons:
+- Overfitting (Because of leaf-wise splitting, the tree can be much more complex) 
+- Bad performance on small datasets
+
+Gradient Boosting Comparisons:
 <center>
 
 |                      |                                       XGBoost                                       |                                         CatBoost                                        |                                   LightGBM                                  |
@@ -606,13 +598,12 @@ Key points:
 
 </center>
 
-Pros:
-- Can handle categorical features by taking the input of feature names.
-- Much faster and efficient training both in time and space.
-- High accuracy than most other boosting algorithms, especially on large datasets.
+# Online Learning
 
-Cons:
-- Overfitting: because of leaf-wise splitting, the tree can be much more complex. Thus poor performance on small dataset.
+
+## Least Mean Squares
+
+## Perceptron
 
 # Generative Models
 
@@ -713,7 +704,7 @@ Pros:
 
 Cons:
 - High computational cost (Param Estimation is a bit messy)
-- Not interpretable
+- Low interpretability
 
 ## Hidden Markov Model
 
@@ -791,4 +782,4 @@ Pros:
 Cons:
 - There is still no universal method for constructing BayesNet from data (require serious search if net structure is unknown)
 - Fail to define cyclic relationships
-- Poor performance on high-dimensional data
+- bad performance on high-dimensional data
