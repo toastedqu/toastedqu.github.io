@@ -9,7 +9,6 @@ images: []
 weight: 300
 ---
 Common Notations:
-
 - $m$: #samples in the input batch
 - $n$: #features in the input sample
 - $i$: $i$th sample
@@ -26,7 +25,7 @@ Each subsection roughly follows this order:
 - Background
 - Assumption
 - Model/Algorithm
-- Inference
+- Prediction
 - Objective (mainly Loss Function)
 - Optimization (mainly Parameter Estimation)
 - Pros
@@ -72,7 +71,7 @@ $$\begin{align*}
 &\text{Bayesian:}    &&p(\mathbf{y}|X,w)=N(X\mathbf{w},\sigma^2)
 \end{align*}$$
 
-Inference:
+Prediction:
 $$
 \hat{y}_i=\mathbf{w}^T\mathbf{x}_i
 $$
@@ -128,7 +127,7 @@ $$\begin{align*}
 &\text{Multiclass}: &&P(y_i=k|\mathbf{x}_i,W)=\text{softmax}(W^T\mathbf{x}_i)=\frac{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}{\sum\_{k=1}^{K}{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}}
 \end{align*}$$
 
-Inference:
+Prediction:
 $$
 \hat{y}_i=\arg\max_k\hat{p}\_{ik}
 $$
@@ -157,6 +156,30 @@ Time Complexity: Train: $O(mn)$; Test: $O(n)$
 
 Space Complexity: $O(n)$
 
+## Principal Component Regression
+Idea: PCA + LinReg (Semi-supervised learning)
+
+Model/Algorithm:
+1. Do PCA on $X$ to get scores $Z$ and loadings $V$.
+2. Do OLS on projected points $Z$:
+$$
+\hat{\textbf{w}}=(Z^TZ)^{-1}Z^TY
+$$
+
+Prediction:
+1. Get projection: $\hat{\textbf{z}}=V^T\textbf{x}$
+2. Get label: $\hat{y}=\textbf{w}\hat{\textbf{z}}$
+
+Pros:
+- Great performance with high-dimensional data (via Dimensionality Reduction)
+- Better performance than LinReg in many situations (via filtering out irrelevant/noisy features)
+- Simple
+
+Cons:
+- Make LinReg scale variant
+- Sensitive to choices of PCs
+- Bad performance with nonlinear relationships (might be solvable via Kernel PCR but then there would be no need to use PCA at all)
+
 ## Support Vector Machine
 Idea: choose a decision boundary that maximizes the soft margin between classes.
 
@@ -165,7 +188,7 @@ Background:
     - The params in Primal and Dual are transferable: $\textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i$
 - **Hard margin vs Soft margin**: Hard margin does NOT accept any misclassification (thus prone to overfitting), while Soft margin allows some misclassifications (thus regularization).
 
-Model/Inference: linear classifier
+Model/Prediction: linear classifier
 $$
 \hat{y}_i=\text{sign}(\textbf{w}^T\phi(\textbf{x}_i))
 $$
@@ -419,7 +442,7 @@ Model/Algorithm:
 3. Repeat 1-2 to create a random forest till #tree limit.
 4. Use out-of-bag samples to determine the accuracy of each tree.
 
-Inference: Take a majority/average vote of all trees.
+Prediction: Take a majority/average vote of all trees.
 
 Pros:
 - Reduce overfitting in decision tree & much more accurate than a single decision tree
@@ -455,7 +478,7 @@ w_\text{correct}&\leftarrow w_\text{correct}\cdot e^{-\text{Amount of Say}}\\\\
 6. Give equal sample weights to all samples in the new training set.
 7. Repeat Steps 1-6 till #stumps reach limit.
 
-Inference: Take a weighted majority vote using the Amount of Say from each stump.
+Prediction: Take a weighted majority vote using the Amount of Say from each stump.
 
 Objective: Exponential Loss
 
@@ -495,7 +518,7 @@ Optimization (Hyperparams):
 
 Pros:
 - Great performance in general
-- Fast inference
+- Fast Prediction
 - High flexibility (multiple hyperparameters to tune, multiple loss functions to use)
 - Can handle missing data
 - Reduce overfitting by using a small learning rate and incorporate bootstrapping
@@ -618,7 +641,7 @@ Discriminative models predict label given sample features, but Generative models
 
 During training, we estimate the params which maximize the combination of prior distribution $\times$ likelihood distribution.
 
-During inference, we directly use those params to either generate samples or compute label for the given sample.
+During Prediction, we directly use those params to either generate samples or compute label for the given sample.
 
 The following models are already abandoned in practice because of neural nets, but the ideas behind them are still important for forming a deep understanding of ML.
 
@@ -643,7 +666,7 @@ $$\begin{align*}
 \end{align*}$$
 where $\\#\\{X_j=v,Y=k\\}$ is #occurrences of feature-value pair $X_j=v$ in all samples of class $k$.
 
-Inference:
+Prediction:
 $$
 \hat{y}_i=\arg\max_k\prod\_{k\in\\{1,\cdots,K\\}}P(k)\prod\_{x\_{ij}\in\mathbf{x}_i}P(x\_{ij}|k)
 $$

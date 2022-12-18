@@ -220,3 +220,21 @@ X_scaled = PowerTransformer().fit_transform(X)
 ```
 
 # Imputation
+There are 2 types of **Missing Data**: MaR (Missing at Random) and systematic missing data. Most imputations are done on MaR.
+
+Imputation = EM:
+- Repeat:
+    - Estimate the missing data
+    - Estimate the params
+
+## Simple Imputation
+The following models assume no multicollinearity.
+- **Zero imputation**
+- **Mean imputation**
+- **Majority imputation**
+
+## Complex Imputation
+- **Regression imputation**: fit missing feature on other features (assume multicollinearity)
+- **Indicator addition**: add 0-1 indicators for each feature on whether this feature is missing (0: present; 1: absent) (feature size is doubled)
+- **Category addition**: for categorical features, add one more category called "missing" to represent missing values (straightforward, much better than numerical features)
+- **Unsupervised Learning**: if there are lots of categories and/or lots of features, use clustering or dimensionality reduction.

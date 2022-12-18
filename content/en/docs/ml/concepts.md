@@ -10,22 +10,15 @@ weight: 100
 ---
 # Components of ML
 1. **Feature Representation**
-2. **Model Architecture**
-    - Linear vs Nonlinear
-    - Parametric vs Non-parametric
-    - Discriminative vs Generative
+2. **Model Structure**
 3. **Objective Function**
     - Loss function
     - Regularization
 4. **Optimization Method**
     - Parameter estimation
     - Hyperparameter tuning
-    - Model selection
+5. **Evaluation & Selection**
 
-# MLE & MAP
-- Minimize loss = Maximize likelihood
-- Regularization = Adding prior belief
-- MAP = MLE + Prior
 <!-- 
 ## Types
 
@@ -86,73 +79,13 @@ Why log-likelihood?
 - log makes optimization much easier
 - log prevents value overflow
 
-## Bias-Variance Trade-off
 
-\begin{align*}
-&\text{Bias}(\hat{w})=E[\hat{w}-w]=E[\hat{w}]-E[w]\\
-&\text{Var}(\hat{w})=E[(\hat{w}-E[\hat{w}])^2]\\
-\end{align*}
-
-**Bias**: how much our average model predictions differ from ground truth over different training sets. (i.e., model predictive power)
-- High bias: oversimplified model; underfitting; high error on train & test.
-- Models with Low bias: KNN, Decision Tree, SVM
-- Models with High bias: Linear models
-- Validation set error = unbiased estimator of true error.
-
-**Variance**: how much our estimates change due to changes in training data. (i.e., model sensitivity)
-- High variance: overcomplex model; overfitting; low error on train & high error on test.
-
-**Trade-off**: when you have low/high bias, it is inevitable to have high/low variance.
-
-- Test error = Variance + Bias^2 + Noise
-
-    \begin{equation*}
-    E_{x,y,D}[(\hat{y}(x;D)-y)^2]=E_{x,D}[(\hat{y}(x;D)-\bar{\hat{y}}(x))^2]+E_{x}[(\bar{\hat{y}}(x)-\bar{y}(x))^2]+E_{x,y}[(\bar{y}(x)-y)^2]
-    \end{equation*}
-
-    - $D$: training set
-    - $x,y$: test set
-
--  Graph:
-<center>
-<img src="/images/ml_concepts/bv_tradeoff.jpg" width="500"/>
-</center>
 
 ## Hyperparamater Tuning
 
 ### Cross Validation
 
 CV: evaluate how the outcomes will generalize to independent datasets.
-
-## Confusion Matrix
-
-**Confusion Matrix**: a 2x2 matrix which compares actual classes against predicted classes to see model performance.
-
-<center>
-
-|       |  P | N  |
-|:-----:|:--:|----|
-| **P** | TP | FN |
-| **N** | FP | TN |
-
-</center>
-
-- Notations:
-    - T&F = whether prediction matches actual
-    - P&N = predicted class
-    - FP = type 1 error
-    - FN = type 2 error
-- Metrics:
-    - **Error Rate**: $\frac{FP+FN}{P+N}$
-    - **Accuracy**: $\frac{TP+TN}{P+N}$
-    - **Specificity**: TN rate among negative actual values: $\frac{TN}{FP+TN}$
-    - **1-Specificity (FPR)**: FP rate among negative actual values: $\frac{FP}{FP+TN}$
-    - **Precision**: TP rate among positive predicted values: $\frac{TP}{TP+FP}$
-    - **Recall**: TP rate among positive actual values: $\frac{TP}{TP+FN}$
-    - **F-score**: harmonic mean of Precision and Recall: $\frac{(1+\beta^2)\cdot\text{precision}\cdot\text{recall}}{(\beta^2\cdot\text{precision})+\text{recall}}$
-    - **F1-score**: $\frac{2\cdot\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}}$
-- **ROC** (Receiver Operating Curve): plot of TPR vs FPR
-- **AUC** (Area Under Curve): area under ROC curve
 
 ## Vanishing/Exploding Gradient
 
@@ -229,38 +162,6 @@ Pros:
 Cons:
 - Scale variant.
 - Need to find perfect $c$. Low $c$ leads to overfitting. High $c$ leads to learning nothing (different centroids may cover each other, which is horrible). -->
-
-
-# Distance and Similarity
-
-## Norm
-Properties:
-- $L_p(\textbf{x})=0\leftrightarrow \textbf{x}=\textbf{0}$
-- $L_p(\textbf{x}+\textbf{y})\leq L_p(\textbf{x})+L_p(\textbf{y})$
-- $L_p(c\textbf{x})=|c|L_p(\textbf{x})\ \ \ \forall c\in\mathbb{R}$
-
-Types:
-- $L_p$: $||\textbf{x}||_p=\left(\sum_i{|x_i|^p}\right)^\frac{1}{p}$
-- $L_0$: $||\textbf{x}||_0=\\#x_i:x_i>0,x_i\in\textbf{x}$ 
-- $L_1$: $||\textbf{x}||_1=\sum_i{|x_i|}$
-- $L_2$: $||\textbf{x}||_2=\sqrt{\sum_i{(x_i)^2}}$
-- $L_\infty$: $||\textbf{x}||_\infty=\max{\{|x_i|:x_i\in\textbf{x}\}}$
-
-## Kernel
-Def: measure of similarity between 2 vectors.
-
-Properties:
-- $\mathbf{K}=k(\mathbf{x},\mathbf{x}')$ is positive semi-definite.
-    - PSD: $\mathbf{K}=\sum_{i=1}^{m}{\lambda_i\mathbf{z}_i\mathbf{z}_i^T}$.
-    - $\lambda_i$: non-negative real eigenvalues.
-    - $\mathbf{z}_i$: real eigenvectors.
-- $k(\mathbf{x},\mathbf{x}')=ck_1(\mathbf{x},\mathbf{x}'),c>0$
-- $k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}')$
-- $k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}')$
-- $k(\mathbf{x},\mathbf{x}')=q(k_1(\mathbf{x},\mathbf{x}'))$, where $q(\cdot)$ is polynomial func with positive coeffs.
-- $k(\mathbf{x},\mathbf{x}')=f(\mathbf{x})k_1(\mathbf{x},\mathbf{x}')f(\mathbf{x}')$
-- $k(\mathbf{x},\mathbf{x}')=\mathbf{x}^T\mathbf{A}\mathbf{x}'$
-- $k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}')$
 
 # Loss
 
@@ -527,8 +428,12 @@ Optimization: Search
             2. $Err_j = Err$
         3. Else:
             1. $Err_j = Err_{j-1}$
-    - Pros: low cost: $O(n)$
-    - Cons: no guarantee to find optimal solution. order of features matters
+    - Pros:
+        - Low computational cost: $O(n)$
+    - Cons:
+        - No guarantee to find optimal solution
+        - Order of features matters
+<br><br>
 
 - **Stepwise Regression**:
     1. Init model. Init $Err_0=||y_i||_2^2$.
@@ -540,8 +445,13 @@ Optimization: Search
             2. $Err_0 = Err$
         4. Else:
             1. Break
-    - Pros: much more likely to find optimal solution
-    - Cons: high cost: $O(mn)$. overfitting. multicollinearity
+    - Pros: 
+        - More likely to find optimal solution than streamwise
+    - Cons: 
+        - High computational cost: $O(mn)$
+        - Overfitting
+        - Multicollinearity
+<br><br>
 
 - **Stagewise Regression**:
     1. Init model. Init $Err_0=||y_i||_2^2$. Init cache $\textbf{w}$.
@@ -553,9 +463,148 @@ Optimization: Search
             2. $Err_0 = Err$
         4. Else:
             1. Break
-    - Pros: faster than stepwise regression because of no need to create new long models each time. no multicollinearity. used for boosting
-    - Cons: high cost: $O(mn)$
+    - Pros:
+        - Faster than stepwise regression (no need to create new long models each time)
+        - No multicollinearity
+        - Used for **boosting**
+    - Cons: 
+        - High computational cost: $O(mn)$
 
-Cons:
+Common Pros:
+- Explicit feature selection $\rightarrow$ Sparsity
+
+Common Cons:
 - Severe limitations in optimization methods
 - Extreme computational cost
+
+## Implicit
+tbd
+
+# Optimization
+The word "Learning" in ML is literally just parameter estimation (i.e., objective optimization). Pure statistics. Don't be fooled.
+
+## Gradient Descent
+Gradient Descent is THE rule of thumb for all parametric models (and even some non-parametric models like gradient boosting are also inspired by GD). In fact, ML is Gradient Descent. Sorry.
+
+tbd
+
+## Expectation-Maximization
+tbd
+
+# Hyperparameter Tuning
+tbd
+
+# Evaluation
+In regression, MAE/MSE/RMSE is used both for loss function and for evaluation.
+
+In classification, there are various metrics all centered at the idea of **confusion matrix**.
+
+## Confusion Matrix
+Confusion Matrix is a $K\times K$ matrix which visualizes actual classes against predicted classes.
+
+An example of confusion matrix for binary classification:
+<center>
+
+|       | True P | True N |
+|:-----:|:--:|----|
+| Predicted **P** | TP | FP |
+| Predicted **N** | FN | TN |
+
+</center>
+
+- Notations:
+    - T&F = whether prediction matches actual
+    - P&N = predicted class
+    - FP = type 1 error
+    - FN = type 2 error
+- Metrics:
+    - **Error Rate**: $\frac{FP+FN}{P+N}$
+    - **Accuracy**: $\frac{TP+TN}{P+N}$
+    - **Specificity**: TN rate among negative actual values: $\frac{TN}{FP+TN}$
+    - **1-Specificity (FPR)**: FP rate among negative actual values: $\frac{FP}{FP+TN}$
+    - **Precision**: TP rate among positive predicted values: $\frac{TP}{TP+FP}$
+    - **Recall**: TP rate among positive actual values: $\frac{TP}{TP+FN}$
+    - **F-score**: harmonic mean of Precision and Recall: $\frac{(1+\beta^2)\cdot\text{precision}\cdot\text{recall}}{(\beta^2\cdot\text{precision})+\text{recall}}$
+    - **F1-score**: $\frac{2\cdot\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}}$
+- **ROC** (Receiver Operating Curve): plot of TPR vs FPR
+- **AUC** (Area Under Curve): area under ROC curve
+
+
+# Miscellaneous
+This section includes other interesting concepts that cannot be explicitly classified into the 5 components of ML.
+
+## Bias-Variance Trade-off
+
+$$\begin{align*}
+&\text{Bias}(\hat{w})=E[\hat{w}-w]=E[\hat{w}]-E[w]\\\\
+&\text{Var}(\hat{w})=E[(\hat{w}-E[\hat{w}])^2]\\\\
+\end{align*}$$
+
+**Bias**: how much our average model predictions differ from ground truth over different training sets. (i.e., model predictive power)
+- High bias: oversimplified model $\rightarrow$ underfitting $\rightarrow$ high error on train & test.
+- Models with Low bias: KNN, Decision Tree, SVM.
+- Models with High bias: Linear models.
+- Validation set error = unbiased estimator of true error.
+
+**Variance**: how much our estimates change due to changes in training data. (i.e., model sensitivity)
+- High variance: overcomplex model $\rightarrow$ overfitting $\rightarrow$ low error on train & high error on test.
+
+**Trade-off**: when you have low/high bias, it is inevitable to have high/low variance.
+
+- Test error = Variance + Bias^2 + Noise
+
+    $$
+    E_{x,y,D}[(\hat{y}(x;D)-y)^2]=E_{x,D}[(\hat{y}(x;D)-\bar{\hat{y}}(x))^2]+E_{x}[(\bar{\hat{y}}(x)-\bar{y}(x))^2]+E_{x,y}[(\bar{y}(x)-y)^2]
+    $$
+
+    - $D$: training set
+    - $x,y$: test samples
+
+-  Graph:
+<center>
+<img src="/images/ml_concepts/bv_tradeoff.jpg" width="500"/>
+</center>
+
+
+## Distance & Similarity
+
+### Norm & Distance
+Norm is NOT a distance measure but a size measure. It offers insights for many prevalent distance measures.
+
+Properties:
+- $L_p(\textbf{x})=0\leftrightarrow \textbf{x}=\textbf{0}$
+- $L_p(\textbf{x}+\textbf{y})\leq L_p(\textbf{x})+L_p(\textbf{y})$
+- $L_p(c\textbf{x})=|c|L_p(\textbf{x})\ \ \ \forall c\in\mathbb{R}$
+
+Types:
+- $L_p$: $||\textbf{x}||_p=\left(\sum_i{|x_i|^p}\right)^\frac{1}{p}$
+- $L_0$: $||\textbf{x}||_0=\\#x_i:x_i>0,x_i\in\textbf{x}$ 
+- $L_1$: $||\textbf{x}||_1=\sum_i{|x_i|}$
+- $L_2$: $||\textbf{x}||_2=\sqrt{\sum_i{(x_i)^2}}$
+- $L_\infty$: $||\textbf{x}||_\infty=\max{\{|x_i|:x_i\in\textbf{x}\}}$
+
+### Cosine Similarity
+tbd
+
+
+### Kernel
+Def: measure of similarity between 2 vectors.
+
+Properties:
+- $\mathbf{K}=k(\mathbf{x},\mathbf{x}')$ is positive semi-definite.
+    - PSD: $\mathbf{K}=\sum_{i=1}^{m}{\lambda_i\mathbf{z}_i\mathbf{z}_i^T}$.
+    - $\lambda_i$: non-negative real eigenvalues.
+    - $\mathbf{z}_i$: real eigenvectors.
+- $k(\mathbf{x},\mathbf{x}')=ck_1(\mathbf{x},\mathbf{x}'),c>0$
+- $k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}')$
+- $k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}')$
+- $k(\mathbf{x},\mathbf{x}')=q(k_1(\mathbf{x},\mathbf{x}'))$, where $q(\cdot)$ is polynomial func with positive coeffs.
+- $k(\mathbf{x},\mathbf{x}')=f(\mathbf{x})k_1(\mathbf{x},\mathbf{x}')f(\mathbf{x}')$
+- $k(\mathbf{x},\mathbf{x}')=\mathbf{x}^T\mathbf{A}\mathbf{x}'$
+- $k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}')$
+
+
+## MLE & MAP
+- Minimize loss = Maximize likelihood
+- Regularization = Adding prior belief
+- MAP = MLE + Prior

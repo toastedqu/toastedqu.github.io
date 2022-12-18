@@ -1,0 +1,369 @@
+---
+title : "Applications"
+description: ""
+lead: ""
+date: 2020-10-06T08:48:45+00:00
+lastmod: 2020-10-06T08:48:45+00:00
+draft: false
+images: []
+weight: 600
+---
+There will be no common notations as different sections involve different aspects. However, most notations will be straightforward and used in all previous chapters.
+
+Congrats! By understanding all the previous chapters, we finally became able to understand 1% of how ML works in practice. Very nice.
+
+Ever wonder why MLE interviews focus hugely on software engineering, system design, and experiences with data processing?
+
+# Overview of System Design
+
+**1. Clarify Requirements**
+- Data
+    - What size? small $\rightarrow$ simpler model; large $\rightarrow$ complex model
+    - What is $y$? Regression/Classification/Clustering
+    - What is $x$?
+- Hardware Constraints
+    - Time limit?
+    - Space limit?
+- Objective
+    - Accuracy or Speed? small models $\rightarrow$ faster; large models $\rightarrow$ accurate
+    - Will we retrain after eval?
+
+**2. Determine Metrics**
+- Offline Metrics:
+    - i.e., training/testing metrics
+    - e.g., AUC, precision/F1, R^2, MSE, etc.
+- Online Metrics:
+    - i.e., eval metrics
+    - e.g., click rate, active hours, etc.
+- Non-functional metrics:
+    - Training speed
+    - Scalability to large datasets
+    - Extensibility to new techniques
+    - Convenience for deployment
+
+**3. Input & Data**
+- Target variable $y$
+    - Explicit: a user action that directly indicates the label/value of $y$. (e.g., "bought", "liked") (BEST)
+    - Implicit: a user action that might potentially relate to $y$. (e.g., "save for later", long review, etc.) (extra)
+- Features $x$
+    - Identify different features for different systems.
+    - Feature engineering
+        - Train/Test split
+        - Missing values/Outliers
+        - Scaling
+        - Balance pos/neg samples (e.g., up-sampling, under-sampling, SMOTE)
+    - Feature selection
+        - Use some models like trees, L1, L0, etc.
+        - Unnecessary for large models.
+- Extra concerns
+    - Sample range: are we sampling from a large enough subset of demographics?
+    - Privacy/law: anonymize? remove some features violating privacy?
+    - Data accessibility:
+        - tabular: SQL
+        - images/videos: GCP
+
+**4. Model**
+- Order:
+    - A baseline model with no ML component
+        - e.g., majority vote, max/min, mean, etc.
+    - Traditional ML models (typically small & fast)
+    - Advanced models (typically large & slow)
+- Model Explanation
+    - Idea & Procedure (rough)
+    - Key hyperparameters
+    - Loss/Optimization objective
+    - Pros & Cons
+
+**5. Output & Serving**
+- Online A/B Testing
+- Where to run inference
+- Monitoring performance
+- Biases/Misuses of model
+- Retraining frequency
+
+# Experimental Design
+
+## Active Learning
+Problem: Given existing data $(X,y)$, choose where to collect more labels.
+
+Assumption: access to cheap unlabeled samples.
+
+Procedure:
+1. Active learner picks which sample(s) $\textbf{x}$ to query by minimizing some loss (risk).
+2. An oracle (ground truth) generates a label/response $y$.
+3. Update the params of the model.
+4. Repeat Step 1-3.
+
+**Uncertainty Sampling**: Select **most uncertain** samples to query
+- Measures of **uncertainty**: entropy, least confident predicted label, Euclidean distance (e.g., point closest to SVM margin)
+- Cons: Sensitive to noisy data where uncertainty is the highest (e.g., images)
+
+**Information-based Loss**: Select **most informative** samples to query
+- Quantification of **information gain**:
+    - Maximize **KL divergence** between posterior and prior $KL(p(\textbf{w}|X,\textbf{x}')||p(\textbf{w}|X))$ (i.e., maximize $\\#$bits gained)
+    - Maximize **model entropy reduction** between posterior and prior (i.e., reduce $\\#$bits required to describe distribution)
+- Pros: Better than Uncertainty Sampling (by looking at the expected effect after adding the sample to the model)
+
+Pros:
+- Save computational cost
+
+## Optimal Experimental Design
+Problem: Given a parametric model, find which queries are maximally informative (i.e., best minimizes $\text{Var}[\hat{\textbf{w}}]\leftarrow$ minimize the inverse covariance matrix of samples):
+$$
+\hat{\textbf{w}}\sim N(\textbf{w},\sigma^2(X^TX)^{-1})
+$$
+- Linear models: optimal design is independent of $\textbf{w}$.
+- Nonlinear models: use Taylor expansion to linear model.
+- The more samples, the smaller the covariance.
+
+Solutions:
+- **A-optimal (average) design**: minimize $\text{trace}(X^TX)^{-1}$
+- **D-optimal (log&det) design**: minimize $\log\det(X^TX)^{-1}$
+- **E-optimal (extreme) design**: minimize $\max\text{eigenvalue}(X^TX)^{-1}$
+- The best one so far is A-optimal, which is equivalent to minimizing Frobenius norm $\rightarrow$ minimizing size of matrix.
+- A-optimal effectively chooses points near the border of the dataset.
+
+## Response Surface Modeling
+Problem: Find the optimum of an unknown function $y=f(\textbf{x})$.
+- Why? In some situations we don't care about what the model is. We simply want to know where the optimum is. (e.g., find optimal conditions for growing cell cultures)
+
+Idea: Simultaneously learn what the function looks like near the optimum and find the optimum.
+
+Procedure: **RL**
+1. Initialize: Given data $(X,\textbf{y})$, fit $y=f(\textbf{x};\textbf{w})$ as the **response surface**.
+2. Repeat:
+    - Pick the next $\textbf{x}_i$ by doing GD on $f(\textbf{x})$ (i.e., action).
+    - Measure the corresponding $y_i$ (i.e., reward).
+    - Add $(\textbf{x}_i,y_i)$ to the training data to update response surface $f(\textbf{x})$.
+
+# Explanable AI (XAI)
+Why do we want to explain ML/AI? 
+- Explain the model: **Debugging/Verification**
+- Explain the world: **Science**
+- Explain the prediction: **Decision support**
+
+Types of Explanations:
+- **Interventional vs Conditional**:
+    - Interventional changes one feature with others fixed (focus on explaining the model).
+    - Conditional changes other features to respect correlations.
+- **Model-based vs Model-agnostic**:
+    - Model-based looks at the params.
+    - Model-agnostic focuses on explaining the world.
+- **Local vs Global**:
+    - Local looks at the feature importance for a single sample or a small group of samples.
+    - Global looks at the average feature importance over all samples.
+
+Measures of **Feature Importance**:
+- **Univariate Correlation**
+- **Replacement with Mean**
+- **Permutation**
+- **Remove & Retrain**
+- **Partial Dependence Plot**: marginalize over all other features and look at the effect of the current feature (effectively assume features are independent):
+$$
+\hat{f}S(x_S)=\frac{1}{m}\sum\_{i=1}^{m}\hat{f}(x_S,\textbf{x}_C^{(i)})
+$$
+- **Shapley values (SHAP)**: a class of efficiently computable metrics with great axiomatic properties.
+    - **Local SV**: measure the change in prediction accuracy between using the true value of the feature(s) and masking the feature(s) with baseline values (e.g., mean):
+    $$
+    \phi\_{ij}(\textbf{w}^T\textbf{x})=w_j(x\_{ij}-\mathbb{E}[\textbf{x}_j])
+    $$
+    - **Global SV**: measure the average of the absolute value of the accuracy changes over all samples:
+    $$
+    \phi_j(\textbf{w}^T\textbf{x})=\frac{1}{m}\sum\_{i=1}^mw_j(x\_{ij}-\mathbb{E}[\textbf{x}_j])
+    $$
+    - Properties of SV:
+        - **Efficiency**: The feature contributions $\phi_j$ must add up to the difference of the prediction for x and the average.
+        $$
+        \sum\_{j=1}^p\phi_j=\hat{f}(x)-\mathbb{E}_X[\hat{f}(X)]
+        $$
+        - **Additivity**: For a game with combined payoutts $val+val^+$, the respective Shapley values are $\phi_j+\phi_j^+$.
+        - **Dummy**: A feature $j$ that has no effect has $\phi_j=0$.
+        - **Symmetry**: For features $i,j$ with identical effect, $\phi_i=\phi_j$.
+        - **Consistency**: If a model is altered so that the marginal contribution of a feature value increases (regardless of other features), the Shapley value also increases.
+
+**Contenability**: It generally doesn’t make sense to change one feature without others changing as well. (i.e., Cons of measures of feature importance)
+
+# Recommender Systems
+Goal: given historical user ratings on products, estimate user rating on target product.
+
+Notations:
+- $i$: product $i$
+- $u$: user $u$
+- $y_{ij}$: rating by user $u$ on movie $i$
+<!-- - $r_{}$: whether user $u$ has rated product $i$ -->
+<!-- - $m^{(j)}$: #products rated by user $u$ -->
+<!-- - $\theta^{(j)}$: param vector for user $u$ -->
+<!-- - $x^{(i)}$: feature vector for product $i$ -->
+<!-- - $\hat{y}^{(i,j)}=\theta^{(j)T}x^{(i)}$ -->
+
+## K-NN
+Algorithm (K-NN):
+1. Find all products $i$ that user $u$ has rated.
+2. Find the top $k$ most similar products to the target product $j$ using K-NN
+$$\begin{align*}
+&\text{Euclidean Distance}: &&d(\textbf{y}_i,\textbf{y}_j)=\frac{\sum\_{u\in U(i,j)}(y\_{ui}-y\_{uj})^2}{|U(i,j)|} \\\\
+&\text{Cosine Similarity}: &&\cos(\textbf{y}_i,\textbf{y}_j)=\frac{\sum\_{u\in U(i,j)}(y\_{ui}y\_{uj})}{||\textbf{y}_i|| ||\textbf{y}_j||}
+\end{align*}$$
+where $U(i,j)$ is the set of users who have rated both product $i$ and $j$. Store these products in $N(j,u)$ so that it is the set of $k$ most similar products to product $j$ for user $u$.
+3. Average the ratings of these products to obtain estimated rating of user $u$ on the new product $j$:
+$$
+\hat{y}\_{uj}=\frac{1}{k}\sum\_{i\in N(j,u)}y\_{ui}
+$$
+- Cons: Each movie in the top-$k$ list is weighted equally.
+
+<br><br>
+
+Soft K-NN: same algorithm but using $s_{ij}$ (the similarity score between $i$ and $j$):
+$$
+\hat{y}\_{uj}=\frac{\sum\_{i\in N(j,u)}s\_{ij}y\_{ui}}{\sum\_{i\in N(j,u)}s\_{ij}}
+$$
+<br><br>
+
+K-NN with baseline off: same algorithm but subtracting off $b\_{uj}$ (the baseline rating. e.g., mean rating of user $u$, mean rating of product $j$)):
+$$
+\hat{y}\_{uj}=b\_{uj}+\frac{\sum\_{i\in N(j,u)}s\_{ij}(y\_{ui}-b\_{ui})}{\sum\_{i\in N(j,u)}s\_{ij}}
+$$
+- Pros:
+    - Reduce bias (some users may just on average give higher scores,and they want to distill rating as a relative metric for how much a user liked a movie)
+
+- Cons: 
+    - Similar products may be redundant
+    - Less similar products got more shrunk towards the baseline
+
+<br><br>
+
+K-NN + Regression: same algorithm but using regression weights $w\_{ij}$ instead of similarity (weights measure how much the rating of $i$ tells you about the rating of $j$):
+$$
+\hat{y}\_{uj}=b\_{uj}+\sum\_{i\in N(j,u)}w\_{ij}(y\_{ui}-b\_{ui})
+$$
+
+- Cons: need to find $w_{ij}$ via seeing other user ratings $y_{vi}$ from users $v$ $\rightarrow$ need to compare every user to find most similar users $\rightarrow$ high computational cost
+
+
+## Matrix Factorization (Collaborative Filtering)
+Idea: Factor the rating matrix $R$ into user matrix and product matrix of the same hidden space.
+
+Model:
+$$
+R=PQ^T
+$$
+- $P$: user matrix of shape $m\times h$, where $m$ is $\\#$users and $h$ is $\\#$hidden factors (just like PC scores)
+- $Q$: product matrix of shape $n\times h$, where $n$ is $\\#$hidden factors (just like PCs/loadings)
+
+Prediction: Given a user with params $\textbf{p}_u$ and a product with learned features $\textbf{q}_i$, predict rating $\textbf{p}_u\textbf{q}_i^T$.
+
+Objective: minimize reconstruction error + L2 penalty:
+$$
+\mathcal{L}=\sum\_{(u,i)\in K}[(y\_{ui}-\textbf{p}_u\textbf{q}_i^T)^2+\lambda(||\textbf{p}_u||_2^2+||\textbf{q}_i||_2^2)]
+$$
+- Further regularizations: 
+    - Non-Negative Matrix Factorization (NNMF): force all elements of $P\\&Q$ non-negative. (canNOT be an alternative to PCA because not orthogonal!)
+    - Locally weighted matrix factorization: $\mathcal{L}=\sum\_{(u,i)\in K}[s\_{ij}(y\_{ui}-\textbf{p}_u\textbf{q}_i^T)^2+\lambda(||\textbf{p}_u||_2^2+||\textbf{q}_i||_2^2)]$
+
+Optimization:
+- Alternating least squares (BAD): fix $P$, solve $Q$, fix $Q$, solve $P$, ...
+- **Collaborative Filtering**: simultaneously estimate both parameters with GD:
+    1. Init $P\\&Q$ to small random values.
+    2. GD (need to modify notifications):
+    $$\begin{align*}
+    &x_k^{(i)}\leftarrow x_k^{(i)}-\alpha\left(\sum_{j:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)\theta_k^{(j)}}+\lambda x_k^{(i)}\right)\\\\
+    &\theta_k^{(j)}\leftarrow \theta_k^{(j)}-\alpha\left(\sum_{i:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)x_k^{(i)}}+\lambda\theta_k^{(j)}\right)
+    \end{align*}$$
+
+Cons:
+- High computational cost
+- Cannot handle out-of-sample users and products (i.e., new ones)
+
+<!-- **Content-based recommendation**:
+- Used when content features $x^{(i)}$ are directly available.
+- LinReg L2 Objective:
+    $$
+    \mathcal{L}=\frac{1}{2m^{(j)}}\sum_{j=1}^{n_u}\sum_{i:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)^2}+\frac{\lambda}{2m^{(j)}}\sum_{j=1}^{n_u}||\theta^{(j)}||_2^2
+    $$
+
+**User-based recommendation**:
+- Used when user vectors $\theta^{(j)}$ are directly available.
+- LinReg L2 Objective:
+    $$
+    \mathcal{L}=\frac{1}{2m^{(j)}}\sum_{i=1}^{n_p}\sum_{j:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)^2}+\frac{\lambda}{2m^{(j)}}\sum_{i=1}^{n_p}||x^{(i)}||_2^2
+    $$ -->
+
+<!-- **Collaborative Filtering**:
+- 2 problems:
+    - Given $x^{(1)},\cdots,x^{(n_p)}$, estimate $\theta^{(1)},\cdots,\theta^{(n_u)}$.
+    - Given $\theta^{(1)},\cdots,\theta^{(n_u)}$, estimate $x^{(1)},\cdots,x^{(n_p)}$.
+- Back&Forth Switch (BAD): guess $\theta$, learn $x$, update $\theta$, update $x$, update $\theta$, update $x$, ......
+- Simultaneous Objective:
+$$
+J(X,\Theta)=\frac{1}{2}\sum_{(i,j):r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)^2}+\frac{\lambda}{2m^{(j)}}\sum_{i=1}^{n_p}||x^{(i)}||_2^2+\frac{\lambda}{2m^{(j)}}\sum_{j=1}^{n_u}||\theta^{(j)}||_2^2
+$$
+    - $X=[x^{(1)},\cdots,x^{(n_p)}]$, shape $(n_p,n)$
+    - $\Theta=[\theta^{(1)},\cdots,\theta^{(n_u)}]$, shape $(n_u,n)$
+- Algorithm: -->
+
+# AutoML
+Problem: Automate hyperparameter tuning.
+
+AutoML automates the search for the best hyperparams in an ensemble of sklearn models / NN structures. So far, it has insane performance, is less likely to overfit, and produces varieties of ensembles for various problem types.
+
+Yes. R.I.P. "*import sklearn*" folks.
+
+## Auto-sklearn
+Idea: Combined Algorithm Selection and Hyperparameter Optimization (CASH Opt)
+
+Overview: 15 classifiers, 14 feature preprocessing methods, 4 data preprocessing techniques $\rightarrow$ 110 hyperparams
+
+Assumption: **Similar problems need similar models.**
+
+**Warmstart/Metalearning**: start with hyperparams that worked in the past for similar datasets (38 metafeatures from 140 datasets)
+
+**Bayesian Optimization**:
+- Use a fitted random forest to find the optimal hyperparams.
+    - Fit on what: Given the problem description and hyperparams, predict how accurate they will be.
+- Discard bad values on the first fold of 10-fold CV to accelerate.
+
+**Ensemble Selection**: Stagewisely generate an ensemble of the top 50 classifiers
+- Start with an empty ensemble.
+- Iteratively add the model that minimizes ensemble validation loss, with uniform weight but allowing repetitions.
+    - Why no weight optimization? To **avoid overfitting**: We do not want perfect fitting to residuals at each step, so equal weight.
+    - The more accurate we get to, the weaker model gets added to the ensemble.
+
+**Metafeatures**: useful for assessing similarities between two problems/datasets.
+- $\\#$samples, $\\#$features
+- $\\#$missing
+- Fraction of Numerical/Categorical features
+- Data transformations
+- Exploratory statistics
+- PCs, entropy, ...
+- The modern way: Use **language embeddings** from text descriptions of problems to pick hyperparams
+    1. Generate/Acquire vector embeddings of dataset title, description and keywords.
+    2. Calculate similarity between past datasets and new dataset (the similarity metric here is learnt in advance).
+    3. Find the most similar prior dataset and use its hyperparams.
+
+**Nested CV**: further reduction in overfitting
+1. For each of 10 folds on the selected 90% data, do 10-fold CV to find the best method.
+2. Observe performance on the held-out 10%.
+
+Pros:
+- Bye sklearn!
+
+Cons:
+- (weak) High computational cost (BUT it is worth it)
+- Limited to sklearn (i.e., tabular data)
+- Unstable in rare cases (still need DS folks to monitor at the moment)
+
+## AutoDL
+Idea: Use RL to search for the best NN architecture.
+- Search in the embedding space of PyTorch code and do GD on it. Generate tons of them and see which ones are good, like states in RL.
+- Why RL instead of other search algorithms? We want only a little exploration and most exploitation.
+
+Agent: a controller RNN which generates sequence of characters (Python code).
+- Action: text specifying the NN structure.
+
+Environment: train a NN with architecture $A$ to get accuracy/reward $R$.
+
+Agent $\rightarrow$ Environment: sample architecture $A$ with probability $p$.
+
+Environment $\rightarrow$ Agent: compute gradient of $p$ and scale it by $R$ to update the controller's policy.
+
+Pros & Cons: still in progress.
