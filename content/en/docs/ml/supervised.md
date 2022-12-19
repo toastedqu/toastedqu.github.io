@@ -186,14 +186,19 @@ Idea: choose a decision boundary that maximizes the soft margin between classes.
 Background:
 - **Primal vs Dual**: Primal form operates in the feature space $X^TX$, while Dual form operates in the sample space $XX^T$ (i.e., Kernel Matrix)
     - The params in Primal and Dual are transferable: $\textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i$
+    - Pros of Dual vs Primal:
+        - Sparsity
+        - = Weighted combination of support vectors
+        - Allow the usage of Kernel Trick
 - **Hard margin vs Soft margin**: Hard margin does NOT accept any misclassification (thus prone to overfitting), while Soft margin allows some misclassifications (thus regularization).
+- Support vectors will always be on the margin for linearly seperable data BUT NOT for inseperable data (samples on the wrong side or even within the margin are also SVs in this case).
 
 Model/Prediction: linear classifier
 $$
 \hat{y}_i=\text{sign}(\textbf{w}^T\phi(\textbf{x}_i))
 $$
 
-Objective: Hinge Loss
+Objective: Hinge Loss + L2 Penalty (can use other losses or penalties but rare)
 - Primal (Linear):
 $$\begin{align*}
 \min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
@@ -219,7 +224,9 @@ $$\begin{align*}
 & \alpha_i\leq C
 \end{align*}$$
 
-Optimization: Decomposition (quadratic programming), Closed-form, GD, etc.
+Optimization:
+- Param Estimation: Decomposition (quadratic programming), Closed-form, GD, etc.
+- Hyperparam Tuning: $C$ tells SVM how much misclassification to avoid. The larger $C$, a smaller-margin hyperplane will be chosen. The smaller $C$, a larger-margin hyperplane will be chosen.
 
 Pros:
 - Good performance on high-dimensional and non-linearly separable data (with Kernel trick)
@@ -326,6 +333,57 @@ KNN vs KernelReg:
 |          Scale variant         |               Scale variant               |
 
 </center>
+
+# Naive Bayes
+Assumption: Features are **conditionally independent** of each other given the label:
+$$
+P(x_{i1},\cdots,x_{in}|y_i=k)=\prod_{j=1}^{n}P(x_{ij}|y_i=k)
+$$
+
+Model/Algorithm:
+1. Build a feature space (e.g., vocabulary) $\mathcal{V}$ from training set (where each feature (e.g., word) takes a YES/NO binary value in text classification)
+2. Estimate $P(k)$ for all $k\in\\{1,\cdots,K\\}$:
+$$
+P(k)=\frac{\\#\\{Y=k\\}}{m}
+$$
+where $\\#\\{Y=k\\}$ is #samples of class $k$.
+3. Estimate $P(X_j=v|k)$ for all $v\in\mathcal{V}(X_j)$ for all $X_j\in\mathcal{V}$:
+$$\begin{align*}
+&\text{MLE}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}}{\\#\\{Y=k\\}}\\\\
+&\text{MAP (Laplace Smoothing)}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}+1}{\\#\\{Y=k\\}+V}
+\end{align*}$$
+where $\\#\\{X_j=v,Y=k\\}$ is #occurrences of feature-value pair $X_j=v$ in all samples of class $k$.
+
+Prediction:
+$$
+\hat{y}_i=\arg\max_k\prod\_{k\in\\{1,\cdots,K\\}}P(k)\prod\_{x\_{ij}\in\mathbf{x}_i}P(x\_{ij}|k)
+$$
+
+#params: 
+- Formula: $P(a_1,\cdots,a_n|b_1,\cdots,b_m)$: $(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j|$
+- Joint distribution if all binary: $P(x_1,\cdots,x_n|y)$: $(2^n-1)\cdot2$
+- NB if all binary: $\prod_{j=1}^{n}P(x_j|y)$: $2n$ (a significant reduction in #params)
+- NB if arbitrary: $\prod_{j=1}^{n}P(x_j|y)$: $O((|X|-1)n)$ (again, a significant reduction in #params)
+
+Objective: 0-1
+
+Optimization: none
+
+Pros: 
+- Easy, Fast, Simple
+- Significant reduction in #params with CI assumption
+- Robust to outliers and noisy data
+- Low computational cost
+- No overfitting (only overfit in a sense of never seeing a feature value in a test set)
+- Scale invariant
+- Can handle real-time prediction very easily
+- Widely used in spam detection or text classification in general
+- Great performance on small datasets (better than LogReg)
+
+Cons:
+- Assumption of feature independence fails in real life
+- Worse performance on large datasets (worse than LogReg)
+- Very low accuracy in terms of output probability estimates
 
 # Decision Tree
 Idea: build a tree where each node is a feature split to classify data points into different leaf outputs.
@@ -444,6 +502,10 @@ Model/Algorithm:
 
 Prediction: Take a majority/average vote of all trees.
 
+Objective:
+- Loss: any
+- Regularization: increase #trees
+
 Pros:
 - Reduce overfitting in decision tree & much more accurate than a single decision tree
 - Flexible to both categorical & numerical outputs
@@ -509,6 +571,10 @@ Model/Algorithm:
 2. Train a tree (#leaves < $m$) on the residuals. Scale it with a fixed learning rate.
 3. Combine leaf (and previous trees) and current tree to make new predictions on the same data. Calculate new residuals.
 4. Repeat Steps 2-3 till limit.
+
+Objective:
+- Loss: arbitrary
+- Regularization: smaller learning rate (i.e., multiplicative shrinking of the weight on the weak learner), bootstrapping.
 
 Optimization (Hyperparams):
 - #stages: $T$
@@ -622,187 +688,91 @@ Gradient Boosting Comparisons:
 </center>
 
 # Online Learning
+In comparison to batch learning which can be extremely expensive for big datasets, online learning is easy in a map-reduce environment.
 
+Online learning is like SGD where we learn only on a single sample each time.
+
+Common Pros:
+- Extreme flexibility
+- Extremely fast in terms of reaching optimum
+- The only door towards continual learning so far
+
+Common Cons:
+- Catastrophic forgetting (The model forgets what it learnt before)
+- Highly noisy convergence (might not converge due to frequent updates)
 
 ## Least Mean Squares
+Idea: Fit LinReg on each observation sequentially.
+
+Model: LinReg
+
+Objective: $\mathcal{L}=(y_i-\textbf{w}^T\textbf{x}_i)^2$
+
+Optimization: SGD
+$$
+\textbf{w}_{i+1}=\textbf{w}_i-\frac{\eta}{2}\frac{\partial\mathcal{L}}{\partial\textbf{w}_i}=\textbf{w}_i+\eta(y_i-\textbf{w}^T\textbf{x}_i)\textbf{x}_i
+$$
+- This algorithm is guaranteed to converge for $\eta\in(0,\lambda_{\max})$, where $\lambda_{\max}$ is the largest eigenvalue of $X^TX$.
+- The convergence rate is proportional to $\frac{\lambda_{\min}}{\lambda_{\max}}$ (i.e., ratio of extreme eigenvalues of $X^TX$).
 
 ## Perceptron
+Idea: Fit a linear classifier on each observation sequentially.
 
-# Generative Models
+Model: linear classifier
+- Binary: $\hat{y}_i=\text{sign}(\textbf{w}^T\textbf{x}_i)$
+- Multiclass: $\hat{y}_i=\arg\max_k\textbf{w}_k^T\textbf{x}_i$
 
-The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
+Objective: $\mathcal{L}=(y_i-\hat{y}_i)^2$
 
-Discriminative models predict label given sample features, but Generative models uses a completely different thinking process, where we
-1) propose/calculate the prior of labels $P(Y)$, using relevant params for the prior distribution,
-2) calculate the likelihood of the current combination of values of sample features given the label $P(X_1,\cdots,X_n|Y)$, using relevant params for the likelihood distribution,
-3) calculate $P(X,Y)=P(Y)P(X_1,\cdots,X_n|Y)$ for generation;
-    
-    calculate $P(Y|X)\propto P(Y)P(X_1,\cdots,X_n|Y)$ for discrimination.
-
-During training, we estimate the params which maximize the combination of prior distribution $\times$ likelihood distribution.
-
-During Prediction, we directly use those params to either generate samples or compute label for the given sample.
-
-The following models are already abandoned in practice because of neural nets, but the ideas behind them are still important for forming a deep understanding of ML.
-
-## Naive Bayes
-
-Assumption: Features are **conditionally independent** of each other given the label:
+Optimization: SGD
+- Binary:
 $$
-P(x_{i1},\cdots,x_{in}|y_i=k)=\prod_{j=1}^{n}P(x_{ij}|y_i=k)
+\textbf{w}_{i+1}=\textbf{w}_i+\frac{1}{2}(y_i-\text{sign}(\textbf{w}^T\textbf{x}_i))\textbf{x}_i=\textbf{w}_i+y_i\textbf{x}_i
 $$
-
-Model/Algorithm:
-1. Build a feature space (e.g., vocabulary) $\mathcal{V}$ from training set (where each feature (e.g., word) takes a YES/NO binary value in text classification)
-2. Estimate $P(k)$ for all $k\in\\{1,\cdots,K\\}$:
-$$
-P(k)=\frac{\\#\\{Y=k\\}}{m}
-$$
-where $\\#\\{Y=k\\}$ is #samples of class $k$.
-3. Estimate $P(X_j=v|k)$ for all $v\in\mathcal{V}(X_j)$ for all $X_j\in\mathcal{V}$:
-$$\begin{align*}
-&\text{MLE}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}}{\\#\\{Y=k\\}}\\\\
-&\text{MAP (Laplace Smoothing)}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}+1}{\\#\\{Y=k\\}+V}
-\end{align*}$$
-where $\\#\\{X_j=v,Y=k\\}$ is #occurrences of feature-value pair $X_j=v$ in all samples of class $k$.
-
-Prediction:
-$$
-\hat{y}_i=\arg\max_k\prod\_{k\in\\{1,\cdots,K\\}}P(k)\prod\_{x\_{ij}\in\mathbf{x}_i}P(x\_{ij}|k)
-$$
-
-#params: 
-- Formula: $P(a_1,\cdots,a_n|b_1,\cdots,b_m)$: $(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j|$
-- Joint distribution if all binary: $P(x_1,\cdots,x_n|y)$: $(2^n-1)\cdot2$
-- NB if all binary: $\prod_{j=1}^{n}P(x_j|y)$: $2n$ (a significant reduction in #params)
-- NB if arbitrary: $\prod_{j=1}^{n}P(x_j|y)$: $O((|X|-1)n)$ (again, a significant reduction in #params)
-
-Objective: 0-1
-
-Optimization: none
-
-Pros: 
-- Easy, Fast, Simple
-- Significant reduction in #params with CI assumption
-- Robust to outliers and noisy data
-- Low computational cost
-- No overfitting (only overfit in a sense of never seeing a feature value in a test set)
-- Scale invariant
-- Can handle real-time prediction very easily
-- Widely used in spam detection or text classification in general
-
-Cons:
-- Assumption of feature independence fails in real life
-- Very low accuracy in terms of output probability estimates
-
-## Latent Dirichlet Allocation
-
-Usage: Topic Modeling
-
-Background:
-- Multinomial (like Binomial) distribution models the outcomes of a series of i.i.d. experiments (e.g., dice rolling).
-- Dirichlet (like Beta) distribution models probability vectors.
-- We do not know anything about the probabilities of each outcome at the beginning (i.e., the params of Multinomial distribution), so we use Dirichlet distribution to offer us a prior over these params.
-- Therefore, Dirichlet (like Beta) distribution is a conjugate prior for Multinomial (like Binomial) distribution.
-
-Model/Algorithm: For each document $d$,
-1. Choose its topic distribution $\boldsymbol{\theta}_d\sim\text{Dirichlet}(\alpha)$, where $\theta\_{dk}=p(\text{topic}=k|\text{document}=d)$
-2. For each word $w_j$ in $d$:
-    1. Choose this word's topic $z_{dj}\sim\text{Multinomial}(\boldsymbol{\theta}_d)$
-    2. Choose a word $w_j\sim\text{Multinomial}(\beta_{z_{dj}})$ where $\beta_{z_{dj}}=p(w_j|z_{dj})$
-
-Objective: 0-1
-
-Optimization: EM (Variational EM in practice)
-- E-step: Compute $p(\boldsymbol{\theta},\textbf{z}|d;\alpha,\boldsymbol{\beta})$ (posterior of hidden vars $(\boldsymbol{\theta},\textbf{z})$ given each document $d$)
-- M-step: Estimate params $(\alpha,\boldsymbol{\beta})$ given posterior estimates
-
-Naive Bayes vs LDA:
-- Naive Bayes assumes each doc is on a single topic.
-- LDA allows each doc to be a mixture of topics (i.e., each word can be on a different topic).
-
-Pros: 
-- Discovery of implicit topics that were not explicit in the documents
-- Applicable on semi-supervised learning
-
-Cons:
-- High computational cost (Param Estimation is a bit messy)
-- Low interpretability
-
-## Hidden Markov Model
-
-Usage: Seq2Seq Synthesis (Speech recognition, POS Tagging, Named Entity Recognition, etc.)
-
-Assumptions:
-- Markov Assumption: $P(X_t|X_{t-1},\cdots,X_1)=P(X_t|X_{t-1})$
-- Stationarity: Transition matrix and emission probabilities stay the same over time.
-
-Model:
-1. Start in some initial state $s_i$ with probability $p(s_i)=\pi$.
-2. Move to a new state $s_j$ with probability $p(s_j|s_i)=a_{ij}$, where $a_{ij}$ is a cell value in transition matrix $A$.
-3. Emit an observation $x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a lookup value in emission probability function $B(x_v,s_i)$.
-
-Optimization:
-1. Evaluation: compute $P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
-2. Decoding: find the best $S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
-3. Learning: estimate $(A,B,\pi)$ which maximize $P(X|A,B,\pi)$.
+    - $\eta=\frac{1}{2}$
+    - If we get it correct, no update at all because the residual is 0.
+    - If we get it wrong, drop weights for negative samples and raise weights for positive samples.
+- Multiclass: Similar to Binary but raise the weight vector for the actual class and reduce the weight vector for the predicted wrong class.
 
 Pros:
-- Can handle inputs of variable lengths
-- Efficient learning
-- Wild range of applications (until DL bloomed)
+- Guaranteed to converge to a solution if samples are **linearly separable**
+    - #mistakes before convergence is always less than $\frac{\max_i||\textbf{x}_i||_2}{\gamma}$.
+    - Numerator: size of the biggest sample.
+    - Denominator: margin of the decision boundary ($\gamma>0$ if linearly separable; $\gamma<y_i\textbf{w}_*^T\textbf{x}_i$)
 
 Cons:
-- A large number of unstructured params
-- Limited by Markov Assumption
-- No dependency between hidden states
-- Completely destroyed by DL
+- Highly unstable and bounce around if samples are not linearly separable
 
+Variations:
+- **Voted Perceptron**: Perceptron but keep track of all the intermediate models and take a majority vote during prediction.
+- **Averaged Perceptron**: Voted Perceptron but take an average vote during prediction.
+- Pros:
+    - Better generalization performance than perceptron
+    - Same training time as perceptron
+    - Nearly as good as SVM
+    - Can use the Kernel Trick to replace dot product with Kernel
+- Cons:
+    - Higher memory cost
+    - Higher inference cost
+- Further variations: different ways to tune $\eta$. (standard chooses $\eta=1$, alternatives chooses $\eta$ to maximize margin)
 
-## Bayesian Network
+## Passive Aggressive
+Idea: Perceptron but minimizing **hinge loss** (i.e., maximize margin)
 
-Usage: compact specification of full joint distributions with CI assertions using Conditional Probability Table (CPT)
+Model: Perceptron
 
-Background:
-- CI properties:
-    - Symmetry: $(X\perp Y|Z)\rightarrow(Y\perp X|Z)$
-    - Decomposition: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z)$
-    - Weak union: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W)$
-    - Contraction: $(X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z)$
-    - $P(X|Y)+P(X|\neg Y)\neq1$ (they are NOT related)
-    - $P(X|Y)+P(\neg X|Y)=1$
-- **Active Trail** (in an acyclic graph): for each consecutive triplet in the trail:
-    - $X\rightarrow Y\rightarrow Z$ and $Y$ is NOT observed.
-    - $X\leftarrow Y\rightarrow Z$ and $Y$ is NOT observed.
-    - $X\rightarrow Y\leftarrow Z$ and $Y$ or one of its descendants IS observed.
-- If there is NO active trail between $X$ and $Y$, then they are CI.
-- D-separation: block a trail.
-- NB = basic BayesNet with 1 parent (label) and multiple children (features)
-- Complexity scales exponentially with #parents; Complexity scales linearly with #children.
+Objective: Hinge loss
+$$
+\mathcal{L}=\begin{cases}
+0 & \text{ if }y_i\textbf{w}^T\textbf{x}_i\geq1 \\\\
+1-y_i\textbf{w}^T\textbf{x}_i & \text{ if }y_i\textbf{w}^T\textbf{x}_i<1
+\end{cases}
+$$
 
-Assumption: A variable $X$ is independent of its non-descendants given its parents (Local Markov Assumption)
-
-Model/Algorithm: Graph (built from data/people, or automatic search)
-
-Objective: NLL or 0-1
-
-Optimization:
-- Annealing (if all vars are observable):
-    1. Estimate params from data.
-    2. Randomly change the net structure by one link.
-    3. Re-estimate params.
-    4. Accept change if lower loss, else repeat Step 2-4.
-- EM (if hidden vars exist):
-    1. Assuming priors onto the latent variables, estimate params from data (CPT).
-    2. With the params (probabilities), estimate expected values of the latent variables.
-
-Pros:
-- Guaranteed to be a consistent specification
-- Clear visualization of conditional independence (a compact representation of joint distributions)
-- Nets that capture causality tend to be sparser
-- Easy estimation when everything is observable and when the net structure is available
-
-Cons:
-- There is still no universal method for constructing BayesNet from data (require serious search if net structure is unknown)
-- Fail to define cyclic relationships
-- bad performance on high-dimensional data
+Optimization: Margin-Infused Relaxed Algorithm (MIRA)
+- If correct classification with a margin of at least 1, no change.
+- If wrong,
+$$
+\textbf{w}_{i+1}=\textbf{w}_i+\frac{\mathcal{L}}{||\textbf{x}_i||^2}y_i\textbf{x}_i
+$$
+- MIRA attempts to make the smallest changes to the weight vector(s) by moving the hyperplane to include the new sample point onto the margin, therefore maximizing the margin for the entire dataset.

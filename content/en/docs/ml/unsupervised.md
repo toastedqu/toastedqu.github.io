@@ -160,10 +160,13 @@ Cons:
 - Very situational (e.g. cannot be applied on NLP because 1) covariance matrix is useless 2) it breaks sparse structure of words)
 
 ## Independent Component Analysis
+Idea: find an embedding so that different features are "deconfounded" (i.e., as independent as possible from each other).
+
 tbd
 
 ## Autoencoder
-Idea: Use unsupervised NNs to learn latent representations via reconstruction. (Semi-supervised learning)
+Idea: Use unsupervised NNs to **learn latent representations** via reconstruction. (Semi-supervised learning)
+- The goal of AE is NOT to reconstruct the input as accurately as possible but to LEARN major features from it. Reconstruction is only an objective for the learning process.
 
 Model: NN
 - **Denoising AE**: add noise to the input and try to output the original image (to avoid perfect fitting)
@@ -204,9 +207,13 @@ $$
 
 Objective: reconstruction error: $\mathcal{L}=\sum_{i=1}^m\sum_{k=1}^Kr\_{ik}||\textbf{x}_i-\boldsymbol{\mu}_k||_2^2$
 
+Optimization:
+- Objective minimization: Greedy (because this objective is NP-hard to optimize)
+- Hyperparameter tuning: choose the elbow point in the "reconstruction error vs $\\#$clusters" graph.
+
 Pros:
 - Simple. Interpretable
-- Guarantee convergence
+- Guarantee convergence in a finite number of iterations
 - Flexible re-training
 - Generalize to any type/shape/size of clusters
 - Suitable for large datasets
@@ -259,14 +266,25 @@ class KMeans:
 ```
 
 ## Gaussian Mixture Model
-Idea: clustering but deterministic $\textbf{1}\\{c_i=k\\}$ $\rightarrow$ stochastic $\mathbb{E}[\textbf{1}\\{z_i=k\\}]=P(z_i=k|\textbf{x}_i)$ (denoted as $r\_{ik}$)
+Idea: clustering but deterministic $r\_{ik}=\textbf{1}\\{c_i=k\\}$ $\rightarrow$ stochastic $r\_{ik}=\mathbb{E}[\textbf{1}\\{z_i=k\\}]=P(z_i=k|\textbf{x}_i)$.
+
+Background: Shapes of clusters are determined by the properties of their covariance matrices.
+- **Shared Spherical**: #params=1, same $\sigma^2$ for all features, all features independent, same $\Sigma$ for all clusters.
+    - K-means = GMM with $N(\boldsymbol{\mu}_k,\sigma^2I)$
+- **Spherical**: #params=$k$, same $\sigma^2$ for all features, all features independent, diff $\Sigma_k$ for all clusters.
+- **Shared Diagonal**: #params=$n$, diff $\sigma_k^2$ for all features, all features independent, same $\Sigma$ for all clusters.
+- **Diagonal**: #params=$kn$, diff $\sigma_k^2$ for all features, all features independent, diff $\Sigma_k$ for all clusters. 
+- **Shared Full Covariance**: #params=$\frac{n(n+1)}{2}$, same $\Sigma$ for all clusters. 
+- **Full Covariance**: #params=$\frac{kn(n+1)}{2}$, diff $\Sigma_k$ for all clusters. 
 
 Assumptions:
 - There exists a latent variable $z\in\\{1,\cdots,K\\}$ representing the index of the Gaussian distribution in the mixture.
 
-Model: Generative: $P(\mathbf{x}_i,z_i)=P(\mathbf{x}_i|z_i)P(z_i)$, where
+Model: $P(\mathbf{x}_i,z_i)=P(\mathbf{x}_i|z_i)P(z_i)$, where
 - $z_i\sim\text{Multinomial}(\boldsymbol{\phi})$, $\boldsymbol{\phi}\in\mathbb{R}^{K}$
 - $(\mathbf{x}_i|z_i=k)\sim N(\boldsymbol{\mu}_k,\Sigma_k)$, $\boldsymbol{\mu}_k\in\mathbb{R}^n,\Sigma_k\in\mathbb{R}^{n\times n}$
+
+#params: $(K-1)+Kn+K\frac{n(n+1)}{2}$
 
 Optimization: EM
 1. Init distributions for prior $P(z_i)$ and likelihood $P(\mathbf{x}_i|z_i)$
@@ -274,7 +292,7 @@ Optimization: EM
 $$
 r\_{ik}=P(z_i=k|\textbf{x}_i)=\frac{P(\textbf{x}_i|z_i=k)P(z_i=k)}{\sum\_{k=1}^{K}P(\textbf{x}_i|z_i=k)P(z_i=k)}
 $$
-3. M-step: estimate params via MLE given $P(z_i=j|\textbf{x}_i)$:
+3. M-step: estimate params via MLE given $P(z_i=k, \textbf{x}_i)$:
 $$\begin{align*}
 \phi_k&=\frac{1}{m}\sum\_{i=1}^mr\_{ik}\\\\
 \boldsymbol{\mu}_k&=\frac{\sum\_{i=1}^mr\_{ik}\textbf{x}_i}{\sum\_{i=1}^mr\_{ik}}
@@ -289,3 +307,132 @@ Pros:
 
 Cons:
 - High computational cost
+
+# Generative Models
+The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
+
+Discriminative models predict label given sample features, but Generative models uses a completely different thinking process, where we
+1) propose/calculate the prior of labels $P(Y)$, using relevant params for the prior distribution,
+2) calculate the likelihood of the current combination of values of sample features given the label $P(X_1,\cdots,X_n|Y)$, using relevant params for the likelihood distribution,
+3) calculate $P(X,Y)=P(Y)P(X_1,\cdots,X_n|Y)$ for generation;
+    
+    calculate $P(Y|X)\propto P(Y)P(X_1,\cdots,X_n|Y)$ for discrimination.
+
+During training, we estimate the params which maximize the combination of prior distribution $\times$ likelihood distribution.
+
+During Prediction, we directly use those params to either generate samples or compute label for the given sample.
+
+The following models are already abandoned in practice because of DL, but the ideas behind them are still important for forming a deep understanding of ML.
+
+Note that Naive Bayes and GMM are also generative models. This section is more like a miscellaneous collection of Bayesian-Network-based models.
+
+## Latent Dirichlet Allocation
+Usage: Topic Modeling
+
+Background:
+- Multinomial (like Binomial) distribution models the outcomes of a series of i.i.d. experiments (e.g., dice rolling).
+- Dirichlet (like Beta) distribution models probability vectors.
+- We do not know anything about the probabilities of each outcome at the beginning (i.e., the params of Multinomial distribution), so we use Dirichlet distribution to offer us a prior over these params.
+- Therefore, Dirichlet (like Beta) distribution is a conjugate prior for Multinomial (like Binomial) distribution.
+
+Model/Algorithm: For each document $d$,
+1. Choose its topic distribution $\boldsymbol{\theta}_d\sim\text{Dirichlet}(\alpha)$, where $\theta\_{dk}=p(\text{topic}=k|\text{document}=d)$
+2. For each word $w_j$ in $d$:
+    1. Choose this word's topic $z_{dj}\sim\text{Multinomial}(\boldsymbol{\theta}_d)$
+    2. Choose a word $w_j\sim\text{Multinomial}(\beta_{z_{dj}})$ where $\beta_{z_{dj}}=p(w_j|z_{dj})$
+
+Objective: 0-1
+
+Optimization: EM (Variational EM in practice)
+- E-step: Compute $p(\boldsymbol{\theta},\textbf{z}|d;\alpha,\boldsymbol{\beta})$ (posterior of hidden vars $(\boldsymbol{\theta},\textbf{z})$ given each document $d$)
+- M-step: Estimate params $(\alpha,\boldsymbol{\beta})$ given posterior estimates
+
+Naive Bayes vs LDA:
+- Naive Bayes assumes each doc is on a single topic.
+- LDA allows each doc to be a mixture of topics (i.e., each word can be on a different topic).
+
+Pros: 
+- Discovery of implicit topics that were not explicit in the documents
+- Applicable on semi-supervised learning
+- Sometimes dimensionality reduction
+
+Cons:
+- High computational cost (Param Estimation is a bit messy)
+- Low interpretability
+
+## Hidden Markov Model
+Usage: Seq2Seq Synthesis (Speech recognition, POS Tagging, Named Entity Recognition, etc.)
+
+Assumptions:
+- Markov Assumption: $P(X_t|X_{t-1},\cdots,X_1)=P(X_t|X_{t-1})$.
+- CI Assumption: $S_t$ D-separates all $X\in\textbf{X}\_{<t}$ from all $X\in\textbf{X}\_{>t}$.
+    - The hidden state at time $t$ D-separates all emissions/observations at times before $t$ from all emissions/observations at times after $t$.
+- Stationarity: Transition matrix and emission probabilities stay the same over time.
+
+Model:
+1. Start in some initial state $s_i$ with probability $p(s_i)=\pi$.
+2. Move to a new state $s_j$ with probability $p(s_j|s_i)=a_{ij}$, where $a_{ij}$ is a cell value in transition matrix $A$.
+3. Emit an observation $x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a lookup value in emission probability function $B(x_v,s_i)$.
+
+Optimization:
+1. Evaluation: compute $P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
+2. Decoding: find the best $S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
+3. Learning: estimate $(A,B,\pi)$ which maximize $P(X|A,B,\pi)$.
+
+Pros:
+- Can handle inputs of variable lengths
+- Efficient learning
+- Wild range of applications (until DL bloomed)
+
+Cons:
+- A large number of unstructured params
+- Limited by Markov Assumption
+- No dependency between hidden states
+- Completely destroyed by DL
+
+## Bayesian Network
+Usage: compact specification of full joint distributions with CI assertions using Conditional Probability Table (CPT)
+
+Background:
+- CI properties:
+    - Symmetry: $(X\perp Y|Z)\rightarrow(Y\perp X|Z)$
+    - Decomposition: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z)$
+    - Weak union: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W)$
+    - Contraction: $(X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z)$
+    - $P(X|Y)+P(X|\neg Y)\neq1$ (they are NOT related)
+    - $P(X|Y)+P(\neg X|Y)=1$
+- **Active Trail** (in an acyclic graph): for each consecutive triplet in the trail:
+    - $X\rightarrow Y\rightarrow Z$ and $Y$ is NOT observed.
+    - $X\leftarrow Y\rightarrow Z$ and $Y$ is NOT observed.
+    - $X\rightarrow Y\leftarrow Z$ and $Y$ or one of its descendants IS observed.
+- If there is NO active trail between $X$ and $Y$, then they are CI.
+- D-separation: block a trail.
+- NB = basic BayesNet with 1 parent (label) and multiple children (features)
+- Complexity scales exponentially with #parents; Complexity scales linearly with #children.
+
+Assumption: A variable $X$ is independent of its non-descendants given its parents (Local Markov Assumption)
+
+Model/Algorithm: Graph (built from data/people, or automatic search)
+
+Objective: NLL or 0-1
+
+Optimization:
+- Annealing (if all vars are observable):
+    1. Estimate params from data.
+    2. Randomly change the net structure by one link.
+    3. Re-estimate params.
+    4. Accept change if lower loss, else repeat Step 2-4.
+- EM (if hidden vars exist):
+    1. Assuming priors onto the latent variables, estimate params from data (CPT).
+    2. With the params (probabilities), estimate expected values of the latent variables.
+
+Pros:
+- Guaranteed to be a consistent specification
+- Clear visualization of conditional independence (a compact representation of joint distributions)
+- Nets that capture causality tend to be sparser
+- Easy estimation when everything is observable and when the net structure is available
+
+Cons:
+- There is still no universal method for constructing BayesNet from data (require serious search if net structure is unknown)
+- Fail to define cyclic relationships
+- bad performance on high-dimensional data

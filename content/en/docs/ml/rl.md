@@ -12,7 +12,10 @@ RL is not my major focus, so I include its very basics as part of the ML handboo
 
 Some specifications:
 - **Model-based vs Model-free**: Model-based RL assumes a model of the environment, while Model-free RL does not.
-- **On-policy vs Off-policy**: On-policy learning follows the target policy, while Off-policy learning follows a different policy from the target policy.
+- **On-policy vs Off-policy**: On-policy learning follows the target policy ($\pi_\text{behavior}=\pi_\text{target}$), while Off-policy learning follows a different policy from the target policy ($\pi_\text{behavior}\neq\pi_\text{target}$).
+- **Episodic vs Sequential**:
+    - Episodic environment: a discrete process where RL is divided into a series of **independent** episodes (i.e., epochs). The agent updates its policy AFTER finishing each episode. The goal is to maximize cumulative reward over all episodes, thus **discount factor is usually set to 1**.
+    - Sequential environment: a continuous process where each current action affects future actions. The agent updates it policy DURING the process. The goal is to maximize the expected future rewards of the current process, thus discount factor matters.
 
 Overview:
 <center>
@@ -61,7 +64,7 @@ Q_{\*}(s,a)=\max_\pi Q_\pi(s,a)=\sum_{s',r}p(s',r|s,a)[r+\gamma\max_{a'}Q_{\*}(s
 $$
 
 Dynamic Programming:
-- **Policy Evaluation**: compute $V_\pi$ for input policy $\pi$
+- **Policy Evaluation**: compute $V_\pi$ for input policy $\pi$ (time complexity: $O(|\mathcal{S}|^2|\mathcal{A}|)$)
     - Init $V(s); \pi(s); \epsilon; \Delta=0$
     - Repeat until $\Delta<\epsilon$ (i.e., convergence: $\lim_{k\rightarrow\infty}\\{V_k\\}=V_\pi$):
         - For $s\in\mathcal{S}$:
@@ -96,7 +99,7 @@ $\epsilon$-greedy:
 - A simple annealing schedule: $\epsilon_t=\frac{n_0}{n_0+\text{visits}(s_t)}$, where $n_0$ is a hyperparam.
 
 ## Temporal Difference Learning
-Idea: learn from current predictions rather than waiting till termination.
+Idea: learn from current predictions rather than waiting till termination. (a weighted average between previous and current values)
 
 ### TD(0)
 Algorithm (TD(0). i.e., one-step look-ahead):
@@ -145,6 +148,7 @@ Pros:
 
 Cons:
 - High bias
+- Sensitive to initial Q values
 - Easy online learning
 - Necessary for non-episodic tasks
 - Faster convergence than MC on stochastic tasks
@@ -163,6 +167,7 @@ Algorithm:
 Pros:
 - Lower bias compared to Q-learning
 - Less sensitive to initial Q values
+- Monte Carlo Tree Search is widely used in the most successful game playing methods
 
 Cons:
 - Higher variance compared to Q-learning

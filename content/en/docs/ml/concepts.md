@@ -17,7 +17,6 @@ weight: 100
 4. **Optimization Method**
     - Parameter estimation
     - Hyperparameter tuning
-5. **Evaluation & Selection**
 
 <!-- 
 ## Types
@@ -372,6 +371,7 @@ Usage: anywhere necessary to calculate difference between true and predicted pro
 - Regularization reduces overfitting by adding our prior belief onto loss minimization (i.e., MAP estimate). Such prior belief is associated with our expectation of test error.
 - Regularization makes a model inconsistent, biased, and scale variant.
 - Regularization requires extra hyperparameter tuning.
+- Regularization has a weaker effect on the model (params) as the sample size increases, because more info become available from the data.
 
 ## Explicit (Penalty)
 
@@ -484,12 +484,26 @@ tbd
 The word "Learning" in ML is literally just parameter estimation (i.e., objective optimization). Pure statistics. Don't be fooled.
 
 ## Gradient Descent
-Gradient Descent is THE rule of thumb for all parametric models (and even some non-parametric models like gradient boosting are also inspired by GD). In fact, ML is Gradient Descent. Sorry.
+The rule of thumb of all parameter estimation methods in ML.
+
+Cons:
+- Cannot find global minimum if 1) step size is bad 2) objective is not convex
 
 tbd
 
 ## Expectation-Maximization
-tbd
+Idea: learn model (do MLE/MAP on params) with latent variables (NOT explicit for GMM).
+
+Method: 
+1. Init params $\Theta$ for prior $P(z)$ and likelihood $P(\mathcal{D}|z)$
+2. E-step: estimate $P(z|\mathcal{D})$ given params $\Theta$.
+    - Estimate the expected value of the latent variables given the current estimates of the model params and the data.
+3. M-step: estimate $\Theta$ via "$\arg\max_\Theta P(z|\mathcal{D})$" (MLE) or "$\arg\max_\Theta P(z,\mathcal{D})$" (MAP).
+    - Estimate the model params through MLE or MAP on the expected value of the complete data likelihood.
+4. Repeat Step 2-3 until convergence.
+
+Pros:
+- Offer estimates for both latent variables and model params
 
 # Hyperparameter Tuning
 tbd
