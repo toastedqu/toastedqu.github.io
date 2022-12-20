@@ -191,7 +191,8 @@ Background:
         - = Weighted combination of support vectors
         - Allow the usage of Kernel Trick
 - **Hard margin vs Soft margin**: Hard margin does NOT accept any misclassification (thus prone to overfitting), while Soft margin allows some misclassifications (thus regularization).
-- Support vectors will always be on the margin for linearly seperable data BUT NOT for inseperable data (samples on the wrong side or even within the margin are also SVs in this case).
+- Support vectors are 1) on the margin 2) on the wrong side 3) within the margin.
+- In linearly separable case, the decision boundary with the maximal margin is unique.
 
 Model/Prediction: linear classifier
 $$
@@ -360,6 +361,7 @@ $$
 $$
 
 #params: 
+- For binary/multinomial $P(x|y=k)$: (#values of x)-1
 - Formula: $P(a_1,\cdots,a_n|b_1,\cdots,b_m)$: $(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j|$
 - Joint distribution if all binary: $P(x_1,\cdots,x_n|y)$: $(2^n-1)\cdot2$
 - NB if all binary: $\prod_{j=1}^{n}P(x_j|y)$: $2n$ (a significant reduction in #params)
@@ -549,6 +551,7 @@ Pros:
 - Fewer hyperparameters than other models
 
 Cons:
+- Guaranteed perfect fitting (training error=0) if infinite epochs
 - Sensitive to outliers and noisy data
 - Slower and generally worse performance than Gradient Boosting
 

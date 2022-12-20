@@ -40,7 +40,6 @@ Idea: Decompose a data matrix into a rotating, scaling, and second rotating matr
 Usage: Null space determination, Pseudoinverse calculation, Least squares model fitting, Eigenwords, Recommender Systems
 - **Pseudo-inverse**: find the "inverse" of a rectangular matrix.
     - e.g., LinReg: $X^+=(X^TX)^{-1}X^T$
-- **Power Method**: find the largest eigenvalue/eigenvector by continuously multiplying this matrix on an arbitrary vector.
 - **Eigenword**: project high-dimensional context to low-dimensional space, assuming **distributional similarity** (i.e., words with similar contexts have similar meanings).
     - Similar words are close in this low-dimensional space.
     - Left singular vectors = Eigenwords (i.e., word embeddings)
@@ -68,6 +67,9 @@ $$
 
 (**Thin SVD**): use the best rank $k$ approximation to represent the matrix: $X\approx U_kD_kV_k^T$
 
+Optimization: **Power Method**: estimate the largest eigenvalue/eigenvector by continuously multiplying this matrix on an arbitrary vector.
+- Guaranteed to find global optimum in reconstruction error.
+
 Pros:
 - Wide range of applications
 - Data compression
@@ -83,15 +85,18 @@ Idea:
 Background:
 - Properties of orthonormal basis: $\textbf{u}_i^T\textbf{u}_j=0,\textbf{u}_i^T\textbf{u}_i=1$.
 - Any sample vector can be expressed in terms of coefficients (scores) on eigenvectors (loadings): $\textbf{x}_i=\sum\_{j=1}^nz\_{ij}\textbf{u}_j$.
-- The projected point (coefficients) of the original sample onto the new basis can be calculated inversely: $z\_{ij}=\textbf{x}_i^T\textbf{u}_j$.
+<!-- - The projected point (coefficients) of the original sample onto the new basis can be calculated inversely: $z\_{ij}=\textbf{x}_i^T\textbf{u}_j$. -->
+- The projected point (coefficients) of the original sample onto the new basis can be calculated inversely: $\text{proj}_{\textbf{u}}\textbf{x}=\frac{\textbf{x}\cdot\textbf{u}}{||\textbf{u}||^2}\textbf{u}$.
+    - NOTE: the projected new points can still be correlated with each other. ONLY their basis are independent. Therefore, variance is still not 1 even if you standardize data.
 - $D_{ii}=\sqrt{\Lambda_{ii}}$
+- Demean/Standardization should NOT be done on sparse data.
 
 Assumptions:
 - All PCs are linear combinations of original features. (otherwise Kernel PCA)
 - Variance is a measure of how important a feature is.
 
 Model/Algorithm:
-1. Center/Demean the data into $X_c$ where each row is:
+1. Center/Demean/Standardize the data into $X_c$ where each row is:
 $$
 \textbf{x}_i\leftarrow\textbf{x}_i-\frac{1}{m}\sum\_{i=1}^m\textbf{x}_i
 $$
@@ -308,8 +313,8 @@ Pros:
 Cons:
 - High computational cost
 
-# Generative Models
-The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
+# Bayesian Belief Networks
+<!-- The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
 
 Discriminative models predict label given sample features, but Generative models uses a completely different thinking process, where we
 1) propose/calculate the prior of labels $P(Y)$, using relevant params for the prior distribution,
@@ -324,10 +329,59 @@ During Prediction, we directly use those params to either generate samples or co
 
 The following models are already abandoned in practice because of DL, but the ideas behind them are still important for forming a deep understanding of ML.
 
-Note that Naive Bayes and GMM are also generative models. This section is more like a miscellaneous collection of Bayesian-Network-based models.
+Note that Naive Bayes and GMM are also generative models. This section is more like a miscellaneous collection of Bayesian-Network-based models. -->
+
+## Bayesian Network
+Idea: compact specification of full joint distributions with CI assertions using Conditional Probability Table (CPT)
+
+Background:
+- CI properties:
+    - Symmetry: $(X\perp Y|Z)\rightarrow(Y\perp X|Z)$
+    - Decomposition: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z)$
+    - Weak union: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W)$
+    - Contraction: $(X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z)$
+    - $P(X|Y)+P(X|\neg Y)\neq1$ (they are NOT related)
+    - $P(X|Y)+P(\neg X|Y)=1$
+- **Active Trail** (in an acyclic graph): for each consecutive triplet in the trail:
+    - $X\rightarrow Y\rightarrow Z$ and $Y$ is NOT observed.
+    - $X\leftarrow Y\rightarrow Z$ and $Y$ is NOT observed.
+    - $X\rightarrow Y\leftarrow Z$ and $Y$ or one of its descendants IS observed.
+- If there is NO active trail between $X$ and $Y$, then they are CI. (i.e., **D-separation**)
+- NB = basic BayesNet with 1 parent (label) and multiple children (features)
+- Complexity scales exponentially with #parents; Complexity scales linearly with #children.
+
+Assumption: A variable $X$ is independent of its non-descendants given its parents (Local Markov Assumption)
+
+Model/Algorithm: Graph (built from data/people, or automatic search)
+
+Objective: NLL or 0-1
+
+Optimization:
+- Annealing (if all vars are observable):
+    1. Estimate params from data.
+    2. Randomly change the net structure by one link.
+    3. Re-estimate params.
+    4. Accept change if lower loss, else repeat Step 2-4.
+- EM (if hidden vars exist):
+    1. Assuming priors onto the latent variables, estimate params from data (CPT).
+    2. With the params (probabilities), estimate expected values of the latent variables.
+
+Pros:
+- Guaranteed to be a consistent specification
+- Clear visualization of conditional independence (a compact representation of joint distributions)
+- Nets that capture causality tend to be sparser
+- Easy estimation when everything is observable and when the net structure is available
+
+Cons:
+- There is still no universal method for constructing BayesNet from data (require serious search if net structure is unknown)
+- Fail to define cyclic relationships
+- bad performance on high-dimensional data
+
 
 ## Latent Dirichlet Allocation
 Usage: Topic Modeling
+
+Assumption: CI (just like NB)
 
 Background:
 - Multinomial (like Binomial) distribution models the outcomes of a series of i.i.d. experiments (e.g., dice rolling).
@@ -361,23 +415,30 @@ Cons:
 - Low interpretability
 
 ## Hidden Markov Model
+Idea: Hidden Markov Chain + Observed variables
+
 Usage: Seq2Seq Synthesis (Speech recognition, POS Tagging, Named Entity Recognition, etc.)
+- Evaluation: compute $P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
+- Decoding: find the best $S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
+    - i.e., $\arg\max\_{[s_1,\cdots,s_T]}\prod P(x_i|s_i)P(s_i|s_{i-1})$, where the first term is from emission matrix, and the second term is from transition matrix.
+- Learning: estimate $(A,B,\pi)$ which maximize $P(X;A,B,\pi)$.
+
+Background:
+- Transition Matrix: specifying transition probabilities from one state to another.
+- Emission Matrix: specifying the probabilities of each observed outcome to occur given each hidden state.
 
 Assumptions:
 - Markov Assumption: $P(X_t|X_{t-1},\cdots,X_1)=P(X_t|X_{t-1})$.
 - CI Assumption: $S_t$ D-separates all $X\in\textbf{X}\_{<t}$ from all $X\in\textbf{X}\_{>t}$.
     - The hidden state at time $t$ D-separates all emissions/observations at times before $t$ from all emissions/observations at times after $t$.
+    - The future is independent of the past given the present.
 - Stationarity: Transition matrix and emission probabilities stay the same over time.
 
 Model:
 1. Start in some initial state $s_i$ with probability $p(s_i)=\pi$.
 2. Move to a new state $s_j$ with probability $p(s_j|s_i)=a_{ij}$, where $a_{ij}$ is a cell value in transition matrix $A$.
-3. Emit an observation $x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a lookup value in emission probability function $B(x_v,s_i)$.
+3. Emit an observation $x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a cell value in emission matrix $B$.
 
-Optimization:
-1. Evaluation: compute $P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
-2. Decoding: find the best $S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi)$.
-3. Learning: estimate $(A,B,\pi)$ which maximize $P(X|A,B,\pi)$.
 
 Pros:
 - Can handle inputs of variable lengths
@@ -389,50 +450,3 @@ Cons:
 - Limited by Markov Assumption
 - No dependency between hidden states
 - Completely destroyed by DL
-
-## Bayesian Network
-Usage: compact specification of full joint distributions with CI assertions using Conditional Probability Table (CPT)
-
-Background:
-- CI properties:
-    - Symmetry: $(X\perp Y|Z)\rightarrow(Y\perp X|Z)$
-    - Decomposition: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z)$
-    - Weak union: $(X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W)$
-    - Contraction: $(X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z)$
-    - $P(X|Y)+P(X|\neg Y)\neq1$ (they are NOT related)
-    - $P(X|Y)+P(\neg X|Y)=1$
-- **Active Trail** (in an acyclic graph): for each consecutive triplet in the trail:
-    - $X\rightarrow Y\rightarrow Z$ and $Y$ is NOT observed.
-    - $X\leftarrow Y\rightarrow Z$ and $Y$ is NOT observed.
-    - $X\rightarrow Y\leftarrow Z$ and $Y$ or one of its descendants IS observed.
-- If there is NO active trail between $X$ and $Y$, then they are CI.
-- D-separation: block a trail.
-- NB = basic BayesNet with 1 parent (label) and multiple children (features)
-- Complexity scales exponentially with #parents; Complexity scales linearly with #children.
-
-Assumption: A variable $X$ is independent of its non-descendants given its parents (Local Markov Assumption)
-
-Model/Algorithm: Graph (built from data/people, or automatic search)
-
-Objective: NLL or 0-1
-
-Optimization:
-- Annealing (if all vars are observable):
-    1. Estimate params from data.
-    2. Randomly change the net structure by one link.
-    3. Re-estimate params.
-    4. Accept change if lower loss, else repeat Step 2-4.
-- EM (if hidden vars exist):
-    1. Assuming priors onto the latent variables, estimate params from data (CPT).
-    2. With the params (probabilities), estimate expected values of the latent variables.
-
-Pros:
-- Guaranteed to be a consistent specification
-- Clear visualization of conditional independence (a compact representation of joint distributions)
-- Nets that capture causality tend to be sparser
-- Easy estimation when everything is observable and when the net structure is available
-
-Cons:
-- There is still no universal method for constructing BayesNet from data (require serious search if net structure is unknown)
-- Fail to define cyclic relationships
-- bad performance on high-dimensional data

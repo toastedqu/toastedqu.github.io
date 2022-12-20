@@ -155,7 +155,7 @@ Types of Explanations:
 
 Measures of **Feature Importance**:
 - **Univariate Correlation**
-- **Replacement with Mean/Zero** (e.g., LIME uses Zero)
+- **Replacement with Mean/Zero** (e.g., LIME uses Zero and explains which features in a model are most important for predicting at a particular point in the training data)
 - **Permutation**
 - **Remove & Retrain**
 - **Partial Dependence Plot**: marginalize over all other features and look at the effect of the current feature (effectively assume features are independent):
