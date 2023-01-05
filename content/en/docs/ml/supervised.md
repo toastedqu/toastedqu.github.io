@@ -151,6 +151,7 @@ Cons:
 - Named regression but can only work for discrete classification
 - bad performance when $n>>m$
 - bad performance for nonlinear cases (assume linearity by log odds)
+- prioritize correctly classifying the more prevalent class, even if it means misclassifying the less prevalent class
 
 Time Complexity: Train: $O(mn)$; Test: $O(n)$
 
