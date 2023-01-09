@@ -6,24 +6,17 @@
 
 [[main]]
   name = "ML"
-  url = "/docs/ml/"
+  url = "/docs/ml/intro/"
   identifier = "ml"
   parent = "docs"
   weight = 1
 
 [[main]]
   name = "DL"
-  url = "/docs/dl/"
+  url = "/docs/dl/intro/"
   identifier = "dl"
   parent = "docs"
   weight = 2
-
-[[main]]
-  name = "RL"
-  url = "/docs/ml/rl/"
-  identifier = "rl"
-  parent = "docs"
-  weight = 3
 
 [[main]]
   name = "blog"
@@ -111,3 +104,10 @@
 #   identifier = "models"
 #   url = "/docs/ml/models/"
 #   parent = "ml"
+
+# [[main]]
+#   name = "RL"
+#   url = "/docs/ml/rl/"
+#   identifier = "rl"
+#   parent = "docs"
+#   weight = 3

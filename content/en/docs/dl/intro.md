@@ -1,14 +1,50 @@
 ---
-title : "Concepts"
+title : "Introduction"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
-draft: true
+draft: false
 images: []
 weight: 100
 ---
-## Neural Network Representation
+The following notations will be used throughout this section unless specified. **bold** letters refer to vectors, and CAP letters refer to matrices in general.
+- $m$: #samples in the input batch (i.e., batch size)
+- $n_0$: #features in the input sample
+- $n_l$: #neurons of the $l$th hidden layer (i.e., hidden size)
+- $L$: #hidden layers
+- $i$: sample index
+- $j$: feature index
+- $k$: class index
+- $l$: hidden layer index
+- $\mathcal{D}$: (training) dataset
+- $\Theta$: set of params
+- $X$: input samples of shape $(m,\cdots,n_0)$
+- $H^{[l]}$: hidden outputs of shape $(m,\cdots,n_l)$
+- $W$: weight matrix of shape $()$
+- $\textbf{W}^{[l]}=[\textbf{w}_1^{[l]},\cdots,\textbf{w}\_{n^{[l]}}^{[l]}]$: weight matrix of shape $(n^{[l-1]}, n^{[l]})$ (concat $\textbf{b}$ if bias is needed)
+- $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: actual label vector of shape $(m,1)$
+- $\hat{\mathbf{y}}=[\hat{y}_1,\cdots,\hat{y}_m]^T$: predicted label vector of shape $(m,1)$
+- $\textbf{z}$: latent variable(s), shape dependent on situations
+- ($X,Y$: occasionally used to represent feature and label as random variables)
+
+Each subsection roughly follows the order below:
+- Idea
+- Usage
+- Background
+- Assumption
+- Model/Algorithm
+- Prediction
+- Objective (mainly loss)
+- Optimization (mainly param estimation)
+- Pros
+- Cons
+- (extra)
+
+# Neural Network
+
+Most neural networks consist of 2 processes:
+- Forward Pass: at each layer, calculate $H^{[l]}=$
 
 <center><img src="../../images/DL/NN.png" width="400"/></center>
 

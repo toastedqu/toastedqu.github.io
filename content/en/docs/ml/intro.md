@@ -1,5 +1,5 @@
 ---
-title : "Concepts"
+title : "Introduction"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
@@ -8,15 +8,41 @@ draft: false
 images: []
 weight: 100
 ---
-This section includes fundamental concepts in ML.
+The following notations will be used throughout this section unless specified. **bold** letters refer to vectors, and CAP letters refer to matrices in general.
+- $m$: #samples in the input batch (i.e., batch size)
+- $n$: #features in the input sample
+- $i$: sample index
+- $j$: feature index
+- $k$: class index
+- $\mathcal{D}$: (training) dataset
+- $\Theta$: set of params
+- $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$ (concat $\textbf{1}$ if bias is needed)
+- $\textbf{w}=[w_1,\cdots,w_n]$: weight vector of shape $(n,1)$ (concat $b$ if bias is needed)
+- $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: actual label vector of shape $(m,1)$
+- $\hat{\mathbf{y}}=[\hat{y}_1,\cdots,\hat{y}_m]^T$: predicted label vector of shape $(m,1)$
+- $\textbf{z}$: latent variable(s), shape dependent on situations
+- ($X,Y$: occasionally used to represent feature and label as random variables)
+
+Each subsection roughly follows the order below:
+- Idea
+- Usage
+- Background
+- Assumption
+- Model/Algorithm
+- Prediction
+- Objective (mainly loss)
+- Optimization (mainly param estimation)
+- Pros
+- Cons
+- (extra)
 
 # Components of ML
 1. **Feature Representation**
-2. **Model Structure**
-3. **Objective Function**
+2. **Model**
+3. **Objective**
     - Loss function
     - Regularization
-4. **Optimization Method**
+4. **Optimization**
     - Parameter estimation
     - Hyperparameter tuning
 

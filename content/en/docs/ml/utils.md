@@ -8,7 +8,7 @@ draft: false
 images: []
 weight: 700
 ---
-<!-- 
+<!--
 ## Hyperparamater Tuning
 
 ### Cross Validation
@@ -93,10 +93,8 @@ Cons:
 
 # Loss
 Loss is a measure of difference between predicted output $\hat{y}_i$ and actual output $y_i$.
-
-Unreduced loss: $\mathcal{L}=[\mathcal{l}_1,\cdots,\mathcal{l}_m]$
-
-Reduced loss: $\mathcal{L}(\mathbf{y},\mathbf{\hat{y}})=\begin{cases}
+- Unreduced loss: $\mathcal{L}=[\mathcal{l}_1,\cdots,\mathcal{l}_m]$
+- Reduced loss: $\mathcal{L}(\mathbf{y},\mathbf{\hat{y}})=\begin{cases}
 \text{sum}(\mathcal{L})=\sum_{i=1}^{m}l_i\\\\
 \text{mean}(\mathcal{L})=\frac{1}{m}\sum_{i=1}^{m}l_i
 \end{cases}$ (can impose sample weights as well)

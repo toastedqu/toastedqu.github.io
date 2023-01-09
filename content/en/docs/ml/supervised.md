@@ -8,32 +8,9 @@ draft: false
 images: []
 weight: 300
 ---
-Common Notations:
-- $m$: #samples in the input batch
-- $n$: #features in the input sample
-- $i$: $i$th sample
-- $j$: $j$th feature
-- $k$: class $k$
-- $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$ (add $\textbf{1}$ if bias is needed)
-- $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of shape $(m,1)$
-- $\textbf{w}=[w_1,\cdots,w_n]$ (add $b$ if bias is needed)
-- $X,Y$: (occasionally) used to represent input feature and label as random variables
-
-Each subsection roughly follows this order:
-- Idea
-- Usage
-- Background
-- Assumption
-- Model/Algorithm
-- Prediction
-- Objective (mainly Loss Function)
-- Optimization (mainly Parameter Estimation)
-- Pros
-- Cons
-- (extra)
 
 # Linear Models
-- All linear models are parametric.
+All linear models are parametric.
 
 Types:
 
