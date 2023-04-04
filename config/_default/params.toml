@@ -2,9 +2,9 @@
 
 ## Homepage
 title = "Q's Handbook"
-titleSeparator = " - "
-titleAddition = "😎"
-description = "A collection of notes on AI-related topics"
+titleSeparator = ""
+titleAddition = ""
+description = "A collection of notes/papers on AI"
 
 ## Documentation
 # docsVersion = "0.3"
@@ -65,7 +65,8 @@ defaultImage = "default-image.png" # put in `./assets/images/`
 fillImage = "1270x740 Center" # normalize image size
 
 # Footer
-footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
+# footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
+footer = "© 2023 Renyi Qu"
 
 # Feed
 copyRight = "Copyright (c) 2022-2023 Renyi Qu"
