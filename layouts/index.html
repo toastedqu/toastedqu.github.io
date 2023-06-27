@@ -6,42 +6,68 @@
     </div>
     <div class="col-lg-9 col-xl-8 text-center">
       <p class="lead">{{ .Params.lead | safeHTML }}</p>
-      <!-- <a class="btn btn-primary btn-lg px-4 mb-2" href="/docs/{{ if .Site.Params.options.docsVersioning }}{{ .Site.Params.docsVersion }}/{{ end }}prologue/introduction/" role="button">{{ i18n "get-started" }}</a> -->
+      <a class="btn btn-primary btn-lg px-4 mb-2" href="https://sites.google.com/view/renyiqu" role="button">{{ "Portfolio" }}</a>
       <!-- <p class="meta">Open-source MIT Licensed. <a href="https://github.com/h-enk/doks">GitHub v{{ $data := getJSON "/package.json" }}{{ $data.version }}</a></p> -->
     </div>
   </div>
 </section>
-{{ end }}
-
-{{ define "sidebar-prefooter" }}
-  {{ if eq $.Site.Language.LanguageName "English" }}
-  <section class="section section-sm">
+<section class="section section-sm">
     <div class="container">
       <div class="row justify-content-center text-center">
         <div class="col-lg-5">
           <a href="/docs/ml/intro/"><h2 class="h4">Machine Learning 🛠️</h2></a>
         </div>
-        <div class="col-lg-5">
+        <!-- <div class="col-lg-5">
           <a href="/docs/dl/intro/"><h2 class="h4">Deep Learning 🖥️</h2></a>
         </div>
         <div class="col-lg-5">
-            <a href="/docs/ml/rl/"><h2 class="h4">Reinforcement Learning 🤖</h2></a>
-        </div>
+          <a href="/docs/ml/rl/"><h2 class="h4">Reinforcement Learning 🤖</h2></a>
+        </div> -->
       </div>
       <div class="row justify-content-center text-center">
         <div class="col-lg-5">
           <a href="/docs/nlp/intro/"><h2 class="h4">Natural Language Processing 🔣</h2></a>
         </div>
-        <div class="col-lg-5">
+        <!-- <div class="col-lg-5">
           <a href="/docs/cv/intro/"><h2 class="h4">Computer Vision 👀</h2></a>
         </div>
         <div class="col-lg-5">
           <a href="/docs/multi/"><h2 class="h4">Multimodal Learning 🎏</h2></a>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
-  {{ end }}
+{{ end }}
+
+{{ define "sidebar-prefooter" }}
+  <!-- {{ if eq $.Site.Language.LanguageName "English" }} -->
+<!-- <section class="section section-sm">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-5">
+        <a class="btn btn-color-btn-bg btn-lg px-4 mb-2" href="/docs/ml/intro/"><h2 class="h4">Machine Learning 🛠️</h2></a>
+      </div>
+      <div class="col-lg-5">
+        <a href="/docs/dl/intro/"><h2 class="h4">Deep Learning 🖥️</h2></a>
+      </div>
+      <div class="col-lg-5">
+        <a href="/docs/ml/rl/"><h2 class="h4">Reinforcement Learning 🤖</h2></a>
+      </div>
+    </div>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-5">
+        <a href="/docs/nlp/intro/"><h2 class="h4">Natural Language Processing 🔣</h2></a>
+      </div>
+      <div class="col-lg-5">
+        <a href="/docs/cv/intro/"><h2 class="h4">Computer Vision 👀</h2></a>
+      </div>
+      <div class="col-lg-5">
+        <a href="/docs/multi/"><h2 class="h4">Multimodal Learning 🎏</h2></a>
+      </div>
+    </div>
+  </div>
+</section> -->
+  <!-- {{ end }} -->
 {{ end }}
 
 {{ define "sidebar-footer" }}

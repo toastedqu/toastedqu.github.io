@@ -1,10 +1,10 @@
 # Meta Data for SEO
 
 ## Homepage
-title = "Q's Handbook"
-titleSeparator = ""
-titleAddition = ""
-description = "A collection of notes/papers on AI"
+title = "Q.AI"
+titleSeparator = "-"
+titleAddition = "♾️"
+description = "A collection of topics toward AGI"
 
 ## Documentation
 # docsVersion = "0.3"
@@ -104,7 +104,7 @@ lastMod = false
   kaTex = true
   multilingualMode = false
   docsVersioning = false
-  fullWidth = false
+  fullWidth = true
   navbarSticky = true
   toTopButton = false
   scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
