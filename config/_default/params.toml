@@ -1,7 +1,7 @@
 # Meta Data for SEO
 
 ## Homepage
-title = "Q.AI"
+title = "Q.log"
 titleSeparator = "-"
 titleAddition = "♾️"
 description = "A collection of topics toward AGI"
@@ -22,7 +22,7 @@ titleHome = "Doks Theme"
 ## JSON-LD
 schemaType = "Person"
 # schemaType = "Organization"
-schemaName = "Q's Handbook"
+schemaName = "Qlog"
 schemaAuthor = "Renyi Qu"
 # schemaAuthorTwitter = "https://twitter.com/henkverlinde"
 schemaAuthorLinkedIn = "https://www.linkedin.com/in/renyi-qu-6645a8150/"
