@@ -18,19 +18,12 @@
   parent = "docs"
   weight = 2
 
-# [[main]]
-#   name = "RL"
-#   url = "/docs/ml/rl/"
-#   identifier = "rl"
-#   parent = "docs"
-#   weight = 3
-
 [[main]]
   name = "NLP"
   url = "/docs/nlp/intro/"
   identifier = "nlp"
   parent = "docs"
-  weight = 4
+  weight = 3
 
 # [[main]]
 #   name = "CV"
@@ -38,6 +31,13 @@
 #   identifier = "CV"
 #   parent = "docs"
 #   weight = 5
+
+[[main]]
+  name = "Misc"
+  url = "/docs/misc/dsa/"
+  identifier = "misc"
+  parent = "docs"
+  weight = 10
 
 # [[main]]
 #   name = "Multimodal"

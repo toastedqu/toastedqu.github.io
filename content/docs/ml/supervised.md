@@ -8,7 +8,6 @@ draft: false
 images: []
 weight: 300
 ---
-
 # Linear Models
 All linear models are parametric.
 
@@ -63,7 +62,7 @@ $$\begin{aligned}
 &\text{OLS/MLE}:\ &&\hat{\mathbf{w}}=(X^TX)^{-1}X^T\mathbf{y} \\\\
 &\text{Ridge}:\ &&\hat{\mathbf{w}}=(X^TX+\lambda I)^{-1}X^T\mathbf{y} \\\\
 &\text{Lasso}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda\cdot\text{sign}(w_j) \\\\
-&\text{ElasticNet}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda r_1\cdot\text{sign}(w_j)+(1-\lambda r_1)w_j
+&\text{ElasticNet}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda r_1\cdot\text{sign}(w_j)+\lambda(1-r_1)w_j
 \end{aligned}$$
 
 Pros:
@@ -365,15 +364,17 @@ Cons:
 - Worse performance on large datasets (worse than LogReg)
 - Very low accuracy in terms of output probability estimates
 
+&nbsp;
+
 # Decision Tree
 Idea: build a tree where each node is a feature split to classify data points into different leaf outputs.
 
 Background:
-- Information gain: $IG(Y|X)=H(Y)-H(Y|X)$
+- **Information gain**: $IG(Y|X)=H(Y)-H(Y|X)$
     - $H(\cdot)$: Impurity measure
         - Gini: $H(Y)=\sum_{y}{p_y(1-p_y)}$
         - Entropy: $H(Y)=-\sum_{y}{p_y\log_2{p_y}}$
-- Entropy: a measure of uncertainty
+- **Entropy**: a measure of uncertainty
     - Conditional entropy (Average): $H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)}$
     - Specific conditional entropy: $H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}}$
 
@@ -456,9 +457,11 @@ def select_feature_max_IG(X_train,y_train,impurity="entropy"):
 # to be continued
 ```
 
+&nbsp;
+
 # Ensemble Methods
 - **Bootstrapping**: randomly select $fm$ samples with replacement from the original training set into subsets, where $f$ is the fraction of samples to bootstrap.
-- **Bagging** (bootstrap aggregation): bootstrap, get bunch of weak models trained on separate subsets individually, and aggregate their predictions via mean or majority.
+- **Bagging** (**b**ootstrap **agg**regat**ing**): aggregate a bunch of weak models trained on bootstrapped subsets individually.
 - **Boosting**: train multiple models sequentially and dependently.
     - Converge exponentially with #iterations.
     - Cons: Highly sensitive to outliers and noisy data.
@@ -471,13 +474,15 @@ def select_feature_max_IG(X_train,y_train,impurity="entropy"):
     - High computational cost
     - Low interpretability
 
+&nbsp;
+
 ## Random Forest
 Idea: Bagging with Decision Trees
 
 Model/Algorithm: 
 1. Bootstrap.
-2. Create a full decision tree (no pruning). On each node, randomly select $\sqrt{n}$ features from the bootstrapped subset. Find the best split.
-3. Repeat 1-2 to create a random forest till #tree limit.
+2. Create a full decision tree (no pruning). On each node, randomly select $\sqrt{n}$ features from bootstrapped subset. Find the best split.
+3. Repeat 1-2 to create a random forest till #tree reaches limit.
 4. Use out-of-bag samples to determine the accuracy of each tree.
 
 Prediction: Take a majority/average vote of all trees.
@@ -500,6 +505,8 @@ Time Complexity:
 - Train: $O(kmn\log{m})$, where $k=$ #trees
 - Test: $O(kd)$, where $d=$ max depth
 
+&nbsp;
+
 ## AdaBoost
 
 Idea: train a bunch of stumps (weak learners) sequentially and take a weighted majority vote.
@@ -516,9 +523,9 @@ w_\text{incorrect}&\leftarrow w_\text{incorrect}\cdot e^\text{Amount of Say}\\\\
 w_\text{correct}&\leftarrow w_\text{correct}\cdot e^{-\text{Amount of Say}}\\\\
 \end{align*}$$
 4. Normalize all sample weights.
-5. Select new samples based on new sample weights as probabilities with replacement to generate a new training set.
+5. Select new samples based on new sample weights as probabilities with replacement to generate a new set.
 6. Give equal sample weights to all samples in the new training set.
-7. Repeat Steps 1-6 till #stumps reach limit.
+7. Repeat Steps 1-6 till #stumps reaches limit.
 
 Prediction: Take a weighted majority vote using the Amount of Say from each stump.
 
@@ -544,18 +551,24 @@ Random Forest vs AdaBoost:
 
 </center>
 
+&nbsp;
+
 ## Gradient Boosting
 Idea: train a bunch of fixed-size trees to fit residuals sequentially. take a weighted majority vote.
 
 Model/Algorithm:
-1. Init a leaf as the average of $\mathbf{y}$. Calculate residuals.
-2. Train a tree (#leaves < $m$) on the residuals. Scale it with a fixed learning rate.
-3. Combine leaf (and previous trees) and current tree to make new predictions on the same data. Calculate new residuals.
-4. Repeat Steps 2-3 till limit.
+1. Init a constant-value leaf as initial prediction (average for reg; log-odds for cls)
+2. Train a tree (#leaves < $m$) to predict the **negative loss gradient** w.r.t. curr ensemble's predictions for each sample in the training data.
+    - **Pseudo-residuals**: negative gradients represent how far off curr predictions are from actual targets
+    - The weak learner aims to capture the patterns in the errors made by curr ensemble.
+3. Combine leaf (+ prev trees) + curr tree (scaled with a learning rate) to make new predictions on the same data. Calculate new negative loss gradients.
+4. Repeat Steps 2-3 till #trees reaches limit.
 
 Objective:
 - Loss: arbitrary
-- Regularization: smaller learning rate (i.e., multiplicative shrinking of the weight on the weak learner), bootstrapping.
+- Regularization:
+    - smaller learning rate (i.e., multiplicative shrinking of the weight on the weak learner)
+    - bootstrapping
 
 Optimization (Hyperparams):
 - #stages: $T$

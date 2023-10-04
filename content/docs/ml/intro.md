@@ -8,62 +8,160 @@ draft: false
 images: []
 weight: 100
 ---
-ML system design consists 4 parts:
+# Concepts
+**Types**:
+- **Supervised vs Unsupervised**
+    - **Supervised**: labeled - learn a mapping from input data to output labels
+    - **Unsupervised**: unlabeled - find patterns/structures/relationships in the data with no labeled output
+    - **Weakly-supervised**: partially labeled - leverage limited label info to make predictions or discover patterns
+    - **Semi-supervised**: partially labeled - use labeled data to guide learning, use unlabeled data to uncover patterns or improve model performance
+    - **Active**: continuously labeled - add most informative samples for labeling in an iterative and adaptive manner
+- **Parametric vs Nonparametric**
+    - **Parametric**: has trainable parameters
+        - Assumption: prior functional form/shape of data distribution
+        - Goal: estimate trainable parameters from data 
+        - Usage: when we have strong prior knowledge/evidence of data distribution
+        - Pros: more interpretable, require fewer data, less computational complexity
+    - **Non-Parametric**: 
+        - Assumption: n/a
+        - Goal: learn pattern based on data alone
+        - Usage: when we have complex/unknown data distribution; EDA
+        - Pros: more versatile
+- **Classification vs Regression**:
+    - Classification: a discrete set of labels
+    - Regression: a continuous range of values
+    - Cls $\rightarrow$ Reg: assign numerical values to labels, treat them as target values
+    - Reg $\rightarrow$ Cls: bucket numerical values into bins, treat them as labels
+
+&nbsp;
+
+**Ensemble**: combine a bunch of smaller models together for prediction
+- Types:
+    - **Voting**: majority vote (cls) or average vote (reg)
+    - **Bagging**: train multiple models with bootstrapped subsets of the same data
+    - **Boosting**: train sequential models where each new model focuses on the data points that the previous models got wrong. 
+    - **Stacking**: train a meta-model which takes the predictions of multiple base models as input and makes the final prediction (like an emperor).
+- Q: Why does ensembling independently trained models generally improve performance?
+- A: 
+    - **Variance Reduction**: average out different errors on different data subsets $\rightarrow$ more stable and accurate predictions 
+    - **Generalization**: reduce bias in the same way above $\rightarrow$ better balance between bias and variance $\rightarrow$ better generalization
+    - **Diversity**: if each model has its own unique strength, the result combined would be way better
+    - **Robustness to Noise & Outliers**: because they are averaged out    
+
+&nbsp;
+
+# Workflow
+A typical ML project consists of 4 parts:
 
 <center>
 <img src="/images/ml/system_design_flow.png"/>
 </center>
 
-# Problem
+## Problem
+Stage 1: **Understanding**: what inputs? what outputs? what's the purpose?
 
-1. Reword the problem: inputs? outputs? why doing this?
-2. Focus on **user experience**: user POV? user interaction? recent user experience report? company intention for users?
-3. Clarify the problem scope
-    - **Data constraints**: #samples? #features? feature types? (just get a rough idea at this step; smaller -> simpler; larger -> complex)
-    - **Model constraints**: performance or quality? interpretability? retrainability? single general or multiple specific?
-    - **Resource constraints**: time? computing resources? local or cloud?
-4. Determine the evaluation metrics
+Stage 2: **Clarification**: what's the scope of the problem?
+- **Data constraints**: (just a rough idea; smaller $\rightarrow$ simpler; larger $\rightarrow$ complex)
+    - #samples?
+    - #features?
+    - feature types? 
+- **Model constraints**:
+    - performance-first or quality-first?
+    - interpretability?
+    - retrainability?
+    - single general model or multiple specific models?
+- **Resource constraints**:
+    - time? (training, inference, retraining, project time limit, etc.)
+    - computing resources? (training, inference, retraining, etc.)
+    - local or cloud?
+
+Stage 3: **Evaluation**: how do we know if our model meets our needs?
+- **User experience**: user interaction? recent user experience report? company intention for users?
+- **Evaluation metrics**:
     - **Offline**: MSE, P/R/F1, AUC, R^2, ...
     - **Online**: usage time, usage frequency, click rate, ...
 
-# Data
+&nbsp;
 
-1. Identify **features** ($X$) and **target** ($Y$)
-    - 3 types of features: user, content, context
-    - 2 types of target: explicit (direct indicators), implicit (indirect indicators)
-2. Confirm data availability
-    - **Available**: What is available? How much is available? Annotated? How good are the annotations?
-    - **Unavailable**: What is unavailable? How expensive is data annotation? How many annotators for each sample? How to resolve annotators' disagreements? Is it possible to generate these data automatically (e.g., ChatGPT, rule-based generation, ...)
-    - **Privacy**: What user data can we access? How do we access? How do we get user feedback on the system? Online or periodic data? Anonymity? 
-    - **Logistics**: Where are the data (local or cloud)? What data structures? How big? What biases exist in such data?
-3. **Data Processing**
-4. **Feature Selection**
+## Data
+Stage 1: Identify features & targets
+- **Features** ($X$): user, content, context
+- **Targets** ($Y$): explicit (direct indicators), implicit (indirect indicators)
 
-# Modeling
+Stage 2: Confirm data availability
+- **Available**: What is available? How much is available? Annotated? How good are the annotations?
+- **Unavailable**: What is unavailable? How expensive is data annotation? How many annotators for each sample? How to resolve annotators' disagreements? Is it possible to generate these data automatically (e.g., ChatGPT, rule-based generation, etc.)
+- **Privacy**: What user data can we access? How do we access? How do we get user feedback on the system? Online or periodic data? Anonymity? 
+- **Logistics**: Where are the data (local or cloud)? What data structures? How big? What biases exist in such data?
 
-1. Give a baseline method (no model)
-2. Give an easy model
-3. Give a hard model (i.e., NNs)
+Stage 3: Data Processing
 
-For each model, specify:
+Stage 4: Feature Selection
+
+&nbsp;
+
+## Modeling
+Stage 1: baseline method (no model): random benchmark, average, etc.
+
+Stage 2: easy model
+
+Stage 3: hard model
+
+For each model, specify its:
 - Functionality
-- Assumption/Conditions (if any)
+- Assumptions (if any)
 - Pros & Cons
 - Objective & Optimization (i.e., loss & training)
 
-# Production
+**Occam's Razor**: simpler solutions are better.
+- Q: Why does it matter?
+- A: This is the fundamental principle which guides the direction of industrial ML:
+    - **Model Selection**: If a simpler model reaches comparable performance as a complex model, the simpler model wins because of its higher interpretability, fewer computational resources, faster training and easiness to debug/retrain.
+    - **Feature Selection**: If a smaller set of features reaches comparable performance as a larger set, the smaller set wins because of its higher interpretability, fewer computational resources, faster training and easiness to debug/retrain.
+    - **Generalization**: Overfitting is a core issue in ML. Regularization and simpler configs for hyperparameters are best start points to reduce overfitting and lead to better generalization toward unseen data.
+    - **Ensemble methods**: Aggregating simpler models reaches better performance than complex structures in many cases.
+- Q: Why is deep learning so popular now, despite Occam's Razor?
+- A: The rapid growth of technology opened doors for us to do more DL stuff:
+    - **Big Data**: Complex structures work better with larger #data
+    - **Computational Resources**: Nvidia is the godfather of AI development (and also a demon who led gamers to financial misery)
+    - **Transformer**: This thing is somehow OP and no one knows why, even till this day.
+    - **Transfer Learning**: You can pretrain a gigantic general-purpose model and then finetune it on specialized tasks, which is also OP.
+    - **Open-Source Communities**: Unlike CloseAI, most AI researchers/engineers are actually open about their projects and thus driving the development of complex NNs. (e.g., PyTorch, HuggingFace, etc.)
+    - **Funding**: Everyone on the Wall Street wants to put a penny on an AI startup nowadays.
 
-1. Inference location:
+&nbsp;
+
+## Production
+Production is completely different from experiments. The following factors need to be taken into account:
+1. **Inference location**:
     - local (user's phone/PC): low latency, require their memory/storage
     - server (ours): low memory/storage usage, high latency, privacy concerns
-2. Feature serving:
+2. **Feature serving**:
     - **batch features** should be handled offline and served online (i.e., need daily/weekly jobs for data generation/collection)
     - **real-time features** should be handled and served at request time (i.e., need to create a feature store to look up features at serve time; caching may be necessary) $\rightarrow$ watch out for scalability and latency.
-3. Performance Monitoring: latency, biases, data drift, CPU load, memory, ...
-4. Retrain Frequency
-5. Online A/B Testing
+3. **Performance Monitoring**: latency, biases, data drift, CPU load, memory, ...
+4. **Retrain Frequency**
+5. **Online A/B Testing**
 
-## Online A/B Testing
+Some Q&As related to production:
+- Q: Why does an ML model’s performance degrade in production?
+- A: Far too many unperceivable factors in lab experiments exist in the real world...
+    - **Data Drift**: Production data is likely different from training data. Changes in data distribution can lead to a mismatch between the model's assumptions and the real-world data.
+    - **Concept Drift**: The relationship betwee features and target can change over time, especially in a dynamic environment.
+    - **Feature Drift**: New features or feature transformation may occur irl. If feature engineering doesn't reflect these changes, RIP.
+    - **Data Quality**: Even if somehow the training data and production data follow the same distribution, missing values, outliers, and noisy data are common irl.
+    - **Scaling & Latency**: In production, the model may need to handle a much larger volume of data and respond quickly to enormous requests.
+    - **Model Versioning**: Mismatches between R&D models and deployed models can introduce inconsistencies.
+    - **Monitoring & Maintenance**: Even if you manage everything correctly by this stage, you simply have no idea when and where a random bug just appears for whatever reason.
+
+&nbsp;
+
+- Q: What problems might we run into when deploying large machine learning models?
+- A: Resource issues, latency at high data throughput, scalability, model storage, network status, frequent model updates, vulnerability to adversarial attacks, privacy concerns, compatibility, complexity in operational overhead (management of such models), regulatory compliance, low interpretability, etc.
+
+&nbsp;
+
+### Online A/B Testing
 1. **Goal**: Define the objective. (e.g., improving click-through rates, increasing sign-up rates, etc.)
     - **Significancec level** ($\alpha$): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
         - Common values: 0.05 and 0.01

@@ -43,7 +43,7 @@ Notations:
 
 ## Normalization
 
-## Batch Normalization
+### Batch Normalization
 
 $$
 Y=\gamma\frac{X-E_m[X]}{\sqrt{\mathrm{Var}_m[X]+\epsilon}}+\beta
@@ -67,7 +67,7 @@ Pros:
 Cons:
 - Dependent on batch size $\rightarrow$ ineffective for small batches
 
-## Layer Normalization
+### Layer Normalization
 
 $$
 Y=\gamma\frac{X-E_n[X]}{\sqrt{\mathrm{Var}_n[X]+\epsilon}}+\beta
