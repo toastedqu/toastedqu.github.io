@@ -125,22 +125,37 @@ def minWindow(self, s: str, t: str) -> str:
 &nbsp;
 
 ## Binary Search
-Usage: 1d array/string, search/insertion/truncation problem
+Credit to [zhijun_liao](https://leetcode.com/problems/find-k-th-smallest-pair-distance/solutions/769705/python-clear-explanation-powerful-ultimate-binary-search-template-solved-many-problems/) for helping me understand binary search a lot better.
 
-Tips:
+Binary Search is an underrated algorithm in LC because it seems so easy to understand: It splits the search space into halves, keeps the half with the target, and repeat till target. However, it is so hard to apply Binary Search in LC questions:
+- When to exit loop? (`left` < `right` or `left` <= `right`)?
+- How to init boundary `left` and `right`?
+- How to update boundary (`left = mid` / `left = mid+1`, `right = mid` / `right = mid-1`)?
+- How to define return condition `condition(mid)`?
+
+Usage: **Minimize k s.t. condition(k) is True**
+- If we can discover some kind of monotonicity, for example, if `condition(k)` is True then `condition(k + 1)` is True, then binary search.
+<!-- Tips:
 - After the WHILE loop, 
     - 'l' $\rightarrow$ *arr[0]* / *arr[len(arr)]* (the RIGHT)
-    - 'r' $\rightarrow$ *arr[0-1]* / *arr[len(arr)-1]* (the LEFT)
+    - 'r' $\rightarrow$ *arr[0-1]* / *arr[len(arr)-1]* (the LEFT) -->
 
 ```python
-def search(nums, target):
-    l,r = 0,len(nums)-1
-    while l<=r:                             # l cannot go further than r
-        mid = (l+r)//2                      # get mid
-        if nums[mid]==target: return mid    # return mid
-        elif nums[mid]<target: l = mid+1    # move l to the right if target is clearly on the right side
-        else: r = mid-1                     # move r to the left if target is clearly on the left side
-    return -1
+def binary_search(nums) -> int:
+    # Modifiable 1: design condition
+    def condition(mid) -> bool:
+        pass
+
+    # Modifiable 2: change init of boundaries (must include all elems)
+    l,r = 0,len(nums)
+
+    while l<r:
+        mid = l+(r-l)//2
+        if condition(mid): r = mid
+        else: l = mid+1
+
+    # Modifiable 3: change return value (l = minimal k satisfying condition(k))
+    return l
 ```
 
 &nbsp;

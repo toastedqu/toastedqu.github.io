@@ -25,6 +25,13 @@
   parent = "docs"
   weight = 3
 
+[[main]]
+  name = "DA"
+  url = "/docs/da/"
+  identifier = "da"
+  parent = "docs"
+  weight = 9
+
 # [[main]]
 #   name = "CV"
 #   url = "/docs/cv/intro/"
