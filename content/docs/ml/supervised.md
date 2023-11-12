@@ -80,7 +80,7 @@ Time complexity:
     - Gradient Descent: $O(mn)$
 - Test: $O(n)$
 
-Code:
+<!-- Code:
 ```python
 class LinearRegression:
     def __init__(self):
@@ -92,7 +92,8 @@ class LinearRegression:
 
     def predict(self, X):
         return np.dot(self.w, X.T)
-```
+``` -->
+&nbsp;
 
 ## Logistic Regression
 Idea: use sigmoid/softmax as link function for linear regression for classification.
@@ -124,7 +125,6 @@ Pros:
 - Easy gradient calculation
 
 Cons:
-- Named regression but can only work for discrete classification
 - bad performance when $n>>m$
 - bad performance for nonlinear cases (assume linearity by log odds)
 - prioritize correctly classifying the more prevalent class, even if it means misclassifying the less prevalent class
@@ -133,10 +133,10 @@ Time Complexity: Train: $O(mn)$; Test: $O(n)$
 
 Space Complexity: $O(n)$
 
-## Principal Component Regression
+<!-- ## Principal Component Regression
 Idea: PCA + LinReg (Semi-supervised learning)
 
-Model/Algorithm:
+Model:
 1. Do PCA on $X$ to get scores $Z$ and loadings $V$.
 2. Do OLS on projected points $Z$:
 $$
@@ -155,19 +155,24 @@ Pros:
 Cons:
 - Make LinReg scale variant
 - Sensitive to choices of PCs
-- Bad performance with nonlinear relationships (might be solvable via Kernel PCR but then there would be no need to use PCA at all)
+- Bad performance with nonlinear relationships (might be solvable via Kernel PCR but then there would be no need to use PCA at all) -->
+&nbsp;
 
 ## Support Vector Machine
 Idea: choose a decision boundary that maximizes the soft margin between classes.
 
-Background:
-- **Primal vs Dual**: Primal form operates in the feature space $X^TX$, while Dual form operates in the sample space $XX^T$ (i.e., Kernel Matrix)
-    - The params in Primal and Dual are transferable: $\textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i$
-    - Pros of Dual vs Primal:
-        - Sparsity
+Preliminaries:
+- **Primal vs Dual**
+    - Primal operates in the feature space $X^TX$
+    - Dual operates in the sample space $XX^T$ (i.e., Kernel Matrix)
+    - Params in Primal & Dual are transferable: $\textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i$
+    - Dual > Primal:
         - = Weighted combination of support vectors
-        - Allow the usage of Kernel Trick
-- **Hard margin vs Soft margin**: Hard margin does NOT accept any misclassification (thus prone to overfitting), while Soft margin allows some misclassifications (thus regularization).
+        - Sparsity
+        - Kernel Trick
+- **Hard margin vs Soft margin**
+    - Hard margin does NOT accept any misclassification $\rightarrow$ prone to overfitting
+    - Soft margin allows some misclassifications $\rightarrow$ regularization
 - Support vectors are 1) on the margin 2) on the wrong side 3) within the margin.
 - In linearly separable case, the decision boundary with the maximal margin is unique.
 
@@ -176,7 +181,7 @@ $$
 \hat{y}_i=\text{sign}(\textbf{w}^T\phi(\textbf{x}_i))
 $$
 
-Objective: Hinge Loss + L2 Penalty (can use other losses or penalties but rare)
+Objective: Hinge Loss + L2 Penalty (can use other losses/penalties but rare)
 - Primal (Linear):
 $$\begin{align*}
 \min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
@@ -224,12 +229,16 @@ Time Complexity:
 - Train: $O(m^2)$
 - Test: $O(kn)$, where $k=$ #support vectors.
 
+&nbsp;
+
+&nbsp;
+
 # Local Learning
 
 ## K Nearest Neighbors
-Idea: generate label for a sample from its $K$ nearest neighbors.
+Idea: label a sample based on its $K$ nearest neighbors.
 
-Model/Algorithm:
+Model:
 1. Calculate distance between sample point and every training point.
 2. Find the $K$ nearest neighbors with minimal distances.
 3. Take the majority vote and output it as the label for the sample point.
@@ -249,8 +258,7 @@ Time Complexity: Test: $O(kmn)$
 
 Space Complexity: $O(mn)$
 
-Code:
-
+<!-- Code:
 ```python
 ###### Scratch ######
 def distance(metric_type,v1,v2):
@@ -278,11 +286,12 @@ def KNN(X_train,y_train,samples,K=5,metric_type="L2"):
         return max(set(neighbors),key=neighbors.count)
     
     return [KNN_for_single_sample(K,metric_type,X_train,y_train,sample) for sample in samples]
-```
+``` -->
+&nbsp;
 
 ## Kernel Regression
 
-Model/Algorithm:
+Model:
 
 $$\begin{align*}
 &\text{Regression}: &&\hat{y}=\frac{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
@@ -312,13 +321,17 @@ KNN vs KernelReg:
 
 </center>
 
+&nbsp;
+
+&nbsp;
+
 # Naive Bayes
 Assumption: Features are **conditionally independent** of each other given the label:
 $$
 P(x_{i1},\cdots,x_{in}|y_i=k)=\prod_{j=1}^{n}P(x_{ij}|y_i=k)
 $$
 
-Model/Algorithm:
+Model:
 1. Build a feature space (e.g., vocabulary) $\mathcal{V}$ from training set (where each feature (e.g., word) takes a YES/NO binary value in text classification)
 2. Estimate $P(k)$ for all $k\in\\{1,\cdots,K\\}$:
 $$
@@ -366,10 +379,12 @@ Cons:
 
 &nbsp;
 
+&nbsp;
+
 # Decision Tree
 Idea: build a tree where each node is a feature split to classify data points into different leaf outputs.
 
-Background:
+Preliminaries:
 - **Information gain**: $IG(Y|X)=H(Y)-H(Y|X)$
     - $H(\cdot)$: Impurity measure
         - Gini: $H(Y)=\sum_{y}{p_y(1-p_y)}$
@@ -378,7 +393,7 @@ Background:
     - Conditional entropy (Average): $H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)}$
     - Specific conditional entropy: $H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}}$
 
-Model/Algorithm:
+Model:
 1. Calculate info gain for each feature.
 2. Select the feature that maximizes info gain as the decision threshold.
 3. Split data based on the decision. Repeat Step 1-2 until stop.
@@ -401,7 +416,7 @@ Time complexity:
 - Train: $O(mn\log{m})$
 - Test: $O(d)$, where $d=$ depth. (Ideally $O(\log{m})$ if balanced binary tree)
 
-Code:
+<!-- Code:
 ```python
 ###### SCRATCH ######
 # This scratch is only meant for binary classification.
@@ -455,7 +470,9 @@ def select_feature_max_IG(X_train,y_train,impurity="entropy"):
     return IG_cache.index(max(IG_cache))
 
 # to be continued
-```
+``` -->
+
+&nbsp;
 
 &nbsp;
 
@@ -479,7 +496,7 @@ def select_feature_max_IG(X_train,y_train,impurity="entropy"):
 ## Random Forest
 Idea: Bagging with Decision Trees
 
-Model/Algorithm: 
+Model: 
 1. Bootstrap.
 2. Create a full decision tree (no pruning). On each node, randomly select $\sqrt{n}$ features from bootstrapped subset. Find the best split.
 3. Repeat 1-2 to create a random forest till #tree reaches limit.
@@ -511,7 +528,7 @@ Time Complexity:
 
 Idea: train a bunch of stumps (weak learners) sequentially and take a weighted majority vote.
 
-Model/Algorithm:
+Model:
 1. Init all samples with equal sample weight.
 2. Find optimal feature for first stump. Calculate total error. Calculate amount of say:
 $$
@@ -556,7 +573,7 @@ Random Forest vs AdaBoost:
 ## Gradient Boosting
 Idea: train a bunch of fixed-size trees to fit residuals sequentially. take a weighted majority vote.
 
-Model/Algorithm:
+Model:
 1. Init a constant-value leaf as initial prediction (average for reg; log-odds for cls)
 2. Train a tree (#leaves < $m$) to predict the **negative loss gradient** w.r.t. curr ensemble's predictions for each sample in the training data.
     - **Pseudo-residuals**: negative gradients represent how far off curr predictions are from actual targets
@@ -602,16 +619,17 @@ AdaBoost vs Gradient Boosting:
 
 </center>
 
+&nbsp;
 
 ## XGBoost
 Idea: use a unique tree to make decisions based on similarity scores.
 
-Background:
+Preliminaries:
 - **Pre-sort algorithm**: sort samples by the feature value, then split linearly.
 - **Histogram-based algorithm**: bucket continuous feature values into discrete bins.
 - **Level-wise tree growth** (BFS)
 
-Model/Algorithm:
+Model:
 1. Calculate residuals for all samples based on current prediction. Calculate similarity score for the root node of a new tree.
 $$
 \text{Similarity}=\frac{\sum_{i=1}^{m_r}{r_i^2}}{m_r+\lambda}
@@ -645,11 +663,13 @@ Cons:
 - Bad performance on sparse and unstructured data
 - The Cons of Gradient Boosting
 
+&nbsp;
+
 ## LightGBM
 
 Idea: Gradient Boosting + GOSS + EFB
 
-Background:
+Preliminaries:
 - **GOSS (Gradient-based One-Side Sampling)**: focus more on under-trained samples without changing the original data distribution.
     1. Sort all samples based on abs(gradient). Select top $\alpha$% samples as the samples with large gradients. Keep them.
     2. Randomly sample $b$% of the remaining samples with small gradients. Amplify them with a constant $\frac{1-a}{b}$.
@@ -681,6 +701,10 @@ Gradient Boosting Comparisons:
 
 </center>
 
+&nbsp;
+
+&nbsp;
+
 # Online Learning
 In comparison to batch learning which can be extremely expensive for big datasets, online learning is easy in a map-reduce environment.
 
@@ -695,6 +719,8 @@ Common Cons:
 - Catastrophic forgetting (The model forgets what it learnt before)
 - Highly noisy convergence (might not converge due to frequent updates)
 
+&nbsp;
+
 ## Least Mean Squares
 Idea: Fit LinReg on each observation sequentially.
 
@@ -708,6 +734,8 @@ $$
 $$
 - This algorithm is guaranteed to converge for $\eta\in(0,\lambda_{\max})$, where $\lambda_{\max}$ is the largest eigenvalue of $X^TX$.
 - The convergence rate is proportional to $\frac{\lambda_{\min}}{\lambda_{\max}}$ (i.e., ratio of extreme eigenvalues of $X^TX$).
+
+&nbsp;
 
 ## Perceptron
 Idea: Fit a linear classifier on each observation sequentially.
@@ -749,6 +777,8 @@ Variations:
     - Higher memory cost
     - Higher inference cost
 - Further variations: different ways to tune $\eta$. (standard chooses $\eta=1$, alternatives chooses $\eta$ to maximize margin)
+
+&nbsp;
 
 ## Passive Aggressive
 Idea: Perceptron but minimizing **hinge loss** (i.e., maximize margin)

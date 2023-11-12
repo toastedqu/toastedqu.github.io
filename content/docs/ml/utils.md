@@ -1,5 +1,5 @@
 ---
-title : "Tools"
+title : "Utils"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
@@ -154,7 +154,7 @@ l_i=\begin{cases}
 \end{cases}, y_i\in\\{-1,1\\}
 $$
 
-Usage: rare
+Usage: Naive Bayes
 
 Cons:
 - Penalize all incorrect predictions equally
@@ -264,7 +264,7 @@ plt.show()
 ``` -->
 
 <center>
-<img src="/images/ml_concepts/loss.png" width="500"/>
+<img src="/images/ml/loss.png" width="500"/>
 </center>
 
 ### Cross Entropy
@@ -289,6 +289,10 @@ l_i=y_i\log\frac{y_i}{\hat{y}_i}
 $$
 
 Usage: anywhere necessary to calculate difference between true and predicted probability distributions (i.e., information loss)
+
+&nbsp;
+
+&nbsp;
 
 # Regularization
 
@@ -417,6 +421,10 @@ Common Cons:
 ## Implicit
 tbd
 
+&nbsp;
+
+&nbsp;
+
 # Parameter Optimization
 The word "Learning" in ML is literally just parameter estimation (i.e., objective optimization). Pure statistics.
 
@@ -461,6 +469,10 @@ Pros:
 Cons:
 - NOT guaranteed to find optimum
 
+&nbsp;
+
+&nbsp;
+
 # Hyperparameter Tuning
 tbd
 
@@ -500,6 +512,9 @@ An example of confusion matrix for binary classification:
 - **ROC** (Receiver Operating Curve): plot of TPR vs FPR
 - **AUC** (Area Under Curve): area under ROC curve
 
+&nbsp;
+
+&nbsp;
 
 # Distance & Similarity
 

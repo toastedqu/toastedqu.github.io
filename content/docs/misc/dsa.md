@@ -9,13 +9,6 @@ images: []
 weight: 100
 ---
 # Array
-| Action        | Time |
-|---------------|----|
-| access()      | O(1) |
-| mutate()      | O(n) (begin/mid)<br>O(1) (end) |
-| two pointer   | O(n) |
-| binary search | O(logn) |
-| merge intervals | O(n) |
 
 ## Two Pointer
 
@@ -50,7 +43,7 @@ def longestMountain(self, arr: List[int]) -> int:
 &nbsp;
 
 ### Slow & Fast
-Usage: 1d array/string/, uni-directional problem
+Usage: 1d array/string, uni-directional problem
 
 Idea:
 1. 'fast' pointer for iteration, 'slow' pointer for operation (threshold, comparison, etc.)
@@ -188,11 +181,6 @@ def merge(self, intervals):
 &nbsp;
 
 # Stack & Queue
-| Action        | Time |
-|---------------|----|
-| top() / topleft() | O(1) |
-| pop() / popleft() | O(1) |
-| append()   | O(1) |
 
 &nbsp;
 

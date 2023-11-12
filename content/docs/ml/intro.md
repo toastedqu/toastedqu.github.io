@@ -8,48 +8,6 @@ draft: false
 images: []
 weight: 100
 ---
-# Concepts
-**Types**:
-- **Supervised vs Unsupervised**
-    - **Supervised**: labeled - learn a mapping from input data to output labels
-    - **Unsupervised**: unlabeled - find patterns/structures/relationships in the data with no labeled output
-    - **Weakly-supervised**: partially labeled - leverage limited label info to make predictions or discover patterns
-    - **Semi-supervised**: partially labeled - use labeled data to guide learning, use unlabeled data to uncover patterns or improve model performance
-    - **Active**: continuously labeled - add most informative samples for labeling in an iterative and adaptive manner
-- **Parametric vs Nonparametric**
-    - **Parametric**: has trainable parameters
-        - Assumption: prior functional form/shape of data distribution
-        - Goal: estimate trainable parameters from data 
-        - Usage: when we have strong prior knowledge/evidence of data distribution
-        - Pros: more interpretable, require fewer data, less computational complexity
-    - **Non-Parametric**: 
-        - Assumption: n/a
-        - Goal: learn pattern based on data alone
-        - Usage: when we have complex/unknown data distribution; EDA
-        - Pros: more versatile
-- **Classification vs Regression**:
-    - Classification: a discrete set of labels
-    - Regression: a continuous range of values
-    - Cls $\rightarrow$ Reg: assign numerical values to labels, treat them as target values
-    - Reg $\rightarrow$ Cls: bucket numerical values into bins, treat them as labels
-
-&nbsp;
-
-**Ensemble**: combine a bunch of smaller models together for prediction
-- Types:
-    - **Voting**: majority vote (cls) or average vote (reg)
-    - **Bagging**: train multiple models with bootstrapped subsets of the same data
-    - **Boosting**: train sequential models where each new model focuses on the data points that the previous models got wrong. 
-    - **Stacking**: train a meta-model which takes the predictions of multiple base models as input and makes the final prediction (like an emperor).
-- Q: Why does ensembling independently trained models generally improve performance?
-- A: 
-    - **Variance Reduction**: average out different errors on different data subsets $\rightarrow$ more stable and accurate predictions 
-    - **Generalization**: reduce bias in the same way above $\rightarrow$ better balance between bias and variance $\rightarrow$ better generalization
-    - **Diversity**: if each model has its own unique strength, the result combined would be way better
-    - **Robustness to Noise & Outliers**: because they are averaged out    
-
-&nbsp;
-
 # Workflow
 A typical ML project consists of 4 parts:
 
@@ -58,7 +16,7 @@ A typical ML project consists of 4 parts:
 </center>
 
 ## Problem
-Stage 1: **Understanding**: what inputs? what outputs? what's the purpose?
+Stage 1: **Understanding**: what's the purpose? what inputs? what outputs?
 
 Stage 2: **Clarification**: what's the scope of the problem?
 - **Data constraints**: (just a rough idea; smaller $\rightarrow$ simpler; larger $\rightarrow$ complex)
@@ -76,7 +34,7 @@ Stage 2: **Clarification**: what's the scope of the problem?
     - local or cloud?
 
 Stage 3: **Evaluation**: how do we know if our model meets our needs?
-- **User experience**: user interaction? recent user experience report? company intention for users?
+- **User experience**: user interaction? recent user experience report? company intention for users? personalization?
 - **Evaluation metrics**:
     - **Offline**: MSE, P/R/F1, AUC, R^2, ...
     - **Online**: usage time, usage frequency, click rate, ...
@@ -163,7 +121,7 @@ Some Q&As related to production:
 
 ### Online A/B Testing
 1. **Goal**: Define the objective. (e.g., improving click-through rates, increasing sign-up rates, etc.)
-    - **Significancec level** ($\alpha$): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
+    - **Significance level** ($\alpha$): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
         - Common values: 0.05 and 0.01
         - A lower $\alpha$ makes it more challenging to detect difference
     - **Power** ($1-\beta$): probability of correctly rejecting $H_0$ when it is false, meaning the ability to detect a meaningful difference when it exists
@@ -197,3 +155,45 @@ $$n=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\time
 <t>
 
 5. **Measurement & Analysis**: Track and record user interactions, events, or conversions for both the control and treatment groups.  Compare the performance of the control and treatment groups using statistical analysis. Determine if there is a statistically significant difference in the metrics you are measuring between the variations.
+
+&nbsp;
+
+# Concepts
+**Types**:
+- **Supervised vs Unsupervised**
+    - **Supervised**: labeled - learn a mapping from input data to output labels
+    - **Unsupervised**: unlabeled - find patterns/structures/relationships in the data with no labeled output
+    - **Weakly-supervised**: partially labeled - leverage limited label info to make predictions or discover patterns
+    - **Semi-supervised**: partially labeled - use labeled data to guide learning, use unlabeled data to uncover patterns or improve model performance
+    - **Active**: continuously labeled - add most informative samples for labeling in an iterative and adaptive manner
+- **Parametric vs Nonparametric**
+    - **Parametric**: has trainable parameters
+        - Assumption: prior functional form/shape of data distribution
+        - Goal: estimate trainable parameters from data 
+        - Usage: when we have strong prior knowledge/evidence of data distribution
+        - Pros: more interpretable, require fewer data, less computational complexity
+    - **Non-Parametric**: 
+        - Assumption: n/a
+        - Goal: learn pattern based on data alone
+        - Usage: when we have complex/unknown data distribution; EDA
+        - Pros: more versatile
+- **Classification vs Regression**:
+    - Classification: a discrete set of labels
+    - Regression: a continuous range of values
+    - Cls $\rightarrow$ Reg: assign numerical values to labels, treat them as target values
+    - Reg $\rightarrow$ Cls: bucket numerical values into bins, treat them as labels
+
+&nbsp;
+
+**Ensemble**: combine a bunch of smaller models together for prediction
+- Types:
+    - **Voting**: majority vote (cls) or average vote (reg)
+    - **Bagging**: train multiple models with bootstrapped subsets of the same data
+    - **Boosting**: train sequential models where each new model focuses on the data points that the previous models got wrong. 
+    - **Stacking**: train a meta-model which takes the predictions of multiple base models as input and makes the final prediction (like an emperor).
+- Q: Why does ensembling independently trained models generally improve performance?
+- A: 
+    - **Variance Reduction**: average out different errors on different data subsets $\rightarrow$ more stable and accurate predictions 
+    - **Generalization**: reduce bias in the same way above $\rightarrow$ better balance between bias and variance $\rightarrow$ better generalization
+    - **Diversity**: if each model has its own unique strength, the result combined would be way better
+    - **Robustness to Noise & Outliers**: because they are averaged out    
