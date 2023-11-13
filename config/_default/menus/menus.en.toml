@@ -25,19 +25,12 @@
   parent = "docs"
   weight = 3
 
-# [[main]]
-#   name = "DA"
-#   url = "/docs/da/"
-#   identifier = "da"
-#   parent = "docs"
-#   weight = 9
-
-# [[main]]
-#   name = "CV"
-#   url = "/docs/cv/intro/"
-#   identifier = "CV"
-#   parent = "docs"
-#   weight = 5
+[[main]]
+  name = "Applications"
+  url = "/docs/app/intro/"
+  identifier = "app"
+  parent = "docs"
+  weight = 4
 
 [[main]]
   name = "Misc"

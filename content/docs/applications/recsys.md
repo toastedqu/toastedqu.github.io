@@ -1,5 +1,5 @@
 ---
-title : "Introduction"
+title : "Recommender Systems"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
@@ -14,10 +14,7 @@ Objective: suggest relevant items to users by leveraging feature engineering tec
 
 Categories:
 - **Personalized**: predict the next item for an individual user based on their past preferences and behaviors
-    - **Collaborative Filtering**: make automatic predictions (Filtering) about the interests of a user by collecting preferences from many users (Collaborative)
-        - **Memory-based**: 
-        - **Model-based**:
-        - **Context-aware**: 
+    - **Collaborative Filtering**: make automatic predictions (Filtering) about the interests of a user by collecting preferences from many users (Collaborative) 
     - **Content-based**: classify items based on their attribute information and provide recommendations accordingly
     - **Knowledge-based**: use knowledge extracted from user profiles or public data to provide more suitable recommendations
     - **Hybrid**: a mix of the above
@@ -58,6 +55,49 @@ Cons:
 - Sparsity in the interaction matrix makes the prediction more susceptible to errors
 - Huge computational cost in similarity calculation in large-scale scenarios
 
+### K-NN
+Algorithm (K-NN):
+1. Find all products $i$ that user $u$ has rated.
+2. Find the top $k$ most similar products to the target product $j$ using K-NN
+$$\begin{align*}
+&\text{Euclidean Distance}: &&d(\textbf{y}_i,\textbf{y}_j)=\frac{\sum\_{u\in U(i,j)}(y\_{ui}-y\_{uj})^2}{|U(i,j)|} \\\\
+&\text{Cosine Similarity}: &&\cos(\textbf{y}_i,\textbf{y}_j)=\frac{\sum\_{u\in U(i,j)}(y\_{ui}y\_{uj})}{||\textbf{y}_i|| ||\textbf{y}_j||}
+\end{align*}$$
+where $U(i,j)$ is the set of users who have rated both product $i$ and $j$. Store these products in $N(j,u)$ so that it is the set of $k$ most similar products to product $j$ for user $u$.
+3. Average the ratings of these products to obtain estimated rating of user $u$ on the new product $j$:
+$$
+\hat{y}\_{uj}=\frac{1}{k}\sum\_{i\in N(j,u)}y\_{ui}
+$$
+- Cons: Each movie in the top-$k$ list is weighted equally.
+
+<br><br>
+
+Soft K-NN: same algorithm but using $s_{ij}$ (the similarity score between $i$ and $j$):
+$$
+\hat{y}\_{uj}=\frac{\sum\_{i\in N(j,u)}s\_{ij}y\_{ui}}{\sum\_{i\in N(j,u)}s\_{ij}}
+$$
+<br><br>
+
+K-NN with baseline off: same algorithm but subtracting off $b\_{uj}$ (the baseline rating. e.g., mean rating of user $u$, mean rating of product $j$)):
+$$
+\hat{y}\_{uj}=b\_{uj}+\frac{\sum\_{i\in N(j,u)}s\_{ij}(y\_{ui}-b\_{ui})}{\sum\_{i\in N(j,u)}s\_{ij}}
+$$
+- Pros:
+    - Reduce bias (some users may just on average give higher scores,and they want to distill rating as a relative metric for how much a user liked a movie)
+
+- Cons: 
+    - Similar products may be redundant
+    - Less similar products got more shrunk towards the baseline
+
+<br><br>
+
+K-NN + Regression: same algorithm but using regression weights $w\_{ij}$ instead of similarity (weights measure how much the rating of $i$ tells you about the rating of $j$):
+$$
+\hat{y}\_{uj}=b\_{uj}+\sum\_{i\in N(j,u)}w\_{ij}(y\_{ui}-b\_{ui})
+$$
+
+- Cons: need to find $w_{ij}$ via seeing other user ratings $y_{vi}$ from users $v$ $\rightarrow$ need to compare every user to find most similar users $\rightarrow$ high computational cost
+
 &nbsp;
 
 ## Model-based CF
@@ -74,7 +114,40 @@ Objective:
 Problem: Sparsity in user-item interaction data is a huge issue in real-world recommendation tasks
 
 Solution: Matrix Factorization
-- e.g., Factorization Machine, Non-Negative Matrix Factorization, etc., 
+- e.g., Factorization Machine, Non-Negative Matrix Factorization, etc.
+
+Idea: Factor the rating matrix $R$ into user matrix and product matrix of the same hidden space.
+
+Model:
+$$
+R=PQ^T
+$$
+- $P$: user matrix of shape $m\times h$, where $m$ is $\\#$users and $h$ is $\\#$hidden factors (just like PC scores)
+- $Q$: product matrix of shape $n\times h$, where $n$ is $\\#$hidden factors (just like PCs/loadings)
+
+Prediction: Given a user with params $\textbf{p}_u$ and a product with learned features $\textbf{q}_i$, predict rating $\textbf{p}_u\textbf{q}_i^T$.
+
+Objective: minimize reconstruction error + L2 penalty:
+$$
+\mathcal{L}=\sum\_{(u,i)\in K}[(y\_{ui}-\textbf{p}_u\textbf{q}_i^T)^2+\lambda(||\textbf{p}_u||_2^2+||\textbf{q}_i||_2^2)]
+$$
+- Further regularizations: 
+    - Non-Negative Matrix Factorization (NNMF): force all elements of $P\\&Q$ non-negative. (canNOT be an alternative to PCA because not orthogonal!)
+    - Locally weighted matrix factorization: $\mathcal{L}=\sum\_{(u,i)\in K}[s\_{ij}(y\_{ui}-\textbf{p}_u\textbf{q}_i^T)^2+\lambda(||\textbf{p}_u||_2^2+||\textbf{q}_i||_2^2)]$
+
+Optimization:
+- Alternating least squares (BAD): fix $P$, solve $Q$, fix $Q$, solve $P$, ...
+- **Collaborative Filtering**: simultaneously estimate both parameters with GD:
+    1. Init $P\\&Q$ to small random values.
+    2. GD (need to modify notifications):
+    $$\begin{align*}
+    &x_k^{(i)}\leftarrow x_k^{(i)}-\alpha\left(\sum_{j:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)\theta_k^{(j)}}+\lambda x_k^{(i)}\right)\\\\
+    &\theta_k^{(j)}\leftarrow \theta_k^{(j)}-\alpha\left(\sum_{i:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)x_k^{(i)}}+\lambda\theta_k^{(j)}\right)
+    \end{align*}$$
+
+Cons:
+- High computational cost
+- Cannot handle out-of-sample users and products (i.e., new ones)
 
 &nbsp;
 

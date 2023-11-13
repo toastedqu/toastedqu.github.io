@@ -1,5 +1,5 @@
 ---
-title : "Coding"
+title : "DS/A"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
@@ -8,10 +8,91 @@ draft: false
 images: []
 weight: 100
 ---
+# Interview
+A DS/A interview consists of the following steps:
+
+## Problem
+ALWAYS understand the problem first!
+- What are some naive examples?
+- What data structure(s) are used in this problem?
+    - Is it just a 1D array/string?
+    - Does it specify the data structure (e.g., Tree)?
+    - Does the problem involve relations between entities (Graph)?
+    - ...
+- What algorithm pattern(s) can be applied to this problem?
+    - Are we trying to find something in a sequence (Binary Search)?
+    - Is the problem recursive (DFS & BFS)?
+    - ...
+- By the end of this stage, you should have a rough idea of how to approach this problem.
+    - If you don't, you are dead. Go home. Grind leetcode.
+
+ASK clarification questions!
+- Confirm the **TYPE & ROLE & DIMENSION** of EACH element in EACH **input & output**.
+- Is the input guaranteed to be **VALID**?
+- Is the input **SORTED**?
+- Is the input **UNIQUE**?
+- What's the input **RANGE**?
+- Is the output a **full structure** or just some **counter**?
+- Construct **edge cases**, which can be used as test cases later.
+- Draw a **PAIR OF EXAMPLES** (positive & negative) to the interviewer to confirm your understanding.
+    - These examples shall be **specific, sufficiently large, mediocre**.
+
+&nbsp;
+
+## Discussion
+ALWAYS **COMMUNICATE** with your interviewer!
+- State **Brute-Force** first. Talk about its time & space.
+- Do NOT code YET.
+- Optimize BUDs in naive solution: **Bottlenecks, Unnecessary work, Duplicated work**.
+- Look for any **unused info**. Use it!
+- Do NOT code YET.
+- **Walk through** your entire approach in detail with the interviewer.
+
+When stuck,
+- Use **HashMap**!
+- Try to solve for **base cases**.
+- Try to solve **subproblems**.
+- Try other DS/As.
+
+&nbsp;
+
+## Data Structure
+Identify which data structures are potentially useful.
+- Storage:
+    - **Array**: store index-specific values.
+    - **HashSet**: store unique values, ignore duplicates, reduce search time to $O(1)$.
+    - **HashMap**: store mapping of 2 different entities (e.g., `defaultdict(list), defaultdict(set), Counter()`)
+- Process:
+    - **Stack**: process things backward (DFS).
+    - **Queue**: process things forward (BFS).
+    - **Heap**: store & sort, find min/max at each step.
+- Question-specific:
+    - **LinkedList**: (I personally suck at it. FML if I get asked about this.)
+    - **Tree**: DFS & BFS, sometimes Trie.
+    - **Graph**: involve relationships between entities.
+
+The single most powerful trick for any non-specific question is:
+
+<center>Use <strong>HashMap</strong> when in doubt.</center>
+
+&nbsp;
+
+## Implement & Test
+- Walk through your code on your own.
+- Modify unusual parts.
+- Check null nodes.
+- Test small mediocre cases.
+- Test edge cases.
+- Test special cases.
+- Fix bugs whenever necessary.
+- Be ready to discuss time & space.
+
+&nbsp;
+
+&nbsp;
+
 # Array
-
 ## Two Pointer
-
 ### Left & Right
 Usage: 1d array/string, bi-directional problem
 
@@ -181,9 +262,6 @@ def merge(self, intervals):
 &nbsp;
 
 # Stack & Queue
-
-&nbsp;
-
 ## Monotonic Stack
 Usage: increasing/decreasing trend
 
@@ -212,7 +290,7 @@ def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
 &nbsp;
 
 # Linked List
-Usage: linked list
+Usage: linked list (idk why it's so hard, and idc.)
 
 Tips:
 - Carefully keep track of what your "prev" and "curr" pointers are doing at every single step.
@@ -232,7 +310,6 @@ def reverseList(self, head):
 &nbsp;
 
 # Tree
-
 ## DFS
 Usage: longest/specific search problems
 
@@ -345,8 +422,6 @@ class MedianFinder:
 | Prim's MST               | O(V$^2$logV) | set, heap                    |
 | Kruskal's MST            | O(ElogE)     | array, tree                  |
 | Floyd Warshall           | O(n$^3$)     | matrix                       |
-
-&nbsp;
 
 ## DFS
 ```python
