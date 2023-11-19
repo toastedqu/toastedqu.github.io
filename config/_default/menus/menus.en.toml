@@ -20,7 +20,7 @@
 
 [[main]]
   name = "NLP"
-  url = "/docs/nlp/intro/"
+  url = "/docs/nlp/lm/"
   identifier = "nlp"
   parent = "docs"
   weight = 3
