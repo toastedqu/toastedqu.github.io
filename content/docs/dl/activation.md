@@ -4,9 +4,9 @@ description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
-draft: false
+draft: true
 images: []
-weight: 300
+weight: 3
 ---
 An activation function adds nonlinearity to the output of a layer (linear in most cases) to enhance complexity.
 

@@ -6,14 +6,16 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 200
+weight: 2
 ---
 A layer is fundamentally a function that transforms input $X$ into output $Y$.
+
+This page assumes no activation.
 
 # Basics
 ## Linear
 $$
-Y=\sigma(XW^T+\textbf{b})
+Y=XW^T+\textbf{b}
 $$
 
 Idea: linear transformation
@@ -23,8 +25,6 @@ Notations:
 - $Y$: output tensor of shape $(*, H_{out})$
 - $W$: weight matrix of shape $(H_{out}, H_{in})$
 - $\textbf{b}$: bias vector of size $(H_{out})$
-
-&nbsp;
 
 ## Dropout
 $$
@@ -38,7 +38,15 @@ Notations:
 - $Y$: output tensor of the input shape
 - $p\in(0,1)$: dropout probability
 
-&nbsp;
+## Residual Block (ResNet)
+$$
+Y\leftarrow Y+X
+$$
+
+Idea: add input to output
+- reduce vanishing gradient problem
+- allow parametrization for the identity function $f(X)=X$
+- add complexity in the simplest way
 
 ## Normalization
 ### Batch Normalization
@@ -64,8 +72,6 @@ Pros:
 Cons:
 - Dependent on batch size $\rightarrow$ ineffective for small batches
 
-&nbsp;
-
 ### Layer Normalization
 $$
 Y=\gamma\frac{X-E_n[X]}{\sqrt{\mathrm{Var}_n[X]+\epsilon}}+\beta
@@ -87,9 +93,7 @@ Pros:
 
 &nbsp;
 
-&nbsp;
-
-# CNN Layers
+# CNN
 ## Convolution
 $$
 Y_{ij}=\sum_{c=0}^{C_{in}-1}W_{jc}\ast X_{ic}+\textbf{b}_j
@@ -110,8 +114,6 @@ Notations:
 - $i\in[1,m]$: sample index
 - $j\in[1,C_{out}]$: out channel index
 
-&nbsp;
-
 ## Pooling
 ### Max Pooling
 $$
@@ -128,8 +130,6 @@ Notations:
 - $(H_{out},W_{out})=\left(\lfloor\frac{H_{in}+2p}{H_{filt}}\rfloor, \lfloor\frac{W_{in}+2p}{W_{filt}}\rfloor\right)$ (stride size is filter size in pooling)
 - $p$: padding size
 
-&nbsp;
-
 ### Average Pooling
 $$
 Y_{ijhw}=\frac{1}{H_{filt}W_{filt}}\sum_{u=0}^{H_{filt}-1}\sum_{v=0}^{W_{filt}-1}X_{ij,H_{filt}*h+u,W_{filt}*w+u}
@@ -145,11 +145,14 @@ Notations:
 - $(H_{out},W_{out})=\left(\lfloor\frac{H_{in}+2p}{H_{filt}}\rfloor, \lfloor\frac{W_{in}+2p}{W_{filt}}\rfloor\right)$ (stride size is filter size in pooling)
 - $p$: padding size
 
-&nbsp;
+## NiN block (Network in Network)
+Idea: 1$\times$1 convs (+ global average pooling)
+- significantly improve computational efficiency while keeping the matrix size
+- and at the same time add local nonlinearities across channel activations
 
 &nbsp;
 
-# RNN Layers
+# RNN
 ## RNN
 
 <center>
@@ -176,8 +179,6 @@ Cons:
 - Short-term memory: hard to carry info from earlier steps to later ones if long seq
 - Vanishing gradient: gradients in earlier parts become extremely small if long seq
 
-&nbsp;
-
 ## GRU
 
 <center>
@@ -202,8 +203,6 @@ Notations:
 - $z_t$: update gate at time $t$ of shape $(m,H_{out})$
 - $\tilde{h}\_t$: candidate hidden state at time $t$ of shape $(m,H_{out})$
 - $\odot$: element-wise product
-
-&nbsp;
 
 ## LSTM
 
@@ -234,8 +233,6 @@ Notations:
 - $c_t$: cell state at time $t$ of shape $(m,H_{cell})$
 - $o_t$: output gate at time $t$ of shape $(m,H_{out})$
 - $H_{cell}$: cell hidden size (in most cases same as $H_{out}$)
-
-&nbsp;
 
 &nbsp;
 
@@ -281,8 +278,6 @@ Idea: A common question that most people have about this is not HOW, but WHY?
     - softmax sums up to 1 and emphasizes important attention weights (and reduces the impact of negligible ones).
 6. Fourth, we get a **weighted combination** of all words, for each queried word, as the final attention score.
 
-&nbsp;
-
 ## Multi-Head Attention
 
 <center>
@@ -302,8 +297,6 @@ Notations:
 - $W_i^Q\in\mathbb{R}^{d_\text{model}\times d_k},W_i^K\in\mathbb{R}^{d_\text{model}\times d_k},W_i^V\in\mathbb{R}^{d_\text{model}\times d_v}$: learnable linear projection params.
 - $W^O\in\mathbb{R}^{d_\text{model}\times hd_v}$: learnable linear combination weights.
 - $h=8, d_k=d_v=\frac{d_\text{model}}{h}=64$ in the original paper.
-
-&nbsp;
 
 ## Postion-wise Feed-Forward Networks
 $$
