@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 4
+weight: 15
 ---
 This page is heavily conditioned on the course "[ESE 5140 Graph Neural Networks](https://gnn.seas.upenn.edu/)" by Prof. Alejandro Ribeiro at UPenn.
 

@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: true
 images: []
-weight: 200
+weight: 53
 ---
 References:
 - Pothos, E. M., & Busemeyer, J. R. (2022). Quantum cognition. *Annual review of psychology*, 73, 749-778.

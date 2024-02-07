@@ -1,15 +1,13 @@
 ---
-title : "Introduction"
+title : "Concepts"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 1
+weight: 11
 ---
-# Concepts
-
 **Universal Approximation Theorem**: A neural network with 1 hidden layer can approximate any continuous function for inputs within a specific range.
 - Q: Why can't we reach a small error with a single layer then?
 - A: There are many factors to consider when it comes to optimization.
@@ -53,4 +51,3 @@ weight: 1
     - Optimization (tell GD to get outta there): SGD, Momentum, Adam, ...
     - Initialization (reduce the chance of getting 0 in gradient): random init, ...
     - Hyperparameter tuning (further reduce the chance of getting 0 in gradient): early stopping, ...
-

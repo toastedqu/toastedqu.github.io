@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 700
+weight: 6
 ---
 <!--
 ## Hyperparamater Tuning
@@ -24,7 +24,7 @@ CV: evaluate how the outcomes will generalize to independent datasets.
     - Sigmoid or similar activation funcs. They have 0 gradient when abs(input) is large enough.
     - Gradients at the back are consistently less than 1.0. Therefore the chain reaction approaches 0.
 - Symptoms:
-    - Params at the back change a lot, while params at the front barely change.
+    - Param at the back change a lot, while params at the front barely change.
     - Some model weights become 0.
     - The model learns very slowly, and training stagnate at very early iterations.
 

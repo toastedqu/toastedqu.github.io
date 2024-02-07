@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 300
+weight: 3
 ---
 # Linear Models
 All linear models are parametric.
@@ -44,7 +44,7 @@ Assumptions:
 Model:
 $$\begin{align*}
 &\text{Frequentist:} &&\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
-&\text{Bayesian:}    &&p(\mathbf{y}|X,w)=N(X\mathbf{w},\sigma^2)
+&\text{Bayesian:}    &&p(\mathbf{y}|X,\mathbf{w})=N(X\mathbf{w},\sigma^2)
 \end{align*}$$
 
 Prediction:
@@ -113,7 +113,7 @@ Objective:
 - Loss: Cross Entropy
 - Regularization: L1, L2, ElasticNet
 
-Optimization: Gradient Descent
+Optimization:
 $$
 \frac{\partial \mathcal{L}}{\partial w_{jk}}=\frac{1}{m}\sum_{i=1}\^{m}[x\_{ij}(\hat{p}_{ik}-y_i)]
 $$
@@ -800,3 +800,6 @@ $$
 \textbf{w}_{i+1}=\textbf{w}_i+\frac{\mathcal{L}}{||\textbf{x}_i||^2}y_i\textbf{x}_i
 $$
 - MIRA attempts to make the smallest changes to the weight vector(s) by moving the hyperplane to include the new sample point onto the margin, therefore maximizing the margin for the entire dataset.
+
+# Pros & Cons Summary
+| | Scale Invariance | Robustness | Consistency | Generalization | 

@@ -4,16 +4,16 @@ description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
-draft: true
+draft: false
 images: []
-weight: 3
+weight: 13
 ---
 An activation function adds nonlinearity to the output of a layer (linear in most cases) to enhance complexity.
 
-Honestly, this field is growing so rapidly that [ReLU](#relu) and [Softmax](#softmax) are the only activation functions that matter nowadays.
+[ReLU](#relu) and [Softmax](#softmax) are SOTA.
 
 Notations:
-- $z$: input (applied element-wise so shape doesn't matter)
+- $z$: input (element-wise)
 
 # Binary-like
 

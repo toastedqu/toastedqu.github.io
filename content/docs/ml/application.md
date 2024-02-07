@@ -4,9 +4,9 @@ description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
-draft: false
+draft: true
 images: []
-weight: 600
+weight: 6
 ---
 There will be no common notations as different sections involve different aspects. However, most notations will be straightforward and used in all previous chapters.
 

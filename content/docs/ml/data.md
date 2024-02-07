@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 200
+weight: 2
 ---
 Notations:
 
@@ -14,16 +14,6 @@ Notations:
 - $n$: #features
 - $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$
 - $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of length $m$
-
-
-```python
-import numpy as np
-import sklearn
-
-np.random.seed(2)
-X = np.random.randint(-100,100,(10,10))
-y = np.random.randint(-10,10,(10,1))
-```
 
 # Cleaning
 
@@ -33,10 +23,10 @@ y = np.random.randint(-10,10,(10,1))
 4. **Handle missing data** drop them, or replace them with values based on past obs.
     - (Missingness is informative in itself, so be careful.)
 
+&nbsp;
+
 # Transformation
-
 ## Standardization
-
 $$
 X_\text{new}=\frac{X-\bar{X}}{\sigma_X}
 $$
@@ -48,12 +38,6 @@ Cons:
 - Highly sensitive to outliers (outliers can greatly impact empirical mean and empirical std).
 - Destroy sparsity since center might be shifted.
 
-
-```python
-from sklearn.preprocessing import StandardScaler
-
-X_scaled = StandardScaler().fit_transform(X)
-```
 
 ## Min-Max Scaling
 
@@ -74,15 +58,7 @@ Cons:
 - Highly sensitive to outliers.
 - Destroy sparsity since center might be shifted.
 
-
-```python
-from sklearn.preprocessing import MinMaxScaler
-
-X_scaled = MinMaxScaler().fit_transform(X)
-```
-
 ## Max-Abs Scaling
-
 $$
 X_\text{new}=\frac{X}{\max{(|X|)}}
 $$
@@ -95,17 +71,9 @@ Pros:
 Cons:
 - Highly sensitive to outliers.
 
-
-```python
-from sklearn.preprocessing import MaxAbsScaler
-
-X_scaled = MaxAbsScaler().fit_transform(X)
-```
-
 ## Robust Scaling
-
 $$
-X_\text{new}=\frac{X-\text{med}{(X)}}{Q_{75\%}(X)-Q_{25\%}(X)}
+X_\text{new}=\frac{X-\text{med}(X)}{Q_{75\\%}(X)-Q_{25\\%}(X)}
 $$
 
 Pros:
@@ -114,15 +82,7 @@ Pros:
 Cons:
 - Destroy sparsity since center might be shifted.
 
-
-```python
-from sklearn.preprocessing import RobustScaler
-
-X_scaled = RobustScaler().fit_transform(X)
-```
-
 ## Normalization
-
 $$
 X_\text{new}=\frac{X}{\text{norm}(X)}
 $$
@@ -132,13 +92,6 @@ Pros:
 - Can choose l1, l2, or max as $\text{norm}(\cdot)$.
     - l1: $\sum_j{|x_{ij}|}$
     - l2: $\sqrt{\sum_j{x_{ij}^2}}$
-
-
-```python
-from sklearn.preprocessing import Normalizer
-
-X_scaled = Normalizer().transform(X)
-```
 
 ## Quantile Transform
 
@@ -152,13 +105,11 @@ X_scaled = Normalizer().transform(X)
 
 
 - Uniform outputs:
-
 $$
 X_\text{new}=F_U^{-1}(F(X))\in[0,1]
 $$
 
 - Gaussian outputs:
-
 $$
 X_\text{new}=F_N^{-1}(F(X))\sim N(0,1)
 $$
@@ -171,12 +122,6 @@ Cons:
 - Distort linear correlations between diff features.
 - Only works well when you have a sufficiently large amount of samples.
 
-
-```python
-from sklearn.preprocessing import QuantileTransformer
-
-X_scaled = QuantileTransformer(output_distribution='normal').fit_transform(X)
-```
 
 ## Power Transform
 
@@ -212,23 +157,20 @@ Pros:
 Cons:
 - Distort linear correlations between diff features.
 
-
-```python
-from sklearn.preprocessing import PowerTransformer
-
-X_scaled = PowerTransformer().fit_transform(X)
-```
+&nbsp;
 
 # Imputation
-There are 2 types of **Missing Data**: MaR (Missing at Random) and MNaR (Missing Not at Random). Most imputations are done on MaR.
+There are 2 types of **Missing Data**:
+- MaR (Missing at Random)
+- MNaR (Missing Not at Random). 
 
-Imputation = EM:
+Most imputations are done on MaR. Imputation = EM:
 - Repeat:
     - Estimate the missing data
     - Estimate the params
 
 ## Simple Imputation
-The following models assume no multicollinearity.
+Assume no multicollinearity:
 - **Zero imputation**
 - **Mean imputation** (usually better than Zero)
 - **Majority imputation**

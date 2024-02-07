@@ -27,14 +27,14 @@
 
 [[main]]
   name = "CV"
-  url = "/docs/cv/cv/"
+  url = "/docs/cv/obj/"
   identifier = "cv"
   parent = "docs"
   weight = 4
 
 [[main]]
   name = "Applications"
-  url = "/docs/app/intro/"
+  url = "/docs/app/recsys/"
   identifier = "app"
   parent = "docs"
   weight = 5

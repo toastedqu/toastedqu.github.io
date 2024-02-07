@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 2
+weight: 12
 ---
 A layer is fundamentally a function that transforms input $X$ into output $Y$.
 
@@ -18,7 +18,9 @@ $$
 Y=XW^T+\textbf{b}
 $$
 
-Idea: linear transformation
+What: linear transformation
+
+Why: Universal Approximation Theorem
 
 Notations:
 - $X$: input tensor of shape $(*, H_{in})$
