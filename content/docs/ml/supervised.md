@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 3
+weight: 4
 ---
 # Linear Models
 All linear models are parametric.
@@ -158,7 +158,7 @@ Cons:
 - Bad performance with nonlinear relationships (might be solvable via Kernel PCR but then there would be no need to use PCA at all) -->
 &nbsp;
 
-## Support Vector Machine
+# Support Vector Machine
 Idea: choose a decision boundary that maximizes the soft margin between classes.
 
 Preliminaries:
@@ -289,26 +289,47 @@ def KNN(X_train,y_train,samples,K=5,metric_type="L2"):
 ``` -->
 &nbsp;
 
-## Kernel Regression
+## Kernel Method
+**Model (Mercer's Theorem)**:
+$$
+\forall\phi:\mathbb{R}^n\rightarrow\mathbb{R}^p\ \exists k:\mathbb{R}^{n\times n}\rightarrow\mathbb{R}\ \text{ s.t. }\ k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}')
+$$
+- $\mathbf{x}\in\mathbb{R}^n$: input sample
+- $\phi:\mathbb{R}^n\rightarrow\mathbb{R}^p$: feature map from one space to another (typically a higher dimensional space)
+- $k:\mathbb{R}^{n\times n}\rightarrow\mathbb{R}$: kernel function 
 
-Model:
+**Idea**: Allow using linear models for non-linear samples, without transforming data into a higher dimensional space (i.e., without computing $\phi(\cdot)$).
 
-$$\begin{align*}
+**Assumptions**: The kernel function must satisfy 2 conditions:
+- **Symmetry**: $k(\mathbf{x},\mathbf{x}')=k(\mathbf{x}',\mathbf{x})$
+- **Positive-Definite**: $\forall\mathbf{x}\_1,\cdots,\mathbf{x}\_m\in\mathbb{R}^n\ \forall c_1\cdots c_m\in\mathbb{R}:\ \sum_{i=1}^{m}\sum_{j=1}^{m}c_ic_jk(\mathbf{x}_i,\mathbf{x}_j)\geq0$
+
+**Types of Kernels**:
+| Type | Formula |
+|:-----|:--------|
+| Linear | $k(\mathbf{x}_i,\mathbf{x}_j)=\mathbf{x}_i^T\mathbf{x}_j$ |
+| Polynomial | $k(\mathbf{x}_i,\mathbf{x}_j)=(\mathbf{x}_i^T\mathbf{x}_j+c)^d, c\geq0$ |git
+| RBF (Radial Basis Function) | $k(\mathbf{x}_i,\mathbf{x}_j)=\exp\left(-\frac{\|\|\mathbf{x}_i-\mathbf{x}_j\|\|^2}{2\sigma^2}\right)$ |
+
+<!-- $$\begin{align*}
 &\text{Regression}: &&\hat{y}=\frac{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
 &\text{Binary Classification}: &&\hat{y}=\text{sign}(\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
-\end{align*}$$
+\end{align*}$$ -->
 
-Pros:
-- Save computation cost (for SVM) since no need to actually convert features to higher-dimensional data to find nonlinear patterns.
-- Easy to test whether a proposed kernel is valid by finding arbitrary 2 points with negative determinant (i.e., negative eigenvalue).
-- Can be extended on literally any data type.
+**Pros**:
+- Low computational cost (relative to feature mapping calculation)
+- Applicable to all data type
+- Easy validation of kernel by finding arbitrary 2 points with negative determinant (i.e., negative eigenvalue)
+- Consider all samples as each sample's neighbors
 
-Cons:
-- Hard to choose the suitable kernel.
-- Hard to comprehend what kernels learned exactly.
-- Easy overfitting.
+**Cons**:
+- Scale variant
+- Overfitting
+- Low interpretability of kernels
+- High difficulty in kernel selection
+- Biased toward closer samples
 
-KNN vs KernelReg: 
+<!-- KNN vs KernelReg: 
 
 <center>
 
@@ -319,7 +340,7 @@ KNN vs KernelReg:
 | same impact from all neighbors | weighted impact favoring closer neighbors |
 |          Scale variant         |               Scale variant               |
 
-</center>
+</center> -->
 
 &nbsp;
 

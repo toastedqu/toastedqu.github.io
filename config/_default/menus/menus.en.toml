@@ -20,7 +20,7 @@
 
 [[main]]
   name = "NLP"
-  url = "/docs/nlp/lm/"
+  url = "/docs/nlp/tokenizer/"
   identifier = "nlp"
   parent = "docs"
   weight = 3
@@ -59,8 +59,8 @@
 #   weight = 20
 
 [[main]]
-  name = "CV (pdf)"
-  url = "https://drive.google.com/file/d/1oaiaBeoVIytQCwdp8UZ1guzi3D8vk1xq/view?usp=drive_link"
+  name = "CV"
+  url = "https://drive.google.com/file/d/1ah-WCREzy0lzulYvkOi3DeAe1Q3aIP2p/view?usp=drive_link"
   weight = 20
 
 [[main]]
@@ -136,13 +136,10 @@
 #   url = "https://getdoks.org/tutorial/introduction/"
 #   parent = "get-started"
 
-
-
 # [[footer]]
 #   name = "Privacy"
 #   url = "/privacy-policy/"
 #   weight = 10
-
 
 # [[main]]
 #   name = "Models"

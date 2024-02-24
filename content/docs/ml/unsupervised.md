@@ -6,14 +6,14 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 4
+weight: 3
 ---
 Common Notations:
 - $m$: #samples in the input batch
 - $n$: #features in the input sample
 - $i$: $i$th sample
 - $j$: $j$th feature
-- $k$: class $k$
+- $k$: $k$th class
 - $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$ (add $\textbf{1}$ if bias is needed)
 - $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of shape $(m,1)$
 - $\textbf{w}=[w_1,\cdots,w_n]$ (add $b$ if bias is needed)
@@ -32,170 +32,15 @@ Each subsection roughly follows this order:
 - Cons
 - (extra)
 
-# Dimensionality Reduction
-
-## Singular Value Decomposition
-Idea: Decompose a data matrix into a rotating, scaling, and second rotating matrix in a vector space
-
-Usage: Null space determination, Pseudoinverse calculation, Least squares model fitting, Eigenwords, Recommender Systems
-- **Pseudo-inverse**: find the "inverse" of a rectangular matrix.
-    - e.g., LinReg: $X^+=(X^TX)^{-1}X^T$
-- **Eigenword**: project high-dimensional context to low-dimensional space, assuming **distributional similarity** (i.e., words with similar contexts have similar meanings).
-    - Similar words are close in this low-dimensional space.
-    - Left singular vectors = Eigenwords (i.e., word embeddings)
-    - Right singular vectors $\times$ Context = Eigentokens (i.e., contextual embeddings)
-    - Word sense disambiguation: estimate contextual embedding (state vector) for a word using right singular vectors.
-    - Word2vec is NOT contextualized.
-
-Background: 
-- **Positive Semi-Definite** (PSD): A symmetric matrix $X$ is PSD if $\forall\textbf{z}\in\mathbb{R}^n,\textbf{z}\geq\textbf{0}: \textbf{z}^TX\textbf{z}\geq 0$.
-- Size of Matrix: $||X||_F=\sqrt{\sum\_{i=1}^m\sum\_{j=1}^n|x\_{ij}|^2}=\sqrt{\sum\_{i=1}^{\min(m,n)}\sigma_i^2(X)}$, where $\sigma_i(X)$ is the $i$th eigenvalue.
-- Properties: 
-    - $X^TX=V(D^TD)V^T=\sum_{i=1}^n(D_{ii})^2\textbf{v}_i\textbf{v}_i^T$
-    - $XX^T=U(DD^T)U^T=\sum_{i=1}^m(D_{ii})^2\textbf{v}_i\textbf{v}_i^T$
-    - $X^+=VD^{-1}U^T$
-
-Model/Algorithm:
-$$
-X=UDV^T=\sum_{i=1}^{\min(m,n)}D_{ii}\textbf{u}_i\textbf{v}_i^T
-$$
-- $U$: left singular vectors (**orthonormal**: $U^TU=I$), shape $m\times m$ 
-- $D$: singular values (**diagonal**), shape $m\times n$
-- $V$: right singular vectors (**orthonormal**: $V^TV=I$), shape $n\times n$
-- $\textbf{u}_i\textbf{v}_i^T$: outer product of $i$th (column) unit vectors
-- $D_{ii}$: importance/strength of $i$th outer product matrix
-
-(**Thin SVD**): use the best rank $k$ approximation to represent the matrix: $X\approx U_kD_kV_k^T$
-
-Optimization: **Power Method**: estimate the largest eigenvalue/eigenvector by continuously multiplying this matrix on an arbitrary vector.
-- Guaranteed to find global optimum in reconstruction error.
-
-Pros:
-- Wide range of applications
-- Data compression
-
-Cons:
-- Scale variant
-- High computational cost
-
-## Principal Component Analysis
-Idea:
-- Project the original data onto an orthonormal basis $\\{\textbf{u}_1,\cdots,\textbf{u}_k\\}$ of smaller dimensions, while covering maximal variance among features.
-
-Background:
-- Properties of orthonormal basis: $\textbf{u}_i^T\textbf{u}_j=0,\textbf{u}_i^T\textbf{u}_i=1$.
-- Any sample vector can be expressed in terms of coefficients (scores) on eigenvectors (loadings): $\textbf{x}_i=\sum\_{j=1}^nz\_{ij}\textbf{u}_j$.
-<!-- - The projected point (coefficients) of the original sample onto the new basis can be calculated inversely: $z\_{ij}=\textbf{x}_i^T\textbf{u}_j$. -->
-- The projected point (coefficients) of the original sample onto the new basis can be calculated inversely: $\text{proj}_{\textbf{u}}\textbf{x}=\frac{\textbf{x}\cdot\textbf{u}}{||\textbf{u}||^2}\textbf{u}$.
-    - NOTE: the projected new points can still be correlated with each other. ONLY their basis are independent. Therefore, variance is still not 1 even if you standardize data.
-- $D_{ii}=\sqrt{\Lambda_{ii}}$
-- Demean/Standardization should NOT be done on sparse data.
-
-Assumptions:
-- All PCs are linear combinations of original features. (otherwise Kernel PCA)
-- Variance is a measure of how important a feature is.
-
-Model/Algorithm:
-1. Center/Demean/Standardize the data into $X_c$ where each row is:
-$$
-\textbf{x}_i\leftarrow\textbf{x}_i-\frac{1}{m}\sum\_{i=1}^m\textbf{x}_i
-$$
-2. Calculate the covariance matrix in the observation space:
-$$
-\Sigma=\text{Cov}(X_c,X_c)=X_c^TX_c=\sum\_{i=1}^m(\textbf{x}_i-\bar{\textbf{x}})(\textbf{x}_i-\bar{\textbf{x}})^T
-$$
-3. Diagonalize the covariance matrix to find its corresponding eigenvalues (PC strength) and orthonormal eigenvectors (PCs) via Spectral Theorem:
-$$
-\Sigma=Q\Lambda Q^T
-$$
-4. Sort eigenvectors in $Q$ based on eigenvalues $\Lambda$ in descending order. Select and normalize the strongest $k$ eigenvectors.
-5. A projected point would look like:
-$$
-\textbf{z}_i=((\textbf{x}_i-\bar{\textbf{x}})^T\textbf{u}_1,\cdots,(\textbf{x}_i-\bar{\textbf{x}})^T\textbf{u}_k)
-$$
-
-(PCA via SVD):
-1. Center/Demean the data into $X_c$.
-2. Compute SVD: $X_c=UDV^T$.
-3. Select $k$ rows of $V^T$ (the right singular matrix) with largest singular values as principal loadings.
-4. A projected point would look like: $\textbf{z}_i=((\textbf{x}_i-\bar{\textbf{x}})^T\textbf{v}_1,\cdots,(\textbf{x}_i-\bar{\textbf{x}})^T\textbf{v}_k)$
-
-Prediction/Reconstruction:
-1. Reconstruct the original point via inverse mapping:
-$$
-\hat{\textbf{x}}_i=\bar{\textbf{x}}+\sum\_{j=1}^kz\_{ij}\textbf{u}_j
-$$
-*The original point can be fully reconstructed if $k=n$:
-$$
-\textbf{x}_i=\bar{\textbf{x}}+\sum\_{j=1}^nz\_{ij}\textbf{u}_j
-$$
-
-Objective: minimize distortion (i.e., maximize variance in new coordinates)
-- **Distortion**:
-$$\begin{align*}
-\text{Distortion}_k=||X-ZU^T||_F&=\sum\_{i=1}^m||\textbf{x}_i-\hat{\textbf{x}}_i||_2^2 \\\\
-&=\sum\_{i=1}^m\sum\_{j=k+1}^{n}z\_{ij}^2\\\\
-&=m\sum\_{j=k+1}^{n}\textbf{u}_j^T\Sigma\textbf{u}_j\\\\
-&=m\sum\_{j=k+1}^{n}\lambda_j
-\end{align*}$$
-- **Variance**: (the variance of projected points)
-$$
-\text{Variance}_k=m\sum\_{j=1}^{k}\textbf{u}_j^T\Sigma\textbf{u}_j=m\sum\_{j=1}^{k}\lambda_j
-$$
-- Minimizing distortion = Maximizing variance:
-$$
-\text{Variance}_k+\text{Distortion}_k=m\sum\_{j=1}^{n}\lambda_j=m\cdot\text{trace}(\Sigma)
-$$
-
-Optimization: Using eigenvectors/eigenvalues as PCs/PC scores guarantee minimization.
-
-Pros:
-- Guarantee removal of correlated features (All PCs are orthogonal to each other)
-- Reduce overfitting for other models
-- Improve visualization for high-dimensional data
-- Robust to outliers and noisy data
-
-Cons:
-- Scale invariant (must demean)
-- Less interpretability of new features/PCs
-- Require standardization
-- Potential information loss if PCs/$\\#$PCs are not selected carefully
-- (weak) If any of the assumptions fail, then PCA fails.
-    - This can be solved with Kernel PCA, which can effectively learn nonlinear dimensionality reductions.
-- Very situational (e.g. cannot be applied on NLP because 1) covariance matrix is useless 2) it breaks sparse structure of words)
-
-## Independent Component Analysis
-Idea: find an embedding so that different features are "deconfounded" (i.e., as independent as possible from each other).
-
-tbd
-
-## Autoencoder
-Idea: Use unsupervised NNs to **learn latent representations** via reconstruction. (Semi-supervised learning)
-- The goal of AE is NOT to reconstruct the input as accurately as possible but to LEARN major features from it. Reconstruction is only an objective for the learning process.
-
-Model: NN
-- **Denoising AE**: add noise to the input and try to output the original image (to avoid perfect fitting)
-
-Objective: minimize reconstruction error
-
-Optimization: see DL
-
-Pros:
-- = Nonlinear PCA (PCA = Linear Manifold)
-- Offer embeddings that can be used in supervised learning
-- Better performance than PCA in general
-
-Cons:
-- High computational cost
-
-
-## Variational Autoencoder
-tbd
-
 # Clustering
+Clustering groups similar samples together without any prior knowledge of the clusters.
+
+<!-- Why do we need clustering?
+- **Labeling**: When labeled data is scarce, clustering can provide labels.
+- **Data ** -->
+
 
 ## K-Means
-
 Idea: Hard clustering (clustering with deterministic results)
 
 Model/Algorithm:
@@ -313,7 +158,160 @@ Pros:
 Cons:
 - High computational cost
 
-# Bayesian Belief Networks
+# Dimensionality Reduction
+Dimensionality reduction reduces dimensionality (i.e., #features) of input data.
+
+We need dimensionality reduction because:
+- **Curse of Dimensionality**: high-dimensional data has high sparsity.
+- **Computational Efficiency**: high-dimensional data requires more computational resources (time & space).
+- **Overfitting**: high-dimensional data are prone to overfitting.
+- **Visualization**: we cannot visualize any data beyond 3D.
+- **Performance**: high-dimensional data are prone to have more noises, which are reducible by selecting the most important features.
+- **Interpretability**: only the most relevant features matter.
+
+&nbsp;
+
+## Singular Value Decomposition
+**Model**:
+$$
+X=UDV^T=\sum_{i=1}^{\text{rank}(X)}D_{ii}\textbf{u}_i\textbf{v}_i^T
+$$
+- Input:
+    - $X\in\mathbb{R}^{m\times n}$: arbitrary input matrix
+- Output (Matrix ver.):
+    - $U\in\mathbb{R}^{m\times m}$: left singular vectors (i.e., final rotation)
+    - $D\in\mathbb{R}^{m\times n}$: singular values (i.e., scaling)
+    - $V\in\mathbb{R}^{n\times n}$: right singular vectors (i.e., initial rotation)
+    - $\text{rank}(X)=\min(m,n)$: rank
+- Output (Vector ver.):
+    - $\textbf{u}_i\textbf{v}_i^T$: outer product matrix of $i$th column unit vectors
+    - $D_{ii}$: importance/strength of $i$th outer product matrix
+- Note:
+    - rotation matrices are **orthonormal**: $U^TU=I, V^TV=I$
+    - scaling matrix is **diagonal**: $D=\text{diag}(\sigma_1,\cdots,\sigma_{\text{rank}(X)})$, where $\sigma_i=\sqrt{\lambda_i}$
+
+**Idea**: An arbitrary matrix = "unit matrix $\rightarrow$ initial rotation $\rightarrow$ scaling $\rightarrow$ final rotation"
+- Think of an arbitrary $2\times 2$ matrix on a 2D plane. We can reconstruct this matrix with a unit disk (i.e., the 2 unit vectors along the coordinates) via the following steps:
+    1. Rotate the unit vectors by $V^T$.
+    2. Scale the rotated unit disk into an ellipse by $D$.
+    3. Rotate the ellipse by $U$.
+
+**Properties**:
+- $X^TX=V(D^TD)V^T=\sum_{i=1}^n(D_{ii})^2\textbf{v}_i\textbf{v}_i^T$ (i.e., right singular vectors = eigenvectors of covariance matrix)
+- $XX^T=U(DD^T)U^T=\sum_{i=1}^m(D_{ii})^2\textbf{u}_i\textbf{u}_i^T$ (i.e., left singular vectors = eigenvectors of outer product matrix)
+- Pseudo-inverse: $X^+=VD^{-1}U^T\in\mathbb{R}^{n\times m}$
+- If $X$ is a positive semi-definite matrix, then $\sigma_{i}=\lambda_{i}$ (i.e., singular value = eigenvalue).
+    - Positive Semi-Definite: A symmetric matrix $X$ s.t. $\forall\textbf{z}\in\mathbb{R}^n,\textbf{z}\geq\textbf{0}: \textbf{z}^TX\textbf{z}\geq 0$.
+
+**Applications**:
+- **Simplify OLS in regression**: when calculating the "inverse" of a rectangular matrix, $(X^TX)^{-1}X^T\approx X^+$.
+- **Low-rank matrix approximation**: define a lower rank $k$ & approximate $X\approx U_kD_kV_k^T$.
+- **Eigenword**: project high-dimensional context to low-dimensional space, assuming distributional similarity.
+    - Distributional similarity: words with similar contexts have similar meanings.
+    - Distance-based similarity measure: similar words are close in this low-dimensional space.
+    - Eigenwords: left singular vectors (i.e., word embeddings).
+    - Eigentokens: right singular vectors $\times$ Context (i.e., contextual embeddings).
+    - Word sense disambiguation: estimate contextual embedding for a word with right singular vectors.
+- **PCA**: see next.
+
+&nbsp;
+
+## Principal Component Analysis
+**Model (Original ver.)**:
+1. Calculate the covariance matrix of $X$ in the observation space: $\Sigma=\text{Cov}(X,X)=X^TX$.
+2. Diagonalize the covariance matrix via Spectral Theorem: $\Sigma=V\Lambda V^T$.
+    - $\Lambda$: eigenvalues (i.e., PC strength / sample variance of projection)
+    - $V$: orthonormal eigenvectors (i.e., PCs)
+3. Sort eigenvectors in $V$ based on eigenvalues in $\Lambda$ in descending order.
+4. Select & normalize the strongest $k$ eigenvectors $\\{\textbf{v}_1,\cdots,\textbf{v}_k\\}$, where $k$ is a hyperparameter.
+    - Now $\Lambda\in\mathbb{R}^{k\times k}, V\in\mathbb{R}^{n\times k}$.
+5. Project $X$ onto a new space based on the $k$ eigenvectors: $Z=XV$
+    - Each projected point is: $\textbf{z}_i=(\textbf{x}_i^T\textbf{v}_1,\cdots,\textbf{x}_i^T\textbf{v}_k)$
+
+**Model (SVD ver.)**:
+1. Compute SVD: $X=UDV^T$.
+2. Select $k$ rows of $V^T$ (the right singular matrix) with the largest singular values as PCs.
+3. Project the original dataset $X$ onto a new space based on the $k$ eigenvectors.
+
+**Idea**: We can project the input data onto an orthonormal basis $\\{\textbf{v}_1,\cdots,\textbf{v}_k\\}$ of smaller dimensions while covering maximal variance among features.
+- **Orthonormal basis**: $\textbf{v}_i^T\textbf{v}_j=0,\textbf{v}_i^T\textbf{v}_i=1$.
+- Ideally, we lose minimal info (represented by minimal variance) while successfully reducing the dimensionality.
+
+**Assumptions**:
+- Input matrix $X$ is centered/standardized on the sample space, unless data is sparse.
+    - $\bar{\textbf{x}}=\frac{1}{m}\sum_{i=1}^{m}\textbf{x}_i=\textbf{0}$
+    - $s\_j^2=\frac{1}{m}\sum\_{i=1}^{m}x\_{ij}^2=1$ (optional but strongly recommended)
+- PCs = linear combinations of original features. (if not, then Kernel PCA)
+- Variance = a measure of feature importance.
+
+**Optimization**: minimize distortion (i.e., maximize variance in new coordinates)
+- **Distortion**:
+$$\begin{align*}
+\text{Distortion}_k=||X-ZV^T||_F&=\sum\_{i=1}^m||\textbf{x}_i-\hat{\textbf{x}}_i||_2^2 \\\\
+&=\sum\_{i=1}^m\sum\_{j=k+1}^{n}z\_{ij}^2\\\\
+&=m\sum\_{j=k+1}^{n}\textbf{v}_j^T\Sigma\textbf{v}_j\\\\
+&=m\sum\_{j=k+1}^{n}\lambda_j
+\end{align*}$$
+- **Variance** (of projected points):
+$$
+\text{Variance}_k=m\sum\_{j=1}^{k}\textbf{v}_j^T\Sigma\textbf{v}_j=m\sum\_{j=1}^{k}\lambda_j
+$$
+- **Minimizing distortion = Maximizing variance**:
+$$
+\text{Variance}_k+\text{Distortion}_k=m\sum\_{j=1}^{n}\lambda_j=m\cdot\text{trace}(\Sigma)
+$$
+
+**Inference/Reconstruction**: Any sample vector can be approximated in terms of coefficients (scores) on eigenvectors (loadings).
+1. Predict the original point via inverse mapping: $\hat{\textbf{x}}_i=\sum\_{j=1}^kz\_{ij}\textbf{v}_j$
+    - The projected new points $z_i$s can still correlate with each other. Only their basis are independent. Therefore, variance is still not 1 even if you standardize data.
+2. The original point can be fully reconstructed if $k=n$:
+$\textbf{x}_i=\bar{\textbf{x}}+\sum\_{j=1}^nz\_{ij}\textbf{u}_j$
+
+**Pros**:
+- Guarantee removal of correlated features (PCs are orthogonal)
+- Reduce overfitting for supervised learning
+- Improve visualization for high-dimensional data
+- Robust to outliers & noisy data
+
+**Cons**:
+- Scale invariant
+- Low interpretability of new features (i.e., PCs)
+- Potential info loss if PCs & $\\#$PCs are not selected carefully
+- Situational (e.g. cannot be applied on NLP because 1) covariance matrix is useless 2) it breaks sparse structure of words)
+- (weak) If any assumption fails, PCA fails (solvable by Kernel PCA)
+
+
+<!-- ## Independent Component Analysis
+Idea: find an embedding so that different features are "deconfounded" (i.e., as independent as possible from each other).
+
+tbd -->
+
+&nbsp;
+
+## Autoencoder
+Idea: Use unsupervised NNs to **learn latent representations** via reconstruction. (Semi-supervised learning)
+- The goal of AE is NOT to reconstruct the input as accurately as possible but to LEARN major features from it. Reconstruction is only an objective for the learning process.
+
+Model: NN
+- **Denoising AE**: add noise to the input and try to output the original image (to avoid perfect fitting)
+
+Objective: minimize reconstruction error
+
+Optimization: see DL
+
+Pros:
+- = Nonlinear PCA (PCA = Linear Manifold)
+- Offer embeddings that can be used in supervised learning
+- Better performance than PCA in general
+
+Cons:
+- High computational cost
+
+
+## Variational Autoencoder
+tbd
+
+<!-- # Bayesian Belief Networks -->
 <!-- The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
 
 Discriminative models predict label given sample features, but Generative models uses a completely different thinking process, where we
@@ -331,7 +329,7 @@ The following models are already abandoned in practice because of DL, but the id
 
 Note that Naive Bayes and GMM are also generative models. This section is more like a miscellaneous collection of Bayesian-Network-based models. -->
 
-## Bayesian Network
+<!-- ## Bayesian Network
 Idea: compact specification of full joint distributions with CI assertions using Conditional Probability Table (CPT)
 
 Background:
@@ -449,4 +447,4 @@ Cons:
 - A large number of unstructured params
 - Limited by Markov Assumption
 - No dependency between hidden states
-- Completely destroyed by DL
+- Completely destroyed by DL -->

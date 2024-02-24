@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 52
+weight: 51
 ---
 # Interview
 A DS/A interview consists of the following steps:
@@ -37,8 +37,6 @@ ASK clarification questions!
 - Draw a **PAIR OF EXAMPLES** (positive & negative) to the interviewer to confirm your understanding.
     - These examples shall be **specific, sufficiently large, mediocre**.
 
-&nbsp;
-
 ## Discussion
 ALWAYS **COMMUNICATE** with your interviewer!
 - State **Brute-Force** first. Talk about its time & space.
@@ -53,8 +51,6 @@ When stuck,
 - Try to solve for **base cases**.
 - Try to solve **subproblems**.
 - Try other DS/As.
-
-&nbsp;
 
 ## Data Structure
 Identify which data structures are potentially useful.
@@ -75,8 +71,6 @@ The single most powerful trick for any non-specific question is:
 
 <center>Use <strong>HashMap</strong> when in doubt.</center>
 
-&nbsp;
-
 ## Implement & Test
 - Walk through your code on your own.
 - Modify unusual parts.
@@ -89,24 +83,22 @@ The single most powerful trick for any non-specific question is:
 
 &nbsp;
 
-&nbsp;
-
 # Array
 ## Two Pointer
 ### Left & Right
-Usage: 1d array/string, bi-directional problem
+**Where?**: 1d array/string, bi-directional problem
 
-Idea:
+**How?**:
 1. 1 pointer from the left, 1 pointer from the right.
 2. Loop to the middle, depending on the problem.
 3. Break when meet.
 
-Tips:
+**Tips**:
 - Sort when necessary!
 - Use WHILE loop to go over elems that do not break condition.
 - 3-pointer (or more) is always an option.
 
-```python
+<!-- ```python
 # 845. Longest Mountain in Array
 def longestMountain(self, arr: List[int]) -> int:
     ans = 0
@@ -119,23 +111,23 @@ def longestMountain(self, arr: List[int]) -> int:
                 r += 1
             ans = max(ans, r-l+1)                       # update ans
     return ans
-```
+``` -->
 
 &nbsp;
 
 ### Slow & Fast
-Usage: 1d array/string, uni-directional problem
+**Where?**: 1d array/string, uni-directional problem
 
-Idea:
+**How?**: 
 1. 'fast' pointer for iteration, 'slow' pointer for operation (threshold, comparison, etc.)
 2. Move 'slow' only when a certain condition is met/broken, depending on the problem.
 3. Finish loop.
 
-Tips:
+**Tips**:
 - Clarify when to / not to move 'slow'.
 - For CYCLES: fast = 2x speed, slow = 1x speed.
 
-```python
+<!-- ```python
 # 142. Linked List Cycle II
 def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
     s,f = head,head
@@ -149,14 +141,14 @@ def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
                 s = s.next
             return h
     return None
-```
+``` -->
 
 &nbsp;
 
 ### Sliding Window
-Usage: 1d array/string, subarray/substring problem
+**Where?**: 1d array/string, subarray/substring problem
 
-Idea:
+**How?**:
 1. Init cache(s) with int/arr/map
 2. MIN:
     1. Expand the window until condition is met.
@@ -165,11 +157,11 @@ Idea:
     1. Expand the window until condition is broken.
     2. Dynamically update cache to track condition. If condition is met again, stop 'start'.
 
-Tips:
+**Tips**:
 - Plan out what to do at every single step in every single case. It's OK to write them all out at the beginning and optimize afterwards. The key is to think carefully.
 - Don't overthink over cases that do not matter. "collections" maps contain all keys by default, which come in handy in some cases.
 
-```python
+<!-- ```python
 # 76. Minimum Window Substring
 def minWindow(self, s: str, t: str) -> str:
     if len(t)>len(s): return ""
@@ -194,43 +186,53 @@ def minWindow(self, s: str, t: str) -> str:
 
             start += 1  # loop
     return s[min_s:min_e+1] if min_e<float('inf') else ''
-```
+``` -->
 
 &nbsp;
 
 ## Binary Search
-Credit to [zhijun_liao](https://leetcode.com/problems/find-k-th-smallest-pair-distance/solutions/769705/python-clear-explanation-powerful-ultimate-binary-search-template-solved-many-problems/) for helping me understand binary search a lot better.
+Credits to [zhijun_liao](https://leetcode.com/problems/find-k-th-smallest-pair-distance/solutions/769705/python-clear-explanation-powerful-ultimate-binary-search-template-solved-many-problems/) and [user8301z](https://leetcode.com/problems/find-peak-element/solutions/788474/general-binary-search-thought-process-4-templates/) for helping me understand binary search a lot better.
 
-Binary Search is an underrated algorithm in LC because it seems so easy to understand: It splits the search space into halves, keeps the half with the target, and repeat till target. However, it is so hard to apply Binary Search in LC questions:
-- When to exit loop? (`left` < `right` or `left` <= `right`)?
-- How to init boundary `left` and `right`?
-- How to update boundary (`left = mid` / `left = mid+1`, `right = mid` / `right = mid-1`)?
-- How to define return condition `condition(mid)`?
+**Where?**: Find a function that maps elements in the left/right half to True and the other to False.
+- Although it's mostly applicable to sorted arrays, this is NOT a necessary requirement.
 
-Usage: **Minimize k s.t. condition(k) is True**
-- If we can discover some kind of monotonicity, for example, if `condition(k)` is True then `condition(k + 1)` is True, then binary search.
-<!-- Tips:
-- After the WHILE loop, 
-    - 'l' $\rightarrow$ *arr[0]* / *arr[len(arr)]* (the RIGHT)
-    - 'r' $\rightarrow$ *arr[0-1]* / *arr[len(arr)-1]* (the LEFT) -->
+**How?**: There are 2 cases to consider. (originally 4, but I think 2 are sufficient for explanation.)
+```python
+# Find First True (i.e., assume `lefts=False, rights=True`)
+while l < r:
+    if condition: r = mid   # If True, ans is on the left (inclusive), so we go left.
+    else: l = mid+1         # If False, ans is on the right, so we go right.
 
+# Find Last True (i.e., assume `lefts=True, rights=False`)
+while l < r:
+    if condition: l = mid   # If True, answer is on the right (inclusive), so we go right.
+    else: r = mid-1         # If not, answer is on the left, so we go left.
+```
+These 2 templates are easily interchangeable by swapping the condition, so we end up with 1 universal template:
 ```python
 def binary_search(nums) -> int:
-    # Modifiable 1: design condition
     def condition(mid) -> bool:
         pass
 
-    # Modifiable 2: change init of boundaries (must include all elems)
-    l,r = 0,len(nums)
-
-    while l<r:
+    l,r = 0,len(nums)-1     # NOTE: Pay attention to edge cases. Sometimes we need to change this boundary.
+    while l < r:
         mid = l+(r-l)//2
         if condition(mid): r = mid
         else: l = mid+1
-
-    # Modifiable 3: change return value (l = minimal k satisfying condition(k))
     return l
 ```
+
+| Question | Solution |
+|:---------|:---------|
+| [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/description/) | **Condition: find the first element > its next element.** (`nums[mid] > nums[mid+1]`) |
+| [852. Peak Index in a Mountain Array](https://leetcode.com/problems/peak-index-in-a-mountain-array/description/) | **Condition: find the first element > its next element.** (`nums[mid] > nums[mid+1]`) |
+| [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/) | **Condition: find the first element <= everything on its right.** (`nums[mid] <= nums[r]`) |
+| [528. Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/description/) | **Condition: find the first index with a cumulative probability >= a random probability.** (`self.w[mid] >= p`)<br>NOTE: convert input array to cumulative probabilities. |
+| [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/) | **Condition: find the first element >= input number.** (`nums[mid] >= n`)<br>1. Write this condition in a func.<br>2. The first occurrence is bs(target). (i.e., first element >= target)<br>3. The last occurrence is bs(target+1)-1. (i.e., first element >= target+1, then on its left)<br>4. If first <= last, ans is valid. Else, target not in array.<br>NOTE: given the way `last` is defined, `r=len(nums)`. |
+| [362. Design Hit Counter](https://leetcode.com/problems/design-hit-counter/description/) | **Condition: find the index where `timestamp-300` would have been inserted at.** (`self.hits[mid] > target`)<br>1. Write this condition in a func.<br>2. #hits = `len(self.hits)-self.bs(timestamp-300)`. |
+| [540. Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/description/) | **Condition: find the first element that distorts the duplicate order.**<br>- For the input array, if `i` is odd / `i-1` is even, the condition should always hold: `nums[i] == nums[i-1]`.<br>- However, the element we are looking for violates this condition, so we have 2 cases:<br>- if `mid` is odd and `nums[mid] != nums[mid-1]`.<br>- if `mid` is even and `nums[mid] != nums[mid+1]`. |
+| [658. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/description/) | **Condition: find the first element that starts the subarray.**<br>- Since `a` is closer than `b` if `\|a-x\| <= \|b-x\|` and `a < b`, it is straightforward that our first element in the subarray satisfies `\|nums[mid]-x\| <= \|nums[mid+k]-x\|`.<br>- It's the same as `x-nums[mid] <= nums[mid+k]-x`. |
+| [719. Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/) | **Condition: find the smallest distance that has >=k pairs within its range.**<br>1. Write a function that uses two pointers (slow & fast) to find the #pairs with distances <= input distance. Return True if there are >=k pairs, else False.<br>2. Sort `nums` for two pointers to work.<br>3. Set `r=nums[-1]-nums[0]` because our search space is not `nums` but distances.<br>4. Search. |
 
 &nbsp;
 

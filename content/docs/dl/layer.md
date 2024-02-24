@@ -238,19 +238,91 @@ Notations:
 
 &nbsp;
 
+&nbsp;
+
 # Transformer
 
 <center>
 <img src="/images/dl/transformer.png" width="500"/>
 </center>
 
+**What?**: Transformer exploits self-attention mechanisms for sequential data.
+
+**Why?**:
+- **long-range dependencies**: directly model relationships between any two positions in the sequence regardless of their distance, whereas RNNs struggle with tokens that are far apart.
+- **parallel processing**: process all tokens in parallel, whereas RNNs process them in sequence.
+- **flexibility**: can be easily modified and transferred to various structures and tasks.
+
+**Where?**: NLP, CV, Speech, Time Series, Generative tasks, ...
+
+**When?**:
+- sequential data independence: a sequence can be processed in parallel to a certain extent.
+- importance of contextual relationships
+- importance of high-dimensional representations
+- sufficient data & sufficient computational resources
+
+**How?**:
+- All layers used in transformer:
+    - [Positional Encoding](#positional-encoding)
+    - [Residual Connection](#residual-block-resnet)
+    - [Layer Normalization](#layer-normalization)
+    - [Position-wise Feed-Forward Networks](#postion-wise-feed-forward-networks)
+    - [Multi-Head Attention](#multi-head-attention)
+- Each sublayer follows this structure: $\text{LayerNorm}(x+\text{Sublayer}(x))$
+- **Input**: input/output token embeddings $\xrightarrow{\text{PE}}$ input for Encoder/Decoder
+- **Encoder**: input $\xrightarrow{\text{MHA}}$$\xrightarrow{\text{FFN}}$ $K$&$V$ for Decoder
+- **Decoder**: output $\xrightarrow{\text{Masked MHA}}$ $Q$ + Encoder's $K$&$V$ $\xrightarrow{\text{MHA}}$$\xrightarrow{\text{FFN}}$ Decoder embeddings
+- **Output**: Decoder embeddings $\xrightarrow{\text{Linear}}$ embeddings shaped for token prediction $\xrightarrow{\text{Softmax}}$ token probabilities
+
+**Training**:
+- **Parameters**:
+    - Encoder: $\text{\\#params}=h\cdot d\_{\text{model}}\cdot (2d\_k+d\_v)+2\cdot d\_{\text{model}}\cdot d\_{\text{ff}}$
+    - Decoder: $\text{\\#params}=2\cdot h\cdot d\_{\text{model}}\cdot (2d\_k+d\_v)+2\cdot d\_{\text{model}}\cdot d\_{\text{ff}}$
+- **Hyperparameters**:
+    - #layers
+    - hidden size
+    - #heads
+    - learning rate (& warm-up steps)
+
+**Inference**:
+1. Process input tokens in parallel via encoder.
+2. Generate output tokens sequentially via decoder.
+
+**Pros**:
+- high computation efficiency (training & inference)
+- high performance
+- wide applicability
+
+**Cons**:
+- require sufficient computation resources
+- require sufficient large-scale data
+
+&nbsp;
+
 ## Positional Encoding
+**What?**: Positional Encoding encodes sequence order info of tokens into embeddings.
+
+**Why?**: So that the model can still make use of the sequence order info since no recurrence/convolution is available for it.
+
+**Where?**: After tokenization & Before feeding into model.
+
+**When?**: The hypothesis that **relative positions** allow the model to learn to attend easier holds.
+
+**How?**: sinusoid with wavelengths from a geometric progression from $2\pi$ to $10000\cdot2\pi$
 $$\begin{align*}
 \text{PE}\_{(pos,2i)}&=\sin(\frac{pos}{10000^{\frac{2i}{d_\text{model}}}})\\\\
 \text{PE}\_{(pos,2i+1)}&=\cos(\frac{pos}{10000^{\frac{2i}{d_\text{model}}}})
 \end{align*}$$
+- $pos$: absolute position of the token
+- $i$: dimension
+- For any fixed offset $k$, $PE_{pos+k}$ is a linear function of $PE_{pos}$.
 
-Idea: encode the sequence order info into the token embeddings.
+**Pros**:
+- allow model to extrapolate to sequence lengths longer than the training sequences
+
+**Cons**: ???
+
+&nbsp;
 
 ## Scaled Dot-Product Attention
 
@@ -258,27 +330,45 @@ Idea: encode the sequence order info into the token embeddings.
 <img src="/images/dl/scaled_dot_product_attention.png" width="200"/>
 </center>
 
+**What?**: An effective & efficient variation of self-attention.
+
+**Why?**: 
+- The end goal is **Attention** - "Which parts of the sentence should we focus on?"
+- We want to **capture the most relevant info** in the sentence.
+- And we also want to **keep track of all info** in the sentence as well, just with different weights.
+- We want to create **contextualized representations** of the sentence.
+- Therefore, attention mechanism - we want to assign different attention scores to each token.
+
+**When?**: 
+- **linearity**: Relationship between tokens can be captured via linear transformation.
+- **Position independence**: Relationship between tokens are independent of positions (fixed by Positional Encoding).
+
+**How?**:
 $$
 \text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V
 $$
 
-Idea: A common question that most people have about this is not HOW, but WHY?
-1. Why?
-    - The end goal is **Attention** - "Which parts of the sentence should we focus on?"
-    - We want to **capture the most relevant info** in the sentence.
-    - And we also want to **keep track of all info** in the sentence as well, just with different weights.
-    - We want to create **contextualized representations** of the sentence.
-    - Therefore, attention mechanism - we want to assign different attention scores to each token.
-2. Preliminaries:
-    - **Query (Q)**: Think of it like a **question** about a token - "How important is this token in the context of the whole sentence?"
-    - **Key (K)**: Think of it like a piece of **unique info** about a token - "Here's something unique about this token."
-    - **Value (V)**: Think of it like the **actual meaning** of a token - "Here's the content about this token."
-3. First, we **compare the similarity** between the **Q** of one word and the **K** of every other word.
-    - The more similar they are, the more attention we should give to that word for the queried word.
-4. Second, we **scale them down** by the square root of vector dimensionality to avoid the similarity scores being too large.
-5. Third, we use softmax to convert the attention scores into a **probability distribution**.
-    - softmax sums up to 1 and emphasizes important attention weights (and reduces the impact of negligible ones).
-6. Fourth, we get a **weighted combination** of all words, for each queried word, as the final attention score.
+- Preliminaries:
+    - **Query (Q)**: a **question** about a token - "How important is this token in the context of the whole sentence?"
+    - **Key (K)**: a piece of **unique identifier** about a token - "Here's something unique about this token."
+    - **Value (V)**: the **actual meaning** of a token - "Here's the content about this token."
+- Procedure:
+    1. **Compare the similarity** between the **Q** of one word and the **K** of every other word.
+        - The more similar, the more attention we should give to that word for the queried word.
+    2. **Scale down** by $\sqrt{d_k}$ to avoid the similarity scores being too large.
+        - Dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients.
+        - They grow large because, if $q,k\sim N(0,1)$, then $qk=\sum_{i=1}^{d_k}q_ik_i\sim N(0,d_k)$.
+    3. Convert the attention scores into a **probability distribution**.
+        - Softmax sums up to 1 and emphasizes important attention weights (and reduces the impact of negligible ones).
+    4. Calculate the **weighted combination** of all words, for each queried word, as the final attention score.
+
+**Pros**:
+- significantly higher computational efficiency (time & space) than additive attention
+
+**Cons**: 
+- outperformed by additive attention if without scaling for large values of $d_k$
+
+&nbsp;
 
 ## Multi-Head Attention
 
@@ -286,25 +376,35 @@ Idea: A common question that most people have about this is not HOW, but WHY?
 <img src="/images/dl/mha.png" width="300"/>
 </center>
 
+**What?**: A combination of multiple scaled dot-product attention heads in parallel.
+- Masked MHA: mask the succeeding tokens off because they can't be seen during decoding.
+
+**Why?**: To allow the model to jointly attend to info from different representation subspaces at different positions.
+
+**When?**: The assumption of independence of attention heads holds.
+
+**How?**: 
 $$\begin{align*}
 \text{MultiHead}(Q,K,V)&=\text{Concat}(\text{head}_1,\cdots,\text{head}_h)W^O \\\\
 \text{head}_i&=\text{Attention}(QW_i^Q,KW_i^K,VW_i^V)
 \end{align*}$$
-
-Idea: basically a weighted average of multiple attention heads.
-- The sole reason is that multiple heads perform better than a single head.
-- Masked MHA is basically masking the succeeding tokens off, because they can't be seen during decoding.
-
-Notations:
 - $W_i^Q\in\mathbb{R}^{d_\text{model}\times d_k},W_i^K\in\mathbb{R}^{d_\text{model}\times d_k},W_i^V\in\mathbb{R}^{d_\text{model}\times d_v}$: learnable linear projection params.
 - $W^O\in\mathbb{R}^{d_\text{model}\times hd_v}$: learnable linear combination weights.
 - $h=8, d_k=d_v=\frac{d_\text{model}}{h}=64$ in the original paper.
 
+**Pros**:
+- better performance than single head
+
+**Cons**: ???
+
 ## Postion-wise Feed-Forward Networks
+**What?**: 2 linear transformations with ReLU in between.
+
+**Why?**: Just like 2 convolutions with kernel size 1.
+
+**How?**:
 $$
 \text{FFN}(x)=\max(0,xW_1+b_1)W_2+b_2
 $$
-
-Idea: 2 linear transformations with ReLU in between.
-
-Notations: $d_\text{model}=512, d_\text{FF}=2048$
+- $d_\text{model}=512$
+- $d_\text{FF}=2048$

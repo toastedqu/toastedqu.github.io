@@ -6,7 +6,7 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 5
+weight: 6
 ---
 # Metrics
 ## Classification
@@ -27,7 +27,7 @@ weight: 5
 | **Recall/Sensitivity** | % of predicted Ps among actual Ps | $\frac{TP}{TP+FN}$ |
 | **Specificity** | % of predicted Ns among actual Ns | $\frac{TN}{TN+FP}$ |
 | **F1-score** | Balance tradeoff between precision & recall | $2\frac{\text{prec}\*\text{rec}}{\text{prec}+\text{rec}}$ |
-| **F$\boldsymbol{\beta}$-score** | Place importance on recall $\beta$ times of precision | $(1+\beta^2)\frac{\text{prec}\*\text{rec}}{(\beta^2\*\text{prec})+\text{rec}}$ | 
+| **F$\boldsymbol{\beta}$-score** | Place importance on recall $\beta$ times of precision | $(1+\beta^2)\frac{\text{prec}\*\text{rec}}{(\beta^2\*\text{prec})+\text{rec}}$ |
 
 ### ROC & AUC
 

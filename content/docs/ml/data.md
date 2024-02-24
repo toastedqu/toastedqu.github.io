@@ -41,15 +41,10 @@ Cons:
 
 ## Min-Max Scaling
 
-- Default: feature_range=(0,1)
-$$
-X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}
-$$
-
-- Scaled: feature_range=(min,max)
-$$
-X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}(\text{max}-\text{min})+\text{min}
-$$
+$$\begin{align*}
+&x\in[0,1]: &&X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}\\\\
+&x\in[\min,\max]: &&X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}(\text{max}-\text{min})+\text{min}
+\end{align*}$$
 
 Pros:
 - Can scale each $x_i$ into a range of your choice.

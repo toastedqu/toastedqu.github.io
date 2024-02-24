@@ -1,96 +1,13 @@
 ---
-title : "Toolbox"
+title : "Optimization"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 6
+weight: 5
 ---
-<!--
-## Hyperparamater Tuning
-
-### Cross Validation
-
-CV: evaluate how the outcomes will generalize to independent datasets.
-
-## Vanishing/Exploding Gradient
-
-**Gradient**: $\frac{\partial\mathcal{L}}{\partial w}$, specifically on $w$.
-
-**Vanishing**: When backprop towards input layer, the gradients get smaller and smaller and approach zero which eventually leaves the weights of the front layers nearly unchanged. $\rightarrow$ gradient descent never converges to optimum.
-- Causes:
-    - Sigmoid or similar activation funcs. They have 0 gradient when abs(input) is large enough.
-    - Gradients at the back are consistently less than 1.0. Therefore the chain reaction approaches 0.
-- Symptoms:
-    - Param at the back change a lot, while params at the front barely change.
-    - Some model weights become 0.
-    - The model learns very slowly, and training stagnate at very early iterations.
-
-**Exploding**: in some cases, gradients get larger and larger and eventually causes very large weight updates to the front layers $\rightarrow$ gradient descent diverges.
-- Causes:
-    - Bad weight initialization. They cause large loss and therefore large gradients.
-    - Gradients at the back are consistently larger than 1.0. Therefore the chain reaction approaches $\infty$.
-- Symptoms:
-    - Params grow exponentially.
-    - Some model weights become NaN.
-    - The model learns crazily, and the changes in params/loss make no sense.
-
-Solutions:
-- Proper Weight Inits (e.g., Xavier, Glorot, He.)
-    - All layer outputs should have equal variance as input samples.
-    - All gradients should have equal variance.
-- Proper Activation Funcs (e.g., ReLU, LReLU, ELU, SELU, etc.)
-    - Gradient = 1 for positive inputs.
-- Batch Normalization
-    - normalize inputs to ideally $N(0,1)$ before passing them to the layer.
-- Gradient Clipping
-    - Clip gradient with max & min thresholds. Any value beyond will be clipped back to the threshold.
-
-
-<center>
-
-| Model | Type | Accuracy | Speed (train) | Speed (test) | Interpretability | Scale Invariant | 
-|:-|:-:|:-:|:-:|:-:|:-:|:-:|
-| Linear Regression | Regression | NO | YES | YES | YES | YES w/o regularization<br>NO with regularization |
-| Logistic Regression | Classification | NO | YES | YES | YES | YES w/o regularization<br>NO with regularization |
-| Naive Bayes | Classification | NO | YES | YES | YES | YES |
-| K-Nearest Neighbors | Both | NO | - | YES on small dataset<br>NO on large dataset | YES | NO |
-| Decision Tree | Both | NO | YES | YES | YES | YES |
-| Linear SVM | Both | NO | YES | YES | YES | NO |
-| Kernel SVM | Both | YES | YES on small dataset<br>NO on large dataset | NO | NO | NO |
-| Random Forest | Both | YES | NO | NO | NO | YES |
-| Boosting | Both | YES | NO | NO | NO | YES |
-| Neural Networks | Both | YES | NO | NO | NO | NO |
-
-</center> -->
-
-
-
-<!-- 
-### Radial Basis Function
-
-$$
-\phi_j(\mathbf{x})=\exp{\left(-\frac{||\mathbf{x}-\mu_j||_2^2}{c}\right)}
-$$
-
-Steps:
-1. Cluster points $\mu_j$ with k-means clustering.
-2. Pick a width $c=2\sigma^2$ for all the Gaussian pdfs $N(\mu_j,\sigma^2)$ at each cluster.
-3. Fit a linear regression.
-
-Usage:
-- $d<n$: dimensionality reduction
-- $d>n$: convert nonlinear problem to linear
-- $d=n$: switch to a dual representation
-
-Pros:
-
-Cons:
-- Scale variant.
-- Need to find perfect $c$. Low $c$ leads to overfitting. High $c$ leads to learning nothing (different centroids may cover each other, which is horrible). -->
-
 # Loss
 Loss is a measure of difference between predicted output $\hat{y}_i$ and actual output $y_i$.
 - Unreduced loss: $\mathcal{L}=[\mathcal{l}_1,\cdots,\mathcal{l}_m]$

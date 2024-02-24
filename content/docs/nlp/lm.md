@@ -6,9 +6,9 @@ date: 2020-10-06T08:48:45+00:00
 lastmod: 2020-10-06T08:48:45+00:00
 draft: false
 images: []
-weight: 21
+weight: 22
 ---
-Statistical LMs, RNNLMs, and outdated LMs are excluded because they are rarely used nowadays. For consistency, notations strictly follow the original papers.
+For consistency, notations strictly follow the original papers.
 
 # PLMs
 This section includes basic transformer-based LM structures that are still widely used when LLMs are unavailable.
