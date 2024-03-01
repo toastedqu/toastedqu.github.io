@@ -1,5 +1,5 @@
 ---
-title : "DS/A"
+title : "DSA"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
@@ -8,6 +8,8 @@ draft: false
 images: []
 weight: 51
 ---
+F*** Leetcode.
+
 # Interview
 A DS/A interview consists of the following steps:
 
@@ -86,107 +88,74 @@ The single most powerful trick for any non-specific question is:
 # Array
 ## Two Pointer
 ### Left & Right
-**Where?**: 1d array/string, bi-directional problem
+**Where?**: bi-directional, often on 1d array/string.
 
 **How?**:
-1. 1 pointer from the left, 1 pointer from the right.
-2. Loop to the middle, depending on the problem.
-3. Break when meet.
+1. left & right pointers (either facing from both ends, or expanding from middle).
+2. Loop. Break when meet.
 
 **Tips**:
 - Sort when necessary!
 - Use WHILE loop to go over elems that do not break condition.
 - 3-pointer (or more) is always an option.
 
-<!-- ```python
-# 845. Longest Mountain in Array
-def longestMountain(self, arr: List[int]) -> int:
-    ans = 0
-    for i in range(1,len(arr)-1):
-        if arr[i-1] < arr[i] > arr[i+1]:                # loop pointer, check if mountain condition is met
-            l,r = i-1, i+1                              # init two pointers
-            while l>0 and arr[l-1]<arr[l]:              # expand mountain left till condition breaks
-                l -= 1
-            while r<len(arr)-1 and arr[r]>arr[r+1]:     # expand mountain right till condition breaks
-                r += 1
-            ans = max(ans, r-l+1)                       # update ans
-    return ans
-``` -->
+| Question | Solution |
+|:---------|:---------|
+| [845. Longest Mountain in Array](https://leetcode.com/problems/longest-mountain-in-array/description/) | **Hint: FOR loop; expand both ends.** |
+| [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/description/) | **Hint: FOR loop; expand one end first, then expand both ends.** |
+| [189. Rotate Array](https://leetcode.com/problems/rotate-array/description/) | **Hint: flip array, then flip both subarrays.** |
+| [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/description/) | **Hint: only higher heights can lead to higher volume.**<br>1. WHILE loop between l & r.<br>2. At each step, check if volume needs to be updated.<br>3. Move the pointer with a smaller height.|
+| [75. Sort Colors](https://leetcode.com/problems/sort-colors/description/) | **Hint: red & blue pointers for reference, white pointer for iteration.**<br>1. r,b to left,right; w for looping from left.<br>2. If w is 0, swap with r and move both.<br>3. If w is 2, swap with b and move only b.<br>4. If w is 1, move w.|
 
 &nbsp;
 
-### Slow & Fast
-**Where?**: 1d array/string, uni-directional problem
-
-**How?**: 
-1. 'fast' pointer for iteration, 'slow' pointer for operation (threshold, comparison, etc.)
-2. Move 'slow' only when a certain condition is met/broken, depending on the problem.
-3. Finish loop.
-
-**Tips**:
-- Clarify when to / not to move 'slow'.
-- For CYCLES: fast = 2x speed, slow = 1x speed.
-
-<!-- ```python
-# 142. Linked List Cycle II
-def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-    s,f = head,head
-    while f and f.next:     # if broken, no cycle
-        f = f.next.next     # move 2x
-        s = s.next          # move 1x
-        if s == f:          # cycle exists
-            h = head        # get head
-            while h != s:   # when head meets slow, that's the starting cycle point
-                h = h.next
-                s = s.next
-            return h
-    return None
-``` -->
-
-&nbsp;
-
-### Sliding Window
-**Where?**: 1d array/string, subarray/substring problem
+### Slow & Fast (Sliding Window)
+**Where?**: uni-directional, 1d subarray/substring problem
 
 **How?**:
-1. Init cache(s) with int/arr/map
-2. MIN:
-    1. Expand the window until condition is met.
-    2. Shrink the window until condition is broken.
-3. MAX: 
-    1. Expand the window until condition is broken.
-    2. Dynamically update cache to track condition. If condition is met again, stop 'start'.
+1. Init cache(s) with int/arr/map.
+2. `fast` for iteration, `slow` for operation (threshold, comparison, etc.)
+3. MIN:
+    1. Expand `fast` until condition is met.
+    2. Shrink `slow` until condition is broken.
+4. MAX: 
+    1. Expand `fast` until condition is broken.
+    2. Dynamically update cache to track condition. If condition is met again, stop `slow`.
+```python
+def sliding_window(args):
+    # Step 1: init
+    s = 0                               # slow pointer
+    cache = collections.Counter(nums)   # cache
+
+    # Step 2: iterate
+    for f in range(len(nums)):          # fast pointer
+        # Step 2.1 expand
+        cache[f] -= 1
+
+        # Step 2.2 shrink
+        while condition(f):             # condition state
+            cache[s] += 1
+            s += 1
+
+    # Step 3: return whatever the question asks for
+    return cache[-1]
+```
 
 **Tips**:
-- Plan out what to do at every single step in every single case. It's OK to write them all out at the beginning and optimize afterwards. The key is to think carefully.
-- Don't overthink over cases that do not matter. "collections" maps contain all keys by default, which come in handy in some cases.
+- Plan out what to do at every step in every case. It's OK to write them all out at the beginning and optimize afterwards. The key is to think carefully.
+- Don't overthink over cases that do not matter. "collections" contains all keys by default, which comes in handy in some cases.
 
-<!-- ```python
-# 76. Minimum Window Substring
-def minWindow(self, s: str, t: str) -> str:
-    if len(t)>len(s): return ""
-    count = collections.Counter(t)
-    missing = len(t)
-    start = 0    
-    min_s,min_e = float('-inf'),float('inf')
-    for end in range(len(s)):
-        # expand
-        if count[s[end]]>0: missing -= 1    # if this key is still available in t, drop missing by 1
-        count[s[end]] -= 1                  # reduce the count of a letter, no matter what it is.
-
-        # shrink
-        while missing == 0:                 # when we have no missing number, condition is met.
-            if min_e-min_s > end-start: min_s,min_e = start,end     # update ans
-            # if it's never part of t, it will always have a non-positive count, which won't affect us.
-            # if it's part of t, it's reasonable to add it back.
-            count[s[start]] += 1
-
-            # only keys that are part of t can have positive counts. in such case, condition is broken.
-            if count[s[start]]>0: missing += 1
-
-            start += 1  # loop
-    return s[min_s:min_e+1] if min_e<float('inf') else ''
-``` -->
+| Question | Solution |
+|:---------|:---------|
+| [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/) | 1. Expand till f char is already visited.<br>2. Remove visited s chars till f char is no longer visited.<br>Cache: visited (set), max len (int). |
+| [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/) | 1. Expand till curr sum exceeds target.<br>2. Shrink s till curr sum goes below target again.<br>Cache: curr sum (int), min len (int). |
+| [424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/description/) | 1. Expand till curr len >= max char freq + k. Keep track of char counts, max freq, curr len, and max len (i.e., the answer).<br>2. Shrink s till curr len is smaller again. Update char counts and max freq if necessary.<br>Cache: count (dict), max freq (int), curr len (int), max len (int). |
+| [713. Subarray Product Less Than K](https://leetcode.com/problems/subarray-product-less-than-k/description/) | 1. Expand & update curr product till it exceeds k.<br>2. Shrink s till curr product goes below k again.<br>At each step, update #subarrays with the window length.<br>Cache: curr product (int), #subarrays (int). |
+| [2302. Count Subarrays With Score Less Than K](https://leetcode.com/problems/count-subarrays-with-score-less-than-k/description/) | 1. Expand till score exceeds k.<br>2. Shrink s till score goes below k again.<br>At each step, update #subarrays with the window length (window length = #subarrays for the current f pointer.)<br>Cache: curr sum (int), #subarrays (int). |
+| [1493. Longest Subarray of 1's After Deleting One Element](https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/) | 1. Expand till 0 is met.<br>2. If first time, update deleted. If not, move s after 0 index. Update 0 index to f in both cases.<br>Cache: deleted (bool), 0 index (int), max len (int). |
+| [904. Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/description/) | 1. Expand till >=2 types of fruits in basket.<br>2. Move both f & s till only 2 types of fruits in basket. Update window count at each step. Delete the fruit with 0 count.<br>3. The max length is the window length.<br>Cache: basket (dict). |
+| [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) | 0. Get p count.<br>1. Expand till length of p first.<br>2. Move both f & s. Update window count at each step. Whenever window count is identical to p count, append s to answer.<br>Cache: p count (dict), window count (dict). |
+| [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/) | 0. Get t count. Init #missing as len(t).<br>1. Expand till #missing is 0 (i.e., curr window has the substring).<br>2. Shrink till #missing exceeds 0 again.<br>At each step, we update t count by subtracting f char count (and adding slow char count). We should only update #missing when the counts of t chars (which should always be >=0) change.<br>The trick is, the counts of s chars that are not in t will always be below 0, so they will never affect #missing.<br>Cache: t count (dict), #missing chars (int), min substring indices (int) |
 
 &nbsp;
 
@@ -237,37 +206,104 @@ def binary_search(nums) -> int:
 &nbsp;
 
 ## Merge Intervals
+**Where?**: interval problems
+
+**How?**: depends on the question tbh.
 
 <center>
 <img src="/images/dsa/merge_interval.jpg" width=50%/>
 </center>
 
-Usage: interval problems
+**Tips**:
+- There are only 2 conditions for 2 intervals to overlap: **front.start <= back.end** AND **back.start <= front.end**.
+- Use MIN/MAX to update merged `start`/`end`.
+- Sort by `start`/`end` when necessary.
 
-Tips:
-- Only 2 conditions for two intervals to overlap: **front.start <= back.end** and **back.start <= front.end**.
-- Use MIN/MAX to decide merged *start* / *end* for a more efficient merge.
-- Sort by *start* / *end* when necessary.
+| Question | Solution |
+|:---------|:---------|
+| [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/description/) | 0. Sort.<br>1. Loop.<br>Append interval till `front.end >= back.start`.<br>Update `front.end` with max end. |
+| [759. Employee Free Time (opposite of 56)](https://leetcode.com/problems/employee-free-time/description/) | 0. Flatten & Sort a workhour array by start time.<br>1. Loop.<br>Append interval till `front.end >= back.start`.<br>Update `front.end` with max end.<br>2. Loop through the array of merged workhours. The intervals in between (i.e., `[front.end, back.start]`) are free hours. |
+| [57. Insert Interval](https://leetcode.com/problems/insert-interval/description/) | 0. Init left & right subarrays.<br>1. Loop.<br>Append interval to left if `interval.end < newinterval.start` (i.e., on the left of new interval)<br>Append interval to right if `interval.start > newinterval.end` (i.e., on the right of new interval).<br>Else, we find the insertion position. Keep track of the position with MIN of start and MAX of end.<br>2. Concatenate left, `[insert_start, insert_end]`, and right together as the answer.|
+| [986. Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/description/) | 0. Init a pointer for each list.<br>1. Loop till length.<br>If intersect, append `[max_start, min_end]` to answer (i.e., the intersection interval)<br>Else, move the pointer with the smaller end value. |
+
+&nbsp;
+
+## Dynamic Programming
+**Where?**: The OG problem can be divided into smaller overlapping subproblems with an optimal substructure.
+
+**How?**:
+1. Choose a method: Decide between the two main methods of DP: Top-Down (Memoization) and Bottom-Up (Tabulation).
+    - Top-Down (**Memoization**): Break problem into smaller subproblems. Store results for each subproblem in an array/hash.
+    - Bottom-Up (**Tabulation**): Start from the simplest subproblems and iteratively solve larger problems. Store results in a table (i.e., 2d array).
+2. Define the state:
+    - Variables: Determine what parameters can uniquely identify a subproblem, which will be used to index into your memoization table or array.
+    - Transition: Define how to break your problem into subproblems.
+3. Initialize (DP table & Base cases) & Iterate (based on the defined state transition).
 
 ```python
-def merge(self, intervals):
-    intervals.sort()                                        # sort first, either by start or end depending on the problem
-    merged = []
-    for interval in intervals:
-        if not merged or merged[-1][1] < interval[0]:       # no overlap condition
-            merged.append(interval)
-        else:                                               
-            merged[-1][1] = max(merged[-1][1], interval[1]) # merge by changing the number of the last interval
-    return merged
+def DP(args):
+    # Step 1: Init
+    dp = [0]*(n+1)          # DP table
+    dp[0] = 1               # base case
+
+    # Step 2: Iterate
+    for i in range(1, n+1):
+        dp[i] = dp[i-1]+1   # state transition
+
+    # Step 3: Return end case
+    return dp[n]
 ```
+| Question | Solution |
+|:---------|:---------|
+| [39. Combination Sum](https://leetcode.com/problems/combination-sum/description/) | **DP: store the combinations to get the desired amount with the given coins.**<br>Base: f(0)=[]; f(coin)=[coin].<br>Transition: loop through each candidate and all numbers between candidate and target.<br>- If the number is the candidate, store the candidate.<br>- Else, append candidate to all combinations of the previous store. (`dp[i] = dp[i-c]+[c]`) |
+| [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/description/) | **DP: store max attainable sum for the given index.**<br>Base: all 0.<br>Transition: loop through each index.<br>- If previous max sum is bigger than 0, curr max sum = prev + curr num.<br>- Else, curr max sum = curr num (because adding negative sum is not max.)<br>Return `max(dp)`.|
+| [62. Unique Paths](https://leetcode.com/problems/unique-paths/description/) | **DP: store #unique paths for the given point.**<br>Base: set all starting edges to 1.<br>Transition: loop through each point from top left to bottom right.<br>- `dp[i][j] = dp[i-1][j] + dp[i][j-1]` |
+| [139. Word Break](https://leetcode.com/problems/word-break/description/) | **DP: store whether there is a word in worddict that ends with index i in string s.**<br>Base: all False.<br>Transition: loop through each index and each word in dict.<br>- If there is such a word and (the preceding word also exists or this word is the first word), then `dp[i]=True`. |
+| [322. Coin Change](https://leetcode.com/problems/coin-change/description/) | **DP: store min #coins for each amount till target.**<br>Base: f(0)=0; f(coin)=1.<br>Transition: loop through each amount and each coin.<br>- If curr ammount is bigger than the coin, `dp[i] = min(dp[i-coin] for coin in coins)+1`.<br>- Else, `dp[i]=float("inf")`. |
+| [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/description/) | **DP: store #combinations for each target till target.**<br>Base: f(0)=1.<br>Transition: loop through each target and each number.<br>- `dp[i] = sum(dp[i-num] for num in nums)` |
+| [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/description/) | **DP: store max common subsequence length for each index in each string.**<br>Base: all 0.<br>Transition: loop through each index in each string.<br>- If two chars are the same, `dp[i+i][j+1] = dp[i][j]+1`<br>- Else, `dp[i+1][j+1] = max(dp[i][j+1],dp[i+1][j])` |
+| [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/description/) | **2 DPs: both sets store the sums of all subsets till this index. 1 for main store, 1 for looping.**<br>Base: f(0)=0.<br>Transition: loop through each index and each stored sum for previous index.<br>1. Init looping dp. Also, init target sum (i.e., half of total sum).<br>2. For each stored sum for previous index, stored in the main dp,<br>- At each number, we have 2 options: add it, or don't.<br>- When add it, we append `sum+num` to the looping dp.<br>- When don't, we append `sum` to the looping dp.<br>- Do both options at each loop because there is no if-else for this problem.<br>3. Update main dp with looping dp. If target sum in main dp, return True. If no true after all loops, return False. |
+| [494. Target Sum](https://leetcode.com/problems/target-sum/description/) | **DP: store mappings of "(index, target) -> #ways to get to target from curr index".**<br>**DFS: return #ways to get to target from curr index.**<br>Leaf case: #ways is either 1 (if hit target) or 0 (if not).<br>Break case: if we already visited (index, target), no need to loop further.<br>Loop: #ways at curr index = #ways at left + #ways at right.<br>Start with (0,0). |
+| [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/) | **DP: store max attainable len for each point.**<br>**DFS: return max attainable len for curr point.**<br>Break case: return 0 if out of boundary or not increasing (keep track of previous number to check if increasing).<br>Loop: if curr point not visited, set curr point store to max of all 4 movements plus 1.<br>Start with all points on matrix. Return the max len. |
+
+&nbsp;
+
+# Linked List
+My peanut brain literally cannot understand linked list problems, so take this section with a grain of salt.
+
+**Where?**: linked list
+
+**Tips**: 
+- Problem: search, insert, delete, reverse, etc.
+- Diagram: if you can, draw them.
+- Pointer: carefully keep track of what your "prev" and "curr" pointers are doing at every single step. Are they doing add, remove, or rearrange nodes?
+    - It involves 3 nodes instead of 2 to make a full reverse.
+- Dummies: don't be afraid to init bunch of temp nodes. They are all O(1) anyway.
+- Edge cases: empty list, single node list, head/tail nodes, etc. 
+
+| Question | Solution |
+|:---------|:---------|
+| [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/) | 1. Two pointers at head.<br>2. Loop fast first till `n`. If fast cannot reach `n`, no need to remove.<br>3. Loop both fast and slow. When fast finishes, slow will be at `n-1`th node.<br>4. Put slow.next to slow.next.next. Return head. |
+| [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/description/) | 1. Init a dummy node for the later merged list. Init a pointer for the list.<br>2. Init a heap with first nodes of each list, storing both value and index for the node.<br>3. Recursively pop & push values and indices to the heap till we run out of nodes. |
+| [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/description/) | 1. Init a dummy node for the head. Init 2 pointers (`prev` & `curr`) to `dummy` & `head`.<br>2. Keep track of 3 nodes in each iteration of the WHILE loop on `curr` & `post`.<br>2.1. Point curr & post to new curr & new post.<br>2.2. Point `curr.next` to `post.next`.<br>2.3. Point `post.next` to `curr`.<br>2.4. Point `prev.next` to `post`.<br>2.5. Move `prev` to `curr`. |
+
+<!-- ```python
+def reverseList(self, head):
+    prev, curr = None, head
+    while curr:
+        temp = curr.next
+        curr.next = prev
+        prev, curr = curr, temp
+    return prev
+``` -->
 
 &nbsp;
 
 # Stack & Queue
 ## Monotonic Stack
-Usage: increasing/decreasing trend
+**Where?**: increasing/decreasing trend
 
-Tips:
+**Tips**:
 - Understand clearly what the variable for comparison is. Use stack to store
     - the variable for comparison
     - another variable closely associated with it
@@ -291,37 +327,11 @@ def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
 
 &nbsp;
 
-# Linked List
-Usage: linked list (idk why it's so hard, and idc.)
-
-Tips:
-- Carefully keep track of what your "prev" and "curr" pointers are doing at every single step.
-- It involves 3 nodes instead of 2 to make a full reverse.
-- Don't be afraid to init bunch of temp nodes. They are all O(1) anyway.
-
-```python
-def reverseList(self, head):
-    prev, curr = None, head
-    while curr:
-        temp = curr.next
-        curr.next = prev
-        prev, curr = curr, temp
-    return prev
-```
-
-&nbsp;
-
 # Tree
 ## DFS
-Usage: longest/specific search problems
+**Where?**: longest/specific search problems
 
-Tips: 
-- Choose carefully what you want: pre-order / in-order / post-order.
-- Each loop should ONLY focus on
-    1) the end/base case
-    2) the curr node
-- When returning bool, specify both True and False end/base cases.
-
+**How?**
 ```python
 def dfs_pre(node):
     if is_end_case(): return True
@@ -348,14 +358,20 @@ def dfs_post(node):
     ###### ACTION ENDS ######
 ```
 
+**Tips**: 
+- Choose carefully what you want: pre-order / in-order / post-order.
+- Each loop should ONLY focus on
+    1) the end/base case
+    2) the curr node
+- When returning bool, specify both True and False end/base cases.
+
 &nbsp;
 
 ## BFS
-Usage: shortest search problems
+**Where?**: shortest search problems
 
-Tips: queue/priority queue
+**Tips**: queue/priority queue
 
-Tree with queue
 ```python
 def bfs(node):
     if not node: return
@@ -371,7 +387,7 @@ def bfs(node):
 &nbsp;
 
 # Heap
-Usage: get min/max fast
+**Where?**: get min/max fast
 | Action | Time |
 |------|----|
 | top()  | O(1) |
@@ -380,9 +396,9 @@ Usage: get min/max fast
 | heapify() | O(n) |
 
 ## Two Heap
-Usage: scheduling, median, any problem that involves both min and max somehow.
+**Where?**: scheduling, median, any problem that involves both min and max somehow.
 
-Tips:
+**Tips**:
 - Set up 2 heaps:
     - small: max heap (i.e., negative min heap)
     - large: min heap
@@ -477,9 +493,9 @@ def bfs():
 
 ## Union-Find
 
-Usage: connected components in undirected graphs
+**Where?**: connected components in undirected graphs
 
-Tips: Don't forget to UPDATE PARENTS.
+**Tips**: Don't forget to UPDATE PARENTS.
 
 ```python
 parent = [i for i in range(n)]
@@ -517,9 +533,9 @@ parent = [find(i) for i in range(n)]
 
 ## Topological Sort
 
-Usage: directed acyclic graphs
+**Where?**: directed acyclic graphs
 
-Tips:
+**Tips**:
 1. Init **graph** & **indegree**.
 2. Init **queue** with 0-indegree nodes.
 3. Loop q by updating & appending neighbors of 0-indegree.
@@ -561,7 +577,7 @@ def topologicalSort(graph):
 &nbsp;
 
 ## Dijkstra's Shortest Path
-Usage: find shortest path from one node to all other nodes
+**Where?**: find shortest path from one node to all other nodes
 
 ```python
 def dijkstra(graph,start,end):
@@ -582,7 +598,7 @@ def dijkstra(graph,start,end):
 &nbsp;
 
 ## Floyd Warshall
-Usage: find shortest path from all nodes to all other nodes
+**Where?**: find shortest path from all nodes to all other nodes
 
 ```python
 def floyd_warshall(graph):
@@ -607,7 +623,7 @@ def floyd_warshall(graph):
 &nbsp;
 
 ## Prim's MST
-Usage: find MST with given node
+**Where?**: find MST with given node
 
 ```python
 def primsMST(graph):
@@ -630,7 +646,7 @@ def primsMST(graph):
 &nbsp;
 
 ## Kruskal's MST
-Usage: find MST with nothing
+**Where?**: find MST with nothing
 
 ```python
 def KruskalMST(graph):
