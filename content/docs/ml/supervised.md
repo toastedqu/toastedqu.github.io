@@ -9,61 +9,152 @@ images: []
 weight: 4
 ---
 # Linear Models
-All linear models are parametric.
 
-Types:
+<!-- ## Linear Discriminant Analysis -->
+
+## Naive Bayes
+**What?**: Naive Bayes is the simplest generative, parametric classifier directly using Bayes' Theorem.
+
+**Why?**: It solves problems in scenarios where we need quick and accurate predictions.
+
+**Where?**: Mostly text classification.
+
+**When?**: Conditional Independence of features given label:
+$$
+p(\mathbf{x}|y=k,\mathbf{w}\_k)=\prod\_{j=1}^np(x\_j|y=k,w\_{jk})
+$$
+
+**How?**: Bayes' Theorem
+
+**Training**:
+- **Params**:
+    - $\boldsymbol{\pi}=[\pi_k:k\in\mathcal{K}]$: class prior probability
+    - $\mathbf{w}\_k=[w\_{jk}:j\in\\{1,\cdots,n\\}]$: conditional density params for class $k$
+    - **#Params**:
+        - Background:
+            - $\\#\\{p(\mathbf{x}|y=k)\\}=|\mathbf{x}|-1$
+            - $\\#\\{p(a_1,\cdots,a_n|b_1,\cdots,b_m)\\}=(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j|$
+            - $\\#\\{p(x_1,\cdots,x_n|y)\\}=(2^n-1)\cdot2$
+        - Binary: $\\#\\{\prod_jp(x_j|y)\\}=2n$
+        - Discrete: $\\#\\{\prod_jp(x_j|y)\\}=O((|\mathbf{x}|-1)n)$
+
+- **Objective**:
+    - **Loss**: 0-1
+    - **Regularization**: Laplace smoothing
+
+- **Optimization**:
+    - **MLE**:
+    $$\begin{align*}
+    &\text{Likelihood}: &&p(\mathcal{D}|\mathbf{w})=\prod\_{i=1}^mp(y\_i|\mathbf{\pi})\prod\_{j=1}^n\prod\_{k=1}^Kp(x\_{ij}|w\_{jk})^{\mathbf{1}(y\_i=k)}\\\\
+    &\text{Log-likelihood}: &&\log p(\mathcal{D}|\mathbf{w})=\log p(\mathcal{D}\_y|\boldsymbol{\pi})+\sum\_{k=1}^K\sum\_{j=1}^n\log p(\mathcal{D}\_{jk}|w\_{jk})\\\\
+    &\text{MLE for }\boldsymbol{\pi}: &&\hat{\pi}_k=\frac{N_k}{N}\\\\
+    &\text{MLE for }\mathbf{w}\text{ (discrete)}: &&\hat{w}\_{jkl}=\frac{N\_{jkl}}{N_k}\\\\
+    &\text{MLE for }\mathbf{w}\text{ (continuous)}: &&\hat{\mu}\_{jk}=\frac{1}{N_k}\sum\_{i:y_i=k}x\_{ij}\\\\
+    &  &&\hat{\sigma}\_{jk}^2=\frac{1}{N_k}\sum\_{i:y_i=k}(x\_{ij}-\hat{\mu}\_{jk})^2
+    \end{align*}$$
+        - $N$: #samples
+        - $N_k$: #samples with class $k$
+        - $N\_{jkl}=\sum\_{i=1}^m\mathbf{1}(x\_{ij}=l,y_i=k)$: #samples with feature $j$ equal to $l$ and class $k$
+    
+    &nbsp;
+
+    - **MAP**:
+    $$\begin{align*}
+    &\text{Prior}: &&p(\boldsymbol{\pi})=\text{Dir}(\boldsymbol{\pi}|\boldsymbol{\alpha}), p(w\_{jk})=\text{Dir}(w\_{jk}|\beta\_{jk})\\\\
+    &\text{Posterior}: &&p(\boldsymbol{\pi},\mathbf{w}|\mathcal{D})=\text{Dir}(\boldsymbol{\pi}|\tilde{\boldsymbol{\alpha}})\prod_{j=1}^n\prod_{k=1}^K\text{Dir}(w\_{jk}|\tilde{\beta}\_{jk})\\\\
+    &\text{MAP for }\boldsymbol{\pi}: &&\hat{\pi}_k=\frac{N_k+\alpha_k}{N+\sum_c\alpha_c}\\\\
+    &\text{MAP for }\mathbf{w}\text{ (discrete)}: &&\hat{w}\_{jkl}=\frac{N\_{jkl}+\beta\_{jkl}}{N_k+\beta_k}\\\\
+    \end{align*}$$
+        - $\tilde{\alpha}_k=\alpha_k+N_k$: shifted Dirichlet param for $\pi_k$ (conjugate prior + likelihood)
+        - $\tilde{\beta}\_{jkl}=\beta\_{jkl}+N\_{jkl}$: shifted Dirichlet param for $w\_{jkl}$ (conjugate prior + likelihood)
+        - **Laplace smoothing**: $\beta\_{jkl}=1, \beta_k=L$
+
+**Inference**:
+$$\begin{align*}
+&\text{Likelihood}: &&p(y=k|\mathbf{x},\mathbf{w})=\frac{p(y=k|\boldsymbol{\pi})\prod_jp(x\_j|y=k,w\_{jk})}{\sum_cp(y=c|\boldsymbol{\pi})\prod_jp(x\_j|y\_i=c,w\_{jc})}\\\\
+&\text{Posterior}: &&p(y=k|\mathbf{x},\mathcal{D})\propto p(y=k|\mathcal{D})\prod_jp(x\_j|y=k,\mathcal{D})=\hat{\pi}_k\prod_j\prod_l\hat{w}\_{jkl}^{\mathbf{1}(x_j=l)}
+\end{align*}$$
+
+**Pros**:
+- Easy
+- Scale invariant
+- High computational efficiency (significantly low #params)
+- Robust to outliers and noisy data
+- No overfitting (unless feature value missing in training set)
+- Can handle real-time prediction
+- High accuracy on small datasets (> LogReg)
+
+**Cons**:
+- Assumption fails in real life
+- Low accuracy on large datasets (< LogReg)
+- Low accuracy in terms of probability estimates (<< LogReg)
+
+&nbsp;
+
+&nbsp;
+
+<!-- All linear models are parametric. -->
+
+<!-- Types:
 
 * Linear Regression
-
 $$
 \hat{y_i}=\sum_{j=1}^{n}{w_jx_{ij}}
 $$
 
 * Generalized Linear Models ($f$: link function; $\mathbf{w}^T\mathbf{x}$: logits)
-
 $$
 \hat{y_i}=f\left(\sum_{j=1}^{n}{w_jx_{ij}}\right)
 $$
 
 * Basis Transformation ($\phi_j(\mathbf{x}_i)$: transformation of non-linear inputs into linear inputs)
-
 $$
-\hat{y_i}=\sum_{j=1}^{d}{w_j\phi_j(\mathbf{x}_i)}
-$$
+\hat{y}\_i=\sum\_{j=1}^dw\_j\phi\_j(\mathbf{x}\_i)
+$$ -->
 
 ## Linear Regression
-Idea: fit a linear hyperplane between features and labels.
+**What?**: Linear regression fits a linear hyperplane between features and labels.
 
-Assumptions:
+**When?**: 
 - **Linearity**: The underlying relationship between $\textbf{y}$ and $X$ is linear.
 - **Independence**: $\varepsilon_i$ is independent of each other.
 - **Normality**: $\varepsilon_i$ follows Gaussian distribution.
 - **Non-Collinearity**: No/Minimal explanatory variables correlate with each other.
 - **Homoskedasticity**: The variance of all noises is the same constant $\sigma^2$.
 
-Model:
+**How?**: 
 $$\begin{align*}
 &\text{Frequentist:} &&\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
 &\text{Bayesian:}    &&p(\mathbf{y}|X,\mathbf{w})=N(X\mathbf{w},\sigma^2)
 \end{align*}$$
 
-Prediction:
-$$
-\hat{y}_i=\mathbf{w}^T\mathbf{x}_i
-$$
-
-Objective:
-- Loss: MSE
-- Regularization: L1, L2, ElasticNet, L0
-
-Optimization:
-
+**Training**:
+- **Hyperparameters**: 
+- **Objective**:
+    - Loss: MSE
+    - Regularization: L1, L2, ElasticNet, L0
+- **Optimization**:
 $$\begin{aligned}
 &\text{OLS/MLE}:\ &&\hat{\mathbf{w}}=(X^TX)^{-1}X^T\mathbf{y} \\\\
 &\text{Ridge}:\ &&\hat{\mathbf{w}}=(X^TX+\lambda I)^{-1}X^T\mathbf{y} \\\\
 &\text{Lasso}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda\cdot\text{sign}(w_j) \\\\
 &\text{ElasticNet}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda r_1\cdot\text{sign}(w_j)+\lambda(1-r_1)w_j
 \end{aligned}$$
+
+**Inference**:
+$$
+\hat{y}_i=\mathbf{w}^T\mathbf{x}_i
+$$
+
+**Pros**:
+
+**Cons**: 
+
+Objective:
+
+
+Optimization:
+
 
 Pros:
 - Simple and Interpretable
@@ -341,62 +432,6 @@ $$
 |          Scale variant         |               Scale variant               |
 
 </center> -->
-
-&nbsp;
-
-&nbsp;
-
-# Naive Bayes
-Assumption: Features are **conditionally independent** of each other given the label:
-$$
-P(x_{i1},\cdots,x_{in}|y_i=k)=\prod_{j=1}^{n}P(x_{ij}|y_i=k)
-$$
-
-Model:
-1. Build a feature space (e.g., vocabulary) $\mathcal{V}$ from training set (where each feature (e.g., word) takes a YES/NO binary value in text classification)
-2. Estimate $P(k)$ for all $k\in\\{1,\cdots,K\\}$:
-$$
-P(k)=\frac{\\#\\{Y=k\\}}{m}
-$$
-where $\\#\\{Y=k\\}$ is #samples of class $k$.
-3. Estimate $P(X_j=v|k)$ for all $v\in\mathcal{V}(X_j)$ for all $X_j\in\mathcal{V}$:
-$$\begin{align*}
-&\text{MLE}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}}{\\#\\{Y=k\\}}\\\\
-&\text{MAP (Laplace Smoothing)}: &&P(X_j=v|k)=\frac{\\#\\{X_j=v,Y=k\\}+1}{\\#\\{Y=k\\}+V}
-\end{align*}$$
-where $\\#\\{X_j=v,Y=k\\}$ is #occurrences of feature-value pair $X_j=v$ in all samples of class $k$.
-
-Prediction:
-$$
-\hat{y}_i=\arg\max_k\prod\_{k\in\\{1,\cdots,K\\}}P(k)\prod\_{x\_{ij}\in\mathbf{x}_i}P(x\_{ij}|k)
-$$
-
-#params: 
-- For binary/multinomial $P(x|y=k)$: (#values of x)-1
-- Formula: $P(a_1,\cdots,a_n|b_1,\cdots,b_m)$: $(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j|$
-- Joint distribution if all binary: $P(x_1,\cdots,x_n|y)$: $(2^n-1)\cdot2$
-- NB if all binary: $\prod_{j=1}^{n}P(x_j|y)$: $2n$ (a significant reduction in #params)
-- NB if arbitrary: $\prod_{j=1}^{n}P(x_j|y)$: $O((|X|-1)n)$ (again, a significant reduction in #params)
-
-Objective: 0-1
-
-Optimization: none
-
-Pros: 
-- Easy, Fast, Simple
-- Significant reduction in #params with CI assumption
-- Robust to outliers and noisy data
-- Low computational cost
-- No overfitting (only overfit in a sense of never seeing a feature value in a test set)
-- Scale invariant
-- Can handle real-time prediction very easily
-- Widely used in spam detection or text classification in general
-- Great performance on small datasets (better than LogReg)
-
-Cons:
-- Assumption of feature independence fails in real life
-- Worse performance on large datasets (worse than LogReg)
-- Very low accuracy in terms of output probability estimates
 
 &nbsp;
 
