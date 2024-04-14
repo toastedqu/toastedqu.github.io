@@ -90,25 +90,25 @@ Cons:
 
 # Optimization
 Optimization means the adjustment of params to minimize/maximize an objective function. In DL, it involves 5 key components:
-- **Loss Function**: Difference between predicted output $\hat{y}$ and actual output $y$.
+- **Loss Function**: Difference between predicted output {{< math >}}$ \hat{y}$ and actual output $y ${{</ math>}}.
 - **Gradient Descent**: Iteratively use loss gradient to update params to reduce loss. While other optimization methods exist, GD and its variations are the best.
 - **Learning Rate**: Step size taken during each iteration, controlling convergence and stability of GD.
 - **Epochs**: #times to go through the entire dataset.
 - **Batch Size**: #samples in a batch, which impacts how often params are updated.
 
 ## Gradient Descent
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &\text{Basic ver.:}             &&g_t=\nabla_w\mathcal{L}(w_{t-1})\\\\
 &\text{L2 regularization ver.:} &&g_t=\nabla_w\mathcal{L}(w_{t-1})+\lambda w_{t-1}\\\\
 &\text{Weight update:} && w_t=w_{t-1}-\eta g_t\\\\
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Notations:
-- $w_t$: param
-- $\eta$: learning rate
-- $g_t$: gradient
-- $\mathcal{L}$: loss
-- $\lambda$: L2 penalty weight
+- {{< math >}}$ w_t ${{</ math>}}: param
+- {{< math >}}$ \eta ${{</ math>}}: learning rate
+- {{< math >}}$ g_t ${{</ math>}}: gradient
+- {{< math >}}$ \mathcal{L} ${{</ math>}}: loss
+- {{< math >}}$ \lambda ${{</ math>}}: L2 penalty weight
 
 Types:
 - **Stochastic GD**: update params after each sample
@@ -123,14 +123,14 @@ Cons:
 - sensitive to learning rate
 
 ## Momentum
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &v_t=\beta v_{t-1}+(1-\beta)g_t\\\\
 &w_t=w_{t-1}-\eta v_t
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Notations:
-- $\beta$: momentum weight
-    - larger $\rightarrow$ smoother updates due to more past gradients involved
+- {{< math >}}$ \beta ${{</ math>}}: momentum weight
+    - larger {{< math >}}$ \rightarrow ${{</ math>}} smoother updates due to more past gradients involved
     - typical values: 0.8, 0.9, 0.999
 
 Idea: moving average of past gradients
@@ -145,10 +145,10 @@ Cons:
 - overshooting: the weight update jumps over the global minimum
 
 ## NAG
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &v_t=\beta v_{t-1}+\nabla_w\mathcal{L}(w_{t-1}-\beta v_{t-1})\\\\
 &w_t=w_{t-1}-\eta v_t
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Name: Nesterov Accelerated Gradient
 
@@ -166,13 +166,13 @@ Cons:
 - still sensitive to learning rate
 
 ## AdaGrad
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &v_t=v_{t-1}+g_t^2\\\\
 &w_t=w_{t-1}-\frac{\eta}{\sqrt{v_t}+\epsilon}g_t
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Notations:
-- $\epsilon$: small number to ensure no division by 0.
+- {{< math >}}$ \epsilon ${{</ math>}}: small number to ensure no division by 0.
 
 Name: Adaptive Gradient Algorithm
 
@@ -186,11 +186,11 @@ Cons:
 - small learning rate for frequently occurring features -> slow convergence or premature stopping
 
 ## Adadelta
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &v_t=\beta v\_{t-1}+(1-\beta)g_t^2\\\\
 &\Delta w_t=-\frac{\sqrt{\Delta w_{t-1}^2+\epsilon}}{\sqrt{v_t}+\epsilon}g_t\\\\
 &w_t=w\_{t-1}+\Delta w_t
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Idea: address small learning rate in AdaGrad by using a window of past gradients to normalize updates
 
@@ -203,10 +203,10 @@ Cons:
 - Far too complicated
 
 ## RMSProp
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &v_t=\beta v_{t-1}+(1-\beta)g_t^2\\\\
 &w_t=w_{t-1}-\frac{\eta}{\sqrt{v_t}+\epsilon}g_t
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Name: Root Mean Square Propagation
 
@@ -220,18 +220,18 @@ Cons:
 - worse than Adam
 
 ## Adam
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &m_t=\beta_1m_{t-1}+(1-\beta_1)g_t\\\\
 &v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^2\\\\
 &\hat{m}_t=\frac{m_t}{1-\beta_1^t}\\\\
 &\hat{v}_t=\frac{v_t}{1-\beta_2^t}\\\\
 &w_t=w\_{t-1}-\frac{\eta}{\sqrt{\hat{v}_t}+\epsilon}\hat{m}_t
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Notations:
-- $m_t$: first moment (adaptive gradient)
-- $v_t$: second moment (adaptive learning rate)
-- $\hat{m}_t, \hat{v}_t$: bias-corrected moments
+- {{< math >}}$ m_t ${{</ math>}}: first moment (adaptive gradient)
+- {{< math >}}$ v_t ${{</ math>}}: second moment (adaptive learning rate)
+- {{< math >}}$ \hat{m}_t, \hat{v}_t ${{</ math>}}: bias-corrected moments
 
 Name: Adaptive Moment Estimation
 

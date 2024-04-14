@@ -1,93 +1,10 @@
-[[main]]
-  name = "Docs"
-  url = "/docs/"
-  identifier = "docs"
-  weight = 1
+# [[docs]]
+#   name = "Prologue"
+#   weight = 10
+#   identifier = "prologue"
+#   url = "/docs/prologue/"
 
-[[main]]
-  name = "ML"
-  url = "/docs/ml/intro/"
-  identifier = "ml"
-  parent = "docs"
-  weight = 1
-
-[[main]]
-  name = "DL"
-  url = "/docs/dl/intro/"
-  identifier = "dl"
-  parent = "docs"
-  weight = 2
-
-[[main]]
-  name = "NLP"
-  url = "/docs/nlp/tokenizer/"
-  identifier = "nlp"
-  parent = "docs"
-  weight = 3
-
-[[main]]
-  name = "CV"
-  url = "/docs/cv/obj/"
-  identifier = "cv"
-  parent = "docs"
-  weight = 4
-
-[[main]]
-  name = "Applications"
-  url = "/docs/app/recsys/"
-  identifier = "app"
-  parent = "docs"
-  weight = 5
-
-[[main]]
-  name = "Misc"
-  url = "/docs/misc/dsa/"
-  identifier = "misc"
-  parent = "docs"
-  weight = 10
-
-# [[main]]
-#   name = "Multimodal"
-#   url = "/docs/multi/intro/"
-#   identifier = "multimodal"
-#   parent = "docs"
-#   weight = 3
-
-# [[main]]
-#   name = "blog"
-#   url = "/blog/"
-#   weight = 20
-
-[[main]]
-  name = "CV"
-  url = "https://drive.google.com/file/d/1ah-WCREzy0lzulYvkOi3DeAe1Q3aIP2p/view?usp=drive_link"
-  weight = 20
-
-[[main]]
-  name = "Portfolio"
-  url = "https://sites.google.com/view/renyiqu/portfolio"
-  weight = 30
-
-[[social]]
-  name = "GitHub"
-  pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-github\"><path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"></path></svg>"
-  url = "https://github.com/toastedqu?tab=repositories"
-  post = "v0.1.0"
-  weight = 10
-
-[[social]]
-  name = "LinkedIn"
-  pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-linkedin\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z\"/><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\"/><circle cx=\"4\" cy=\"4\" r=\"2\"/></svg>"
-  url = "https://www.linkedin.com/in/renyi-qu-6645a8150/"
-  weight = 20
-
-[[social]]
-  name = "Email"
-  pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"1em\" viewBox=\"0 0 512 512\"><path d=\"M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z\"/></svg>"
-  url = "mailto: mikustokes@gmail.com"
-  weight = 30
-
-# [[main]]
+# [[docs]]
 #   name = "Help"
 #   weight = 60
 #   identifier = "help"
@@ -111,46 +28,54 @@
 #   identifier = "lorem"
 #   url = "/tutorial/lorem/"
 
-# [[main]]
-#   name = "Tutorial"
-#   url = "/tutorial/lorem/ipsum/"
-#   weight = 15
+[[main]]
+  name = "Docs"
+  url = "/"
+# url = "/docs/1.0/prologue/introduction/"
+  weight = 10
 
-# [[main]]
-#   name = "Get Started"
-#   weight = 30
-#   identifier = "get-started"
-#   url = "/docs/prologue/introduction/"
+[[main]]
+  name = "CV"
+  url = "https://drive.google.com/file/d/1ZRHhH0OX3n3OJ2jsOA6lLca0C6Ws2YBM/view?usp=drive_link"
+  weight = 20
 
-# [[main]]
-#   name = "Quick Start"
-#   weight = 40
-#   identifier = "quick-start"
-#   url = "/docs/prologue/quick-start/"
-#   parent = "get-started"
+[[main]]
+  name = "Portfolio"
+  url = "https://sites.google.com/view/renyiqu"
+  weight = 30
 
-# [[main]]
-#   name = "Tutorial"
-#   weight = 50
-#   identifier = "tutorial"
-#   url = "https://getdoks.org/tutorial/introduction/"
-#   parent = "get-started"
+# [[social]]
+#   name = "Twitter"
+#   pre = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg>'
+#   url = "https://twitter.com/getdoks"
+#   weight = 10
+# 
+# [[social]]
+#   name = "Discord"
+#   pre = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-discord" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path><path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path><path d="M8.5 17c0 1 -1.356 3 -1.832 3c-1.429 0 -2.698 -1.667 -3.333 -3c-.635 -1.667 -.476 -5.833 1.428 -11.5c1.388 -1.015 2.782 -1.34 4.237 -1.5l.975 1.923a11.913 11.913 0 0 1 4.053 0l.972 -1.923c1.5 .16 3.043 .485 4.5 1.5c2 5.667 2.167 9.833 1.5 11.5c-.667 1.333 -2 3 -3.5 3c-.5 0 -2 -2 -2 -3"></path><path d="M7 16.5c3.5 1 6.5 1 10 0"></path></svg>'
+#   url = "https://getdoks.org/chat"
+#   weight = 20
+
+[[social]]
+  name = "GitHub"
+  pre = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg>'
+  url = "https://github.com/toastedqu"
+#   post = "v0.1.0"
+  weight = 10
+
+[[social]]
+  name = "LinkedIn"
+  pre = '<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg>'
+  url = "https://www.linkedin.com/in/renyi-qu-6645a8150/"
+#   post = "v0.1.0"
+  weight = 20
 
 # [[footer]]
-#   name = "Privacy"
-#   url = "/privacy-policy/"
+#   name = "Privacy Policy"
+#   url = "/privacy/"
 #   weight = 10
 
-# [[main]]
-#   name = "Models"
-#   weight = 10
-#   identifier = "models"
-#   url = "/docs/ml/models/"
-#   parent = "ml"
-
-# [[main]]
-#   name = "RL"
-#   url = "/docs/ml/rl/"
-#   identifier = "rl"
-#   parent = "docs"
-#   weight = 3
+# [[footer]]
+#   name = "Terms of Service"
+#   url = "/terms/"
+#   weight = 20

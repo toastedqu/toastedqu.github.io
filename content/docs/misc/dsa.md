@@ -58,7 +58,7 @@ When stuck,
 Identify which data structures are potentially useful.
 - Storage:
     - **Array**: store index-specific values.
-    - **HashSet**: store unique values, ignore duplicates, reduce search time to $O(1)$.
+    - **HashSet**: store unique values, ignore duplicates, reduce search time to {{< math >}}$ O(1) ${{</ math>}}.
     - **HashMap**: store mapping of 2 different entities (e.g., `defaultdict(list), defaultdict(set), Counter()`)
 - Process:
     - **Stack**: process things backward (DFS).
@@ -437,9 +437,9 @@ class MedianFinder:
 | Union-Find               | O(nlogn)     | array, tree                  |
 | Topological Sort         | O(n)         | array, set, queue            |
 | Dijkstra's Shortest Path | O(ElogV)     | set, heap                    |
-| Prim's MST               | O(V$^2$logV) | set, heap                    |
+| Prim's MST               | O(V{{< math >}}$ ^2 ${{</ math>}}logV) | set, heap                    |
 | Kruskal's MST            | O(ElogE)     | array, tree                  |
-| Floyd Warshall           | O(n$^3$)     | matrix                       |
+| Floyd Warshall           | O(n{{< math >}}$ ^3 ${{</ math>}})     | matrix                       |
 
 ## DFS
 ```python

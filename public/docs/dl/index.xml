@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DL on Q.Docs</title>
+    <link>http://localhost:1313/docs/dl/</link>
+    <description>Recent content in DL on Q.Docs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright (c) 2020-2024 Renyi Qu</copyright>
+    <lastBuildDate>Tue, 06 Oct 2020 08:48:45 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/docs/dl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Concepts</title>
+      <link>http://localhost:1313/docs/dl/concepts/</link>
+      <pubDate>Tue, 06 Oct 2020 08:48:45 +0000</pubDate>
+      <guid>http://localhost:1313/docs/dl/concepts/</guid>
+      <description>Universal Approximation Theorem: A neural network with 1 hidden layer can approximate any continuous function for inputs within a specific range.</description>
+    </item>
+    <item>
+      <title>Layer</title>
+      <link>http://localhost:1313/docs/dl/layer/</link>
+      <pubDate>Tue, 06 Oct 2020 08:48:45 +0000</pubDate>
+      <guid>http://localhost:1313/docs/dl/layer/</guid>
+      <description>A layer is fundamentally a function that transforms input $X$ into output $Y$.&#xA;This page assumes no activation.&#xA;Basics Linear $$ Y=XW^T+\textbf{b} $$</description>
+    </item>
+    <item>
+      <title>Activation</title>
+      <link>http://localhost:1313/docs/dl/activation/</link>
+      <pubDate>Tue, 06 Oct 2020 08:48:45 +0000</pubDate>
+      <guid>http://localhost:1313/docs/dl/activation/</guid>
+      <description>An activation function adds nonlinearity to the output of a layer (linear in most cases) to enhance complexity.&#xA;ReLU and Softmax are SOTA.</description>
+    </item>
+    <item>
+      <title>Toolbox</title>
+      <link>http://localhost:1313/docs/dl/toolbox/</link>
+      <pubDate>Tue, 06 Oct 2020 08:48:45 +0000</pubDate>
+      <guid>http://localhost:1313/docs/dl/toolbox/</guid>
+      <description>This page is a collection of tools that are widely used in model construction and experimentation, including&#xA;Regularization Optimization Activation Regularization Regularization reduces overfitting by adding our prior belief onto loss minimization (i.</description>
+    </item>
+    <item>
+      <title>GNN</title>
+      <link>http://localhost:1313/docs/dl/gnn/</link>
+      <pubDate>Tue, 06 Oct 2020 08:48:45 +0000</pubDate>
+      <guid>http://localhost:1313/docs/dl/gnn/</guid>
+      <description>This page is heavily conditioned on the course &amp;ldquo;ESE 5140 Graph Neural Networks&amp;rdquo; by Prof. Alejandro Ribeiro at UPenn.&#xA;Graph Def: a triplet $\mathcal{G}=(\mathcal{V},\mathcal{E},\mathcal{W})$</description>
+    </item>
+  </channel>
+</rss>

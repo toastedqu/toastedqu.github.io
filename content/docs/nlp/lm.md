@@ -27,19 +27,19 @@ Unsupervised pretraining:
     $$
     L_1(\mathcal{U})=\sum_i\log P(u_i|u_{i-k},\cdots,u_{i-1};\Theta)
     $$
-    - $\mathcal{U}=\\{u_1,\cdots,u_n\\}$: unlabeled corpus
-    - $k$: context window size
-    - $\Theta$: param set
+    - {{< math >}}$ \mathcal{U}=\\{u_1,\cdots,u_n\\} ${{</ math>}}: unlabeled corpus
+    - {{< math >}}$ k ${{</ math>}}: context window size
+    - {{< math >}}$ \Theta ${{</ math>}}: param set
 - Structure: Transformer decoders
-    $$\begin{align*}
+    {{< math class=text-center >}}$$\begin{align*}
     &h_0=UW_e+W_p \\\\
     &h_l=\text{decoder}(h_{l-1})\ \ \forall i\in[1,n] \\\\
     &P(u)=\text{softmax}(h_nW_e^T)
-    \end{align*}$$
-    - $W_e$: token embedding matrix
-    - $W_p$: position embedding matrix
-    - $U=(u_{-k},\cdots,u_{-1})$: context vector of tokens
-    - $n$: #layers
+    \end{align*}$${{< /math >}}
+    - {{< math >}}$ W_e ${{</ math>}}: token embedding matrix
+    - {{< math >}}$ W_p ${{</ math>}}: position embedding matrix
+    - {{< math >}}$ U=(u_{-k},\cdots,u_{-1}) ${{</ math>}}: context vector of tokens
+    - {{< math >}}$ n ${{</ math>}}: #layers
 
 &nbsp;
 
@@ -48,14 +48,14 @@ Supervised finetuning:
     $$
     L_2(\mathcal{C})=\sum_{(x,y)}\log P(y|x^1,\cdots,x^m)
     $$
-    - $\mathcal{C}$: labeled dataset
-    - ${x^1,\cdots,x^m}$: seq of input tokens
-    - $y$: label
+    - {{< math >}}$ \mathcal{C} ${{</ math>}}: labeled dataset
+    - {{< math >}}$ {x^1,\cdots,x^m} ${{</ math>}}: seq of input tokens
+    - {{< math >}}$ y ${{</ math>}}: label
 - Objective (hybrid): include LM as auxiliary objective
     $$
     L_3(\mathcal{C})=L_2(\mathcal{C})+\lambda L_1(\mathcal{C})
     $$
-    - $\lambda$: weight
+    - {{< math >}}$ \lambda ${{</ math>}}: weight
     - Pros:
         - improve generalization of supervised model
         - accelerate convergence
@@ -107,10 +107,10 @@ Unsupervised pretraining:
         - [MASK] 80% of the time
         - random token 10% of the time
         - itself 10% of the time
-- **Next Sentence Prediction** (NSP): predict whether sentence $B$ is the next sentence of sentence $A$, in order to understand relationships between sentences.
+- **Next Sentence Prediction** (NSP): predict whether sentence {{< math >}}$ B$ is the next sentence of sentence $A ${{</ math>}}, in order to understand relationships between sentences.
     - When selecting training samples,
-        - 50% of the time $B$ is actually $A$'s next sentence, labeled as `IsNext`.
-        - 50% of the time $B$ is not $A$'s next sentence, labeled as `NotNext`.
+        - 50% of the time {{< math >}}$ B$ is actually $A ${{</ math>}}'s next sentence, labeled as `IsNext`.
+        - 50% of the time {{< math >}}$ B$ is not $A ${{</ math>}}'s next sentence, labeled as `NotNext`.
         - Predict on [CLS] head.
 
 &nbsp;

@@ -17,9 +17,9 @@ weight: 200
     <br/>
     - CNN is mostly used in Computer Vision (image classification, object detection, neural style transfer, etc.)  
     
-    - **Input**: images $\rightarrow$ volume of numerical values in the shape of **width $\times$ height $\times$ color-scale** (color-scale=3 $\rightarrow$ RGB; color-scale=1 $\rightarrow$ BW)  
+    - **Input**: images {{< math >}}$ \rightarrow$ volume of numerical values in the shape of **width $\times$ height $\times$ color-scale** (color-scale=3 $\rightarrow$ RGB; color-scale=1 $\rightarrow ${{</ math>}} BW)  
     
-        In the gif above, the input shape is $5\times5\times3$, meaning that the image is colored and the image size $5\times5$. The "$7\times7\times3$" results from **padding**, which will be discussed below.
+        In the gif above, the input shape is {{< math >}}$ 5\times5\times3$, meaning that the image is colored and the image size $5\times5$. The "$7\times7\times3 ${{</ math>}}" results from **padding**, which will be discussed below.
     
     - **Convolution**: 
         1. For each color layer of the input image, we apply a 2d **filter** that **scans** through the layer in order.
@@ -28,7 +28,7 @@ weight: 200
         4. (If there are multiple filters, ) After the first filter finishes scanning, the next filter starts scanning and outputs into a new layer.  
     <br/>
     - In the gif above, 
-        1. Apply 2 filters of the shape $3\times3\times3$.
+        1. Apply 2 filters of the shape {{< math >}}$ 3\times3\times3 ${{</ math>}}.
         2. 1st filter - 1st layer - 1st block: 
         
             $$\begin{equation}
@@ -47,7 +47,7 @@ weight: 200
             0+0+0+0+(2\times1)+0+0+(1\times-1)+0=1
             \end{equation}$$
             
-        3. Sum up + bias $\rightarrow$ 1st cell of 1st output layer
+        3. Sum up + bias {{< math >}}$ \rightarrow ${{</ math>}} 1st cell of 1st output layer
             
             $$\begin{equation}
             -1+1+1+1=2
@@ -64,15 +64,15 @@ weight: 200
         - Gray Scale: 1 = lighter, 0 = gray, -1 = darker  
     <br/>
     - Notice that we don't really need to define any filter values. Instead, we are supposed to train the filter values.  
-    All the convolution operations above are just the same as the operations in ANN. Filters here correspond to $W$ in ANN.  
+    All the convolution operations above are just the same as the operations in ANN. Filters here correspond to {{< math >}}$ W ${{</ math>}} in ANN.  
     
 - **Padding**
 
-    - Problem: corner cells & edge cells are detected much fewer times than the middle cells $\rightarrow$ info loss of corner & edge
+    - Problem: corner cells & edge cells are detected much fewer times than the middle cells {{< math >}}$ \rightarrow ${{</ math>}} info loss of corner & edge
     
     - Solution: pad the edges of the image with "0" cells (as shown in the gif above)
     
-- **Stride**: the step size the filter takes ($s=2$ in the gif above)
+- **Stride**: the step size the filter takes ({{< math >}}$ s=2 ${{</ math>}} in the gif above)
 
 - <a name="formula"></a>**General Formula of Convolution**: 
 
@@ -80,17 +80,17 @@ weight: 200
     \text{Output Size}=\left\lfloor\frac{n+2p-f}{s}+1\right\rfloor\times\left\lfloor\frac{n+2p-f}{s}+1\right\rfloor
     \end{equation}$$
     
-    - $n\times n$: image size
-    - $f\times f$: filter size
-    - $p$: padding
-    - $s$: stride
+    - {{< math >}}$ n\times n ${{</ math>}}: image size
+    - {{< math >}}$ f\times f ${{</ math>}}: filter size
+    - {{< math >}}$ p ${{</ math>}}: padding
+    - {{< math >}}$ s ${{</ math>}}: stride
     - Floor: ignore the computation when the filter sweeps the region outside the image matrix  
 <br/>
 - <a name="layers"></a>**CNN Layers**:
 
     - **Convolution** (CONV): as described above
     
-    - <a name="pool"></a>**Pooling** (POOL): to reduce #params & computations (most common pooling size = $2\times2$)
+    - <a name="pool"></a>**Pooling** (POOL): to reduce #params & computations (most common pooling size = {{< math >}}$ 2\times2 ${{</ math>}})
     
         - Max Pooling
         
@@ -140,10 +140,10 @@ weight: 200
 | FC4 (Layer 4) | 84 x 1 | 84 | 10081 |
 | Softmax | 10 x 1 | 10 | 841 |
 
-- Calculation of #params for CONV: $(f\times f+1)\times n_f$
-    - $f$: filter size
-    - $+1$: bias
-    - $n_f$: #filter
+- Calculation of #params for CONV: {{< math >}}$ (f\times f+1)\times n_f ${{</ math>}}
+    - {{< math >}}$ f ${{</ math>}}: filter size
+    - {{< math >}}$ +1 ${{</ math>}}: bias
+    - {{< math >}}$ n_f ${{</ math>}}: #filter
  
 <br/>
 <a name="alexnet"></a>**AlexNet**: winner of 2012 ImageNet Large Scale Visual Recognition Challenge  
@@ -187,11 +187,11 @@ weight: 200
         a^{[l+2]}=g(z^{[l+2]}+a^{[l]})
         \end{equation}$$
     
-        Intuition: we add activation values from layer $l$ to the activation in layer $l+2$ 
+        Intuition: we add activation values from layer {{< math >}}$ l$ to the activation in layer $l+2 ${{</ math>}} 
 
     - Why ResNets?
     
-        - ResNets allow parametrization for the identity function $f(x)=x$
+        - ResNets allow parametrization for the identity function {{< math >}}$ f(x)=x ${{</ math>}}
         - ResNets are proven to be more effective than plain networks:
         
             <center><img src="../../images/DL/resnetperf.png" width="500"/></center>
@@ -233,7 +233,7 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
     <center><img src="../../images/DL/conv1d.png" width="400"/></center>
     
     - use a 1D filter to convolve a 1D input vector
-    - e.g. $14\times1\xrightarrow{5\times1,16}10\times16\xrightarrow{5\times16,32}6\times32$
+    - e.g. {{< math >}}$ 14\times1\xrightarrow{5\times1,16}10\times16\xrightarrow{5\times16,32}6\times32 ${{</ math>}}
     - However, this is almost never used since we have **RNN**  
 <br/>
 - **Conv3D**: e.g. CT scan, ...
@@ -241,16 +241,16 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
     <center><img src="../../images/DL/conv3d.png" width="400"/></center>
     
     - use a 3D filter to convolve a 3D input cube
-    - e.g. $14\times14\times14\times1\xrightarrow{5\times5\times5\times1,16}10\times10\times10\times16\xrightarrow{5\times5\times5\times16,32}6\times6\times6\times32$
+    - e.g. {{< math >}}$ 14\times14\times14\times1\xrightarrow{5\times5\times5\times1,16}10\times10\times10\times16\xrightarrow{5\times5\times5\times16,32}6\times6\times6\times32 ${{</ math>}}
 
 ## Object Detection
 
-- Object Localization $\rightarrow$ 1 obj; Detection $\rightarrow$ multiple objs.
+- Object Localization {{< math >}}$ \rightarrow$ 1 obj; Detection $\rightarrow ${{</ math>}} multiple objs.
 
 - **Bounding Box**: to capture the obj in the img with a box
     - Params: 
-        - $b_x, b_y$ = central point
-        - $b_h, b_w$ = full height/width
+        - {{< math >}}$ b_x, b_y ${{</ math>}} = central point
+        - {{< math >}}$ b_h, b_w ${{</ math>}} = full height/width
     - New target label (in place of image classification output):
         
         $$\begin{equation}
@@ -259,12 +259,12 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
         \end{bmatrix}
         \end{equation}$$
     
-        - $p_c$: "is there any object in this box?"
-            - if $p_c=0$, we ignore the remaining params
-        - $c_i$: class label $i$ (e.g. $c_1$: cat, $c_2$: dog, $c_3$: bird, ...)  
+        - {{< math >}}$ p_c ${{</ math>}}: "is there any object in this box?"
+            - if {{< math >}}$ p_c=0 ${{</ math>}}, we ignore the remaining params
+        - {{< math >}}$ c_i$: class label $i$ (e.g. $c_1$: cat, $c_2$: dog, $c_3 ${{</ math>}}: bird, ...)  
 <br/>      
 - **Landmark Detection**: to capture the obj in the img with points
-    - Params: $(l_{ix},l_{iy})$ = each landmark point
+    - Params: {{< math >}}$ (l_{ix},l_{iy}) ${{</ math>}} = each landmark point
     - New target label:
     
         $$\begin{equation}
@@ -315,23 +315,23 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
     \end{equation}$$
     
     In this case, area of intersection is the intersection between the red and purple box, and area of union is the total area covered by the red and purple box.  
-    If $\text{IoU}\leq 0.5$, then the prediction box is correct. (Other threshold values are also okay but 0.5 is conventional.)
+    If {{< math >}}$ \text{IoU}\leq 0.5 ${{</ math>}}, then the prediction box is correct. (Other threshold values are also okay but 0.5 is conventional.)
     
 - <a name="yolo"></a>**YOLO (You Only Look Once)**
 
     <center><img src="../../images/DL/yolo.jpg" width="300"/></center>
 
     - **Grids**: divide the image into grids & use each grid as a bounding box
-        - when $p_c=0$, we ignore the entire grid
-        - $p_c=1$ only when the central point of the object $\in$ the grid
-        - target output: $Y.\text{shape}=n_{\text{grid}}\times n_{\text{grid}}\times y.\text{length}$  
+        - when {{< math >}}$ p_c=0 ${{</ math>}}, we ignore the entire grid
+        - {{< math >}}$ p_c=1$ only when the central point of the object $\in ${{</ math>}} the grid
+        - target output: {{< math >}}$ Y.\text{shape}=n_{\text{grid}}\times n_{\text{grid}}\times y.\text{length} ${{</ math>}}  
     <br/>
     - **Non-Max Suppression**: what happens when the grid is too small to capture the entire object?
         <center><img src="../../images/DL/nms.jpg" width="500"/></center>
         
-        1. Discard all boxes with $p_c\leq 0.6$
-        2. Pick the box with the largest $p_c$ as the prediction
-        3. Discard any remaining box with $\text{IoU}\geq 0.5$ with the prediction
+        1. Discard all boxes with {{< math >}}$ p_c\leq 0.6 ${{</ math>}}
+        2. Pick the box with the largest {{< math >}}$ p_c ${{</ math>}} as the prediction
+        3. Discard any remaining box with {{< math >}}$ \text{IoU}\geq 0.5 ${{</ math>}} with the prediction
         4. Repeat till there is only one box left.  
     <br/>
     - **Anchor Boxes**: what happens when two objects overlap? (e.g. a hot girl standing in front of a car)
@@ -349,7 +349,7 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
             \end{bmatrix}
             \end{equation}$$
         
-        3. Each object in the image is assigned to grid cell that contains object's central point & anchor box for the grid cell with the highest $\text{IoU}$  
+        3. Each object in the image is assigned to grid cell that contains object's central point & anchor box for the grid cell with the highest {{< math >}}$ \text{IoU} ${{</ math>}}  
     <br/>   
     - **General Procedure**:
     
@@ -371,7 +371,7 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
         - Output whether the input image is that of the claimed person (1:1)
     - Recognition
         - Input image
-        - Output name/ID if the image is any of the $K$ ppl in the database (1:K)  
+        - Output name/ID if the image is any of the {{< math >}}$ K ${{</ math>}} ppl in the database (1:K)  
 <br/>
 - <a name="sn"></a>**Siamese Network**
 
@@ -379,28 +379,28 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
 
         The major difference between normal image classification and face recognition is that we don't have enough training examples. Therefore, rather than learning image classification, we
 
-        1. Calculate the degree of diff between the imgs as $d$
-        2. If $d\leq\tau$: same person; If $d>\tau$: diff person  
+        1. Calculate the degree of diff between the imgs as {{< math >}}$ d ${{</ math>}}
+        2. If {{< math >}}$ d\leq\tau$: same person; If $d>\tau ${{</ math>}}: diff person  
     <br/>
     - Preparation & Objective:
-        - Encode $x^{(i)}$ as $f(x^{(i)})$ (defined by the params of the NN)
-        - Compute $d(x^{(i)},x^{(j)})=\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2$            
+        - Encode {{< math >}}$ x^{(i)}$ as $f(x^{(i)}) ${{</ math>}} (defined by the params of the NN)
+        - Compute {{< math >}}$ d(x^{(i)},x^{(j)})=\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2 ${{</ math>}}            
             - i.e. distance between the two encoding vectors
-            - if $x^{(i)},x^{(j)}$ are the same person, $\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2$ is small
-            - if $x^{(i)},x^{(j)}$ are different people,&nbsp; $\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2$ is large  
+            - if {{< math >}}$ x^{(i)},x^{(j)}$ are the same person, $\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2 ${{</ math>}} is small
+            - if {{< math >}}$ x^{(i)},x^{(j)}$ are different people,&nbsp; $\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2 ${{</ math>}} is large  
     <br/>
     - **Method 1: <a name="tl"></a>Triplet Loss** 
         - <u>Learning Objective</u>: distinguish between Anchor image & Positive/Negative images (i.e. **A vs P / A vs N**)
         
-            1. <u>Initial Objective</u>: $\left\lVert{f(A)-f(P)}\right\lVert_ 2^2 \leq \left\lVert{f(A)-f(N)}\right\lVert_ 2^2$  
+            1. <u>Initial Objective</u>: {{< math >}}$ \left\lVert{f(A)-f(P)}\right\lVert_ 2^2 \leq \left\lVert{f(A)-f(N)}\right\lVert_ 2^2 ${{</ math>}}  
             
                 <u>Intuition</u>: We want to make sure the difference of A vs P is smaller than the difference of A vs N, so that this Anchor image is classified as positive (i.e. recognized)
                 
-            2. <u>Problem</u>: $\exists\ "0-0\leq0"$, in which case we can't tell any difference
+            2. <u>Problem</u>: {{< math >}}$ \exists\ "0-0\leq0" ${{</ math>}}, in which case we can't tell any difference
             
-            3. <u>Final Objective</u>: $\left\lVert{f(A)-f(P)}\right\lVert_ 2^2-\left\lVert{f(A)-f(N)}\right\lVert_ 2^2+\alpha\leq0$  
+            3. <u>Final Objective</u>: {{< math >}}$ \left\lVert{f(A)-f(P)}\right\lVert_ 2^2-\left\lVert{f(A)-f(N)}\right\lVert_ 2^2+\alpha\leq0 ${{</ math>}}  
             
-                <u>Intuition</u>: We apply a margin $\alpha$ to solve the problem and meanwhile make sure "A vs N" is significantly larger than "A vs P"  
+                <u>Intuition</u>: We apply a margin {{< math >}}$ \alpha ${{</ math>}} to solve the problem and meanwhile make sure "A vs N" is significantly larger than "A vs P"  
             
         - <u>Loss Function</u>:
         
@@ -411,7 +411,7 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
             - <u>Intuition</u>: As long as this thing is less than 0, the loss is 0 and that's a successful recognition!  
         <br/>
         - <u>Training Process</u>:
-            - Given 10k imgs of 1k ppl: use the 10k images to generate triplets $A^{(i)}, P^{(i)}, N^{(i)}$
+            - Given 10k imgs of 1k ppl: use the 10k images to generate triplets {{< math >}}$ A^{(i)}, P^{(i)}, N^{(i)} ${{</ math>}}
             - Make sure to have multiple imgs of the same person in the training set
             - <strike>random choosing</strike>
             - Choose triplets that are quite "hard" to train on
@@ -421,8 +421,8 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
     - **Method 2: <a name="bc"></a>Binary Classification**
     
         - <u>Learning Objective</u>: Check if two imgs represent the same person or diff ppl
-            - $y=1$: same person
-            - $y=0$: diff ppl
+            - {{< math >}}$ y=1 ${{</ math>}}: same person
+            - {{< math >}}$ y=0 ${{</ math>}}: diff ppl
             
         - <u>Training output</u>:
         
@@ -432,7 +432,7 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
         
             <center><img src="../../images/DL/binary.png" width="500"/></center>
         
-            - Precompute the output vectors $f(x^{(i)})\ \&\ f(x^{(j)})$ so that you don't have to compute them again during each training process  
+            - Precompute the output vectors {{< math >}}$ f(x^{(i)})\ \&\ f(x^{(j)}) ${{</ math>}} so that you don't have to compute them again during each training process  
 <br/>
 - <a name="nst"></a>**Neural Style Transfer**
     - <u>Intuition</u>: **Content(C) + Style(S) = Generated Image(G)**
@@ -446,15 +446,15 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
         \mathcal{J}(G)=\alpha\mathcal{J}_ \text{content}(C,G)+\beta\mathcal{J}_ \text{style}(S,G)
         \end{equation}$$
         
-        - $\mathcal{J}$: the diff between C/S and G
-        - $\alpha,\beta$: weight params
+        - {{< math >}}$ \mathcal{J} ${{</ math>}}: the diff between C/S and G
+        - {{< math >}}$ \alpha,\beta ${{</ math>}}: weight params
         - Style: correlation between activations across channels
             
             <center><img src="../../images/DL/corr.png" width="500"/></center>
             
             When there is some pattern in one patch, and there is another pattern that changes similarly in the other patch, they are **correlated**.  
             
-            e.g. vertical texture in one patch $\leftrightarrow$ orange color in another patch  
+            e.g. vertical texture in one patch {{< math >}}$ \leftrightarrow ${{</ math>}} orange color in another patch  
             
             The more often they occur together, the more correlated they are.
             
@@ -464,9 +464,9 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
             \mathcal{J}_ \text{content}(C,G)=\frac{1}{2}\left\lVert{a^{[l](C)}-a^{[1](G)}}\right\lVert^2
             \end{equation}$$
             
-            - Use hidden layer $l$ to compute content cost
+            - Use hidden layer {{< math >}}$ l ${{</ math>}} to compute content cost
             - Use pre-trained CNN (e.g. VGG)
-            - If $a^{[l](C)}\ \&\ a^{[l](G)}$ are similar, then both imgs have similar content  
+            - If {{< math >}}$ a^{[l](C)}\ \&\ a^{[l](G)} ${{</ math>}} are similar, then both imgs have similar content  
         <br/>
         - Style Cost Function:
         
@@ -488,14 +488,14 @@ Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are a
                 G_{kk'}^{[l]}=\sum_{i=1}^{n_H^{[l]}}{\sum_{j=1}^{n_W^{[l]}}{a_{i,j,k}^{[l]}\cdot a_{i,j,k'}^{[l]}}}
                 \end{equation}$$
             
-                - $a_{i,j,k}^{[l]}$: activation at height $i$, width $j$, channel $k$
-                - $G^{[l]}.\text{shape}=n_c^{[l]}\times n_c^{[l]}$
+                - {{< math >}}$ a_{i,j,k}^{[l]}$: activation at height $i$, width $j$, channel $k ${{</ math>}}
+                - {{< math >}}$ G^{[l]}.\text{shape}=n_c^{[l]}\times n_c^{[l]} ${{</ math>}}
                 - <u>Intuition</u>: sum up the multiplication of the two activations on the same cell in two different channels
                 
         - Training Process:
         
-            - Intialize $G$ randomly (e.g. 100 x 100 x 3)
-            - Use GD to minimize $\mathcal{J}(G)$: $G := G-\frac{\partial{\mathcal{J}(G)}}{\partial{G}}$
+            - Intialize {{< math >}}$ G ${{</ math>}} randomly (e.g. 100 x 100 x 3)
+            - Use GD to minimize {{< math >}}$ \mathcal{J}(G)$: $G := G-\frac{\partial{\mathcal{J}(G)}}{\partial{G}} ${{</ math>}}
 
 
 <!-- # Recurrent Neural Networks {#rnn} -->
@@ -519,13 +519,13 @@ Forget about the tedious definitions. As a basic intuition of what we are doing 
 
 - We have a sentence: "Pewdiepie and MrBeast are two of the greatest youtubers in human history."
 - We want to know: where are the "names" in this sentence? (i.e. name entity recognition)
-- We convert the input sentence into $X$: $x^{\langle 1 \rangle}x^{\langle 2 \rangle}...x^{\langle t \rangle}...x^{\langle 12 \rangle}$
+- We convert the input sentence into {{< math >}}$ X$: $x^{\langle 1 \rangle}x^{\langle 2 \rangle}...x^{\langle t \rangle}...x^{\langle 12 \rangle} ${{</ math>}}
 
-    where $x^{\langle t \rangle}$ represents each word in the sentence.  
+    where {{< math >}}$ x^{\langle t \rangle} ${{</ math>}} represents each word in the sentence.  
     
-    But how does it represent a word? Notice that we used the capitalized $X$ for a single sentence. Actually, $X.\text{shape}=5000\times12$, and $x.\text{shape}=5000\times1$. Why?
+    But how does it represent a word? Notice that we used the capitalized {{< math >}}$ X$ for a single sentence. Actually, $X.\text{shape}=5000\times12$, and $x.\text{shape}=5000\times1 ${{</ math>}}. Why?
     
-    We first make a vocabulary list like $\text{list}=[\text{a; and; ...; history; ...; MrBeast; ...}]$.
+    We first make a vocabulary list like {{< math >}}$ \text{list}=[\text{a; and; ...; history; ...; MrBeast; ...}] ${{</ math>}}.
     
     Then, we convert each word into a one-hot vector representing the index of the word in the dictionary, e.g.:
     
@@ -538,7 +538,7 @@ Forget about the tedious definitions. As a basic intuition of what we are doing 
     \end{bmatrix}\longleftarrow 3578,\ \cdots\cdots
     \end{equation}$$
     
-- We then label the output as $y: 1\ 0\ 1\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0$ and train our NN on this.
+- We then label the output as {{< math >}}$ y: 1\ 0\ 1\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0 ${{</ math>}} and train our NN on this.
 
 - Accordingly, we can use most of the sequences in our daily life as datasets and build our NN models on them to solve such ML problems.  
 
@@ -554,15 +554,15 @@ Therefore, we need to define a brand new NN structure that can perfectly align w
 <center><img src="../../images/DL/rnn.jpg" height="200"/></center>
 <br/>
 Forward propagation:
-- $a^{\langle 0 \rangle}=\textbf{0}$
-- $a^{\langle t \rangle}=g(W_{a}[a^{\langle t-1 \rangle}; x^{\langle t \rangle}]+b_a)\ \ \ \ \|\ g:\ \text{tanh/ReLU}$  
+- {{< math >}}$ a^{\langle 0 \rangle}=\textbf{0} ${{</ math>}}
+- {{< math >}}$ a^{\langle t \rangle}=g(W_{a}[a^{\langle t-1 \rangle}; x^{\langle t \rangle}]+b_a)\ \ \ \ \|\ g:\ \text{tanh/ReLU} ${{</ math>}}  
     
-    where $W_a=[W_{aa}\ W_{ax}]$ with a shape of $(100,10100)$ if we assume a dictionary of 10000 words (i.e. $x^{\langle t \rangle}.\text{shape}=(10000,100)$) and the activation length of 100.
+    where {{< math >}}$ W_a=[W_{aa}\ W_{ax}]$ with a shape of $(100,10100)$ if we assume a dictionary of 10000 words (i.e. $x^{\langle t \rangle}.\text{shape}=(10000,100) ${{</ math>}}) and the activation length of 100.
 
-- $\hat{y}^{\langle t \rangle}=g(W_{y}a^{\langle t \rangle}+b_y)\ \ \ \ \|\ g:\ \text{sigmoid}$  
+- {{< math >}}$ \hat{y}^{\langle t \rangle}=g(W_{y}a^{\langle t \rangle}+b_y)\ \ \ \ \|\ g:\ \text{sigmoid} ${{</ math>}}  
 
 Backward propagation:
-- $\mathcal{L}^{\langle t \rangle}(\hat{y}^{\langle t \rangle},y^{\langle t \rangle})=-\sum_i{y_i^{\langle t \rangle}\log{\hat{y}_ i^{\langle t \rangle}}}\ \ \ \ \|\ $Same loss function as LogReg  
+- {{< math >}}$ \mathcal{L}^{\langle t \rangle}(\hat{y}^{\langle t \rangle},y^{\langle t \rangle})=-\sum_i{y_i^{\langle t \rangle}\log{\hat{y}_ i^{\langle t \rangle}}}\ \ \ \ \|\  ${{</ math>}}Same loss function as LogReg  
 
 ### <strong>RNN Types</strong>
 
@@ -574,7 +574,7 @@ There is nothing much to explain here. The images are pretty clear.
 
 - <u>Intuition of Softmax & Conditional Probability</u>
 
-    The core of RNN is to calculate the likelihood of a sequence: $P(y^{\langle 1 \rangle},y^{\langle 2 \rangle},...,y^{\langle t \rangle})$ and output the one with the highest probability.
+    The core of RNN is to calculate the likelihood of a sequence: {{< math >}}$ P(y^{\langle 1 \rangle},y^{\langle 2 \rangle},...,y^{\langle t \rangle}) ${{</ math>}} and output the one with the highest probability.
 
     For example, the sequence "<u>the apple and pair salad</u>" has a much smaller possibility to occur than the sequence "<u>the apple and pear salad</u>". Therefore, RNN will output the latter. This seems much like **Softmax**, and indeed it is. 
 
@@ -596,20 +596,20 @@ There is nothing much to explain here. The images are pretty clear.
         * **Tokenize**: mark every word into a token
             * \<EOS>: End of Sentence token
             * \<UNK>: Unknown word token
-        * e.g. "I hate Minecraft and kids." $\Rightarrow$ "I hate \<UNK> and kids. \<EOS>"  
+        * e.g. "I hate Minecraft and kids." {{< math >}}$ \Rightarrow ${{</ math>}} "I hate \<UNK> and kids. \<EOS>"  
     <br/>
     2. Training
         <center><img src="../../images/DL/rnnlm.png" width="700"/></center>  
         <br/>
         We use the sentence "I hate Minecraft and kids. \<EOS>" as one training example.  
-        At the beginning, we initialize $a^{<0>}$ and $x^{<1>}$ as $\vec{0}$ and let the RNN try to guess the first word.  
-        At each step, we use the original word at the same index $y^{\<i-1>}$ and the previous activation $a^{\<i-1>}$ to let the RNN try to guess the next word $\hat{y}^{\<i>}$ from Softmax regression.  
-        During the training process, we try to minimize the loss function $\mathcal{L}(\hat{y},y)$ to ensure the training is effective to predict the sentence correctly.
+        At the beginning, we initialize {{< math >}}$ a^{<0>}$ and $x^{<1>}$ as $\vec{0} ${{</ math>}} and let the RNN try to guess the first word.  
+        At each step, we use the original word at the same index {{< math >}}$ y^{\<i-1>}$ and the previous activation $a^{\<i-1>}$ to let the RNN try to guess the next word $\hat{y}^{\<i>} ${{</ math>}} from Softmax regression.  
+        During the training process, we try to minimize the loss function {{< math >}}$ \mathcal{L}(\hat{y},y) ${{</ math>}} to ensure the training is effective to predict the sentence correctly.
     <br/>
     3. Sequence Sampling
         <center><img src="../../images/DL/rnnsample.png" width="700"/></center>  
         <br>
-        After the RNN is trained, we can use it to generate a sentence by itself. In each step, the RNN will take the previous word it generated $\hat{y}^{\<i-1>}$ as $x^{\<i>}$ to generate the next word $\hat{y}^{\<i>}$.
+        After the RNN is trained, we can use it to generate a sentence by itself. In each step, the RNN will take the previous word it generated {{< math >}}$ \hat{y}^{\<i-1>}$ as $x^{\<i>}$ to generate the next word $\hat{y}^{\<i>} ${{</ math>}}.
         
 - <u>Character-level LM</u>
     - Dictionary
@@ -633,7 +633,7 @@ There is nothing much to explain here. The images are pretty clear.
 |:---:|:---:|:----:|
 | <img src="../../images/DL/rnnblock.png" width="330"/> | <img src="../../images/DL/gru.png" width="330"/> | <img src="../../images/DL/lstm.png" width="330"/> |
 
-As shown above, there are currently 3 most used RNN blocks. The original RNN block activates the linear combination of $a^{\<t-1>}$ and $x^{\<t>}$ with a $\text{tanh}$ function and then passes the output value onto the next block.
+As shown above, there are currently 3 most used RNN blocks. The original RNN block activates the linear combination of {{< math >}}$ a^{\<t-1>}$ and $x^{\<t>}$ with a $\text{tanh} ${{</ math>}} function and then passes the output value onto the next block.
 
 However, because of the previously mentioned problem with the original RNN, scholars have created some variations, such as GRU & LSTM.  
 
@@ -666,7 +666,7 @@ Computing process of GRU:
     \tilde{c}^{<t>}=\tanh{\big(w_c\big[\Gamma_r * a^{<t-1>};x^{<t>}\big]+b_c\big)}
     \end{equation}$$
     
-    When $\Gamma_r=0$, $\tilde{c}^{\<t>}=\tanh{\big(w_cx^{\<t>}+b_c\big)}$, the previous word has no effect on the word choice of this cell.
+    When {{< math >}}$ \Gamma_r=0$, $\tilde{c}^{\<t>}=\tanh{\big(w_cx^{\<t>}+b_c\big)} ${{</ math>}}, the previous word has no effect on the word choice of this cell.
     
 4. Compute Memory Cell:
 
@@ -674,8 +674,8 @@ Computing process of GRU:
     c^{<t>}=\Gamma_u \cdot \tilde{c}^{<t>} + (1-\Gamma_u) \cdot c^{<t-1>}
     \end{equation}$$
     
-    When $\Gamma_u=1$, &emsp;$c^{\<t>}=\tilde{c}^{\<t>}$. The candidate updates.  
-    When $\Gamma_u=0$, &emsp;$c^{\<t>}=c^{\<t-1>}$. The candidate does not update.
+    When {{< math >}}$ \Gamma_u=1$, &emsp;$c^{\<t>}=\tilde{c}^{\<t>} ${{</ math>}}. The candidate updates.  
+    When {{< math >}}$ \Gamma_u=0$, &emsp;$c^{\<t>}=c^{\<t-1>} ${{</ math>}}. The candidate does not update.
     
 5. Output:
 
@@ -731,7 +731,7 @@ Computing process of GRU:
     a^{<t>}=\Gamma_o \cdot \tanh{c^{<t>}}
     \end{equation}$$
     
-**Peephole Connection**: as shown in the formulae, the gate values $\Gamma \propto c^{\<t-1>}$, therefore, we can always include $c^{\<t-1>}$ into gate calculations to simplify the computing.
+**Peephole Connection**: as shown in the formulae, the gate values {{< math >}}$ \Gamma \propto c^{\<t-1>}$, therefore, we can always include $c^{\<t-1>} ${{</ math>}} into gate calculations to simplify the computing.
 
 ### <strong>Bidirectional RNN</strong>
 
@@ -746,7 +746,7 @@ The word "Teddy" represents two completely different things, but without the con
 
 <center><img src="../../images/DL/birnn.png" height="250"/></center>  
 <br>
-Each output is calculated as: $\hat{y}^{\<t>}=g\Big(W_y\Big[\overrightarrow{a}^{\<t>};\overleftarrow{a}^{\<t>}\Big]+b_y\Big)$
+Each output is calculated as: {{< math >}}$ \hat{y}^{\<t>}=g\Big(W_y\Big[\overrightarrow{a}^{\<t>};\overleftarrow{a}^{\<t>}\Big]+b_y\Big) ${{</ math>}}
 
 ### <strong>Deep RNN</strong>
 
@@ -793,17 +793,17 @@ For example, when it needs to generate the next word of this sentence: **"I want
 
 Since it knows that **"orange"** is a **fruit** and that **"glass"** is closely related to **liquid**, there is a much higher possibility that our RNN will choose **"juice"** to fill in the blank.
 
-<u><strong>Embedding matrix:</strong></u> To acquire the word embeddings such as $\vec{e}_ {1479}$ and $\vec{e}_ {987}$ above, we can multiply our embedding matrix with the one-hot encoding:
+<u><strong>Embedding matrix:</strong></u> To acquire the word embeddings such as {{< math >}}$ \vec{e}_ {1479}$ and $\vec{e}_ {987} ${{</ math>}} above, we can multiply our embedding matrix with the one-hot encoding:
 
 $$\begin{equation}
 E\times \vec{o}_ j=\vec{e}_ j
 \end{equation}$$
 
-where $E$ is our featurized representation (i.e. embedding matrix) and $\vec{o}_ j$ is the one-hot encoding of the word (i.e. the index of the word).
+where {{< math >}}$ E$ is our featurized representation (i.e. embedding matrix) and $\vec{o}_ j ${{</ math>}} is the one-hot encoding of the word (i.e. the index of the word).
 
-In practice, this is too troublesome since the dimensions of our $E$ tend to be huge (e.g. $(500,10000)$). Thus, we use specialized function to look up an embedding directly from the embedding matrix.
+In practice, this is too troublesome since the dimensions of our {{< math >}}$ E$ tend to be huge (e.g. $(500,10000) ${{</ math>}}). Thus, we use specialized function to look up an embedding directly from the embedding matrix.
 
-<u><strong>Analogies:</strong></u> One of the most useful properties of word embeddings is analogies. For example, **"man $\rightarrow$ woman"="king $\rightarrow$ ?"**.
+<u><strong>Analogies:</strong></u> One of the most useful properties of word embeddings is analogies. For example, **"man {{< math >}}$ \rightarrow$ woman"="king $\rightarrow ${{</ math>}} ?"**.
 
 Suppose we have the following featurized representation:
 
@@ -841,7 +841,7 @@ Suppose we have a sentence "Pewdiepie and MrBeast are two of the greatest youtub
 <u>Algorithm</u>:
 
 1. **Randomly** choose context & target words with **skip-gram**. (e.g. context "MrBeast" & target "youtubers") 
-2. Learn **mapping** of "$c\ (\text{"mrbeast"}[1234])\rightarrow t\ (\text{"youtubers"}[765])$"
+2. Learn **mapping** of "{{< math >}}$ c\ (\text{"mrbeast"}[1234])\rightarrow t\ (\text{"youtubers"}[765]) ${{</ math>}}"
 3. Use **softmax** to calculate the probability of appearance of target given context:
 
     $$\begin{equation}
@@ -856,7 +856,7 @@ Suppose we have a sentence "Pewdiepie and MrBeast are two of the greatest youtub
 
 Notes:
 * Computation of softmax is very slow: Hierarchical Softmax (i.e. Huffman Tree + LogReg) can solve this problem - with common words at the top and useless words at the bottom.
-* $c\ \&\ t$ should not be entirely random: words like "the/at/on/it/..." should not be chosen.
+* {{< math >}}$ c\ \&\ t ${{</ math>}} should not be entirely random: words like "the/at/on/it/..." should not be chosen.
 
 ### Learning 2: <strong>Negative Sampling</strong>
 
@@ -866,14 +866,14 @@ For example, given the word "orange" as the context, we want our model to know t
 
 <u>Algorithm</u>:
 
-1. Pick a context-target pair $(c,t)$ (the target should be near the context) from the text corpus as a **positive example**.
-2. Pick random words $\\{t_1,\cdots,t_k\\}$ from the dictionary and form word pairs $\\{(c,t_1),\cdots,(c,t_k)\\}$ as **negative examples** based on the following probability that the creator recommended:
+1. Pick a context-target pair {{< math >}}$ (c,t) ${{</ math>}} (the target should be near the context) from the text corpus as a **positive example**.
+2. Pick random words {{< math >}}$ \\{t_1,\cdots,t_k\\}$ from the dictionary and form word pairs $\\{(c,t_1),\cdots,(c,t_k)\\} ${{</ math>}} as **negative examples** based on the following probability that the creator recommended:
 
     $$\begin{equation}
     P(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=1}^{n}{f(w_i)^{\frac{3}{4}}}}
     \end{equation}$$
 
-    where $w_i$ is the $i$th word in the dictionary.
+    where {{< math >}}$ w_i$ is the $i ${{</ math>}}th word in the dictionary.
     
 3. Train a **binary classifier** based on the training examples from previous steps:
 
@@ -881,13 +881,13 @@ For example, given the word "orange" as the context, we want our model to know t
     \hat{y}_ i=P(y=1|c,t_i)=\sigma(\theta_{t_i}^Te_c)
     \end{equation}$$
     
-4. Repeat Step 1-3 till we form our final embedding matrix $E$.  
+4. Repeat Step 1-3 till we form our final embedding matrix {{< math >}}$ E ${{</ math>}}.  
 
 Negative Sampling is relatively faster and less costly compared to Word2Vec, since it replaces softmax with binary classification.
 
 ### Learning 3: <strong>GloVe</strong> (Global Vectors)
 
-<u>Problem</u>: Learn word embeddings based on how many times target $i$ appears in context of word $j$.
+<u>Problem</u>: Learn word embeddings based on how many times target {{< math >}}$ i$ appears in context of word $j ${{</ math>}}.
 
 <u>Algorithm</u>: 
 
@@ -897,14 +897,14 @@ Negative Sampling is relatively faster and less costly compared to Word2Vec, sin
     \sum_{i=1}^{n}{\sum_{j=1}^{n}{f\big(X_{ij}\big)\big(\theta_i^Te_j+b_i+b'_ j-\log{X_{ij}}\big)^2}}
     \end{equation}$$
 
-    * $X_{ij}$: #times $i$ appears in context of $j$
-    * $f\big(X_{ij}\big)$: weighing term
-        * $f\big(X_{ij}\big)=0$ if $X_{ij}=0$
-        * $f\big(X_{ij}\big)$ high for uncommon words
-        * $f\big(X_{ij}\big)$ low for too-common words
-    * $b_i:t$, $b'_ j:c$
+    * {{< math >}}$ X_{ij}$: #times $i$ appears in context of $j ${{</ math>}}
+    * {{< math >}}$ f\big(X_{ij}\big) ${{</ math>}}: weighing term
+        * {{< math >}}$ f\big(X_{ij}\big)=0$ if $X_{ij}=0 ${{</ math>}}
+        * {{< math >}}$ f\big(X_{ij}\big) ${{</ math>}} high for uncommon words
+        * {{< math >}}$ f\big(X_{ij}\big) ${{</ math>}} low for too-common words
+    * {{< math >}}$ b_i:t$, $b'_ j:c ${{</ math>}}
 
-2. Compute the final embedding of word $w$:
+2. Compute the final embedding of word {{< math >}}$ w ${{</ math>}}:
 
     $$\begin{equation}
     e_w^{\text{final}}=\frac{e_w+\theta_w}{2}
@@ -931,8 +931,8 @@ Negative Sampling is relatively faster and less costly compared to Word2Vec, sin
 <center><img src="../../images/DL/seq2seq.png" width="550"/></center>  
 <br>
 Machine Translation vs Language Model:
-* Language Model: maximize $P(y^{\<1>},\cdots,y^{\<T_y>})$
-* Machine Translation: maximize $P(y^{\<1>},\cdots,y^{\<T_y>} \| \vec{x})$
+* Language Model: maximize {{< math >}}$ P(y^{\<1>},\cdots,y^{\<T_y>}) ${{</ math>}}
+* Machine Translation: maximize {{< math >}}$ P(y^{\<1>},\cdots,y^{\<T_y>} \| \vec{x}) ${{</ math>}}
 
 <u>Example 2: Image Captioning</u>
 
@@ -942,14 +942,14 @@ Machine Translation vs Language Model:
 
 <u>Problem</u>: So far, when we choose a word from softmax for each RNN block, we are doing **greedy search**, that we only look for **local optimum** instead of **global optimum**.
 
-That is, we only choose the word with the highest $P(y^{\<1>}\|\vec{x})$ and then the word with the highest $P(y^{\<2>}\|\vec{x})$ and then ...
+That is, we only choose the word with the highest {{< math >}}$ P(y^{\<1>}\|\vec{x})$ and then the word with the highest $P(y^{\<2>}\|\vec{x}) ${{</ math>}} and then ...
 
 As we already know, local optimum does not necessarily represent global optimum. In the world of NLP, the word **"going"** always has a much higher probability to appear than the word **"visiting"**, but in certain situations when we need to use "visiting", the algorithm will still choose "going", therefore generating a weird sequence as a whole.
 
 <u>Beam Search Algorithm</u>:
 
-1. Define a beam size of $B$ (usually $B\in\\{1\times10^n,3\times10^n\\},\ n\in\mathbb{Z}^+$).
-2. Look at the top $B$ words with the highest $P$s for the first word. (i.e. look for $P(\vec{y}^{\<1>}\|\vec{x})$)
+1. Define a beam size of {{< math >}}$ B$ (usually $B\in\\{1\times10^n,3\times10^n\\},\ n\in\mathbb{Z}^+ ${{</ math>}}).
+2. Look at the top {{< math >}}$ B$ words with the highest $P$s for the first word. (i.e. look for $P(\vec{y}^{\<1>}\|\vec{x}) ${{</ math>}})
 3. Repeat till \<EOS>. Choose the sequence with the highest combined probability.
 
 <u>Improvement</u>: The original Beam Search is very costly in computing, therefore it is necessary to refine it:
@@ -961,17 +961,17 @@ $$\begin{align}
 &\Rightarrow \mathop{\arg\max}_ y{\frac{1}{T_y^{\alpha}}\sum_{t=1}^{T_y}{\log{P(y^{<t>}|x,y^{<1>},\cdots,y^{<t-1>})}}}
 \end{align}$$
 
-* $\prod\rightarrow\sum{\log}$: log scaling
-* $\frac{1}{T_y^{\alpha}}$: length normalization (when you add more negative values ($\log{(P<1)}<0$), the sum becomes more negative)
-* $\alpha$: <strike>learning rate</strike> just a coefficient
+* {{< math >}}$ \prod\rightarrow\sum{\log} ${{</ math>}}: log scaling
+* {{< math >}}$ \frac{1}{T_y^{\alpha}}$: length normalization (when you add more negative values ($\log{(P<1)}<0 ${{</ math>}}), the sum becomes more negative)
+* {{< math >}}$ \alpha ${{</ math>}}: <strike>learning rate</strike> just a coefficient
 
 <u>Error Analysis</u>: Suppose we want to analyze the following error:
 
-* Human: Jimmy visits Africa in September. ($y^\*$)
-* Algorithm: Jimmy visited Africa last September. ($\hat{y}$)
+* Human: Jimmy visits Africa in September. ({{< math >}}$ y^\* ${{</ math>}})
+* Algorithm: Jimmy visited Africa last September. ({{< math >}}$ \hat{y} ${{</ math>}})
 
-If $P(y^\*\|x)>P(\hat{y}\|x)$, Beam search is at fault $\rightarrow$ increase $B$  
-If $P(y^\*\|x)\leq P(\hat{y}\|x)$, RNN is at fault $\rightarrow$ improve RNN (data augmentation, regularization, architecture, etc.)
+If {{< math >}}$ P(y^\*\|x)>P(\hat{y}\|x)$, Beam search is at fault $\rightarrow$ increase $B ${{</ math>}}  
+If {{< math >}}$ P(y^\*\|x)\leq P(\hat{y}\|x)$, RNN is at fault $\rightarrow ${{</ math>}} improve RNN (data augmentation, regularization, architecture, etc.)
 
 ### <strong>Bleu Score</strong>
 
@@ -983,9 +983,9 @@ $$\begin{equation}
 p_n=\frac{\sum_{\text{n-gram}\in\hat{y}}{\text{count}_ {clip}(\text{n-gram})}}{\sum_{\text{n-gram}\in\hat{y}}{\text{count}(\text{n-gram})}}
 \end{equation}$$
 
-* $\text{n-gram}$: $n$ consecutive words (e.g. bigram: "I have a pen." $\rightarrow$ "I have", "have a", "a pen")
-* $\text{count}_ {clip}(\text{n-gram})$: maximal #times an n-gram appears in one of the reference sequences
-* $\text{count}(\text{n-gram})$: #times an n-gram appears in $\hat{y}$
+* {{< math >}}$ \text{n-gram}$: $n$ consecutive words (e.g. bigram: "I have a pen." $\rightarrow ${{</ math>}} "I have", "have a", "a pen")
+* {{< math >}}$ \text{count}_ {clip}(\text{n-gram}) ${{</ math>}}: maximal #times an n-gram appears in one of the reference sequences
+* {{< math >}}$ \text{count}(\text{n-gram})$: #times an n-gram appears in $\hat{y} ${{</ math>}}
 
 For example,
 
@@ -1012,10 +1012,10 @@ $$\begin{equation}
 \text{BLEU}=BP\times e^{\frac{1}{4}\sum_{n=1}^{4}{p_n}}
 \end{equation}$$
 
-* usually we take $n=4$ as the upper limit for n-grams.
-* $BP$: param to penalize short outputs ($\because$ short outputs tend to have high BLEU scores.)
-* $BP=1$ if $\text{len}(\hat{y})>\text{len}(\text{ref})$
-* $BP=e^{\frac{1-\text{len}(\hat{y})}{\text{len}(\text{ref})}}$ if $\text{len}(\hat{y})\leq\text{len}(\text{ref})$
+* usually we take {{< math >}}$ n=4 ${{</ math>}} as the upper limit for n-grams.
+* {{< math >}}$ BP$: param to penalize short outputs ($\because ${{</ math>}} short outputs tend to have high BLEU scores.)
+* {{< math >}}$ BP=1$ if $\text{len}(\hat{y})>\text{len}(\text{ref}) ${{</ math>}}
+* {{< math >}}$ BP=e^{\frac{1-\text{len}(\hat{y})}{\text{len}(\text{ref})}}$ if $\text{len}(\hat{y})\leq\text{len}(\text{ref}) ${{</ math>}}
 
 ### <strong>Attention Model</strong>
 
@@ -1034,17 +1034,17 @@ $$\begin{equation}
     a^{<t'>}=\Big(\overleftarrow{a}^{<t'>},\overrightarrow{a}^{<t'>}\Big)
     \end{equation}$$
     
-    where $t'$ refers to the index of the encoding BRNN layer.
+    where {{< math >}}$ t' ${{</ math>}} refers to the index of the encoding BRNN layer.
 
-2. Calculate the amount of "attention" that $y^{\<t>}$ should pay to $a^{\<t'>}$:
+2. Calculate the amount of "attention" that {{< math >}}$ y^{\<t>}$ should pay to $a^{\<t'>} ${{</ math>}}:
 
     $$\begin{equation}
     \alpha^{<t,t'>}=\frac{e^{(e^{<t,t'>})}}{\sum_{t'=1}^{T_x}{e^{(e^{<t,t'>})}}}
     \end{equation}$$
 
-    where $e^{\<t,t'>}=W_e^{\<t,t'>}[s^{\<t-1>};a^{\<t'>}] +b_e^{\<t,t'>}$ is a linear combination of both encoding activation $a^{\<t'>}$ and decoding activation $s^{\<t-1>}$. $t$ refers to the index of the decoding RNN layer.
+    where {{< math >}}$ e^{\<t,t'>}=W_e^{\<t,t'>}[s^{\<t-1>};a^{\<t'>}] +b_e^{\<t,t'>}$ is a linear combination of both encoding activation $a^{\<t'>}$ and decoding activation $s^{\<t-1>}$. $t ${{</ math>}} refers to the index of the decoding RNN layer.
 
-3. Calculate the total attention at $t$: 
+3. Calculate the total attention at {{< math >}}$ t ${{</ math>}}: 
     
     $$\begin{equation}
     c^{<t>}=\sum_{t'}{\alpha^{<t,t'>}a^{<t'>}}

@@ -13,7 +13,7 @@ An activation function adds nonlinearity to the output of a layer (linear in mos
 [ReLU](#relu) and [Softmax](#softmax) are SOTA.
 
 Notations:
-- $z$: input (element-wise)
+- {{< math >}}$ z ${{</ math>}}: input (element-wise)
 
 # Binary-like
 
@@ -24,7 +24,7 @@ $$
 $$
 
 Idea:
--  $\sigma(z)\in(0,1)$ and $\sigma(0)=0.5$.
+-  {{< math >}}$ \sigma(z)\in(0,1)$ and $\sigma(0)=0.5 ${{</ math>}}.
 
 Pros:
 -  imitation of the firing rate of a neuron, 0 if too negative and 1 if too positive.
@@ -32,7 +32,7 @@ Pros:
 
 Cons: 
 -  vanishing gradient: gradients rapidly shrink to 0 along backprop as long as any input is too positive or too negative.
--  non-zero centric bias $\rightarrow$ non-zero mean activations.
+-  non-zero centric bias {{< math >}}$ \rightarrow ${{</ math>}} non-zero mean activations.
 -  computationally expensive.
 
 ## Tanh
@@ -42,7 +42,7 @@ $$
 $$
 
 Idea:
-- $\tanh(z)\in(-1,1)$ and $\tanh(0)=0$.
+- {{< math >}}$ \tanh(z)\in(-1,1)$ and $\tanh(0)=0 ${{</ math>}}.
     
 Pros: 
 - zero-centered
@@ -72,12 +72,12 @@ Pros:
 - much less computationally expensive compared to sigmoid and tanh.
     
 Cons:
-- dying ReLU: if most inputs are negative, then most neurons output 0 $\rightarrow$ no gradient for such neurons $\rightarrow$ no param update $\rightarrow$ they die. (NOTE: A SOLVABLE DISADVANTAGE)
+- dying ReLU: if most inputs are negative, then most neurons output 0 {{< math >}}$ \rightarrow$ no gradient for such neurons $\rightarrow$ no param update $\rightarrow ${{</ math>}} they die. (NOTE: A SOLVABLE DISADVANTAGE)
 
-    - Cause 1: high learning rate $\rightarrow$ too much subtraction in param update $\rightarrow$ weight too negative $\rightarrow$ input for neuron too negative.
-    - Cause 2: bias too negative $\rightarrow$ input for neuron too negative.
+    - Cause 1: high learning rate {{< math >}}$ \rightarrow$ too much subtraction in param update $\rightarrow$ weight too negative $\rightarrow ${{</ math>}} input for neuron too negative.
+    - Cause 2: bias too negative {{< math >}}$ \rightarrow ${{</ math>}} input for neuron too negative.
 
--  activation explosion as $z\rightarrow\infty$. (NOTE: NOT A SEVERE DISADVANTAGE SO FAR)
+-  activation explosion as {{< math >}}$ z\rightarrow\infty ${{</ math>}}. (NOTE: NOT A SEVERE DISADVANTAGE SO FAR)
     
 
 
@@ -91,17 +91,17 @@ $$
 Name: Leaky Rectified Linear Unit
 
 Params: 
-- $\alpha\in(0,1)$: hyperparam (negative slope), default 0.01. 
+- {{< math >}}$ \alpha\in(0,1) ${{</ math>}}: hyperparam (negative slope), default 0.01. 
     
 Idea:
-- scale negative linear outputs by $\alpha$.
+- scale negative linear outputs by {{< math >}}$ \alpha ${{</ math>}}.
     
 Pros:
 - no dying ReLU.
     
 Cons: 
 - slightly more computationally expensive than ReLU.
-- activation explosion as $z\rightarrow\infty$.
+- activation explosion as {{< math >}}$ z\rightarrow\infty ${{</ math>}}.
 
 
 ## PReLU
@@ -113,17 +113,17 @@ $$
 Name: Parametric Rectified Linear Unit
 
 Params: 
-- $\alpha\in(0,1)$: learnable parameter (negative slope), default 0.25.
+- {{< math >}}$ \alpha\in(0,1) ${{</ math>}}: learnable parameter (negative slope), default 0.25.
     
 Idea:
-- scale negative linear outputs by a learnable $\alpha$.
+- scale negative linear outputs by a learnable {{< math >}}$ \alpha ${{</ math>}}.
     
 Pros: 
 - a variable, adaptive parameter learned from data.
     
 Cons: 
 - slightly more computationally expensive than LReLU.
-- activation explosion as $z\rightarrow\infty$.
+- activation explosion as {{< math >}}$ z\rightarrow\infty ${{</ math>}}.
 
 
 
@@ -137,18 +137,18 @@ $$
 Name: Randomized Rectified Linear Unit
 
 Params:     
-- $\alpha\sim\mathrm{Uniform}(l,u)$: a random number sampled from a uniform distribution.
-- $l,u$: hyperparams (lower bound, upper bound)
+- {{< math >}}$ \alpha\sim\mathrm{Uniform}(l,u) ${{</ math>}}: a random number sampled from a uniform distribution.
+- {{< math >}}$ l,u ${{</ math>}}: hyperparams (lower bound, upper bound)
     
 Idea:
-- scale negative linear outputs by a random $\alpha$.
+- scale negative linear outputs by a random {{< math >}}$ \alpha ${{</ math>}}.
     
 Pros: 
 - reduce overfitting by randomization.
     
 Cons: 
 - slightly more computationally expensive than LReLU.
-- activation explosion as $z\rightarrow\infty$.
+- activation explosion as {{< math >}}$ z\rightarrow\infty ${{</ math>}}.
     
 # Linear Units (Exponential)
 
@@ -165,20 +165,20 @@ $$
 Name: Exponential Linear Unit
 
 Params:
-- $\alpha$: hyperparam, default 1.
+- {{< math >}}$ \alpha ${{</ math>}}: hyperparam, default 1.
     
 Idea:
 - convert negative linear outputs to the non-linear exponential function above.
     
 Pros: 
-- mean unit activation is closer to 0 $\rightarrow$ reduce bias shift (i.e., non-zero mean activation is intrinsically a bias for the next layer.)
+- mean unit activation is closer to 0 {{< math >}}$ \rightarrow ${{</ math>}} reduce bias shift (i.e., non-zero mean activation is intrinsically a bias for the next layer.)
 - lower computational complexity compared to batch normalization.
-- smooth to $-\alpha$ slowly with smaller derivatives that decrease forwardprop variation.
+- smooth to {{< math >}}$ -\alpha ${{</ math>}} slowly with smaller derivatives that decrease forwardprop variation.
 - faster learning and higher accuracy for image classification in practice.
     
 Cons: 
 - slightly more computationally expensive than ReLU.
-- activation explosion as $z\rightarrow\infty$.
+- activation explosion as {{< math >}}$ z\rightarrow\infty ${{</ math>}}.
     
 
 
@@ -195,18 +195,18 @@ $$
 Name: Scaled Exponential Linear Unit
 
 Params:
-- $\alpha$: hyperparam, default 1.67326.
-- $\lambda$: hyperparam (scale), default 1.05070.
+- {{< math >}}$ \alpha ${{</ math>}}: hyperparam, default 1.67326.
+- {{< math >}}$ \lambda ${{</ math>}}: hyperparam (scale), default 1.05070.
     
 Idea:
 - scale ELU.
     
 Pros: 
-- self-normalization $\rightarrow$ activations close to zero mean and unit variance that are propagated through many network layers will converge towards zero mean and unit variance.
+- self-normalization {{< math >}}$ \rightarrow ${{</ math>}} activations close to zero mean and unit variance that are propagated through many network layers will converge towards zero mean and unit variance.
     
 Cons:
 - more computationally expensive than ReLU.
-- activation explosion as $z\rightarrow\infty$.
+- activation explosion as {{< math >}}$ z\rightarrow\infty ${{</ math>}}.
     
 
 
@@ -223,17 +223,17 @@ $$
 Name: Continuously Differentiable Exponential Linear Unit
 
 Params:
-- $\alpha$: hyperparam, default 1.
+- {{< math >}}$ \alpha ${{</ math>}}: hyperparam, default 1.
     
 Idea:
-- scale the exponential part of ELU with $\frac{1}{\alpha}$ to make it continuously differentiable.
+- scale the exponential part of ELU with {{< math >}}$ \frac{1}{\alpha} ${{</ math>}} to make it continuously differentiable.
     
 Pros:
-- smooth gradient due to continuous differentiability (i.e., $\mathrm{CELU}'(0)=1$).
+- smooth gradient due to continuous differentiability (i.e., {{< math >}}$ \mathrm{CELU}'(0)=1 ${{</ math>}}).
     
 Cons:
 - slightly more computationally expensive than ELU.
-- activation explosion as $z\rightarrow\infty$.
+- activation explosion as {{< math >}}$ z\rightarrow\infty ${{</ math>}}.
     
 # Linear Units (Others)
 
@@ -307,7 +307,7 @@ $$
 
 
 Idea:
-- convert each value $z_i$ in the output tensor $\mathbf{z}$ into its corresponding exponential probability s.t. $\sum_i{\mathrm{softmax}(z_i)}=1$.
+- convert each value {{< math >}}$ z_i$ in the output tensor $\mathbf{z}$ into its corresponding exponential probability s.t. $\sum_i{\mathrm{softmax}(z_i)}=1 ${{</ math>}}.
     
 Pros: 
 - your single best choice for multiclass classification.

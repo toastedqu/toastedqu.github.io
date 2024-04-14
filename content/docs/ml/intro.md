@@ -8,41 +8,6 @@ draft: false
 images: []
 weight: 1
 ---
-Each method is discussed in the following structure:
-- **What?**: What's the idea of the method? What does it do?
-- **Why?**: Why do we need it? What problems does it solve?
-- **Where?**: In which application domains can we apply it?
-- **When?**: When can we use it? What assumptions/conditions does it require?
-- **How?**: How does it work? What's the architecture or algorithm of it?
-- **Training**: How do we train it?
-    - **Params**: What parameters does it have?
-    - **Hyperparams**: What hyperparameters does it have? What do they do?
-    - **Objective**: What loss functions are we using for it? What about regularization?
-    - **Optimization**: How do we choose the optimal parameters for it?
-    - **Complexity**: What's the computational cost of it?
-- **Inference**: How do we use it? (Evaluation metrics will be discussed separately.)
-- **Pros & Cons**: What should we be aware of when we use it?
-
-General notations (section-specific notations take higher priority):
-- $[]$: vector
-- $\\{\\}$: set/sequence
-- $||$: norm  (for a continuous vector) / count (for a discrete vector)
-- $\\#$: count
-- $\hat{\ \ }$: estimator
-- $m$: #samples in the input batch
-- $n$: #features in the input sample
-- $K$: #classes in the training set
-- $i$: $i$th sample
-- $j$: $j$th feature
-- $k$: $k$th class
-- $\mathcal{D}$: training set
-- $\mathcal{D}_y=\\{y_i:i\in\\{1,\cdots,m\\}\\}$: all labels
-- $\mathcal{D}\_{jk}=\\{x\_{ij}:y_i=k\\}$: all values of $j$th feature for samples from $k$th class
-- $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$ (add $\textbf{1}$ if bias is needed)
-- $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of shape $(m,1)$
-- $\textbf{w}=[w_1,\cdots,w_n]$: params (add $b$ if bias is needed)
-
-&nbsp;
 
 # Overview
 A typical ML project consists of 4 parts:
@@ -54,7 +19,7 @@ A typical ML project consists of 4 parts:
 ## Problem
 Stage 1: **Understanding**: what's the purpose? what inputs? what outputs? (rough idea)
 
-Stage 2: **Scope**: what are the constraints? (smaller $\rightarrow$ simpler; larger $\rightarrow$ complex)
+Stage 2: **Scope**: what are the constraints? (smaller {{< math >}}$ \rightarrow$ simpler; larger $\rightarrow ${{</ math>}} complex)
 - **Data constraints**
     - #samples?
     - #features?
@@ -113,22 +78,22 @@ Production is completely different from experiments. The following factors need 
     - **server** (ours or cloud): low memory/storage usage, high latency, privacy concerns
 2. **Feature serving**:
     - **batch features** should be handled offline and served online (i.e., need daily/weekly jobs for data generation/collection)
-    - **real-time features** should be handled and served at request time (i.e., need to create a feature store to look up features at serve time; caching may be necessary) $\rightarrow$ watch out for scalability and latency.
+    - **real-time features** should be handled and served at request time (i.e., need to create a feature store to look up features at serve time; caching may be necessary) {{< math >}}$ \rightarrow ${{</ math>}} watch out for scalability and latency.
 3. **Performance Monitoring**: latency, biases, data drift, CPU load, memory, ...
 4. **Retrain Frequency**
 5. **Online A/B Testing**
 
 ### Online A/B Testing
 1. **Goal**: Define the objective. (e.g., improving click-through rates, increasing sign-up rates, etc.)
-    - **Significance level** ($\alpha$): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
+    - **Significance level** ({{< math >}}$ \alpha ${{</ math>}}): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
         - Common values: 0.05 and 0.01
-        - A lower $\alpha$ makes it more challenging to detect difference
-    - **Power** ($1-\beta$): probability of correctly rejecting $H_0$ when it is false, meaning the ability to detect a meaningful difference when it exists
+        - A lower {{< math >}}$ \alpha ${{</ math>}} makes it more challenging to detect difference
+    - **Power** ({{< math >}}$ 1-\beta$): probability of correctly rejecting $H_0 ${{</ math>}} when it is false, meaning the ability to detect a meaningful difference when it exists
         - Common value: 80%
         - A higher power requires larger sample sizes to achieve
     - *notes:
-        - $\alpha=P$(FP), Type I error: probability of rejecting $H_0$ when it is true.
-        - $\beta=P$(FN), Type II error: probability of not rejecting $H_0$ when it is false.
+        - {{< math >}}$ \alpha=P$(FP), Type I error: probability of rejecting $H_0 ${{</ math>}} when it is true.
+        - {{< math >}}$ \beta=P$(FN), Type II error: probability of not rejecting $H_0 ${{</ math>}} when it is false.
 
 <t>
 
@@ -137,10 +102,10 @@ Production is completely different from experiments. The following factors need 
 <t>
 
 3. **Traffic**: Calculate required sample size per variation
-$$n=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\times p(1-p)$$
-    - **Baseline conversion rate** ($p$): the rate at which a desired action/event occurs in the control group
-    - **Minimum Detectable Effect** ($\text{MDE}$): smallest difference in the conversion rate that you want to be able to detect as statistically significant
-        - e.g., if $p=10\\%$ and we want a minimum improvement of $2\\%$, then $\text{MDE}=20\\%$
+{{< math >}}$ $n=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\times p(1-p)$ ${{</ math>}}
+    - **Baseline conversion rate** ({{< math >}}$ p ${{</ math>}}): the rate at which a desired action/event occurs in the control group
+    - **Minimum Detectable Effect** ({{< math >}}$ \text{MDE} ${{</ math>}}): smallest difference in the conversion rate that you want to be able to detect as statistically significant
+        - e.g., if {{< math >}}$ p=10\\%$ and we want a minimum improvement of $2\\%$, then $\text{MDE}=20\\% ${{</ math>}}
         - Both groups should be statistically similar in terms of characteristics for a fair comparison
 
 <t>
@@ -178,7 +143,7 @@ $$n=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\time
 **Generative vs Discriminative**
 |  | Generative | Discriminative |
 |:-:|:---------:|:--------------:|
-| Model | $p(\mathbf{x},y)$ | $p(y\|\mathbf{x})$ |
+| Model | {{< math >}}$ p(\mathbf{x},y)$ | $p(y\|\mathbf{x}) ${{</ math>}} |
 | Pros | easy to fit<br>can handle missing features<br>can handle unlabeled data<br>can fit classes separately<br>better generalization | high accuracy<br>allow preprocessing<br>calibrated probability estimates |
 
 &nbsp;
@@ -192,8 +157,8 @@ Def: combine a bunch of smaller models together for prediction
     - **Stacking**: train a meta-model which takes the predictions of multiple base models as input and makes the final prediction (like an emperor).
 - Q: Why does ensembling independently trained models generally improve performance?
 - A: 
-    - **Variance Reduction**: average out different errors on different data subsets $\rightarrow$ more stable and accurate predictions 
-    - **Generalization**: reduce bias in the same way above $\rightarrow$ better balance between bias and variance $\rightarrow$ better generalization
+    - **Variance Reduction**: average out different errors on different data subsets {{< math >}}$ \rightarrow ${{</ math>}} more stable and accurate predictions 
+    - **Generalization**: reduce bias in the same way above {{< math >}}$ \rightarrow$ better balance between bias and variance $\rightarrow ${{</ math>}} better generalization
     - **Diversity**: if each model has its own unique strength, the result combined would be way better
     - **Robustness to Noise & Outliers**: because they are averaged out
 

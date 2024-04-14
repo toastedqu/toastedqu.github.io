@@ -1,0 +1,1284 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/vendor/jost/jost-v4-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<script 
+  src="/js/color-mode.f4dceae2c5e850920845103cfc5862a5802325e420be465f686a3a86369b9226.js"
+  integrity="sha256-9Nzq4sXoUJIIRRA8/FhipYAjJeQgvkZfaGo6hjabkiY=">
+</script>
+
+
+<link rel="stylesheet" href="/main.6a48941ae830036eee27eb1896af93a0c5ebd8be27a87d38c333cda32eeb7878e3764be608a71941a9dfc6ded906c45422f686ba5e7fc69501c7f6447f32dd5e.css" integrity="sha512-akiUGugwA27uJ&#43;sYlq&#43;ToMXr2L4nqH04wzPNoy7reHjjdkvmCKcZQanfxt7ZBsRUIvaGul5/xpUBx/ZEfzLdXg==" crossorigin="anonymous">
+
+<noscript><style>img.lazyload { display: none; }</style></noscript><base href="http://localhost:1313/docs/ml/optimization/">
+  <link rel="canonical" href="http://localhost:1313/docs/ml/optimization/">
+<title>Optimization  |  Q.Docs</title>
+<meta name="description" content="A handbook of AI notes">
+
+    
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    
+      <link
+        rel="apple-touch-icon"
+        href="/apple-touch-icon.png"
+        sizes="180x180"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-192x192.png"
+        sizes="192x192"
+        type="image/png"
+      >
+      <link
+        rel="icon"
+        href="/favicon-512x512.png"
+        sizes="512x512"
+        type="image/png"
+      >
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="Optimization">
+<meta property="og:description" content="Loss Loss is a measure of difference between predicted output $\hat{y}_i$ and actual output $y_i$.
+Unreduced loss: Reduced loss: $\mathcal{L}(\mathbf{y},\mathbf{\hat{y}})=\begin{cases} \text{sum}(\mathcal{L})=\sum_{i=1}^{m}l_i\\ \text{mean}(\mathcal{L})=\frac{1}{m}\sum_{i=1}^{m}l_i \end{cases}$ (can impose sample weights as well) Regression L1 (Absolute Error) Pros:">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/docs/ml/optimization/"><meta property="og:image" content="http://localhost:1313/cover.png"><meta property="article:section" content="docs">
+<meta property="article:published_time" content="2020-10-06T08:48:45+00:00">
+<meta property="article:modified_time" content="2020-10-06T08:48:45+00:00"><meta property="og:site_name" content="Q.Docs">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:1313/cover.png"><meta name="twitter:title" content="Optimization">
+<meta name="twitter:description" content="Loss Loss is a measure of difference between predicted output $\hat{y}_i$ and actual output $y_i$.
+Unreduced loss: Reduced loss: $\mathcal{L}(\mathbf{y},\mathbf{\hat{y}})=\begin{cases} \text{sum}(\mathcal{L})=\sum_{i=1}^{m}l_i\\ \text{mean}(\mathcal{L})=\frac{1}{m}\sum_{i=1}^{m}l_i \end{cases}$ (can impose sample weights as well) Regression L1 (Absolute Error) Pros:">
+<meta name="twitter:site" content="@getdoks">
+
+    
+    
+    <script type="application/ld+json">
+  {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/",
+       "name": "Q. Docs",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/",
+       "name": "Docs",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "http://localhost:1313/docs/ml/",
+       "name": "Ml",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "name": "Optimization",
+       "position": 4
+     }
+   ]
+ }
+</script>
+
+
+
+
+
+</head>
+
+  
+  <body class="single section docs" data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0">
+    <div class="sticky-top">
+<header class="navbar navbar-expand-lg">
+  <div class="container-lg">
+  
+    <a class="navbar-brand me-auto me-lg-3" href="/">Q.Docs</a>
+
+    
+    
+    <button type="button" id="searchToggleMobile" class="btn btn-link nav-link mx-2 d-lg-none" aria-label="Search website">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <circle cx="10" cy="10" r="7"></circle>
+        <line x1="21" y1="21" x2="15" y2="15"></line>
+      </svg>
+    </button>
+    
+    <button class="btn btn-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavSection" aria-controls="offcanvasNavSection" aria-label="Open section navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      </svg>
+    </button>
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavSection" aria-labelledby="offcanvasNavSectionLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavSectionLabel">Docs</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <aside class="doks-sidebar mt-n3">
+          <nav id="doks-docs-nav" aria-label="Tertiary navigation">
+            
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>ML</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/data/">Data</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/unsupervised-learning/">Unsupervised Learning</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/supervised-learning/">Supervised Learning</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/docs/ml/optimization/">Optimization</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/evaluation/">Evaluation</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>DL</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/dl/concepts/">Concepts</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/layer/">Layer</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/activation/">Activation</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/toolbox/">Toolbox</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/gnn/">GNN</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>NLP</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/nlp/tokenizer/">Tokenizer</a>
+  </li>
+
+  <li>
+      <a href="/docs/nlp/language-models/">Language Models</a>
+  </li>
+
+  <li>
+      <a href="/docs/nlp/rag/">RAG</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>CV</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/cv/object-detection/">Object Detection</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Applications</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/app/recommender-systems/">Recommender Systems</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Misc</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/misc/dsa/">DSA</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+  
+
+          </nav>
+        </aside>
+      </div>
+    </div>
+    
+    <button class="btn btn-link nav-link mx-2 order-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavMain" aria-controls="offcanvasNavMain" aria-label="Open main navigation menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <line x1="4" y1="8" x2="20" y2="8"></line>
+        <line x1="4" y1="16" x2="20" y2="16"></line>
+      </svg>
+    </button>
+
+    
+    <div class="offcanvas offcanvas-end h-auto" tabindex="-1" id="offcanvasNavMain" aria-labelledby="offcanvasNavMainLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">Q.Docs</h5>
+        <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M18 6l-12 12"></path>
+            <path d="M6 6l12 12"></path>
+         </svg>
+        </button>
+      </div>
+      
+      <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
+        <ul class="navbar-nav flex-grow-1"><li class="nav-item">
+                <a class="nav-link active" href="http://localhost:1313/" aria-current="true">Docs</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://drive.google.com/file/d/1ZRHhH0OX3n3OJ2jsOA6lLca0C6Ws2YBM/view?usp=drive_link">CV</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://sites.google.com/view/renyiqu">Portfolio</a>
+              </li>
+            </ul>
+
+        
+        
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          </svg>
+        </button>
+        
+        
+        
+        <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type="button" aria-label="Toggle theme">
+          <svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+          </svg>
+          <svg data-bs-theme-value="light" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0m-5 0h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+          </svg>
+        </button>
+        
+        <ul id="socialMenu" class="nav mx-auto flex-row order-lg-4">
+          <li class="nav-item">
+              <a class="nav-link social-link" href="https://github.com/toastedqu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg><small class="ms-2 visually-hidden">GitHub</small></a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link social-link" href="https://www.linkedin.com/in/renyi-qu-6645a8150/"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg><small class="ms-2 visually-hidden">LinkedIn</small></a>
+            </li>
+          </ul>
+        
+        </div>
+    </div>
+
+    
+    </div>
+</header>
+</div>
+
+<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 visually-hidden" id="searchModalLabel">Search</h1>
+        <button type="button" class="btn-close visually-hidden" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="search-input flex-grow-1 d-none">
+          <form id="search-form" class="search-form" action="#" method="post" accept-charset="UTF-8" role="search">
+            <label for="query" class="visually-hidden">Search</label>
+            <div class="d-flex">
+              <input type="search" id="query" name="query" class="search-text form-control form-control-lg" placeholder="Search" aria-label="Search" maxlength="128" autocomplete="off">
+              <button type="button" class="btn btn-link text-decoration-none px-0 ms-3 d-md-none" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="search-loading status message d-none mt-3 text-center">Loading search index…</p>
+        <p class="search-no-recent message d-none mt-3 text-center">No recent searches</p>
+        <p class="search-no-results message d-none mt-3 text-center">No results for "<strong><span class="query-no-results">Query here</span></strong>"</p>
+        <div id="searchResults" class="search-results"></div>
+        <template>
+          <article class="search-result list-view">
+            <div class="card my-3">
+              <div class="card-body">
+                <header>
+                  <h2 class="h5 title title-submitted mb-0"><a class="stretched-link text-decoration-none text-reset" href="#">Title here</a></h2>
+                  <div class="submitted d-none"><time class="created-date">Date here</time></div>
+                </header>
+                <div class="content">Summary here</div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+      <div class="modal-footer">
+        <ul class="list-inline me-auto d-none d-md-block">
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g></svg></kbd><span class="DocSearch-Label">to select</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path></g></svg></kbd><kbd class="me-2"><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path></g></svg></kbd><span class="DocSearch-Label">to navigate</span></li>
+          <li class="list-inline-item"><kbd class="me-2"><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"></path></g></svg></kbd><span class="DocSearch-Label">to close</span></li>
+        </ul>
+        <p class="d-md-none">Search by <a class="text-decoration-none" href="https://github.com/nextapps-de/flexsearch">FlexSearch</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="wrap container-lg" role="document">
+      <div class="content">
+      
+        
+	<div class="row flex-xl-nowrap">
+		<div class="col-lg-5 col-xl-4 docs-sidebar d-none d-lg-block">
+			
+  
+    
+<nav class="section-nav docs-links">
+  <ul class="list-unstyled">
+
+  <li>
+    <details open open>
+      <summary>ML</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/">Introduction</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/data/">Data</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/unsupervised-learning/">Unsupervised Learning</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/supervised-learning/">Supervised Learning</a>
+  </li>
+
+  <li class="active" >
+      <a aria-current="page" href="/docs/ml/optimization/">Optimization</a>
+  </li>
+
+  <li>
+      <a href="/docs/ml/evaluation/">Evaluation</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>DL</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/dl/concepts/">Concepts</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/layer/">Layer</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/activation/">Activation</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/toolbox/">Toolbox</a>
+  </li>
+
+  <li>
+      <a href="/docs/dl/gnn/">GNN</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>NLP</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/nlp/tokenizer/">Tokenizer</a>
+  </li>
+
+  <li>
+      <a href="/docs/nlp/language-models/">Language Models</a>
+  </li>
+
+  <li>
+      <a href="/docs/nlp/rag/">RAG</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>CV</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/cv/object-detection/">Object Detection</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Applications</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/app/recommender-systems/">Recommender Systems</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+
+  <li>
+    <details open>
+      <summary>Misc</summary>
+      <ul class="list-unstyled list-nested">
+
+  <li>
+      <a href="/docs/misc/dsa/">DSA</a>
+  </li>
+      </ul>
+    </details>
+  </li>
+  </ul>
+</nav>
+
+  
+
+		</div>
+		
+		<nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+			<div class="page-links">
+  <h3>On this page</h3>
+    <nav id="toc">
+  <ul>
+    <li><a href="#loss">Loss</a>
+      <ul>
+        <li><a href="#regression">Regression</a>
+          <ul>
+            <li><a href="#l1-absolute-error">L1 (Absolute Error)</a></li>
+            <li><a href="#l2-squared-error">L2 (Squared Error)</a></li>
+            <li><a href="#huber">Huber</a></li>
+          </ul>
+        </li>
+        <li><a href="#classification">Classification</a>
+          <ul>
+            <li><a href="#0-1-heaviside">0-1 (Heaviside)</a></li>
+            <li><a href="#hinge">Hinge</a></li>
+            <li><a href="#logistic">Logistic</a></li>
+            <li><a href="#exponential">Exponential</a></li>
+            <li><a href="#squared">Squared</a></li>
+            <li><a href="#cross-entropy">Cross Entropy</a></li>
+            <li><a href="#kullback-leibler-divergence-relative-entropy">Kullback-Leibler Divergence (Relative Entropy)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#regularization">Regularization</a>
+      <ul>
+        <li><a href="#explicit-penalty">Explicit (Penalty)</a>
+          <ul>
+            <li><a href="#l1">L1</a></li>
+            <li><a href="#l2">L2</a></li>
+            <li><a href="#elastic-net">Elastic Net</a></li>
+            <li><a href="#l0">L0</a></li>
+          </ul>
+        </li>
+        <li><a href="#implicit">Implicit</a></li>
+      </ul>
+    </li>
+    <li><a href="#parameter-optimization">Parameter Optimization</a>
+      <ul>
+        <li><a href="#gradient-descent">Gradient Descent</a>
+          <ul>
+            <li><a href="#adagrad">Adagrad</a></li>
+          </ul>
+        </li>
+        <li><a href="#expectation-maximization">Expectation-Maximization</a></li>
+      </ul>
+    </li>
+    <li><a href="#hyperparameter-tuning">Hyperparameter Tuning</a></li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#confusion-matrix">Confusion Matrix</a></li>
+      </ul>
+    </li>
+    <li><a href="#distance--similarity">Distance &amp; Similarity</a>
+      <ul>
+        <li><a href="#norm--distance">Norm &amp; Distance</a></li>
+        <li><a href="#cosine-similarity">Cosine Similarity</a></li>
+        <li><a href="#kernel">Kernel</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+		</nav>
+		<main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+		
+			<h1>Optimization</h1>
+			
+			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+				<details>
+    <summary>On this page</summary>
+    <div class="page-links">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#loss">Loss</a>
+      <ul>
+        <li><a href="#regression">Regression</a>
+          <ul>
+            <li><a href="#l1-absolute-error">L1 (Absolute Error)</a></li>
+            <li><a href="#l2-squared-error">L2 (Squared Error)</a></li>
+            <li><a href="#huber">Huber</a></li>
+          </ul>
+        </li>
+        <li><a href="#classification">Classification</a>
+          <ul>
+            <li><a href="#0-1-heaviside">0-1 (Heaviside)</a></li>
+            <li><a href="#hinge">Hinge</a></li>
+            <li><a href="#logistic">Logistic</a></li>
+            <li><a href="#exponential">Exponential</a></li>
+            <li><a href="#squared">Squared</a></li>
+            <li><a href="#cross-entropy">Cross Entropy</a></li>
+            <li><a href="#kullback-leibler-divergence-relative-entropy">Kullback-Leibler Divergence (Relative Entropy)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#regularization">Regularization</a>
+      <ul>
+        <li><a href="#explicit-penalty">Explicit (Penalty)</a>
+          <ul>
+            <li><a href="#l1">L1</a></li>
+            <li><a href="#l2">L2</a></li>
+            <li><a href="#elastic-net">Elastic Net</a></li>
+            <li><a href="#l0">L0</a></li>
+          </ul>
+        </li>
+        <li><a href="#implicit">Implicit</a></li>
+      </ul>
+    </li>
+    <li><a href="#parameter-optimization">Parameter Optimization</a>
+      <ul>
+        <li><a href="#gradient-descent">Gradient Descent</a>
+          <ul>
+            <li><a href="#adagrad">Adagrad</a></li>
+          </ul>
+        </li>
+        <li><a href="#expectation-maximization">Expectation-Maximization</a></li>
+      </ul>
+    </li>
+    <li><a href="#hyperparameter-tuning">Hyperparameter Tuning</a></li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#confusion-matrix">Confusion Matrix</a></li>
+      </ul>
+    </li>
+    <li><a href="#distance--similarity">Distance &amp; Similarity</a>
+      <ul>
+        <li><a href="#norm--distance">Norm &amp; Distance</a></li>
+        <li><a href="#cosine-similarity">Cosine Similarity</a></li>
+        <li><a href="#kernel">Kernel</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+  </details>
+
+			</nav>
+			<h1 id="loss">Loss</h1>
+<p>Loss is a measure of difference between predicted output $\hat{y}_i$ and actual output $y_i$.</p>
+<ul>
+<li>Unreduced loss: 
+<span class="math math-inline" id="h-sc-math-0">
+  <img src="/_8437152434476804514.svg" alt="mathematical expression or equation">
+</span></li>
+<li>Reduced loss: $\mathcal{L}(\mathbf{y},\mathbf{\hat{y}})=\begin{cases}
+\text{sum}(\mathcal{L})=\sum_{i=1}^{m}l_i\\
+\text{mean}(\mathcal{L})=\frac{1}{m}\sum_{i=1}^{m}l_i
+\end{cases}$ (can impose sample weights as well)</li>
+</ul>
+<h2 id="regression">Regression<a href="#regression" class="anchor" aria-hidden="true">#</a> </h2>
+<h3 id="l1-absolute-error">L1 (Absolute Error)<a href="#l1-absolute-error" class="anchor" aria-hidden="true">#</a> </h3>
+
+<span class="math math-block text-center" id="h-sc-math-1">
+  <img src="/_16422174981377426239.svg" alt="mathematical expression or equation">
+</span>
+<p>Pros:</p>
+<ul>
+<li>Robust to outliers</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Non-differentiable</li>
+<li>Less related to the underlying assumption of Gaussian distribution on the errors (for most problems)</li>
+</ul>
+<h3 id="l2-squared-error">L2 (Squared Error)<a href="#l2-squared-error" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+\mathcal{l}_i=(y_i-\hat{y}_i)^2
+$$</p>
+<p>Pros:</p>
+<ul>
+<li>Penalize large errors more heavily</li>
+<li>Differentiable</li>
+<li>Closely related to the underlying assumption of Gaussian distribution on the errors (for most problems)</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Sensitive to outliers</li>
+</ul>
+<h3 id="huber">Huber<a href="#huber" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+l_i(\delta)=\begin{cases}
+\frac{1}{2}(y_i-\hat{y_i})^2 &amp; \text{if }|y_i-\hat{y_i}|\leq\delta\\
+\delta|y_i-\hat{y_i}|-\frac{1}{2}\delta^2 &amp; \text{if }|y_i-\hat{y_i}|&gt;\delta
+\end{cases}
+$$</p>
+<p>Pros:</p>
+<ul>
+<li>A mixture of L1 and L2 losses</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Less used than either L1 or L2</li>
+</ul>
+<h2 id="classification">Classification<a href="#classification" class="anchor" aria-hidden="true">#</a> </h2>
+<h3 id="0-1-heaviside">0-1 (Heaviside)<a href="#0-1-heaviside" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+l_i=\begin{cases}
+0 &amp; \text{if }y_i\hat{y_i}&gt;0\\
+1 &amp; \text{if }y_i\hat{y_i}&lt;0
+\end{cases}, y_i\in\{-1,1\}
+$$</p>
+<p>Usage: Naive Bayes</p>
+<p>Cons:</p>
+<ul>
+<li>Penalize all incorrect predictions equally</li>
+<li>Non-convex</li>
+<li>Non-differentiable</li>
+</ul>
+<!-- ```python
+def misclassification(v):
+    return np.vectorize(lambda x: 0 if x>0 else 1)(v)
+``` -->
+<h3 id="hinge">Hinge<a href="#hinge" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+l_i=\max{(0,1-y_i\hat{y}_i)}, y_i\in\{-1,1\}
+$$</p>
+<p>Usage: SVM</p>
+<p>Pros:</p>
+<ul>
+<li>Allow misclassification (penalize more heavily for confident incorrect predictions than for uncertain predictions)</li>
+<li>No penalty on confident correct predictions</li>
+<li>Convex</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Non-differentiable at 0</li>
+</ul>
+<!-- ```python
+def hinge_loss(v):
+    return np.vectorize(lambda x: max(0,1-x))(v)
+``` -->
+<h3 id="logistic">Logistic<a href="#logistic" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+l_i=\frac{1}{\log{2}}\log{(1+e^{-y_i\hat{y_i}})}, y_i\in\{-1,1\}
+$$</p>
+<p>Usage: LogReg</p>
+<p>Pros:</p>
+<ul>
+<li>Convex</li>
+<li>Differentiable</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Penalize confidently correct predictions</li>
+<li>Penalize confidently incorrect predictions less compared to other losses</li>
+</ul>
+<!-- ```python
+def logistic_loss(v):
+    return 1/np.log(2)*np.log(1+np.exp(-v))
+``` -->
+<h3 id="exponential">Exponential<a href="#exponential" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+l_i=e^{-y_i\hat{y}_i}, y_i\in\{-1,1\}
+$$</p>
+<p>Usage: AdaBoost</p>
+<p>Pros:</p>
+<ul>
+<li>Convex</li>
+<li>Differentiable</li>
+<li>Much heavier penalty on much stronger misclassification (effective for weight assignments to examples for AdaBoost)</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Penalize confidently correct predictions</li>
+</ul>
+<!-- ```python
+def exponential_loss(v):
+    return np.exp(-v)
+``` -->
+<h3 id="squared">Squared<a href="#squared" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+l_i=(1-y_i\hat{y}_i)^2, y_i\in\{-1,1\}
+$$</p>
+<p>Usage: rare</p>
+<!-- ```python
+def squared_loss(v):
+    return np.square(1-v)
+``` -->
+<p>Visualization of all the above losses:</p>
+<!-- 
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+v = np.linspace(-2,2,1000)
+plt.plot(v, squared_loss(v), label="squared")
+plt.plot(v, logistic_loss(v), label="logistic")
+plt.plot(v, exponential_loss(v), label="exponential")
+plt.plot(v, hinge_loss(v), label="hinge")
+plt.plot(v, misclassification(v), label="misclassified")
+plt.xlabel('$y_i\hat{y}_i$')
+plt.ylabel('l_i')
+plt.ylim(0,4)
+plt.legend()
+plt.show()
+``` -->
+<center>
+<img src="/images/ml/loss.png" width="500"/>
+</center>
+<h3 id="cross-entropy">Cross Entropy<a href="#cross-entropy" class="anchor" aria-hidden="true">#</a> </h3>
+
+<span class="math math-block text-center" id="h-sc-math-2">
+  <img src="/_2688859819213064662.svg" alt="mathematical expression or equation">
+</span>
+<p>Usage: most (= Log loss for binary, with a much more prevalent label definition)</p>
+<p>Pros:</p>
+<ul>
+<li>Extremely easy to compute (all terms become 0 except one)</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Sensitive to imbalanced datasets</li>
+</ul>
+<h3 id="kullback-leibler-divergence-relative-entropy">Kullback-Leibler Divergence (Relative Entropy)<a href="#kullback-leibler-divergence-relative-entropy" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+l_i=y_i\log\frac{y_i}{\hat{y}_i}
+$$</p>
+<p>Usage: anywhere necessary to calculate difference between true and predicted probability distributions (i.e., information loss)</p>
+<p> </p>
+<p> </p>
+<h1 id="regularization">Regularization</h1>
+<ul>
+<li>Regularization reduces overfitting by adding our prior belief onto loss minimization (i.e., MAP estimate). Such prior belief is associated with our expectation of test error.</li>
+<li>Regularization makes a model inconsistent, biased, and scale variant.</li>
+<li>Regularization requires extra hyperparameter tuning.</li>
+<li>Regularization has a weaker effect on the model (params) as the sample size increases, because more info become available from the data.</li>
+</ul>
+<h2 id="explicit-penalty">Explicit (Penalty)<a href="#explicit-penalty" class="anchor" aria-hidden="true">#</a> </h2>
+<h3 id="l1">L1<a href="#l1" class="anchor" aria-hidden="true">#</a> </h3>
+
+<span class="math math-block text-center" id="h-sc-math-3">
+  <img src="/_4063208577887036642.svg" alt="mathematical expression or equation">
+</span>
+<p>Pros:</p>
+<ul>
+<li>Sparse $\leftarrow$ Feature selection (reduce weights of trash features to 0)</li>
+<li>Robust to outliers</li>
+<li>Equal weight shrinkage ($\frac{\partial L_1}{\partial w_{j}}=1$)</li>
+<li>Effective with multicollinearity</li>
+<li>Able to handle $n&raquo;m$ cases</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>No closed-form solution (high computational cost with LinReg)</li>
+<li>Need to select perfect $\lambda=\frac{\sigma^2}{\gamma^2}$</li>
+</ul>
+<h3 id="l2">L2<a href="#l2" class="anchor" aria-hidden="true">#</a> </h3>
+
+<span class="math math-block text-center" id="h-sc-math-4">
+  <img src="/_7566704454534298477.svg" alt="mathematical expression or equation">
+</span>
+<p>Pros:</p>
+<ul>
+<li>More/Less shrinkage on larger/smaller weights ($\frac{\partial L_2}{\partial w_{j}}=2w_{j}$)</li>
+<li>Effective with multicollinearity</li>
+<li>Closed-form solution. Low computational cost with LinReg</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>No sparsity $\leftarrow$ No feature selection</li>
+<li>Not robust to outliers</li>
+<li>Not able to handle $n&raquo;m$ cases</li>
+<li>Need to select perfect $\lambda=\frac{\sigma^2}{\gamma^2}$</li>
+</ul>
+<h3 id="elastic-net">Elastic Net<a href="#elastic-net" class="anchor" aria-hidden="true">#</a> </h3>
+<p>$$
+\lambda(r_{\text{L1}}||\mathbf{w}||_1+(1-r_{\text{L1}})||\mathbf{w}||_2^2)
+$$</p>
+<ul>
+<li>$r_{\text{L1}}$: L1 ratio</li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li>A mixture of L1 and L2 penalties</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Less used than either L1 or L2</li>
+</ul>
+<h3 id="l0">L0<a href="#l0" class="anchor" aria-hidden="true">#</a> </h3>
+
+<span class="math math-block text-center" id="h-sc-math-5">
+  <img src="/_12429901210532626720.svg" alt="mathematical expression or equation">
+</span>
+<p>Optimization: Search</p>
+<ul>
+<li>
+<p><strong>Streamwise Regression</strong>:</p>
+<ol>
+<li>Init model. Init $Err_0=||y_i||_2^2$.</li>
+<li>For $j$ in range(1,n+1):
+<ol>
+<li>Add feature $\mathbf{x}_j$ to model.</li>
+<li>If $Err=||y_i-\sum_{j\in\text{model}}{w_{j}x_{ij}}||_2^2+\lambda||\textbf{w}_{\text{model}}||_0 &lt;\ Err_{j-1}$:
+<ol>
+<li>Keep $\mathbf{x}_j$.</li>
+<li>$Err_j = Err$</li>
+</ol>
+</li>
+<li>Else:
+<ol>
+<li>$Err_j = Err_{j-1}$</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>Pros:
+<ul>
+<li>Low computational cost: $O(n)$</li>
+</ul>
+</li>
+<li>Cons:
+<ul>
+<li>No guarantee to find optimal solution</li>
+<li>Order of features matters
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Stepwise Regression</strong>:</p>
+<ol>
+<li>Init model. Init $Err_0=||y_i||_2^2$.</li>
+<li>While True (n loops):
+<ol>
+<li>Try to add each of all remaining features $\mathbf{x}_k$ to model.</li>
+<li>Pick the feature with $Err=\min(||y_i-\sum_{j\in\text{model}}{w_{j}x_{ij}}||_2^2+\lambda||\textbf{w}_\text{model}||_0$:</li>
+<li>If $Err&lt;Err_0$:
+<ol>
+<li>Add feature to model.</li>
+<li>$Err_0 = Err$</li>
+</ol>
+</li>
+<li>Else:
+<ol>
+<li>Break</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>Pros:
+<ul>
+<li>More likely to find optimal solution than streamwise</li>
+</ul>
+</li>
+<li>Cons:
+<ul>
+<li>High computational cost: $O(mn)$</li>
+<li>Overfitting</li>
+<li>Multicollinearity
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Stagewise Regression</strong>:</p>
+<ol>
+<li>Init model. Init $Err_0=||y_i||_2^2$. Init cache $\textbf{w}$.</li>
+<li>While True (n loops):
+<ol>
+<li>Try to add each of all remaining features $\mathbf{x}_k$ to model.</li>
+<li>Pick the feature with $Err=\min(||r_i-w_{k}x_{ik}||_2^2+\lambda||\textbf{w}||_0)$, where $r_i=y_i-\sum_{j\in\text{model}}{w_jx_{ij}}$:</li>
+<li>If $Err&lt;Err_0$:
+<ol>
+<li>Add feature to model. Add $w_{k}$ to cache.</li>
+<li>$Err_0 = Err$</li>
+</ol>
+</li>
+<li>Else:
+<ol>
+<li>Break</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>Pros:
+<ul>
+<li>Faster than stepwise regression (no need to create new long models each time)</li>
+<li>No multicollinearity</li>
+<li>Used for <strong>boosting</strong></li>
+</ul>
+</li>
+<li>Cons:
+<ul>
+<li>High computational cost: $O(mn)$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Common Pros:</p>
+<ul>
+<li>Explicit feature selection $\rightarrow$ Sparsity</li>
+</ul>
+<p>Common Cons:</p>
+<ul>
+<li>Severe limitations in optimization methods</li>
+<li>Extreme computational cost</li>
+</ul>
+<h2 id="implicit">Implicit<a href="#implicit" class="anchor" aria-hidden="true">#</a> </h2>
+<p>tbd</p>
+<p> </p>
+<p> </p>
+<h1 id="parameter-optimization">Parameter Optimization</h1>
+<p>The word &ldquo;Learning&rdquo; in ML is literally just parameter estimation (i.e., objective optimization). Pure statistics.</p>
+<h2 id="gradient-descent">Gradient Descent<a href="#gradient-descent" class="anchor" aria-hidden="true">#</a> </h2>
+<p>$$
+\boldsymbol{\theta}\leftarrow\boldsymbol{\theta}-\eta\nabla\mathcal{L}(\boldsymbol{\theta})
+$$</p>
+<p>Types:</p>
+<ul>
+<li>Stochastic GD: update params for each single sample</li>
+<li>Mini-Batch GD: update params for each mini-batch of samples</li>
+<li>Batch GD: update params after observing all samples</li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li>Extremely widely used</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Cannot find global minimum if
+<ul>
+<li>bad step size: too big then unstable; too small then taking too long</li>
+<li>non-convex objective: stuck at local minima or saddle point</li>
+</ul>
+</li>
+</ul>
+<h3 id="adagrad">Adagrad<a href="#adagrad" class="anchor" aria-hidden="true">#</a> </h3>
+<p>Idea: tune the learning rate so that the model learns slowly from frequent features but pay special attention to rare but informative features.
+$$
+\eta_{tj}=\frac{\eta}{\sqrt{\sum_{\tau=1}^t(\frac{\partial\mathcal{L}_k}{\partial{\theta_j}})^2}+\epsilon}
+$$</p>
+<h2 id="expectation-maximization">Expectation-Maximization<a href="#expectation-maximization" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Idea: learn model (do MLE/MAP on params) with latent variables (NOT explicit for GMM).</p>
+<p>Method:</p>
+<ol>
+<li>Init params $\Theta$ for prior $P(z)$ and likelihood $P(\mathcal{D}|z)$</li>
+<li>E-step: estimate $P(z|\mathcal{D})$ given params $\Theta$.
+<ul>
+<li>Estimate the expected value of the latent variables given the current estimates of the model params and the data.</li>
+</ul>
+</li>
+<li>M-step: estimate $\Theta$ via &ldquo;$\arg\max_\Theta P(z|\mathcal{D})$&rdquo; (MLE) or &ldquo;$\arg\max_\Theta P(z,\mathcal{D})$&rdquo; (MAP).
+<ul>
+<li>Estimate the model params through MLE or MAP on the expected value of the complete data likelihood.</li>
+</ul>
+</li>
+<li>Repeat Step 2-3 until convergence.</li>
+</ol>
+<p>Pros:</p>
+<ul>
+<li>Offer estimates for both latent variables and model params</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>NOT guaranteed to find optimum</li>
+</ul>
+<p> </p>
+<p> </p>
+<h1 id="hyperparameter-tuning">Hyperparameter Tuning</h1>
+<p>tbd</p>
+<h1 id="evaluation">Evaluation</h1>
+<p>In regression, MAE/MSE/RMSE is used for both training and evaluation.</p>
+<p>In classification, there are various metrics mostly centered at the idea of <strong>confusion matrix</strong>.</p>
+<h2 id="confusion-matrix">Confusion Matrix<a href="#confusion-matrix" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Confusion Matrix is a $K\times K$ matrix which visualizes actual classes against predicted classes.</p>
+<p>An example of confusion matrix for binary classification:</p>
+<center>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">True P</th>
+<th>True N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Predicted <strong>P</strong></td>
+<td style="text-align:center">TP</td>
+<td>FP</td>
+</tr>
+<tr>
+<td style="text-align:center">Predicted <strong>N</strong></td>
+<td style="text-align:center">FN</td>
+<td>TN</td>
+</tr>
+</tbody>
+</table>
+</center>
+<ul>
+<li>Notations:
+<ul>
+<li>T&amp;F = whether prediction matches actual</li>
+<li>P&amp;N = predicted class</li>
+<li>FP = type 1 error</li>
+<li>FN = type 2 error</li>
+</ul>
+</li>
+<li>Metrics:
+<ul>
+<li><strong>Error Rate</strong>: $\frac{FP+FN}{P+N}$</li>
+<li><strong>Accuracy</strong>: $\frac{TP+TN}{P+N}$</li>
+<li><strong>Specificity</strong>: TN rate among negative actual values: $\frac{TN}{FP+TN}$</li>
+<li><strong>1-Specificity (FPR)</strong>: FP rate among negative actual values: $\frac{FP}{FP+TN}$</li>
+<li><strong>Precision</strong>: TP rate among positive predicted values: $\frac{TP}{TP+FP}$</li>
+<li><strong>Recall</strong>: TP rate among positive actual values: $\frac{TP}{TP+FN}$</li>
+<li><strong>F-score</strong>: harmonic mean of Precision and Recall: $\frac{(1+\beta^2)\cdot\text{precision}\cdot\text{recall}}{(\beta^2\cdot\text{precision})+\text{recall}}$</li>
+<li><strong>F1-score</strong>: $\frac{2\cdot\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}}$</li>
+</ul>
+</li>
+<li><strong>ROC</strong> (Receiver Operating Curve): plot of TPR vs FPR</li>
+<li><strong>AUC</strong> (Area Under Curve): area under ROC curve</li>
+</ul>
+<p> </p>
+<p> </p>
+<h1 id="distance--similarity">Distance &amp; Similarity</h1>
+<h2 id="norm--distance">Norm &amp; Distance<a href="#norm--distance" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Norm is NOT a distance measure but a size measure. It offers insights for many prevalent distance measures.</p>
+<p>Properties:</p>
+<ul>
+<li>$L_p(\textbf{x})=0\leftrightarrow \textbf{x}=\textbf{0}$</li>
+<li>$L_p(\textbf{x}+\textbf{y})\leq L_p(\textbf{x})+L_p(\textbf{y})$</li>
+<li>$L_p(c\textbf{x})=|c|L_p(\textbf{x})\ \ \ \forall c\in\mathbb{R}$</li>
+</ul>
+<p>Types:</p>
+<ul>
+<li>$L_p$: $||\textbf{x}||_p=\left(\sum_i{|x_i|^p}\right)^\frac{1}{p}$</li>
+<li>$L_0$: $||\textbf{x}||_0=\#x_i:x_i&gt;0,x_i\in\textbf{x}$</li>
+<li>$L_1$: $||\textbf{x}||_1=\sum_i{|x_i|}$</li>
+<li>$L_2$: $||\textbf{x}||_2=\sqrt{\sum_i{(x_i)^2}}$</li>
+<li>$L_\infty$: $||\textbf{x}||_\infty=\max{{|x_i|:x_i\in\textbf{x}}}$</li>
+</ul>
+<h2 id="cosine-similarity">Cosine Similarity<a href="#cosine-similarity" class="anchor" aria-hidden="true">#</a> </h2>
+<p>tbd</p>
+<h2 id="kernel">Kernel<a href="#kernel" class="anchor" aria-hidden="true">#</a> </h2>
+<p>Def: measure of similarity between 2 vectors.</p>
+<p>Properties:</p>
+<ul>
+<li>$\mathbf{K}=k(\mathbf{x},\mathbf{x}&rsquo;)$ is positive semi-definite.
+<ul>
+<li>PSD: $\mathbf{K}=\sum_{i=1}^{m}{\lambda_i\mathbf{z}_i\mathbf{z}_i^T}$.</li>
+<li>$\lambda_i$: non-negative real eigenvalues.</li>
+<li>$\mathbf{z}_i$: real eigenvectors.</li>
+</ul>
+</li>
+<li>$k(\mathbf{x},\mathbf{x}&rsquo;)=ck_1(\mathbf{x},\mathbf{x}&rsquo;),c&gt;0$</li>
+<li>$k(\mathbf{x},\mathbf{x}&rsquo;)=k_1(\mathbf{x},\mathbf{x}&rsquo;)+k_2(\mathbf{x},\mathbf{x}&rsquo;)$</li>
+<li>$k(\mathbf{x},\mathbf{x}&rsquo;)=k_1(\mathbf{x},\mathbf{x}&rsquo;)+k_2(\mathbf{x},\mathbf{x}&rsquo;)$</li>
+<li>$k(\mathbf{x},\mathbf{x}&rsquo;)=q(k_1(\mathbf{x},\mathbf{x}&rsquo;))$, where $q(\cdot)$ is polynomial func with positive coeffs.</li>
+<li>$k(\mathbf{x},\mathbf{x}&rsquo;)=f(\mathbf{x})k_1(\mathbf{x},\mathbf{x}&rsquo;)f(\mathbf{x}&rsquo;)$</li>
+<li>$k(\mathbf{x},\mathbf{x}&rsquo;)=\mathbf{x}^T\mathbf{A}\mathbf{x}'$</li>
+<li>$k(\mathbf{x},\mathbf{x}&rsquo;)=\phi(\mathbf{x})^T\phi(\mathbf{x}&rsquo;)$</li>
+</ul>
+
+			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+				</div>
+			<div class="page-nav d-flex flex-column flex-sm-row">
+	
+	<div class="card w-100">
+			<div class="card-body d-flex">
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M5 12l6 6"></path>
+						<path d="M5 12l6 -6"></path>
+				 	</svg>
+				</div>
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Prev</div>
+					<a href="/docs/ml/supervised-learning/" class="stretched-link text-reset text-decoration-none">Supervised Learning</a>
+				</div>
+			</div>
+		</div>
+	<div class="m-2"></div>
+	<div class="card text-end w-100">
+			<div class="card-body d-flex justify-content-end">
+				<div class="d-flex flex-column">
+					<div class="text-body-secondary">Next</div>
+					<a href="/docs/ml/evaluation/" class="stretched-link text-reset text-decoration-none">Evaluation</a>
+				</div>
+				<div class="d-flex flex-column justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<path d="M5 12l14 0"></path>
+						<path d="M13 18l6 -6"></path>
+						<path d="M13 6l6 6"></path>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+
+			
+		</main>
+		
+	</div>
+
+      
+      </div>
+    </div>
+    
+    
+    <footer class="footer text-muted">
+  <div class="container-lg">
+    <div class="row">
+      <div class="col-lg-8 text-center text-lg-start">
+        <ul class="list-inline">
+          
+        </ul>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <ul class="list-inline">
+          <li class="list-inline-item">Brought to you by <a class="text-muted" href="https://gethyas.com/">Hyas</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    
+
+<script async
+  src="/js/app.9c502a5936d08d73c597aa264dbc7384c9b83a59ce4be45b845f54bb7c3bfde0.js"
+  integrity="sha256-nFAqWTbQjXPFl6omTbxzhMm4OlnOS&#43;RbhF9Uu3w7/eA=">
+</script>
+
+
+
+
+
+<script async
+  src="/js/flexsearch.a43ad3e9453067320ab808b85ef437fc65518a219cfea8499e744b7b6f0b6924.js"
+  integrity="sha256-pDrT6UUwZzIKuAi4XvQ3/GVRiiGc/qhJnnRLe28LaSQ=">
+</script>
+<script async
+  src="/js/search-modal.4bf222a8ac69d50bbdf265c8d3e25dd4693382bf59af91cbfe3268b8aa8079eb.js"
+  integrity="sha256-S/IiqKxp1Qu98mXI0&#43;Jd1Gkzgr9Zr5HL/jJouKqAees=">
+</script>
+
+    
+  </body>
+</html>

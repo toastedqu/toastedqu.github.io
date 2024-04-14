@@ -14,14 +14,14 @@ Just some exam notes for UPenn's [CIS 545 Big Data Analytics](https://sites.goog
 </br>
 </br>
 
-**Data Preprocessing**: extract key parts of data $\rightarrow$ model & annotate data $\rightarrow$ clean data $\rightarrow$ link & coregister data
+**Data Preprocessing**: extract key parts of data {{< math >}}$ \rightarrow$ model & annotate data $\rightarrow$ clean data $\rightarrow ${{</ math>}} link & coregister data
 </br>
 </br>
 
-**Data Analytics**: data $\rightarrow$ knowledge/action
+**Data Analytics**: data {{< math >}}$ \rightarrow ${{</ math>}} knowledge/action
 - Goals:
-    - Pattern detection: data $\rightarrow$ patterns $\rightarrow$ partial understanding (i.e., descriptive statistics)
-    - Hypothesis: experiment over sample $\rightarrow$ significance (i.e., inferential statistics)
+    - Pattern detection: data {{< math >}}$ \rightarrow$ patterns $\rightarrow ${{</ math>}} partial understanding (i.e., descriptive statistics)
+    - Hypothesis: experiment over sample {{< math >}}$ \rightarrow ${{</ math>}} significance (i.e., inferential statistics)
 - Aspects:
     - Acquisition & Access (data may not be accessible)
     - Wrangling (data may be in the wrong form)
@@ -33,7 +33,7 @@ Just some exam notes for UPenn's [CIS 545 Big Data Analytics](https://sites.goog
 - Reality:
     - heavily rely on **human expertise** (domain knowledge) to impose models over features
     - spent TONS of time on data understanding, cleaning, wrangling.
-- Process: question $\rightarrow$ scope $\rightarrow$ data $\rightarrow$ techniques $\rightarrow$ evaluation $\rightarrow$ maintenance
+- Process: question {{< math >}}$ \rightarrow$ scope $\rightarrow$ data $\rightarrow$ techniques $\rightarrow$ evaluation $\rightarrow ${{</ math>}} maintenance
 </br>
 </br>
 </br>
@@ -43,7 +43,7 @@ Just some exam notes for UPenn's [CIS 545 Big Data Analytics](https://sites.goog
 **Structured Data**
 - **Instances**: observations/samples from a population
 - **Features**: measurable properties/characteristics
-- Transformation: raw data $\rightarrow$ single tabular representation
+- Transformation: raw data {{< math >}}$ \rightarrow ${{</ math>}} single tabular representation
 - Basic encodings:
     - **Tables**: **tuples** that may have different field types
         - dataframe in Pandas; relations in SQL
@@ -94,7 +94,7 @@ Pandas vs SQL
 - 1-column dataframe: schema + common value type, special indices, use df funcs
 
 Tip: It's best NOT to iterate over the elements and modify them. Call apply with a function (manual/lambda) instead.
-- Iterating over items in a loop forces a sequence, while "projection $\rightarrow$ apply" is possible in parallel
+- Iterating over items in a loop forces a sequence, while "projection {{< math >}}$ \rightarrow ${{</ math>}} apply" is possible in parallel
 
 Tip: apply()
 - axis=0: per column
@@ -159,18 +159,18 @@ Validation & Cleaning is our best effort. Lots of data errors will be impossible
 </br>
 
 ## Record Linking
-**Record linking**: Given $r,s$ from tables $R,S$, join $r,s$ if there is a semantic link between them.
+**Record linking**: Given {{< math >}}$ r,s$ from tables $R,S$, join $r,s ${{</ math>}} if there is a semantic link between them.
 - look at rows in different tables and figure out if they should join (i.e., join with tolerance via similarity check)
 
-**Deduplication**: Given $t_1,t_2$ in table $T$, join $t_1,t_2$ if they represent the same instance.
+**Deduplication**: Given {{< math >}}$ t_1,t_2$ in table $T$, join $t_1,t_2 ${{</ math>}} if they represent the same instance.
 
 How to determine that 2 tuples "represent the same instance" or "are semantically linked"?
 - Similarity measures
 - e.g., **string similarity**
     - **Edit distance**: #edits needed to convert one string into another (requires DP)
     - **Overlap**: measure how much is common between 2 strings
-        - **q-grams**: take all substrings of length $q$
-        - **Jaccard similarity**: $\frac{|qgram(x)\cap qgram(y)|}{|qgram(x)\cup qgram(y)|}$
+        - **q-grams**: take all substrings of length {{< math >}}$ q ${{</ math>}}
+        - **Jaccard similarity**: {{< math >}}$ \frac{|qgram(x)\cap qgram(y)|}{|qgram(x)\cup qgram(y)|} ${{</ math>}}
 </br>
 </br>
 
@@ -197,7 +197,7 @@ Modern NLP: predict words given context
 - **Document vectors**: to answer a question, find docs with matching words by encoding each doc into a vector which counts the #occurrences of each word (and do the same to query as well)
     - Ways to count occurrences
         - **BoW** (Bags of Words): unordered set of all words (i.e., lexicon)
-        - **n-grams**: replace individual words with $n$-word groups in a vector
+        - **n-grams**: replace individual words with {{< math >}}$ n ${{</ math>}}-word groups in a vector
         - **TF-IDF**: downweight words based on how commonly they occur in some dataset (useful for killing stopwords)
     - Docs and queries with overlapping terms will have similar vectors (measurable via cosine similarity)
     - Cons:
@@ -208,11 +208,11 @@ Modern NLP: predict words given context
     - **Term-Frequency matrix**: count how frequently each word term (row) appears in each doc (col)
         - Similar/related words keep co-occurring in docs.
         - Pros: capture how often term appears for different topics, catch synonyms
-        - Cons: topics are too coarse-grained, $O(mn)$ is huge ($n$ words times $m$ docs)
+        - Cons: topics are too coarse-grained, {{< math >}}$ O(mn)$ is huge ($n$ words times $m ${{</ math>}} docs)
     - **Term-Term matrix**: count how frequently a word (row) appears within the neighborhood context of another word (col)
         - Similar/related words co-occur with the similar sets of words in sentences.
         - Pros: can estimate semantic similarity by vector similarity
-        - Cons: $O(n^2)$ is huge ($n$ words times $n$ words)
+        - Cons: {{< math >}}$ O(n^2)$ is huge ($n$ words times $n ${{</ math>}} words)
 - **Word2Vec**: learn an embedding for each word
     - **Embedding**: a vector that predicts the probability distribution of (embeddings of) next word given context (consisting of prior word embeddings)
     - Pros: compression
@@ -276,7 +276,7 @@ Relationial data can not only capture flat relationships but also represent grap
         - **Concurrency control**: how do we handle concurrent updates?
         - **Consistency**: when do I see changes?
     - Doesn't work well with data visualization or ML
-- NoSQL $\rightarrow$ SQL:
+- NoSQL {{< math >}}$ \rightarrow ${{</ math>}} SQL:
     - Split hierarchical data into tables when data has multiple values per parent item (e.g., an array as value, then it is no longer 1:1).
     - Nesting becomes links (foreign key)
         - **Foreign key**: takes on a value from a key in another table
@@ -332,7 +332,7 @@ Reduce data as soon as possible (push down operations)
 
 **Indexing** speeds selection
 - Index: a map from index key to set of values
-    - allows direct find matches to the key without scanning the data ($O(1)$)
+    - allows direct find matches to the key without scanning the data ({{< math >}}$ O(1) ${{</ math>}})
     - can be in-memory or on disk
 - 2 types of indices
     - **tree** (B+ trees): find all values </>/= key
@@ -342,7 +342,7 @@ Reduce data as soon as possible (push down operations)
 
 ## Join Optimization
 Takeaways:
-- Joins are expensive ($O(n^2)$)
+- Joins are expensive ({{< math >}}$ O(n^2) ${{</ math>}})
 - Cleverly ordering our joins to **reduce intermediate result** sizes makes a huge performance difference
 - Eval order matters because intermediate result size matters. Pandas needs ballpark estimate to determine order, while SQL can choose this automatically for us.
 </br>
@@ -351,7 +351,7 @@ Takeaways:
 ## Algorithmic Efficiency
 Change how we access data:
 - Maps/In-memory indices (much faster than exact-match pandas merge)
-    - If use this to join 2 tables S&T, $O($#rows(S)+#rows(T)$)$
+    - If use this to join 2 tables S&T, {{< math >}}$ O($#rows(S)+#rows(T)$) ${{</ math>}}
     - cardinality = #rows
 - Buffering/Blocks
     - When tables are bigger than memory, this reduce overall #disk fetches.
@@ -407,9 +407,9 @@ Takeaways:
 **Sharding**: map key range to machine ID, send all tuples of that key range to the machine
 
 **Hashing**: take a value (a hash key) and return a large int.
-- $\forall k_1,k_2: k_1=k_2\Rightarrow h(k_1)=h(k_2)$
-- $\forall k_1,k_2: k_1\neq k_2\Rightarrow P(h(k_1)\neq h(k_2))$ is high
-- e.g., we typically put data for key $k$ at node $h(k) \% n$
+- {{< math >}}$ \forall k_1,k_2: k_1=k_2\Rightarrow h(k_1)=h(k_2) ${{</ math>}}
+- {{< math >}}$ \forall k_1,k_2: k_1\neq k_2\Rightarrow P(h(k_1)\neq h(k_2)) ${{</ math>}} is high
+- e.g., we typically put data for key {{< math >}}$ k$ at node $h(k) \% n ${{</ math>}}
 </br>
 </br>
 
@@ -417,7 +417,7 @@ Takeaways:
 Spark: a platform for sharded big data
 - Spark DFs have a **typed schema**: it cannot determine on-the-fly whether input fields are strings vs integers like Python does.
 - Spark supports both Pandas and SQL style operations.
-- Given a cluster with $n$ workers, Spark creates a table with at least $n$ partitions.
+- Given a cluster with {{< math >}}$ n$ workers, Spark creates a table with at least $n ${{</ math>}} partitions.
 - Selection + Projection + Apply is farmed out to each worker, run simultaneously.
 - Grouping typically requires the machine to exchange/repartition data.
 - Failure:
@@ -523,30 +523,30 @@ PageRank: recursive measure of importance
     - Pages voting for more than 1 page must split their vote equally between them.
     - Voting proceeds in rounds. In each round, each page has #votes it received in the previous round.
 - Simplified version:
-    - Each page $x$ is given a rank PageRank($x$)
-    - Goal: assign PageRank($x$) s.t. rank of each page is governed by the ranks of the pages linked to it.
-    - PageRank($x$) $=\sum_{j\in B(x)}\frac{1}{N_j}$ PageRank($j$), where $N_j=$ #links out from page $j$.
+    - Each page {{< math >}}$ x$ is given a rank PageRank($x ${{</ math>}})
+    - Goal: assign PageRank({{< math >}}$ x ${{</ math>}}) s.t. rank of each page is governed by the ranks of the pages linked to it.
+    - PageRank({{< math >}}$ x$) $=\sum_{j\in B(x)}\frac{1}{N_j}$ PageRank($j$), where $N_j=$ #links out from page $j ${{</ math>}}.
 - 2 properties:
     - It converges
     - It can be computed independently of the query
 - Caveat: query independence means it only looks at **structure** (no semantics).
 - Implementation:
-    - Initialize all ranks: $PageRank^{(0)}(x)=\frac{1}{|V|}$
-    - Iterate until convergence: $PageRank^{(i)}(x)=\sum_{j\in B(x)}\frac{1}{N_j}PageRank^{(i-1)}(j)$
+    - Initialize all ranks: {{< math >}}$ PageRank^{(0)}(x)=\frac{1}{|V|} ${{</ math>}}
+    - Iterate until convergence: {{< math >}}$ PageRank^{(i)}(x)=\sum_{j\in B(x)}\frac{1}{N_j}PageRank^{(i-1)}(j) ${{</ math>}}
 - Explanation:
     - Initialize all ranks
     - Propagate weights across out-edges
     - Compute weights based on in-edges
 - Can use recursive join computations in Spark for this.
 - Implementation (Linear Algebra ver.):
-    - $PageRank^{(i)}=M\cdot PageRank^{(i-1)}$
-    - $M_{ij}=\frac{1}{N_j}$ if page $i$ is pointed by page $j$, and page $j$ has $N_j$ outgoing links, or 0.
-    - $PageRank=[PageRank(p_1);\cdots;PageRank(p_m)]$
+    - {{< math >}}$ PageRank^{(i)}=M\cdot PageRank^{(i-1)} ${{</ math>}}
+    - {{< math >}}$ M_{ij}=\frac{1}{N_j}$ if page $i$ is pointed by page $j$, and page $j$ has $N_j ${{</ math>}} outgoing links, or 0.
+    - {{< math >}}$ PageRank=[PageRank(p_1);\cdots;PageRank(p_m)] ${{</ math>}}
     - Computes principal eigenvector via power iteration
 - Random Surfer Model: reduce rank hogs and dead ends (where rank eventually becomes 0)
     - Remove out-degree 0 nodes
-    - Add damping/decay factor $\alpha$ to deal with sinks
-        - $PageRank^{(i)}=\alpha M\cdot PageRank^{(i-1)}+\beta$
-        - typical values: $\alpha=0.85, \beta=1-\alpha$ is a $m\times 1$ vector.
-    - Intuition: with probability $\alpha$, clicks on a random outlink; with probability $\beta$, jumps to a random page
+    - Add damping/decay factor {{< math >}}$ \alpha ${{</ math>}} to deal with sinks
+        - {{< math >}}$ PageRank^{(i)}=\alpha M\cdot PageRank^{(i-1)}+\beta ${{</ math>}}
+        - typical values: {{< math >}}$ \alpha=0.85, \beta=1-\alpha$ is a $m\times 1 ${{</ math>}} vector.
+    - Intuition: with probability {{< math >}}$ \alpha$, clicks on a random outlink; with probability $\beta ${{</ math>}}, jumps to a random page
 - Personalize PageRank: label propagation starts at labeled nodes, estimates how often we end up at a destination if we randomly walked from each labeled node.

@@ -10,10 +10,10 @@ weight: 2
 ---
 Notations:
 
-- $m$: #samples
-- $n$: #features
-- $X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n)$
-- $\mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of length $m$
+- {{< math >}}$ m ${{</ math>}}: #samples
+- {{< math >}}$ n ${{</ math>}}: #features
+- {{< math >}}$ X=[\mathbf{x}_1,\cdots,\mathbf{x}_m]^T$: input matrix of shape $(m,n) ${{</ math>}}
+- {{< math >}}$ \mathbf{y}=[y_1,\cdots,y_{m}]^T$: output vector of length $m ${{</ math>}}
 
 # Cleaning
 
@@ -32,7 +32,7 @@ X_\text{new}=\frac{X-\bar{X}}{\sigma_X}
 $$
 
 Pros:
-- Remove mean and/or scale data to unit variance. (i.e., $x_i\sim N(0,1)$)
+- Remove mean and/or scale data to unit variance. (i.e., {{< math >}}$ x_i\sim N(0,1) ${{</ math>}})
 
 Cons:
 - Highly sensitive to outliers (outliers can greatly impact empirical mean and empirical std).
@@ -41,13 +41,13 @@ Cons:
 
 ## Min-Max Scaling
 
-$$\begin{align*}
+{{< math class=text-center >}}$$\begin{align*}
 &x\in[0,1]: &&X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}\\\\
 &x\in[\min,\max]: &&X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}(\text{max}-\text{min})+\text{min}
-\end{align*}$$
+\end{align*}$${{< /math >}}
 
 Pros:
-- Can scale each $x_i$ into a range of your choice.
+- Can scale each {{< math >}}$ x_i ${{</ math>}} into a range of your choice.
 
 Cons:
 - Highly sensitive to outliers.
@@ -59,9 +59,9 @@ X_\text{new}=\frac{X}{\max{(|X|)}}
 $$
 
 Pros:
-- Preserve signs of each $x_i$.
+- Preserve signs of each {{< math >}}$ x_i ${{</ math>}}.
 - Preserve sparsity since no shift is applied.
-- Scale each $x_i$ into a range of $[-1,1]$ ($[-1,0)$ for neg entries, $(0,1]$ for pos entries).
+- Scale each {{< math >}}$ x_i$ into a range of $[-1,1]$ ($[-1,0)$ for neg entries, $(0,1] ${{</ math>}} for pos entries).
 
 Cons:
 - Highly sensitive to outliers.
@@ -84,9 +84,9 @@ $$
 
 Pros:
 - Scale individual samples to their unit norms.
-- Can choose l1, l2, or max as $\text{norm}(\cdot)$.
-    - l1: $\sum_j{|x_{ij}|}$
-    - l2: $\sqrt{\sum_j{x_{ij}^2}}$
+- Can choose l1, l2, or max as {{< math >}}$ \text{norm}(\cdot) ${{</ math>}}.
+    - l1: {{< math >}}$ \sum_j{|x_{ij}|} ${{</ math>}}
+    - l2: {{< math >}}$ \sqrt{\sum_j{x_{ij}^2}} ${{</ math>}}
 
 ## Quantile Transform
 
@@ -95,8 +95,8 @@ Pros:
     X_\text{new}=Q^{-1}(F(X))
     $$
 
-    - $Q^{-1}$: quantile func (i.e., PPF [percent-point func], inverse of CDF)
-    - $F$: empirical CDF
+    - {{< math >}}$ Q^{-1} ${{</ math>}}: quantile func (i.e., PPF [percent-point func], inverse of CDF)
+    - {{< math >}}$ F ${{</ math>}}: empirical CDF
 
 
 - Uniform outputs:
@@ -130,7 +130,7 @@ Cons:
     \end{cases}
     $$
     
-    - $\lambda$ is determined by MLE.
+    - {{< math >}}$ \lambda ${{</ math>}} is determined by MLE.
 
 
 
@@ -142,12 +142,12 @@ Cons:
     \end{cases}
     $$
     
-    - Only applicable when $\mathbf{x}_i>0$.
+    - Only applicable when {{< math >}}$ \mathbf{x}_i>0 ${{</ math>}}.
     
 Pros:
 - Map any data to Gaussian distribution (i.e., stabilize variance and minimize skewness).
 - Useful against heteroskedasticity (i.e., non-const variance).
-- Sklearn's PowerTransformer further converts data to $N(0,1)$ by default.
+- Sklearn's PowerTransformer further converts data to {{< math >}}$ N(0,1) ${{</ math>}} by default.
 
 Cons:
 - Distort linear correlations between diff features.

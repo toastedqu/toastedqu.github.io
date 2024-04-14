@@ -57,28 +57,28 @@ Cons:
 
 ### K-NN
 Algorithm (K-NN):
-1. Find all products $i$ that user $u$ has rated.
-2. Find the top $k$ most similar products to the target product $j$ using K-NN
-$$\begin{align*}
+1. Find all products {{< math >}}$ i$ that user $u ${{</ math>}} has rated.
+2. Find the top {{< math >}}$ k$ most similar products to the target product $j ${{</ math>}} using K-NN
+{{< math class=text-center >}}$$\begin{align*}
 &\text{Euclidean Distance}: &&d(\textbf{y}_i,\textbf{y}_j)=\frac{\sum\_{u\in U(i,j)}(y\_{ui}-y\_{uj})^2}{|U(i,j)|} \\\\
 &\text{Cosine Similarity}: &&\cos(\textbf{y}_i,\textbf{y}_j)=\frac{\sum\_{u\in U(i,j)}(y\_{ui}y\_{uj})}{||\textbf{y}_i|| ||\textbf{y}_j||}
-\end{align*}$$
-where $U(i,j)$ is the set of users who have rated both product $i$ and $j$. Store these products in $N(j,u)$ so that it is the set of $k$ most similar products to product $j$ for user $u$.
-3. Average the ratings of these products to obtain estimated rating of user $u$ on the new product $j$:
+\end{align*}$${{< /math >}}
+where {{< math >}}$ U(i,j)$ is the set of users who have rated both product $i$ and $j$. Store these products in $N(j,u)$ so that it is the set of $k$ most similar products to product $j$ for user $u ${{</ math>}}.
+3. Average the ratings of these products to obtain estimated rating of user {{< math >}}$ u$ on the new product $j ${{</ math>}}:
 $$
 \hat{y}\_{uj}=\frac{1}{k}\sum\_{i\in N(j,u)}y\_{ui}
 $$
-- Cons: Each movie in the top-$k$ list is weighted equally.
+- Cons: Each movie in the top-{{< math >}}$ k ${{</ math>}} list is weighted equally.
 
 <br><br>
 
-Soft K-NN: same algorithm but using $s_{ij}$ (the similarity score between $i$ and $j$):
+Soft K-NN: same algorithm but using {{< math >}}$ s_{ij}$ (the similarity score between $i$ and $j ${{</ math>}}):
 $$
 \hat{y}\_{uj}=\frac{\sum\_{i\in N(j,u)}s\_{ij}y\_{ui}}{\sum\_{i\in N(j,u)}s\_{ij}}
 $$
 <br><br>
 
-K-NN with baseline off: same algorithm but subtracting off $b\_{uj}$ (the baseline rating. e.g., mean rating of user $u$, mean rating of product $j$)):
+K-NN with baseline off: same algorithm but subtracting off {{< math >}}$ b\_{uj}$ (the baseline rating. e.g., mean rating of user $u$, mean rating of product $j ${{</ math>}})):
 $$
 \hat{y}\_{uj}=b\_{uj}+\frac{\sum\_{i\in N(j,u)}s\_{ij}(y\_{ui}-b\_{ui})}{\sum\_{i\in N(j,u)}s\_{ij}}
 $$
@@ -91,17 +91,17 @@ $$
 
 <br><br>
 
-K-NN + Regression: same algorithm but using regression weights $w\_{ij}$ instead of similarity (weights measure how much the rating of $i$ tells you about the rating of $j$):
+K-NN + Regression: same algorithm but using regression weights {{< math >}}$ w\_{ij}$ instead of similarity (weights measure how much the rating of $i$ tells you about the rating of $j ${{</ math>}}):
 $$
 \hat{y}\_{uj}=b\_{uj}+\sum\_{i\in N(j,u)}w\_{ij}(y\_{ui}-b\_{ui})
 $$
 
-- Cons: need to find $w_{ij}$ via seeing other user ratings $y_{vi}$ from users $v$ $\rightarrow$ need to compare every user to find most similar users $\rightarrow$ high computational cost
+- Cons: need to find {{< math >}}$ w_{ij}$ via seeing other user ratings $y_{vi}$ from users $v$ $\rightarrow$ need to compare every user to find most similar users $\rightarrow ${{</ math>}} high computational cost
 
 &nbsp;
 
 ## Model-based CF
-Idea: map user representations $s_u$, item representations $s_i$, and reviews $t_{ui}$ into a continuous vector space via NN to predict rating $\hat{r}$:
+Idea: map user representations {{< math >}}$ s_u$, item representations $s_i$, and reviews $t_{ui}$ into a continuous vector space via NN to predict rating $\hat{r} ${{</ math>}}:
 $$
 \hat{r}=NN(s_u,s_i,t_{ui}|\theta)
 $$
@@ -116,34 +116,34 @@ Problem: Sparsity in user-item interaction data is a huge issue in real-world re
 Solution: Matrix Factorization
 - e.g., Factorization Machine, Non-Negative Matrix Factorization, etc.
 
-Idea: Factor the rating matrix $R$ into user matrix and product matrix of the same hidden space.
+Idea: Factor the rating matrix {{< math >}}$ R ${{</ math>}} into user matrix and product matrix of the same hidden space.
 
 Model:
 $$
 R=PQ^T
 $$
-- $P$: user matrix of shape $m\times h$, where $m$ is $\\#$users and $h$ is $\\#$hidden factors (just like PC scores)
-- $Q$: product matrix of shape $n\times h$, where $n$ is $\\#$hidden factors (just like PCs/loadings)
+- {{< math >}}$ P$: user matrix of shape $m\times h$, where $m$ is $\\#$users and $h$ is $\\# ${{</ math>}}hidden factors (just like PC scores)
+- {{< math >}}$ Q$: product matrix of shape $n\times h$, where $n$ is $\\# ${{</ math>}}hidden factors (just like PCs/loadings)
 
-Prediction: Given a user with params $\textbf{p}_u$ and a product with learned features $\textbf{q}_i$, predict rating $\textbf{p}_u\textbf{q}_i^T$.
+Prediction: Given a user with params {{< math >}}$ \textbf{p}_u$ and a product with learned features $\textbf{q}_i$, predict rating $\textbf{p}_u\textbf{q}_i^T ${{</ math>}}.
 
 Objective: minimize reconstruction error + L2 penalty:
 $$
 \mathcal{L}=\sum\_{(u,i)\in K}[(y\_{ui}-\textbf{p}_u\textbf{q}_i^T)^2+\lambda(||\textbf{p}_u||_2^2+||\textbf{q}_i||_2^2)]
 $$
 - Further regularizations: 
-    - Non-Negative Matrix Factorization (NNMF): force all elements of $P\\&Q$ non-negative. (canNOT be an alternative to PCA because not orthogonal!)
-    - Locally weighted matrix factorization: $\mathcal{L}=\sum\_{(u,i)\in K}[s\_{ij}(y\_{ui}-\textbf{p}_u\textbf{q}_i^T)^2+\lambda(||\textbf{p}_u||_2^2+||\textbf{q}_i||_2^2)]$
+    - Non-Negative Matrix Factorization (NNMF): force all elements of {{< math >}}$ P\\&Q ${{</ math>}} non-negative. (canNOT be an alternative to PCA because not orthogonal!)
+    - Locally weighted matrix factorization: {{< math >}}$ \mathcal{L}=\sum\_{(u,i)\in K}[s\_{ij}(y\_{ui}-\textbf{p}_u\textbf{q}_i^T)^2+\lambda(||\textbf{p}_u||_2^2+||\textbf{q}_i||_2^2)] ${{</ math>}}
 
 Optimization:
-- Alternating least squares (BAD): fix $P$, solve $Q$, fix $Q$, solve $P$, ...
+- Alternating least squares (BAD): fix {{< math >}}$ P$, solve $Q$, fix $Q$, solve $P ${{</ math>}}, ...
 - **Collaborative Filtering**: simultaneously estimate both parameters with GD:
-    1. Init $P\\&Q$ to small random values.
+    1. Init {{< math >}}$ P\\&Q ${{</ math>}} to small random values.
     2. GD (need to modify notifications):
-    $$\begin{align*}
+    {{< math class=text-center >}}$$\begin{align*}
     &x_k^{(i)}\leftarrow x_k^{(i)}-\alpha\left(\sum_{j:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)\theta_k^{(j)}}+\lambda x_k^{(i)}\right)\\\\
     &\theta_k^{(j)}\leftarrow \theta_k^{(j)}-\alpha\left(\sum_{i:r(i,j)=1}{\left(\theta^{(j)T}x^{(i)}-y^{(i,j)}\right)x_k^{(i)}}+\lambda\theta_k^{(j)}\right)
-    \end{align*}$$
+    \end{align*}$${{< /math >}}
 
 Cons:
 - High computational cost
@@ -195,7 +195,7 @@ Pros:
 - Pretty much the current SOTA
 
 ## Knowledge Graph-based RS
-Idea: use an entity-relation-entity triple $(h,r,t)$ to assist RS
+Idea: use an entity-relation-entity triple {{< math >}}$ (h,r,t) ${{</ math>}} to assist RS
 
 Usages:
 - Knowledge graph embedding
