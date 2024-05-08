@@ -13,18 +13,20 @@ weight: 4
 <!-- ## Linear Discriminant Analysis -->
 
 ## Naive Bayes
-**What?**: Naive Bayes is the simplest generative, parametric classifier directly using Bayes' Theorem.
+**Why**: It solves problems in scenarios where we need quick and accurate predictions.
 
-**Why?**: It solves problems in scenarios where we need quick and accurate predictions.
+**What**: Naive Bayes is the simplest generative, parametric classifier directly using Bayes' Theorem.
 
-**Where?**: Mostly text classification.
 
-**When?**: Conditional Independence of features given label:
+
+**Where**: Mostly text classification.
+
+**When**: Conditional Independence of features given label:
 $$
 p(\mathbf{x}|y=k,\mathbf{w}\_k)=\prod\_{j=1}^np(x\_j|y=k,w\_{jk})
 $$
 
-**How?**: Bayes' Theorem
+**How**: Bayes' Theorem
 
 **Training**:
 - **Params**:
@@ -113,16 +115,16 @@ $$
 $$ -->
 
 ## Linear Regression
-**What?**: Linear regression fits a linear hyperplane between features and labels.
+**What**: Linear regression fits a linear hyperplane between features and labels.
 
-**When?**: 
+**When**: 
 - **Linearity**: The underlying relationship between {{< math >}}$ \textbf{y}$ and $X ${{</ math>}} is linear.
 - **Independence**: {{< math >}}$ \varepsilon_i ${{</ math>}} is independent of each other.
 - **Normality**: {{< math >}}$ \varepsilon_i ${{</ math>}} follows Gaussian distribution.
 - **Non-Collinearity**: No/Minimal explanatory variables correlate with each other.
 - **Homoskedasticity**: The variance of all noises is the same constant {{< math >}}$ \sigma^2 ${{</ math>}}.
 
-**How?**: 
+**How**: 
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Frequentist:} &&\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
 &\text{Bayesian:}    &&p(\mathbf{y}|X,\mathbf{w})=N(X\mathbf{w},\sigma^2)

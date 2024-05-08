@@ -1,5 +1,5 @@
 ---
-title : "DSA"
+title : "Coding"
 description: ""
 lead: ""
 date: 2020-10-06T08:48:45+00:00
@@ -8,8 +8,6 @@ draft: false
 images: []
 weight: 51
 ---
-F*** Leetcode.
-
 # Interview
 A DS/A interview consists of the following steps:
 
@@ -88,9 +86,9 @@ The single most powerful trick for any non-specific question is:
 # Array
 ## Two Pointer
 ### Left & Right
-**Where?**: bi-directional, often on 1d array/string.
+**Where**: bi-directional, often on 1d array/string.
 
-**How?**:
+**How**:
 1. left & right pointers (either facing from both ends, or expanding from middle).
 2. Loop. Break when meet.
 
@@ -110,9 +108,9 @@ The single most powerful trick for any non-specific question is:
 &nbsp;
 
 ### Slow & Fast (Sliding Window)
-**Where?**: uni-directional, 1d subarray/substring problem
+**Where**: uni-directional, 1d subarray/substring problem
 
-**How?**:
+**How**:
 1. Init cache(s) with int/arr/map.
 2. `fast` for iteration, `slow` for operation (threshold, comparison, etc.)
 3. MIN:
@@ -162,10 +160,10 @@ def sliding_window(args):
 ## Binary Search
 Credits to [zhijun_liao](https://leetcode.com/problems/find-k-th-smallest-pair-distance/solutions/769705/python-clear-explanation-powerful-ultimate-binary-search-template-solved-many-problems/) and [user8301z](https://leetcode.com/problems/find-peak-element/solutions/788474/general-binary-search-thought-process-4-templates/) for helping me understand binary search a lot better.
 
-**Where?**: Find a function that maps elements in the left/right half to True and the other to False.
+**Where**: Find a function that maps elements in the left/right half to True and the other to False.
 - Although it's mostly applicable to sorted arrays, this is NOT a necessary requirement.
 
-**How?**: There are 2 cases to consider. (originally 4, but I think 2 are sufficient for explanation.)
+**How**: There are 2 cases to consider. (originally 4, but I think 2 are sufficient for explanation.)
 ```python
 # Find First True (i.e., assume `lefts=False, rights=True`)
 while l < r:
@@ -206,9 +204,9 @@ def binary_search(nums) -> int:
 &nbsp;
 
 ## Merge Intervals
-**Where?**: interval problems
+**Where**: interval problems
 
-**How?**: depends on the question tbh.
+**How**: depends on the question tbh.
 
 <center>
 <img src="/images/dsa/merge_interval.jpg" width=50%/>
@@ -229,9 +227,9 @@ def binary_search(nums) -> int:
 &nbsp;
 
 ## Dynamic Programming
-**Where?**: The OG problem can be divided into smaller overlapping subproblems with an optimal substructure.
+**Where**: The OG problem can be divided into smaller overlapping subproblems with an optimal substructure.
 
-**How?**:
+**How**:
 1. Choose a method: Decide between the two main methods of DP: Top-Down (Memoization) and Bottom-Up (Tabulation).
     - Top-Down (**Memoization**): Break problem into smaller subproblems. Store results for each subproblem in an array/hash.
     - Bottom-Up (**Tabulation**): Start from the simplest subproblems and iteratively solve larger problems. Store results in a table (i.e., 2d array).
@@ -271,7 +269,7 @@ def DP(args):
 # Linked List
 My peanut brain literally cannot understand linked list problems, so take this section with a grain of salt.
 
-**Where?**: linked list
+**Where**: linked list
 
 **Tips**: 
 - Problem: search, insert, delete, reverse, etc.
@@ -301,7 +299,7 @@ def reverseList(self, head):
 
 # Stack & Queue
 ## Monotonic Stack
-**Where?**: increasing/decreasing trend
+**Where**: increasing/decreasing trend
 
 **Tips**:
 - Understand clearly what the variable for comparison is. Use stack to store
@@ -329,7 +327,7 @@ def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
 
 # Tree
 ## DFS
-**Where?**: longest/specific search problems
+**Where**: longest/specific search problems
 
 **How?**
 ```python
@@ -368,7 +366,7 @@ def dfs_post(node):
 &nbsp;
 
 ## BFS
-**Where?**: shortest search problems
+**Where**: shortest search problems
 
 **Tips**: queue/priority queue
 
@@ -387,7 +385,7 @@ def bfs(node):
 &nbsp;
 
 # Heap
-**Where?**: get min/max fast
+**Where**: get min/max fast
 | Action | Time |
 |------|----|
 | top()  | O(1) |
@@ -396,7 +394,7 @@ def bfs(node):
 | heapify() | O(n) |
 
 ## Two Heap
-**Where?**: scheduling, median, any problem that involves both min and max somehow.
+**Where**: scheduling, median, any problem that involves both min and max somehow.
 
 **Tips**:
 - Set up 2 heaps:
@@ -493,7 +491,7 @@ def bfs():
 
 ## Union-Find
 
-**Where?**: connected components in undirected graphs
+**Where**: connected components in undirected graphs
 
 **Tips**: Don't forget to UPDATE PARENTS.
 
@@ -533,7 +531,7 @@ parent = [find(i) for i in range(n)]
 
 ## Topological Sort
 
-**Where?**: directed acyclic graphs
+**Where**: directed acyclic graphs
 
 **Tips**:
 1. Init **graph** & **indegree**.
@@ -577,7 +575,7 @@ def topologicalSort(graph):
 &nbsp;
 
 ## Dijkstra's Shortest Path
-**Where?**: find shortest path from one node to all other nodes
+**Where**: find shortest path from one node to all other nodes
 
 ```python
 def dijkstra(graph,start,end):
@@ -598,7 +596,7 @@ def dijkstra(graph,start,end):
 &nbsp;
 
 ## Floyd Warshall
-**Where?**: find shortest path from all nodes to all other nodes
+**Where**: find shortest path from all nodes to all other nodes
 
 ```python
 def floyd_warshall(graph):
@@ -623,7 +621,7 @@ def floyd_warshall(graph):
 &nbsp;
 
 ## Prim's MST
-**Where?**: find MST with given node
+**Where**: find MST with given node
 
 ```python
 def primsMST(graph):
@@ -646,7 +644,7 @@ def primsMST(graph):
 &nbsp;
 
 ## Kruskal's MST
-**Where?**: find MST with nothing
+**Where**: find MST with nothing
 
 ```python
 def KruskalMST(graph):

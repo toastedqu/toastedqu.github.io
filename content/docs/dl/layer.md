@@ -8,15 +8,13 @@ draft: false
 images: []
 weight: 12
 ---
-A layer is fundamentally a function that transforms input {{< math >}}$ X$ into output $Y ${{</ math>}}.
-
-This page assumes no activation.
+A layer is a function that transforms input {{<math>}}$X${{</math>}} into output {{<math>}}$Y${{</math>}}.
 
 # Basics
 ## Linear
-$$
+{{< math class=text-center >}}$$
 Y=XW^T+\textbf{b}
-$$
+$${{</ math >}}
 
 What: linear transformation
 
@@ -246,22 +244,22 @@ Notations:
 <img src="/images/dl/transformer.png" width="500"/>
 </center>
 
-**What?**: Transformer exploits self-attention mechanisms for sequential data.
+**What**: Transformer exploits self-attention mechanisms for sequential data.
 
-**Why?**:
+**Why**:
 - **long-range dependencies**: directly model relationships between any two positions in the sequence regardless of their distance, whereas RNNs struggle with tokens that are far apart.
 - **parallel processing**: process all tokens in parallel, whereas RNNs process them in sequence.
 - **flexibility**: can be easily modified and transferred to various structures and tasks.
 
-**Where?**: NLP, CV, Speech, Time Series, Generative tasks, ...
+**Where**: NLP, CV, Speech, Time Series, Generative tasks, ...
 
-**When?**:
+**When**:
 - sequential data independence: a sequence can be processed in parallel to a certain extent.
 - importance of contextual relationships
 - importance of high-dimensional representations
 - sufficient data & sufficient computational resources
 
-**How?**:
+**How**:
 - All layers used in transformer:
     - [Positional Encoding](#positional-encoding)
     - [Residual Connection](#residual-block-resnet)
@@ -300,15 +298,15 @@ Notations:
 &nbsp;
 
 ## Positional Encoding
-**What?**: Positional Encoding encodes sequence order info of tokens into embeddings.
+**What**: Positional Encoding encodes sequence order info of tokens into embeddings.
 
-**Why?**: So that the model can still make use of the sequence order info since no recurrence/convolution is available for it.
+**Why**: So that the model can still make use of the sequence order info since no recurrence/convolution is available for it.
 
-**Where?**: After tokenization & Before feeding into model.
+**Where**: After tokenization & Before feeding into model.
 
-**When?**: The hypothesis that **relative positions** allow the model to learn to attend easier holds.
+**When**: The hypothesis that **relative positions** allow the model to learn to attend easier holds.
 
-**How?**: sinusoid with wavelengths from a geometric progression from {{< math >}}$ 2\pi$ to $10000\cdot2\pi ${{</ math>}}
+**How**: sinusoid with wavelengths from a geometric progression from {{< math >}}$ 2\pi$ to $10000\cdot2\pi ${{</ math>}}
 {{< math class=text-center >}}$$\begin{align*}
 \text{PE}\_{(pos,2i)}&=\sin(\frac{pos}{10000^{\frac{2i}{d_\text{model}}}})\\\\
 \text{PE}\_{(pos,2i+1)}&=\cos(\frac{pos}{10000^{\frac{2i}{d_\text{model}}}})
@@ -330,20 +328,20 @@ Notations:
 <img src="/images/dl/scaled_dot_product_attention.png" width="200"/>
 </center>
 
-**What?**: An effective & efficient variation of self-attention.
+**What**: An effective & efficient variation of self-attention.
 
-**Why?**: 
+**Why**: 
 - The end goal is **Attention** - "Which parts of the sentence should we focus on?"
 - We want to **capture the most relevant info** in the sentence.
 - And we also want to **keep track of all info** in the sentence as well, just with different weights.
 - We want to create **contextualized representations** of the sentence.
 - Therefore, attention mechanism - we want to assign different attention scores to each token.
 
-**When?**: 
+**When**: 
 - **linearity**: Relationship between tokens can be captured via linear transformation.
 - **Position independence**: Relationship between tokens are independent of positions (fixed by Positional Encoding).
 
-**How?**:
+**How**:
 $$
 \text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V
 $$
@@ -376,14 +374,14 @@ $$
 <img src="/images/dl/mha.png" width="300"/>
 </center>
 
-**What?**: A combination of multiple scaled dot-product attention heads in parallel.
+**What**: A combination of multiple scaled dot-product attention heads in parallel.
 - Masked MHA: mask the succeeding tokens off because they can't be seen during decoding.
 
-**Why?**: To allow the model to jointly attend to info from different representation subspaces at different positions.
+**Why**: To allow the model to jointly attend to info from different representation subspaces at different positions.
 
-**When?**: The assumption of independence of attention heads holds.
+**When**: The assumption of independence of attention heads holds.
 
-**How?**: 
+**How**: 
 {{< math class=text-center >}}$$\begin{align*}
 \text{MultiHead}(Q,K,V)&=\text{Concat}(\text{head}_1,\cdots,\text{head}_h)W^O \\\\
 \text{head}_i&=\text{Attention}(QW_i^Q,KW_i^K,VW_i^V)
@@ -398,11 +396,11 @@ $$
 **Cons**: ???
 
 ## Postion-wise Feed-Forward Networks
-**What?**: 2 linear transformations with ReLU in between.
+**What**: 2 linear transformations with ReLU in between.
 
-**Why?**: Just like 2 convolutions with kernel size 1.
+**Why**: Just like 2 convolutions with kernel size 1.
 
-**How?**:
+**How**:
 $$
 \text{FFN}(x)=\max(0,xW_1+b_1)W_2+b_2
 $$

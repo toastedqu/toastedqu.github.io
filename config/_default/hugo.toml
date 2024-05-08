@@ -58,7 +58,7 @@ copyRight = "Copyright (c) 2020-2024 Renyi Qu"
 
 [permalinks]
   blog = "/blog/:slug/"
-  docs = "/docs/:sections[1:]/:slug/"
+  docs = "/:sections[1:]/:slug/"
 # docs = "/docs/1.0/:sections[1:]/:slug/"
 
 [minify.tdewolff.html]
@@ -82,5 +82,5 @@ copyRight = "Copyright (c) 2020-2024 Renyi Qu"
   anchor = "Center"
   bgColor = "#ffffff"
   hint = "photo"
-  quality = 85
+  quality = 100
   resampleFilter = "Lanczos"
