@@ -18,14 +18,14 @@ Ever wonder why MLE interviews focus hugely on software engineering, system desi
 
 **1. Clarify Requirements**
 - Data
-    - What size? small {{< math >}}$ \rightarrow$ simpler model; large $\rightarrow ${{</ math>}} complex model
-    - What is {{< math >}}$ y ${{</ math>}}? Regression/Classification/Clustering
-    - What is {{< math >}}$ x ${{</ math>}}?
+    - What size? small {{<math>}}$ \rightarrow$ simpler model; large $\rightarrow ${{</math>}} complex model
+    - What is {{<math>}}$ y ${{</math>}}? Regression/Classification/Clustering
+    - What is {{<math>}}$ x ${{</math>}}?
 - Hardware Constraints
     - Time limit?
     - Space limit?
 - Objective
-    - Accuracy or Speed? small models {{< math >}}$ \rightarrow$ faster; large models $\rightarrow ${{</ math>}} accurate
+    - Accuracy or Speed? small models {{<math>}}$ \rightarrow$ faster; large models $\rightarrow ${{</math>}} accurate
     - Will we retrain after eval?
 
 **2. Determine Metrics**
@@ -42,10 +42,10 @@ Ever wonder why MLE interviews focus hugely on software engineering, system desi
     - Convenience for deployment
 
 **3. Input & Data**
-- Target variable {{< math >}}$ y ${{</ math>}}
-    - Explicit: a user action that directly indicates the label/value of {{< math >}}$ y ${{</ math>}}. (e.g., "bought", "liked") (BEST)
-    - Implicit: a user action that might potentially relate to {{< math >}}$ y ${{</ math>}}. (e.g., "save for later", long review, etc.) (extra)
-- Features {{< math >}}$ x ${{</ math>}}
+- Target variable {{<math>}}$ y ${{</math>}}
+    - Explicit: a user action that directly indicates the label/value of {{<math>}}$ y ${{</math>}}. (e.g., "bought", "liked") (BEST)
+    - Implicit: a user action that might potentially relate to {{<math>}}$ y ${{</math>}}. (e.g., "save for later", long review, etc.) (extra)
+- Features {{<math>}}$ x ${{</math>}}
     - Identify different features for different systems.
     - Feature engineering
         - Train/Test split
@@ -84,13 +84,13 @@ Ever wonder why MLE interviews focus hugely on software engineering, system desi
 # Experimental Design
 
 ## Active Learning
-Problem: Given existing data {{< math >}}$ (X,y) ${{</ math>}}, choose where to collect more labels.
+Problem: Given existing data {{<math>}}$ (X,y) ${{</math>}}, choose where to collect more labels.
 
 Assumption: access to cheap unlabeled samples.
 
 Procedure:
-1. Active learner picks which sample(s) {{< math >}}$ \textbf{x} ${{</ math>}} to query by minimizing some loss (risk).
-2. An oracle (ground truth) generates a label/response {{< math >}}$ y ${{</ math>}}.
+1. Active learner picks which sample(s) {{<math>}}$ \textbf{x} ${{</math>}} to query by minimizing some loss (risk).
+2. An oracle (ground truth) generates a label/response {{<math>}}$ y ${{</math>}}.
 3. Update the params of the model.
 4. Repeat Step 1-3.
 
@@ -100,41 +100,41 @@ Procedure:
 
 **Information-based Loss**: Select **most informative** samples to query
 - Quantification of **information gain**:
-    - Maximize **KL divergence** between posterior and prior {{< math >}}$ KL(p(\textbf{w}|X,\textbf{x}')||p(\textbf{w}|X))$ (i.e., maximize $\\# ${{</ math>}}bits gained)
-    - Maximize **model entropy reduction** between posterior and prior (i.e., reduce {{< math >}}$ \\# ${{</ math>}}bits required to describe distribution)
+    - Maximize **KL divergence** between posterior and prior {{<math>}}$ KL(p(\textbf{w}|X,\textbf{x}')||p(\textbf{w}|X))$ (i.e., maximize $\\# ${{</math>}}bits gained)
+    - Maximize **model entropy reduction** between posterior and prior (i.e., reduce {{<math>}}$ \\# ${{</math>}}bits required to describe distribution)
 - Pros: Better than Uncertainty Sampling (by looking at the expected effect after adding the sample to the model)
 
 Pros:
 - Save computational cost
 
 ## Optimal Experimental Design
-Problem: Given a parametric model, find which queries are maximally informative (i.e., best minimizes {{< math >}}$ \text{Var}[\hat{\textbf{w}}]\leftarrow ${{</ math>}} minimize the inverse covariance matrix of samples):
+Problem: Given a parametric model, find which queries are maximally informative (i.e., best minimizes {{<math>}}$ \text{Var}[\hat{\textbf{w}}]\leftarrow ${{</math>}} minimize the inverse covariance matrix of samples):
 $$
 \hat{\textbf{w}}\sim N(\textbf{w},\sigma^2(X^TX)^{-1})
 $$
-- Linear models: optimal design is independent of {{< math >}}$ \textbf{w} ${{</ math>}}.
+- Linear models: optimal design is independent of {{<math>}}$ \textbf{w} ${{</math>}}.
 - Nonlinear models: use Taylor expansion to linear model.
 - The more samples, the smaller the covariance.
 
 Solutions:
-- **A-optimal (average) design**: minimize {{< math >}}$ \text{trace}(X^TX)^{-1} ${{</ math>}}
-- **D-optimal (log&det) design**: minimize {{< math >}}$ \log\det(X^TX)^{-1} ${{</ math>}}
-- **E-optimal (extreme) design**: minimize {{< math >}}$ \max\text{eigenvalue}(X^TX)^{-1} ${{</ math>}}
-- The best one so far is A-optimal, which is equivalent to minimizing Frobenius norm {{< math >}}$ \rightarrow ${{</ math>}} minimizing size of matrix.
+- **A-optimal (average) design**: minimize {{<math>}}$ \text{trace}(X^TX)^{-1} ${{</math>}}
+- **D-optimal (log&det) design**: minimize {{<math>}}$ \log\det(X^TX)^{-1} ${{</math>}}
+- **E-optimal (extreme) design**: minimize {{<math>}}$ \max\text{eigenvalue}(X^TX)^{-1} ${{</math>}}
+- The best one so far is A-optimal, which is equivalent to minimizing Frobenius norm {{<math>}}$ \rightarrow ${{</math>}} minimizing size of matrix.
 - A-optimal effectively chooses points near the border of the dataset.
 
 ## Response Surface Modeling
-Problem: Find the optimum of an unknown function {{< math >}}$ y=f(\textbf{x}) ${{</ math>}}.
+Problem: Find the optimum of an unknown function {{<math>}}$ y=f(\textbf{x}) ${{</math>}}.
 - Why? In some situations we don't care about what the model is. We simply want to know where the optimum is. (e.g., find optimal conditions for growing cell cultures)
 
 Idea: Simultaneously learn what the function looks like near the optimum and find the optimum.
 
 Procedure: **RL**
-1. Initialize: Given data {{< math >}}$ (X,\textbf{y})$, fit $y=f(\textbf{x};\textbf{w}) ${{</ math>}} as the **response surface**.
+1. Initialize: Given data {{<math>}}$ (X,\textbf{y})$, fit $y=f(\textbf{x};\textbf{w}) ${{</math>}} as the **response surface**.
 2. Repeat:
-    - Pick the next {{< math >}}$ \textbf{x}_i$ by doing GD on $f(\textbf{x}) ${{</ math>}} (i.e., action).
-    - Measure the corresponding {{< math >}}$ y_i ${{</ math>}} (i.e., reward).
-    - Add {{< math >}}$ (\textbf{x}_i,y_i)$ to the training data to update response surface $f(\textbf{x}) ${{</ math>}}.
+    - Pick the next {{<math>}}$ \textbf{x}_i$ by doing GD on $f(\textbf{x}) ${{</math>}} (i.e., action).
+    - Measure the corresponding {{<math>}}$ y_i ${{</math>}} (i.e., reward).
+    - Add {{<math>}}$ (\textbf{x}_i,y_i)$ to the training data to update response surface $f(\textbf{x}) ${{</math>}}.
 
 # Explanable AI (XAI)
 Why do we want to explain ML/AI? 
@@ -172,13 +172,13 @@ $$
     \phi_j(\textbf{w}^T\textbf{x})=\frac{1}{m}\sum\_{i=1}^mw_j(x\_{ij}-\mathbb{E}[\textbf{x}_j])
     $$
     - Properties of SV:
-        - **Efficiency**: The feature contributions {{< math >}}$ \phi_j ${{</ math>}} must add up to the difference of the prediction for x and the average.
+        - **Efficiency**: The feature contributions {{<math>}}$ \phi_j ${{</math>}} must add up to the difference of the prediction for x and the average.
         $$
         \sum\_{j=1}^p\phi_j=\hat{f}(x)-\mathbb{E}_X[\hat{f}(X)]
         $$
-        - **Additivity**: For a game with combined payoutts {{< math >}}$ val+val^+$, the respective Shapley values are $\phi_j+\phi_j^+ ${{</ math>}}.
-        - **Dummy**: A feature {{< math >}}$ j$ that has no effect has $\phi_j=0 ${{</ math>}}.
-        - **Symmetry**: For features {{< math >}}$ i,j$ with identical effect, $\phi_i=\phi_j ${{</ math>}}.
+        - **Additivity**: For a game with combined payoutts {{<math>}}$ val+val^+$, the respective Shapley values are $\phi_j+\phi_j^+ ${{</math>}}.
+        - **Dummy**: A feature {{<math>}}$ j$ that has no effect has $\phi_j=0 ${{</math>}}.
+        - **Symmetry**: For features {{<math>}}$ i,j$ with identical effect, $\phi_i=\phi_j ${{</math>}}.
         - **Consistency**: If a model is altered so that the marginal contribution of a feature value increases (regardless of other features), the Shapley value also increases.
 
 **Contenability**: It generally doesn’t make sense to change one feature without others changing as well. (i.e., Cons of measures of feature importance)
@@ -193,7 +193,7 @@ Yes. R.I.P. "*import sklearn*" folks.
 ## Auto-sklearn
 Idea: Combined Algorithm Selection and Hyperparameter Optimization (CASH Opt)
 
-Overview: 15 classifiers, 14 feature preprocessing methods, 4 data preprocessing techniques {{< math >}}$ \rightarrow ${{</ math>}} 110 hyperparams
+Overview: 15 classifiers, 14 feature preprocessing methods, 4 data preprocessing techniques {{<math>}}$ \rightarrow ${{</math>}} 110 hyperparams
 
 Assumption: **Similar problems need similar models.**
 
@@ -211,8 +211,8 @@ Assumption: **Similar problems need similar models.**
     - The more accurate we get to, the weaker model gets added to the ensemble.
 
 **Metafeatures**: useful for assessing similarities between two problems/datasets.
-- {{< math >}}$ \\#$samples, $\\# ${{</ math>}}features
-- {{< math >}}$ \\# ${{</ math>}}missing
+- {{<math>}}$ \\#$samples, $\\# ${{</math>}}features
+- {{<math>}}$ \\# ${{</math>}}missing
 - Fraction of Numerical/Categorical features
 - Data transformations
 - Exploratory statistics
@@ -242,11 +242,11 @@ Idea: Use RL to search for the best NN architecture.
 Agent: a controller RNN which generates sequence of characters (Python code).
 - Action: text specifying the NN structure.
 
-Environment: train a NN with architecture {{< math >}}$ A$ to get accuracy/reward $R ${{</ math>}}.
+Environment: train a NN with architecture {{<math>}}$ A$ to get accuracy/reward $R ${{</math>}}.
 
-Agent {{< math >}}$ \rightarrow$ Environment: sample architecture $A$ with probability $p ${{</ math>}}.
+Agent {{<math>}}$ \rightarrow$ Environment: sample architecture $A$ with probability $p ${{</math>}}.
 
-Environment {{< math >}}$ \rightarrow$ Agent: compute gradient of $p$ and scale it by $R ${{</ math>}} to update the controller's policy.
+Environment {{<math>}}$ \rightarrow$ Agent: compute gradient of $p$ and scale it by $R ${{</math>}} to update the controller's policy.
 
 Pros & Cons: still in progress.
 
@@ -273,7 +273,7 @@ ML system design consists 4 parts:
     - **Online**: usage time, usage frequency, click rate, ...
 
 ## Data
-1. Identify **features** ({{< math >}}$ X$) and **target** ($Y ${{</ math>}})
+1. Identify **features** ({{<math>}}$ X$) and **target** ($Y ${{</math>}})
     - 3 types of features: user, content, context
     - 2 types of target: explicit (direct indicators), implicit (indirect indicators)
 2. Confirm data availability
@@ -301,22 +301,22 @@ For each model, specify:
     - server (ours): low memory/storage usage, high latency, privacy concerns
 2. Feature serving:
     - **batch features** should be handled offline and served online (i.e., need daily/weekly jobs for data generation/collection)
-    - **real-time features** should be handled and served at request time (i.e., need to create a feature store to look up features at serve time; caching may be necessary) {{< math >}}$ \rightarrow ${{</ math>}} watch out for scalability and latency.
+    - **real-time features** should be handled and served at request time (i.e., need to create a feature store to look up features at serve time; caching may be necessary) {{<math>}}$ \rightarrow ${{</math>}} watch out for scalability and latency.
 3. Performance Monitoring: latency, biases, data drift, CPU load, memory, ...
 4. Retrain Frequency
 5. Online A/B Testing
 
 ### Online A/B Testing
 1. **Goal**: Define the objective. (e.g., improving click-through rates, increasing sign-up rates, etc.)
-    - **Significancec level** ({{< math >}}$ \alpha ${{</ math>}}): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
+    - **Significancec level** ({{<math>}}$ \alpha ${{</math>}}): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
         - Common values: 0.05 and 0.01
-        - A lower {{< math >}}$ \alpha ${{</ math>}} makes it more challenging to detect difference
-    - **Power** ({{< math >}}$ 1-\beta$): probability of correctly rejecting $H_0 ${{</ math>}} when it is false, meaning the ability to detect a meaningful difference when it exists
+        - A lower {{<math>}}$ \alpha ${{</math>}} makes it more challenging to detect difference
+    - **Power** ({{<math>}}$ 1-\beta$): probability of correctly rejecting $H_0 ${{</math>}} when it is false, meaning the ability to detect a meaningful difference when it exists
         - Common value: 80%
         - A higher power requires larger sample sizes to achieve
     - *notes:
-        - {{< math >}}$ \alpha=P$(FP), Type I error: probability of rejecting $H_0 ${{</ math>}} when it is true.
-        - {{< math >}}$ \beta=P$(FN), Type II error: probability of not rejecting $H_0 ${{</ math>}} when it is false.
+        - {{<math>}}$ \alpha=P$(FP), Type I error: probability of rejecting $H_0 ${{</math>}} when it is true.
+        - {{<math>}}$ \beta=P$(FN), Type II error: probability of not rejecting $H_0 ${{</math>}} when it is false.
 
 <t>
 
@@ -325,10 +325,10 @@ For each model, specify:
 <t>
 
 3. **Traffic**: Calculate required sample size per variation
-{{< math >}}$ $n=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\times p(1-p)$ ${{</ math>}}
-    - {{< math >}}$ p ${{</ math>}} (baseline conversion rate): the rate at which a desired action/event occurs in the control group
-    - {{< math >}}$ \text{MDE} ${{</ math>}} (Minimum Detectable Effect): smallest difference in the conversion rate that you want to be able to detect as statistically significant
-        - e.g., if {{< math >}}$ p=10\\%$ and we want a minimum improvement of $2\\%$, then $\text{MDE}=20\\% ${{</ math>}}
+{{<math>}}$ $n=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\times p(1-p)$ ${{</math>}}
+    - {{<math>}}$ p ${{</math>}} (baseline conversion rate): the rate at which a desired action/event occurs in the control group
+    - {{<math>}}$ \text{MDE} ${{</math>}} (Minimum Detectable Effect): smallest difference in the conversion rate that you want to be able to detect as statistically significant
+        - e.g., if {{<math>}}$ p=10\\%$ and we want a minimum improvement of $2\\%$, then $\text{MDE}=20\\% ${{</math>}}
     - Both groups should be statistically similar in terms of characteristics for a fair comparison
 
 <t>

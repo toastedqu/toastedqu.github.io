@@ -9,8 +9,8 @@ images: []
 weight: 5
 ---
 # Loss
-Loss is a measure of difference between predicted output {{< math >}}$ \hat{y}_i$ and actual output $y_i ${{</ math>}}.
-- Unreduced loss: {{< math >}}{{< math >}}$ \mathcal{L}=[\mathcal{l}_1,\cdots,\mathcal{l}_m] ${{</ math>}}{{< /math >}}
+Loss is a measure of difference between predicted output {{<math>}}$ \hat{y}_i$ and actual output $y_i ${{</math>}}.
+- Unreduced loss: {{<math>}}{{<math>}}$ \mathcal{L}=[\mathcal{l}_1,\cdots,\mathcal{l}_m] ${{</math>}}{{</math>}}
 - Reduced loss: $\mathcal{L}(\mathbf{y},\mathbf{\hat{y}})=\begin{cases}
 \text{sum}(\mathcal{L})=\sum_{i=1}^{m}l_i\\\\
 \text{mean}(\mathcal{L})=\frac{1}{m}\sum_{i=1}^{m}l_i
@@ -23,7 +23,7 @@ Loss is a measure of difference between predicted output {{< math >}}$ \hat{y}_i
 $$
 \mathcal{l}_i=|y_i-\hat{y}_i|
 $$
-{{< /math >}}
+{{</math>}}
 
 Pros:
 - Robust to outliers
@@ -174,7 +174,7 @@ plt.plot(v, logistic_loss(v), label="logistic")
 plt.plot(v, exponential_loss(v), label="exponential")
 plt.plot(v, hinge_loss(v), label="hinge")
 plt.plot(v, misclassification(v), label="misclassified")
-plt.xlabel('{{< math >}}$ y_i\hat{y}_i ${{</ math>}}')
+plt.xlabel('{{<math>}}$ y_i\hat{y}_i ${{</math>}}')
 plt.ylabel('l_i')
 plt.ylim(0,4)
 plt.legend()
@@ -190,7 +190,7 @@ plt.show()
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Binary}: &&\mathcal{l}_i=-[y_i\log{\hat{y}_i}+(1-y_i)\log{(1-\hat{y}_i)}], y_i\in\\{0,1\\} \\\\
 &\text{Multiclass}: &&l_i=-\sum\_{k=1}^K\textbf{1}[y_i=k]\log{\left(\frac{\exp{(\hat{y}\_{ik})}}{\sum\_{c=1}^{K}{\exp{(\hat{y}\_{ic})}}}\right)}, y_i\in\\{0,\cdots,K\\}
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 Usage: most (= Log loss for binary, with a much more prevalent label definition)
 
@@ -226,42 +226,42 @@ Usage: anywhere necessary to calculate difference between true and predicted pro
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Frequentist:}\ &&\lambda||\mathbf{w}||_1\\\\
 &\text{Bayesian:}\    &&w_j\sim\text{Laplace}(0,\gamma^2)
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 Pros:
-- Sparse {{< math >}}$ \leftarrow ${{</ math>}} Feature selection (reduce weights of trash features to 0)
+- Sparse {{<math>}}$ \leftarrow ${{</math>}} Feature selection (reduce weights of trash features to 0)
 - Robust to outliers
-- Equal weight shrinkage ({{< math >}}$ \frac{\partial L_1}{\partial w_{j}}=1 ${{</ math>}})
+- Equal weight shrinkage ({{<math>}}$ \frac{\partial L_1}{\partial w_{j}}=1 ${{</math>}})
 - Effective with multicollinearity
-- Able to handle {{< math >}}$ n>>m ${{</ math>}} cases
+- Able to handle {{<math>}}$ n>>m ${{</math>}} cases
 
 Cons:
 - No closed-form solution (high computational cost with LinReg)
-- Need to select perfect {{< math >}}$ \lambda=\frac{\sigma^2}{\gamma^2} ${{</ math>}}
+- Need to select perfect {{<math>}}$ \lambda=\frac{\sigma^2}{\gamma^2} ${{</math>}}
 
 ### L2
 
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Frequentist:}\ &&\lambda||\mathbf{w}||_2^2\\\\
 &\text{Bayesian:}\    &&w_j\sim N(0,\gamma^2)
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 Pros:
-- More/Less shrinkage on larger/smaller weights ({{< math >}}$ \frac{\partial L_2}{\partial w_{j}}=2w_{j} ${{</ math>}})
+- More/Less shrinkage on larger/smaller weights ({{<math>}}$ \frac{\partial L_2}{\partial w_{j}}=2w_{j} ${{</math>}})
 - Effective with multicollinearity
 - Closed-form solution. Low computational cost with LinReg
 
 Cons:
-- No sparsity {{< math >}}$ \leftarrow ${{</ math>}} No feature selection
+- No sparsity {{<math>}}$ \leftarrow ${{</math>}} No feature selection
 - Not robust to outliers
-- Not able to handle {{< math >}}$ n>>m ${{</ math>}} cases
-- Need to select perfect {{< math >}}$ \lambda=\frac{\sigma^2}{\gamma^2} ${{</ math>}}
+- Not able to handle {{<math>}}$ n>>m ${{</math>}} cases
+- Need to select perfect {{<math>}}$ \lambda=\frac{\sigma^2}{\gamma^2} ${{</math>}}
 
 ### Elastic Net
 $$
 \lambda(r\_{\text{L1}}||\mathbf{w}||_1+(1-r\_{\text{L1}})||\mathbf{w}||_2^2)
 $$
-- {{< math >}}$ r\_{\text{L1}} ${{</ math>}}: L1 ratio
+- {{<math>}}$ r\_{\text{L1}} ${{</math>}}: L1 ratio
 
 Pros:
 - A mixture of L1 and L2 penalties
@@ -274,51 +274,51 @@ Cons:
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Frequentist:} &&\lambda||\mathbf{w}||_0\\\\
 &\text{Bayesian:} &&w_j\sim\text{Spike and Slab}
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 Optimization: Search
 - **Streamwise Regression**:
-    1. Init model. Init {{< math >}}$ Err_0=||y_i||_2^2 ${{</ math>}}.
-    2. For {{< math >}}$ j ${{</ math>}} in range(1,n+1):
-        1. Add feature {{< math >}}$ \mathbf{x}_j ${{</ math>}} to model.
-        2. If {{< math >}}$ Err=||y_i-\sum\_{j\in\text{model}}{w_{j}x\_{ij}}||_2^2+\lambda||\textbf{w}\_{\text{model}}||_0 <\ Err\_{j-1} ${{</ math>}}:
-            1. Keep {{< math >}}$ \mathbf{x}_j ${{</ math>}}.
-            2. {{< math >}}$ Err_j = Err ${{</ math>}}
+    1. Init model. Init {{<math>}}$ Err_0=||y_i||_2^2 ${{</math>}}.
+    2. For {{<math>}}$ j ${{</math>}} in range(1,n+1):
+        1. Add feature {{<math>}}$ \mathbf{x}_j ${{</math>}} to model.
+        2. If {{<math>}}$ Err=||y_i-\sum\_{j\in\text{model}}{w_{j}x\_{ij}}||_2^2+\lambda||\textbf{w}\_{\text{model}}||_0 <\ Err\_{j-1} ${{</math>}}:
+            1. Keep {{<math>}}$ \mathbf{x}_j ${{</math>}}.
+            2. {{<math>}}$ Err_j = Err ${{</math>}}
         3. Else:
-            1. {{< math >}}$ Err_j = Err_{j-1} ${{</ math>}}
+            1. {{<math>}}$ Err_j = Err_{j-1} ${{</math>}}
     - Pros:
-        - Low computational cost: {{< math >}}$ O(n) ${{</ math>}}
+        - Low computational cost: {{<math>}}$ O(n) ${{</math>}}
     - Cons:
         - No guarantee to find optimal solution
         - Order of features matters
 <br><br>
 
 - **Stepwise Regression**:
-    1. Init model. Init {{< math >}}$ Err_0=||y_i||_2^2 ${{</ math>}}.
+    1. Init model. Init {{<math>}}$ Err_0=||y_i||_2^2 ${{</math>}}.
     2. While True (n loops):
-        1. Try to add each of all remaining features {{< math >}}$ \mathbf{x}_k ${{</ math>}} to model.
-        2. Pick the feature with {{< math >}}$ Err=\min(||y_i-\sum\_{j\in\text{model}}{w_{j}x\_{ij}}||_2^2+\lambda||\textbf{w}\_\text{model}||_0 ${{</ math>}}:
-        3. If {{< math >}}$ Err<Err_0 ${{</ math>}}:
+        1. Try to add each of all remaining features {{<math>}}$ \mathbf{x}_k ${{</math>}} to model.
+        2. Pick the feature with {{<math>}}$ Err=\min(||y_i-\sum\_{j\in\text{model}}{w_{j}x\_{ij}}||_2^2+\lambda||\textbf{w}\_\text{model}||_0 ${{</math>}}:
+        3. If {{<math>}}$ Err<Err_0 ${{</math>}}:
             1. Add feature to model.
-            2. {{< math >}}$ Err_0 = Err ${{</ math>}}
+            2. {{<math>}}$ Err_0 = Err ${{</math>}}
         4. Else:
             1. Break
     - Pros: 
         - More likely to find optimal solution than streamwise
     - Cons: 
-        - High computational cost: {{< math >}}$ O(mn) ${{</ math>}}
+        - High computational cost: {{<math>}}$ O(mn) ${{</math>}}
         - Overfitting
         - Multicollinearity
 <br><br>
 
 - **Stagewise Regression**:
-    1. Init model. Init {{< math >}}$ Err_0=||y_i||_2^2$. Init cache $\textbf{w} ${{</ math>}}.
+    1. Init model. Init {{<math>}}$ Err_0=||y_i||_2^2$. Init cache $\textbf{w} ${{</math>}}.
     2. While True (n loops):
-        1. Try to add each of all remaining features {{< math >}}$ \mathbf{x}_k ${{</ math>}} to model.
-        2. Pick the feature with {{< math >}}$ Err=\min(||r_i-w_{k}x\_{ik}||_2^2+\lambda||\textbf{w}||_0)$, where $r_i=y_i-\sum\_{j\in\text{model}}{w_jx\_{ij}} ${{</ math>}}:
-        3. If {{< math >}}$ Err<Err_0 ${{</ math>}}:
-            1. Add feature to model. Add {{< math >}}$ w_{k} ${{</ math>}} to cache.
-            2. {{< math >}}$ Err_0 = Err ${{</ math>}}
+        1. Try to add each of all remaining features {{<math>}}$ \mathbf{x}_k ${{</math>}} to model.
+        2. Pick the feature with {{<math>}}$ Err=\min(||r_i-w_{k}x\_{ik}||_2^2+\lambda||\textbf{w}||_0)$, where $r_i=y_i-\sum\_{j\in\text{model}}{w_jx\_{ij}} ${{</math>}}:
+        3. If {{<math>}}$ Err<Err_0 ${{</math>}}:
+            1. Add feature to model. Add {{<math>}}$ w_{k} ${{</math>}} to cache.
+            2. {{<math>}}$ Err_0 = Err ${{</math>}}
         4. Else:
             1. Break
     - Pros:
@@ -326,10 +326,10 @@ Optimization: Search
         - No multicollinearity
         - Used for **boosting**
     - Cons: 
-        - High computational cost: {{< math >}}$ O(mn) ${{</ math>}}
+        - High computational cost: {{<math>}}$ O(mn) ${{</math>}}
 
 Common Pros:
-- Explicit feature selection {{< math >}}$ \rightarrow ${{</ math>}} Sparsity
+- Explicit feature selection {{<math>}}$ \rightarrow ${{</math>}} Sparsity
 
 Common Cons:
 - Severe limitations in optimization methods
@@ -374,10 +374,10 @@ $$
 Idea: learn model (do MLE/MAP on params) with latent variables (NOT explicit for GMM).
 
 Method: 
-1. Init params {{< math >}}$ \Theta$ for prior $P(z)$ and likelihood $P(\mathcal{D}|z) ${{</ math>}}
-2. E-step: estimate {{< math >}}$ P(z|\mathcal{D})$ given params $\Theta ${{</ math>}}.
+1. Init params {{<math>}}$ \Theta$ for prior $P(z)$ and likelihood $P(\mathcal{D}|z) ${{</math>}}
+2. E-step: estimate {{<math>}}$ P(z|\mathcal{D})$ given params $\Theta ${{</math>}}.
     - Estimate the expected value of the latent variables given the current estimates of the model params and the data.
-3. M-step: estimate {{< math >}}$ \Theta$ via "$\arg\max_\Theta P(z|\mathcal{D})$" (MLE) or "$\arg\max_\Theta P(z,\mathcal{D}) ${{</ math>}}" (MAP).
+3. M-step: estimate {{<math>}}$ \Theta$ via "$\arg\max_\Theta P(z|\mathcal{D})$" (MLE) or "$\arg\max_\Theta P(z,\mathcal{D}) ${{</math>}}" (MAP).
     - Estimate the model params through MLE or MAP on the expected value of the complete data likelihood.
 4. Repeat Step 2-3 until convergence.
 
@@ -400,7 +400,7 @@ In regression, MAE/MSE/RMSE is used for both training and evaluation.
 In classification, there are various metrics mostly centered at the idea of **confusion matrix**.
 
 ## Confusion Matrix
-Confusion Matrix is a {{< math >}}$ K\times K ${{</ math>}} matrix which visualizes actual classes against predicted classes.
+Confusion Matrix is a {{<math>}}$ K\times K ${{</math>}} matrix which visualizes actual classes against predicted classes.
 
 An example of confusion matrix for binary classification:
 
@@ -419,14 +419,14 @@ An example of confusion matrix for binary classification:
     - FP = type 1 error
     - FN = type 2 error
 - Metrics:
-    - **Error Rate**: {{< math >}}$ \frac{FP+FN}{P+N} ${{</ math>}}
-    - **Accuracy**: {{< math >}}$ \frac{TP+TN}{P+N} ${{</ math>}}
-    - **Specificity**: TN rate among negative actual values: {{< math >}}$ \frac{TN}{FP+TN} ${{</ math>}}
-    - **1-Specificity (FPR)**: FP rate among negative actual values: {{< math >}}$ \frac{FP}{FP+TN} ${{</ math>}}
-    - **Precision**: TP rate among positive predicted values: {{< math >}}$ \frac{TP}{TP+FP} ${{</ math>}}
-    - **Recall**: TP rate among positive actual values: {{< math >}}$ \frac{TP}{TP+FN} ${{</ math>}}
-    - **F-score**: harmonic mean of Precision and Recall: {{< math >}}$ \frac{(1+\beta^2)\cdot\text{precision}\cdot\text{recall}}{(\beta^2\cdot\text{precision})+\text{recall}} ${{</ math>}}
-    - **F1-score**: {{< math >}}$ \frac{2\cdot\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}} ${{</ math>}}
+    - **Error Rate**: {{<math>}}$ \frac{FP+FN}{P+N} ${{</math>}}
+    - **Accuracy**: {{<math>}}$ \frac{TP+TN}{P+N} ${{</math>}}
+    - **Specificity**: TN rate among negative actual values: {{<math>}}$ \frac{TN}{FP+TN} ${{</math>}}
+    - **1-Specificity (FPR)**: FP rate among negative actual values: {{<math>}}$ \frac{FP}{FP+TN} ${{</math>}}
+    - **Precision**: TP rate among positive predicted values: {{<math>}}$ \frac{TP}{TP+FP} ${{</math>}}
+    - **Recall**: TP rate among positive actual values: {{<math>}}$ \frac{TP}{TP+FN} ${{</math>}}
+    - **F-score**: harmonic mean of Precision and Recall: {{<math>}}$ \frac{(1+\beta^2)\cdot\text{precision}\cdot\text{recall}}{(\beta^2\cdot\text{precision})+\text{recall}} ${{</math>}}
+    - **F1-score**: {{<math>}}$ \frac{2\cdot\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}} ${{</math>}}
 - **ROC** (Receiver Operating Curve): plot of TPR vs FPR
 - **AUC** (Area Under Curve): area under ROC curve
 
@@ -440,16 +440,16 @@ An example of confusion matrix for binary classification:
 Norm is NOT a distance measure but a size measure. It offers insights for many prevalent distance measures.
 
 Properties:
-- {{< math >}}$ L_p(\textbf{x})=0\leftrightarrow \textbf{x}=\textbf{0} ${{</ math>}}
-- {{< math >}}$ L_p(\textbf{x}+\textbf{y})\leq L_p(\textbf{x})+L_p(\textbf{y}) ${{</ math>}}
-- {{< math >}}$ L_p(c\textbf{x})=|c|L_p(\textbf{x})\ \ \ \forall c\in\mathbb{R} ${{</ math>}}
+- {{<math>}}$ L_p(\textbf{x})=0\leftrightarrow \textbf{x}=\textbf{0} ${{</math>}}
+- {{<math>}}$ L_p(\textbf{x}+\textbf{y})\leq L_p(\textbf{x})+L_p(\textbf{y}) ${{</math>}}
+- {{<math>}}$ L_p(c\textbf{x})=|c|L_p(\textbf{x})\ \ \ \forall c\in\mathbb{R} ${{</math>}}
 
 Types:
-- {{< math >}}$ L_p$: $||\textbf{x}||_p=\left(\sum_i{|x_i|^p}\right)^\frac{1}{p} ${{</ math>}}
-- {{< math >}}$ L_0$: $||\textbf{x}||_0=\\#x_i:x_i>0,x_i\in\textbf{x} ${{</ math>}} 
-- {{< math >}}$ L_1$: $||\textbf{x}||_1=\sum_i{|x_i|} ${{</ math>}}
-- {{< math >}}$ L_2$: $||\textbf{x}||_2=\sqrt{\sum_i{(x_i)^2}} ${{</ math>}}
-- {{< math >}}$ L_\infty$: $||\textbf{x}||_\infty=\max{\{|x_i|:x_i\in\textbf{x}\}} ${{</ math>}}
+- {{<math>}}$ L_p$: $||\textbf{x}||_p=\left(\sum_i{|x_i|^p}\right)^\frac{1}{p} ${{</math>}}
+- {{<math>}}$ L_0$: $||\textbf{x}||_0=\\#x_i:x_i>0,x_i\in\textbf{x} ${{</math>}} 
+- {{<math>}}$ L_1$: $||\textbf{x}||_1=\sum_i{|x_i|} ${{</math>}}
+- {{<math>}}$ L_2$: $||\textbf{x}||_2=\sqrt{\sum_i{(x_i)^2}} ${{</math>}}
+- {{<math>}}$ L_\infty$: $||\textbf{x}||_\infty=\max{\{|x_i|:x_i\in\textbf{x}\}} ${{</math>}}
 
 ## Cosine Similarity
 tbd
@@ -459,14 +459,14 @@ tbd
 Def: measure of similarity between 2 vectors.
 
 Properties:
-- {{< math >}}$ \mathbf{K}=k(\mathbf{x},\mathbf{x}') ${{</ math>}} is positive semi-definite.
-    - PSD: {{< math >}}$ \mathbf{K}=\sum_{i=1}^{m}{\lambda_i\mathbf{z}_i\mathbf{z}_i^T} ${{</ math>}}.
-    - {{< math >}}$ \lambda_i ${{</ math>}}: non-negative real eigenvalues.
-    - {{< math >}}$ \mathbf{z}_i ${{</ math>}}: real eigenvectors.
-- {{< math >}}$ k(\mathbf{x},\mathbf{x}')=ck_1(\mathbf{x},\mathbf{x}'),c>0 ${{</ math>}}
-- {{< math >}}$ k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}') ${{</ math>}}
-- {{< math >}}$ k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}') ${{</ math>}}
-- {{< math >}}$ k(\mathbf{x},\mathbf{x}')=q(k_1(\mathbf{x},\mathbf{x}'))$, where $q(\cdot) ${{</ math>}} is polynomial func with positive coeffs.
-- {{< math >}}$ k(\mathbf{x},\mathbf{x}')=f(\mathbf{x})k_1(\mathbf{x},\mathbf{x}')f(\mathbf{x}') ${{</ math>}}
-- {{< math >}}$ k(\mathbf{x},\mathbf{x}')=\mathbf{x}^T\mathbf{A}\mathbf{x}' ${{</ math>}}
-- {{< math >}}$ k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}') ${{</ math>}}
+- {{<math>}}$ \mathbf{K}=k(\mathbf{x},\mathbf{x}') ${{</math>}} is positive semi-definite.
+    - PSD: {{<math>}}$ \mathbf{K}=\sum_{i=1}^{m}{\lambda_i\mathbf{z}_i\mathbf{z}_i^T} ${{</math>}}.
+    - {{<math>}}$ \lambda_i ${{</math>}}: non-negative real eigenvalues.
+    - {{<math>}}$ \mathbf{z}_i ${{</math>}}: real eigenvectors.
+- {{<math>}}$ k(\mathbf{x},\mathbf{x}')=ck_1(\mathbf{x},\mathbf{x}'),c>0 ${{</math>}}
+- {{<math>}}$ k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}') ${{</math>}}
+- {{<math>}}$ k(\mathbf{x},\mathbf{x}')=k_1(\mathbf{x},\mathbf{x}')+k_2(\mathbf{x},\mathbf{x}') ${{</math>}}
+- {{<math>}}$ k(\mathbf{x},\mathbf{x}')=q(k_1(\mathbf{x},\mathbf{x}'))$, where $q(\cdot) ${{</math>}} is polynomial func with positive coeffs.
+- {{<math>}}$ k(\mathbf{x},\mathbf{x}')=f(\mathbf{x})k_1(\mathbf{x},\mathbf{x}')f(\mathbf{x}') ${{</math>}}
+- {{<math>}}$ k(\mathbf{x},\mathbf{x}')=\mathbf{x}^T\mathbf{A}\mathbf{x}' ${{</math>}}
+- {{<math>}}$ k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}') ${{</math>}}

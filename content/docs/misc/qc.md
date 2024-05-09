@@ -23,11 +23,11 @@ References:
 &nbsp;
 
 Why CPT fails:
-- **Conjunction Fallacy**: We perceive {{< math >}}$ P(A,B)>P(A) ${{</ math>}} (e.g., Linda)
-- **Disjunction Fallacy**: We perceive {{< math >}}$ P(A\cup B)<P(A) ${{</ math>}} (e.g., Linda)
-- **Uncertainty Aversion**: We act in the opposite way of the **sure-thing principle** - If under each possible state of the world one always prefers action {{< math >}}$ A$ over $B$, then one should prefer action $A$ over $B ${{</ math>}} even when the state of the world is unknown.
-    - In reality, one tends to prefer {{< math >}}$ B$ over $A ${{</ math>}} instead. (e.g., Prisoner's Dilemma)
-- **Order Effects in Judgment** (Noncommutativity): We perceive {{< math >}}$ P(A)P(B)\neq P(B)P(A) ${{</ math>}} because order of actions affects our judgment. (e.g., Gallup Opinion Poll) 
+- **Conjunction Fallacy**: We perceive {{<math>}}$ P(A,B)>P(A) ${{</math>}} (e.g., Linda)
+- **Disjunction Fallacy**: We perceive {{<math>}}$ P(A\cup B)<P(A) ${{</math>}} (e.g., Linda)
+- **Uncertainty Aversion**: We act in the opposite way of the **sure-thing principle** - If under each possible state of the world one always prefers action {{<math>}}$ A$ over $B$, then one should prefer action $A$ over $B ${{</math>}} even when the state of the world is unknown.
+    - In reality, one tends to prefer {{<math>}}$ B$ over $A ${{</math>}} instead. (e.g., Prisoner's Dilemma)
+- **Order Effects in Judgment** (Noncommutativity): We perceive {{<math>}}$ P(A)P(B)\neq P(B)P(A) ${{</math>}} because order of actions affects our judgment. (e.g., Gallup Opinion Poll) 
 - **Sensitivity to Measurements**: Taking a measurement changes our mental state and therefore future behavior, despite no Bayesian updating.
 
 &nbsp;
@@ -56,13 +56,13 @@ CPT vs QPT:
         - Hence, the order of events matter.
 
 Key properties of QPT:
-1. **Noncommutativity**: {{< math >}}$ P(A,B)\neq P(B,A)$ ($\rightarrow ${{</ math>}} Quantum Interference)
-2. **Incompatibility**: Every time an event is resolved, the state vector changes, because of overlaps with both subspaces in the next event. ({{< math >}}$ \rightarrow ${{</ math>}} Vector Collapse)
-    - {{< math >}}$ A \& B$ are incompatible if the presence/outcome of $A$ alters our perspective of $B ${{</ math>}}.
+1. **Noncommutativity**: {{<math>}}$ P(A,B)\neq P(B,A)$ ($\rightarrow ${{</math>}} Quantum Interference)
+2. **Incompatibility**: Every time an event is resolved, the state vector changes, because of overlaps with both subspaces in the next event. ({{<math>}}$ \rightarrow ${{</math>}} Vector Collapse)
+    - {{<math>}}$ A \& B$ are incompatible if the presence/outcome of $A$ alters our perspective of $B ${{</math>}}.
     - In human words, it is often impossible to resolve all questions concurrently. Certainty about one event introduces uncertainty about others.
-    - {{< math >}}$ \rightarrow ${{</ math>}} The eternal existence of uncertainty relations.
-    - {{< math >}}$ \rightarrow ${{</ math>}} The impossibility of complete knowledge.
-    - {{< math >}}$ \rightarrow ${{</ math>}} Cognition is strongly **context** and **perspective** dependent.
+    - {{<math>}}$ \rightarrow ${{</math>}} The eternal existence of uncertainty relations.
+    - {{<math>}}$ \rightarrow ${{</math>}} The impossibility of complete knowledge.
+    - {{<math>}}$ \rightarrow ${{</math>}} Cognition is strongly **context** and **perspective** dependent.
 
 # Basics of Quantum Mechanics
 

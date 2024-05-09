@@ -30,15 +30,15 @@ $$
 
 **Training**:
 - **Params**:
-    - {{< math >}}$ \boldsymbol{\pi}=[\pi_k:k\in\mathcal{K}] ${{</ math>}}: class prior probability
-    - {{< math >}}$ \mathbf{w}\_k=[w\_{jk}:j\in\\{1,\cdots,n\\}]$: conditional density params for class $k ${{</ math>}}
+    - {{<math>}}$ \boldsymbol{\pi}=[\pi_k:k\in\mathcal{K}] ${{</math>}}: class prior probability
+    - {{<math>}}$ \mathbf{w}\_k=[w\_{jk}:j\in\\{1,\cdots,n\\}]$: conditional density params for class $k ${{</math>}}
     - **#Params**:
         - Background:
-            - {{< math >}}$ \\#\\{p(\mathbf{x}|y=k)\\}=|\mathbf{x}|-1 ${{</ math>}}
-            - {{< math >}}$ \\#\\{p(a_1,\cdots,a_n|b_1,\cdots,b_m)\\}=(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j| ${{</ math>}}
-            - {{< math >}}$ \\#\\{p(x_1,\cdots,x_n|y)\\}=(2^n-1)\cdot2 ${{</ math>}}
-        - Binary: {{< math >}}$ \\#\\{\prod_jp(x_j|y)\\}=2n ${{</ math>}}
-        - Discrete: {{< math >}}$ \\#\\{\prod_jp(x_j|y)\\}=O((|\mathbf{x}|-1)n) ${{</ math>}}
+            - {{<math>}}$ \\#\\{p(\mathbf{x}|y=k)\\}=|\mathbf{x}|-1 ${{</math>}}
+            - {{<math>}}$ \\#\\{p(a_1,\cdots,a_n|b_1,\cdots,b_m)\\}=(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j| ${{</math>}}
+            - {{<math>}}$ \\#\\{p(x_1,\cdots,x_n|y)\\}=(2^n-1)\cdot2 ${{</math>}}
+        - Binary: {{<math>}}$ \\#\\{\prod_jp(x_j|y)\\}=2n ${{</math>}}
+        - Discrete: {{<math>}}$ \\#\\{\prod_jp(x_j|y)\\}=O((|\mathbf{x}|-1)n) ${{</math>}}
 
 - **Objective**:
     - **Loss**: 0-1
@@ -53,10 +53,10 @@ $$
     &\text{MLE for }\mathbf{w}\text{ (discrete)}: &&\hat{w}\_{jkl}=\frac{N\_{jkl}}{N_k}\\\\
     &\text{MLE for }\mathbf{w}\text{ (continuous)}: &&\hat{\mu}\_{jk}=\frac{1}{N_k}\sum\_{i:y_i=k}x\_{ij}\\\\
     &  &&\hat{\sigma}\_{jk}^2=\frac{1}{N_k}\sum\_{i:y_i=k}(x\_{ij}-\hat{\mu}\_{jk})^2
-    \end{align*}$${{< /math >}}
-        - {{< math >}}$ N ${{</ math>}}: #samples
-        - {{< math >}}$ N_k$: #samples with class $k ${{</ math>}}
-        - {{< math >}}$ N\_{jkl}=\sum\_{i=1}^m\mathbf{1}(x\_{ij}=l,y_i=k)$: #samples with feature $j$ equal to $l$ and class $k ${{</ math>}}
+    \end{align*}$${{</math>}}
+        - {{<math>}}$ N ${{</math>}}: #samples
+        - {{<math>}}$ N_k$: #samples with class $k ${{</math>}}
+        - {{<math>}}$ N\_{jkl}=\sum\_{i=1}^m\mathbf{1}(x\_{ij}=l,y_i=k)$: #samples with feature $j$ equal to $l$ and class $k ${{</math>}}
     
     &nbsp;
 
@@ -66,16 +66,16 @@ $$
     &\text{Posterior}: &&p(\boldsymbol{\pi},\mathbf{w}|\mathcal{D})=\text{Dir}(\boldsymbol{\pi}|\tilde{\boldsymbol{\alpha}})\prod_{j=1}^n\prod_{k=1}^K\text{Dir}(w\_{jk}|\tilde{\beta}\_{jk})\\\\
     &\text{MAP for }\boldsymbol{\pi}: &&\hat{\pi}_k=\frac{N_k+\alpha_k}{N+\sum_c\alpha_c}\\\\
     &\text{MAP for }\mathbf{w}\text{ (discrete)}: &&\hat{w}\_{jkl}=\frac{N\_{jkl}+\beta\_{jkl}}{N_k+\beta_k}\\\\
-    \end{align*}$${{< /math >}}
-        - {{< math >}}$ \tilde{\alpha}_k=\alpha_k+N_k$: shifted Dirichlet param for $\pi_k ${{</ math>}} (conjugate prior + likelihood)
-        - {{< math >}}$ \tilde{\beta}\_{jkl}=\beta\_{jkl}+N\_{jkl}$: shifted Dirichlet param for $w\_{jkl} ${{</ math>}} (conjugate prior + likelihood)
-        - **Laplace smoothing**: {{< math >}}$ \beta\_{jkl}=1, \beta_k=L ${{</ math>}}
+    \end{align*}$${{</math>}}
+        - {{<math>}}$ \tilde{\alpha}_k=\alpha_k+N_k$: shifted Dirichlet param for $\pi_k ${{</math>}} (conjugate prior + likelihood)
+        - {{<math>}}$ \tilde{\beta}\_{jkl}=\beta\_{jkl}+N\_{jkl}$: shifted Dirichlet param for $w\_{jkl} ${{</math>}} (conjugate prior + likelihood)
+        - **Laplace smoothing**: {{<math>}}$ \beta\_{jkl}=1, \beta_k=L ${{</math>}}
 
 **Inference**:
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Likelihood}: &&p(y=k|\mathbf{x},\mathbf{w})=\frac{p(y=k|\boldsymbol{\pi})\prod_jp(x\_j|y=k,w\_{jk})}{\sum_cp(y=c|\boldsymbol{\pi})\prod_jp(x\_j|y\_i=c,w\_{jc})}\\\\
 &\text{Posterior}: &&p(y=k|\mathbf{x},\mathcal{D})\propto p(y=k|\mathcal{D})\prod_jp(x\_j|y=k,\mathcal{D})=\hat{\pi}_k\prod_j\prod_l\hat{w}\_{jkl}^{\mathbf{1}(x_j=l)}
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 **Pros**:
 - Easy
@@ -104,12 +104,12 @@ $$
 \hat{y_i}=\sum_{j=1}^{n}{w_jx_{ij}}
 $$
 
-* Generalized Linear Models ({{< math >}}$ f$: link function; $\mathbf{w}^T\mathbf{x} ${{</ math>}}: logits)
+* Generalized Linear Models ({{<math>}}$ f$: link function; $\mathbf{w}^T\mathbf{x} ${{</math>}}: logits)
 $$
 \hat{y_i}=f\left(\sum_{j=1}^{n}{w_jx_{ij}}\right)
 $$
 
-* Basis Transformation ({{< math >}}$ \phi_j(\mathbf{x}_i) ${{</ math>}}: transformation of non-linear inputs into linear inputs)
+* Basis Transformation ({{<math>}}$ \phi_j(\mathbf{x}_i) ${{</math>}}: transformation of non-linear inputs into linear inputs)
 $$
 \hat{y}\_i=\sum\_{j=1}^dw\_j\phi\_j(\mathbf{x}\_i)
 $$ -->
@@ -118,17 +118,17 @@ $$ -->
 **What**: Linear regression fits a linear hyperplane between features and labels.
 
 **When**: 
-- **Linearity**: The underlying relationship between {{< math >}}$ \textbf{y}$ and $X ${{</ math>}} is linear.
-- **Independence**: {{< math >}}$ \varepsilon_i ${{</ math>}} is independent of each other.
-- **Normality**: {{< math >}}$ \varepsilon_i ${{</ math>}} follows Gaussian distribution.
+- **Linearity**: The underlying relationship between {{<math>}}$ \textbf{y}$ and $X ${{</math>}} is linear.
+- **Independence**: {{<math>}}$ \varepsilon_i ${{</math>}} is independent of each other.
+- **Normality**: {{<math>}}$ \varepsilon_i ${{</math>}} follows Gaussian distribution.
 - **Non-Collinearity**: No/Minimal explanatory variables correlate with each other.
-- **Homoskedasticity**: The variance of all noises is the same constant {{< math >}}$ \sigma^2 ${{</ math>}}.
+- **Homoskedasticity**: The variance of all noises is the same constant {{<math>}}$ \sigma^2 ${{</math>}}.
 
 **How**: 
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Frequentist:} &&\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
 &\text{Bayesian:}    &&p(\mathbf{y}|X,\mathbf{w})=N(X\mathbf{w},\sigma^2)
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 **Training**:
 - **Hyperparameters**: 
@@ -169,9 +169,9 @@ Cons:
 
 Time complexity:
 - Train:
-    - Exact Solution: {{< math >}}$ O(n^2(m+n)) ${{</ math>}}
-    - Gradient Descent: {{< math >}}$ O(mn) ${{</ math>}}
-- Test: {{< math >}}$ O(n) ${{</ math>}}
+    - Exact Solution: {{<math>}}$ O(n^2(m+n)) ${{</math>}}
+    - Gradient Descent: {{<math>}}$ O(mn) ${{</math>}}
+- Test: {{<math>}}$ O(n) ${{</math>}}
 
 <!-- Code:
 ```python
@@ -195,7 +195,7 @@ Model:
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Binary}: &&P(y_i=1|\mathbf{x}_i,\mathbf{w})=\sigma(\mathbf{w}^T\mathbf{x}_i)=\frac{1}{1+\exp{(-\mathbf{w}^T\mathbf{x}_i)}}=\frac{\exp{(\mathbf{w}^T\mathbf{x}_i)}}{1+\exp{(\mathbf{w}^T\mathbf{x}_i)}}\\\\
 &\text{Multiclass}: &&P(y_i=k|\mathbf{x}_i,W)=\text{softmax}(W^T\mathbf{x}_i)=\frac{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}{\sum\_{k=1}^{K}{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}}
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 Prediction:
 $$
@@ -218,27 +218,27 @@ Pros:
 - Easy gradient calculation
 
 Cons:
-- bad performance when {{< math >}}$ n>>m ${{</ math>}}
+- bad performance when {{<math>}}$ n>>m ${{</math>}}
 - bad performance for nonlinear cases (assume linearity by log odds)
 - prioritize correctly classifying the more prevalent class, even if it means misclassifying the less prevalent class
 
-Time Complexity: Train: {{< math >}}$ O(mn)$; Test: $O(n) ${{</ math>}}
+Time Complexity: Train: {{<math>}}$ O(mn)$; Test: $O(n) ${{</math>}}
 
-Space Complexity: {{< math >}}$ O(n) ${{</ math>}}
+Space Complexity: {{<math>}}$ O(n) ${{</math>}}
 
 <!-- ## Principal Component Regression
 Idea: PCA + LinReg (Semi-supervised learning)
 
 Model:
-1. Do PCA on {{< math >}}$ X$ to get scores $Z$ and loadings $V ${{</ math>}}.
-2. Do OLS on projected points {{< math >}}$ Z ${{</ math>}}:
+1. Do PCA on {{<math>}}$ X$ to get scores $Z$ and loadings $V ${{</math>}}.
+2. Do OLS on projected points {{<math>}}$ Z ${{</math>}}:
 $$
 \hat{\textbf{w}}=(Z^TZ)^{-1}Z^TY
 $$
 
 Prediction:
-1. Get projection: {{< math >}}$ \hat{\textbf{z}}=V^T\textbf{x} ${{</ math>}}
-2. Get label: {{< math >}}$ \hat{y}=\textbf{w}\hat{\textbf{z}} ${{</ math>}}
+1. Get projection: {{<math>}}$ \hat{\textbf{z}}=V^T\textbf{x} ${{</math>}}
+2. Get label: {{<math>}}$ \hat{y}=\textbf{w}\hat{\textbf{z}} ${{</math>}}
 
 Pros:
 - Great performance with high-dimensional data (via Dimensionality Reduction)
@@ -256,16 +256,16 @@ Idea: choose a decision boundary that maximizes the soft margin between classes.
 
 Preliminaries:
 - **Primal vs Dual**
-    - Primal operates in the feature space {{< math >}}$ X^TX ${{</ math>}}
-    - Dual operates in the sample space {{< math >}}$ XX^T ${{</ math>}} (i.e., Kernel Matrix)
-    - Params in Primal & Dual are transferable: {{< math >}}$ \textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i ${{</ math>}}
+    - Primal operates in the feature space {{<math>}}$ X^TX ${{</math>}}
+    - Dual operates in the sample space {{<math>}}$ XX^T ${{</math>}} (i.e., Kernel Matrix)
+    - Params in Primal & Dual are transferable: {{<math>}}$ \textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i ${{</math>}}
     - Dual > Primal:
         - = Weighted combination of support vectors
         - Sparsity
         - Kernel Trick
 - **Hard margin vs Soft margin**
-    - Hard margin does NOT accept any misclassification {{< math >}}$ \rightarrow ${{</ math>}} prone to overfitting
-    - Soft margin allows some misclassifications {{< math >}}$ \rightarrow ${{</ math>}} regularization
+    - Hard margin does NOT accept any misclassification {{<math>}}$ \rightarrow ${{</math>}} prone to overfitting
+    - Soft margin allows some misclassifications {{<math>}}$ \rightarrow ${{</math>}} regularization
 - Support vectors are 1) on the margin 2) on the wrong side 3) within the margin.
 - In linearly separable case, the decision boundary with the maximal margin is unique.
 
@@ -280,29 +280,29 @@ Objective: Hinge Loss + L2 Penalty (can use other losses/penalties but rare)
 \min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
 \text{s.t.}\quad & y_i(\textbf{w}^T\textbf{x}_i) \geq 1-\xi_i\\\\
 & \xi_i \geq 0
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 - Primal (Kernel):
 {{< math class=text-center >}}$$\begin{align*}
 \min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
 \text{s.t.}\quad & y_i(\textbf{w}^T\phi(\textbf{x}_i)) \geq 1-\xi_i\\\\
 & \xi_i \geq 0
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 - Dual (Linear):
 {{< math class=text-center >}}$$\begin{align*}
 \max\_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j \mathbf{x}_i^T \mathbf{x}_j \\\\
 \text{s.t.}\quad & \sum\_{i=1}^n \alpha_i y_i = 0\\\\
 & \alpha_i\leq C
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 - Dual (Kernel):
 {{< math class=text-center >}}$$\begin{align*}
 \max\_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j k(\mathbf{x}_i, \mathbf{x}_j) \\\\
 \text{s.t.}\quad & \sum\_{i=1}^n \alpha_i y_i = 0\\\\
 & \alpha_i\leq C
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 
 Optimization:
 - Param Estimation: Decomposition (quadratic programming), Closed-form, GD, etc.
-- Hyperparam Tuning: {{< math >}}$ C$ tells SVM how much misclassification to avoid. The larger $C$, a smaller-margin hyperplane will be chosen. The smaller $C ${{</ math>}}, a larger-margin hyperplane will be chosen.
+- Hyperparam Tuning: {{<math>}}$ C$ tells SVM how much misclassification to avoid. The larger $C$, a smaller-margin hyperplane will be chosen. The smaller $C ${{</math>}}, a larger-margin hyperplane will be chosen.
 
 Pros:
 - Good performance on high-dimensional and non-linearly separable data (with Kernel trick)
@@ -313,14 +313,14 @@ Pros:
 Cons:
 - High computational cost, especially 1) with Kernels 2) when sample size is too large 3) with Multiclass classification (no native support for it; need 1v1 or 1-v-rest strategies)
 - Low interpretability: No probability estimates
-- Bad performance when {{< math >}}$ n>>m ${{</ math>}}.
-- Bad performance on large datasets (i.e., {{< math >}}$ m>>0 ${{</ math>}}).
+- Bad performance when {{<math>}}$ n>>m ${{</math>}}.
+- Bad performance on large datasets (i.e., {{<math>}}$ m>>0 ${{</math>}}).
 - Sensitive to outliers and noisy data
 - Sensitive to overlapping classes (i.e., classes which share the same parts of some feature values)
 
 Time Complexity:
-- Train: {{< math >}}$ O(m^2) ${{</ math>}}
-- Test: {{< math >}}$ O(kn)$, where $k= ${{</ math>}} #support vectors.
+- Train: {{<math>}}$ O(m^2) ${{</math>}}
+- Test: {{<math>}}$ O(kn)$, where $k= ${{</math>}} #support vectors.
 
 &nbsp;
 
@@ -329,11 +329,11 @@ Time Complexity:
 # Local Learning
 
 ## K Nearest Neighbors
-Idea: label a sample based on its {{< math >}}$ K ${{</ math>}} nearest neighbors.
+Idea: label a sample based on its {{<math>}}$ K ${{</math>}} nearest neighbors.
 
 Model:
 1. Calculate distance between sample point and every training point.
-2. Find the {{< math >}}$ K ${{</ math>}} nearest neighbors with minimal distances.
+2. Find the {{<math>}}$ K ${{</math>}} nearest neighbors with minimal distances.
 3. Take the majority vote and output it as the label for the sample point.
 
 Pros:
@@ -347,9 +347,9 @@ Cons:
 - High computational cost + Low variance in distance measure for high-dimensional data
 - Sensitive to noisy data, missing values, and outliers
 
-Time Complexity: Test: {{< math >}}$ O(kmn) ${{</ math>}}
+Time Complexity: Test: {{<math>}}$ O(kmn) ${{</math>}}
 
-Space Complexity: {{< math >}}$ O(mn) ${{</ math>}}
+Space Complexity: {{<math>}}$ O(mn) ${{</math>}}
 
 <!-- Code:
 ```python
@@ -387,27 +387,27 @@ def KNN(X_train,y_train,samples,K=5,metric_type="L2"):
 $$
 \forall\phi:\mathbb{R}^n\rightarrow\mathbb{R}^p\ \exists k:\mathbb{R}^{n\times n}\rightarrow\mathbb{R}\ \text{ s.t. }\ k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}')
 $$
-- {{< math >}}$ \mathbf{x}\in\mathbb{R}^n ${{</ math>}}: input sample
-- {{< math >}}$ \phi:\mathbb{R}^n\rightarrow\mathbb{R}^p ${{</ math>}}: feature map from one space to another (typically a higher dimensional space)
-- {{< math >}}$ k:\mathbb{R}^{n\times n}\rightarrow\mathbb{R} ${{</ math>}}: kernel function 
+- {{<math>}}$ \mathbf{x}\in\mathbb{R}^n ${{</math>}}: input sample
+- {{<math>}}$ \phi:\mathbb{R}^n\rightarrow\mathbb{R}^p ${{</math>}}: feature map from one space to another (typically a higher dimensional space)
+- {{<math>}}$ k:\mathbb{R}^{n\times n}\rightarrow\mathbb{R} ${{</math>}}: kernel function 
 
-**Idea**: Allow using linear models for non-linear samples, without transforming data into a higher dimensional space (i.e., without computing {{< math >}}$ \phi(\cdot) ${{</ math>}}).
+**Idea**: Allow using linear models for non-linear samples, without transforming data into a higher dimensional space (i.e., without computing {{<math>}}$ \phi(\cdot) ${{</math>}}).
 
 **Assumptions**: The kernel function must satisfy 2 conditions:
-- **Symmetry**: {{< math >}}$ k(\mathbf{x},\mathbf{x}')=k(\mathbf{x}',\mathbf{x}) ${{</ math>}}
-- **Positive-Definite**: {{< math >}}$ \forall\mathbf{x}\_1,\cdots,\mathbf{x}\_m\in\mathbb{R}^n\ \forall c_1\cdots c_m\in\mathbb{R}:\ \sum_{i=1}^{m}\sum_{j=1}^{m}c_ic_jk(\mathbf{x}_i,\mathbf{x}_j)\geq0 ${{</ math>}}
+- **Symmetry**: {{<math>}}$ k(\mathbf{x},\mathbf{x}')=k(\mathbf{x}',\mathbf{x}) ${{</math>}}
+- **Positive-Definite**: {{<math>}}$ \forall\mathbf{x}\_1,\cdots,\mathbf{x}\_m\in\mathbb{R}^n\ \forall c_1\cdots c_m\in\mathbb{R}:\ \sum_{i=1}^{m}\sum_{j=1}^{m}c_ic_jk(\mathbf{x}_i,\mathbf{x}_j)\geq0 ${{</math>}}
 
 **Types of Kernels**:
 | Type | Formula |
 |:-----|:--------|
-| Linear | {{< math >}}$ k(\mathbf{x}_i,\mathbf{x}_j)=\mathbf{x}_i^T\mathbf{x}_j ${{</ math>}} |
-| Polynomial | {{< math >}}$ k(\mathbf{x}_i,\mathbf{x}_j)=(\mathbf{x}_i^T\mathbf{x}_j+c)^d, c\geq0 ${{</ math>}} |git
-| RBF (Radial Basis Function) | {{< math >}}$ k(\mathbf{x}_i,\mathbf{x}_j)=\exp\left(-\frac{\|\|\mathbf{x}_i-\mathbf{x}_j\|\|^2}{2\sigma^2}\right) ${{</ math>}} |
+| Linear | {{<math>}}$ k(\mathbf{x}_i,\mathbf{x}_j)=\mathbf{x}_i^T\mathbf{x}_j ${{</math>}} |
+| Polynomial | {{<math>}}$ k(\mathbf{x}_i,\mathbf{x}_j)=(\mathbf{x}_i^T\mathbf{x}_j+c)^d, c\geq0 ${{</math>}} |git
+| RBF (Radial Basis Function) | {{<math>}}$ k(\mathbf{x}_i,\mathbf{x}_j)=\exp\left(-\frac{\|\|\mathbf{x}_i-\mathbf{x}_j\|\|^2}{2\sigma^2}\right) ${{</math>}} |
 
 <!-- {{< math class=text-center >}}$$\begin{align*}
 &\text{Regression}: &&\hat{y}=\frac{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
 &\text{Binary Classification}: &&\hat{y}=\text{sign}(\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
-\end{align*}$${{< /math >}} -->
+\end{align*}$${{</math>}} -->
 
 **Pros**:
 - Low computational cost (relative to feature mapping calculation)
@@ -429,7 +429,7 @@ $$
 |               KNN              |                   Kernel                  |
 |:------------------------------:|:-----------------------------------------:|
 |         distance metric        |              kernel function              |
-|         {{< math >}}$ K ${{</ math>}} neighbors          |               all neighbors               |
+|         {{<math>}}$ K ${{</math>}} neighbors          |               all neighbors               |
 | same impact from all neighbors | weighted impact favoring closer neighbors |
 |          Scale variant         |               Scale variant               |
 
@@ -443,13 +443,13 @@ $$
 Idea: build a tree where each node is a feature split to classify data points into different leaf outputs.
 
 Preliminaries:
-- **Information gain**: {{< math >}}$ IG(Y|X)=H(Y)-H(Y|X) ${{</ math>}}
-    - {{< math >}}$ H(\cdot) ${{</ math>}}: Impurity measure
-        - Gini: {{< math >}}$ H(Y)=\sum_{y}{p_y(1-p_y)} ${{</ math>}}
-        - Entropy: {{< math >}}$ H(Y)=-\sum_{y}{p_y\log_2{p_y}} ${{</ math>}}
+- **Information gain**: {{<math>}}$ IG(Y|X)=H(Y)-H(Y|X) ${{</math>}}
+    - {{<math>}}$ H(\cdot) ${{</math>}}: Impurity measure
+        - Gini: {{<math>}}$ H(Y)=\sum_{y}{p_y(1-p_y)} ${{</math>}}
+        - Entropy: {{<math>}}$ H(Y)=-\sum_{y}{p_y\log_2{p_y}} ${{</math>}}
 - **Entropy**: a measure of uncertainty
-    - Conditional entropy (Average): {{< math >}}$ H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)} ${{</ math>}}
-    - Specific conditional entropy: {{< math >}}$ H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}} ${{</ math>}}
+    - Conditional entropy (Average): {{<math>}}$ H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)} ${{</math>}}
+    - Specific conditional entropy: {{<math>}}$ H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}} ${{</math>}}
 
 Model:
 1. Calculate info gain for each feature.
@@ -471,8 +471,8 @@ Cons:
 - Bad performance overall
 
 Time complexity:
-- Train: {{< math >}}$ O(mn\log{m}) ${{</ math>}}
-- Test: {{< math >}}$ O(d)$, where $d=$ depth. (Ideally $O(\log{m}) ${{</ math>}} if balanced binary tree)
+- Train: {{<math>}}$ O(mn\log{m}) ${{</math>}}
+- Test: {{<math>}}$ O(d)$, where $d=$ depth. (Ideally $O(\log{m}) ${{</math>}} if balanced binary tree)
 
 <!-- Code:
 ```python
@@ -535,7 +535,7 @@ def select_feature_max_IG(X_train,y_train,impurity="entropy"):
 &nbsp;
 
 # Ensemble Methods
-- **Bootstrapping**: randomly select {{< math >}}$ fm$ samples with replacement from the original training set into subsets, where $f ${{</ math>}} is the fraction of samples to bootstrap.
+- **Bootstrapping**: randomly select {{<math>}}$ fm$ samples with replacement from the original training set into subsets, where $f ${{</math>}} is the fraction of samples to bootstrap.
 - **Bagging** (**b**ootstrap **agg**regat**ing**): aggregate a bunch of weak models trained on bootstrapped subsets individually.
 - **Boosting**: train multiple models sequentially and dependently.
     - Converge exponentially with #iterations.
@@ -556,7 +556,7 @@ Idea: Bagging with Decision Trees
 
 Model: 
 1. Bootstrap.
-2. Create a full decision tree (no pruning). On each node, randomly select {{< math >}}$ \sqrt{n} ${{</ math>}} features from bootstrapped subset. Find the best split.
+2. Create a full decision tree (no pruning). On each node, randomly select {{<math>}}$ \sqrt{n} ${{</math>}} features from bootstrapped subset. Find the best split.
 3. Repeat 1-2 to create a random forest till #tree reaches limit.
 4. Use out-of-bag samples to determine the accuracy of each tree.
 
@@ -577,8 +577,8 @@ Cons:
 - Worse performance than Boosting in general
 
 Time Complexity:
-- Train: {{< math >}}$ O(kmn\log{m})$, where $k= ${{</ math>}} #trees
-- Test: {{< math >}}$ O(kd)$, where $d= ${{</ math>}} max depth
+- Train: {{<math>}}$ O(kmn\log{m})$, where $k= ${{</math>}} #trees
+- Test: {{<math>}}$ O(kd)$, where $d= ${{</math>}} max depth
 
 &nbsp;
 
@@ -596,7 +596,7 @@ $$
 {{< math class=text-center >}}$$\begin{align*}
 w_\text{incorrect}&\leftarrow w_\text{incorrect}\cdot e^\text{Amount of Say}\\\\
 w_\text{correct}&\leftarrow w_\text{correct}\cdot e^{-\text{Amount of Say}}\\\\
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 4. Normalize all sample weights.
 5. Select new samples based on new sample weights as probabilities with replacement to generate a new set.
 6. Give equal sample weights to all samples in the new training set.
@@ -633,7 +633,7 @@ Idea: train a bunch of fixed-size trees to fit residuals sequentially. take a we
 
 Model:
 1. Init a constant-value leaf as initial prediction (average for reg; log-odds for cls)
-2. Train a tree (#leaves < {{< math >}}$ m ${{</ math>}}) to predict the **negative loss gradient** w.r.t. curr ensemble's predictions for each sample in the training data.
+2. Train a tree (#leaves < {{<math>}}$ m ${{</math>}}) to predict the **negative loss gradient** w.r.t. curr ensemble's predictions for each sample in the training data.
     - **Pseudo-residuals**: negative gradients represent how far off curr predictions are from actual targets
     - The weak learner aims to capture the patterns in the errors made by curr ensemble.
 3. Combine leaf (+ prev trees) + curr tree (scaled with a learning rate) to make new predictions on the same data. Calculate new negative loss gradients.
@@ -646,10 +646,10 @@ Objective:
     - bootstrapping
 
 Optimization (Hyperparams):
-- #stages: {{< math >}}$ T ${{</ math>}}
-- bag size (fraction): {{< math >}}$ f ${{</ math>}}
-- learning rate: {{< math >}}$ \eta ${{</ math>}}
-- tree depth: {{< math >}}$ d ${{</ math>}}
+- #stages: {{<math>}}$ T ${{</math>}}
+- bag size (fraction): {{<math>}}$ f ${{</math>}}
+- learning rate: {{<math>}}$ \eta ${{</math>}}
+- tree depth: {{<math>}}$ d ${{</math>}}
 
 Pros:
 - Great performance in general
@@ -670,10 +670,10 @@ AdaBoost vs Gradient Boosting:
 
 |         AdaBoost         |       Gradient Boosting       |
 |:------------------------:|:-----------------------------:|
-|     Init with a stump    | Init with a leaf of {{< math >}}$ \bar{y} ${{</ math>}} |
+|     Init with a stump    | Init with a leaf of {{<math>}}$ \bar{y} ${{</math>}} |
 |          Stumps          |        Fixed-size trees       |
 | Scale stumps differently |      Scale trees equally      |
-| Train on {{< math >}}$ y ${{</ math>}} |      Train on residuals      |
+| Train on {{<math>}}$ y ${{</math>}} |      Train on residuals      |
 
 </center>
 
@@ -696,7 +696,7 @@ $$
 $$
 \text{Gain}=\text{Similarity}\_\text{left}+\text{Similarity}\_\text{right}-\text{Similarity}\_\text{root}
 $$
-3. Repeat Step 2 till limit. Prune branches bottom-up by checking whether the gain of the branch is higher than a predefined threshold {{< math >}}$ \gamma ${{</ math>}}. If it is higher, stop. If it is lower, prune it, move on to the next branch.
+3. Repeat Step 2 till limit. Prune branches bottom-up by checking whether the gain of the branch is higher than a predefined threshold {{<math>}}$ \gamma ${{</math>}}. If it is higher, stop. If it is lower, prune it, move on to the next branch.
 4. Define the output value for each leaf of this tree.
 $$
 \text{Output}=\frac{\sum_{i=1}^{m_r}{r_i}}{m_r+\lambda}
@@ -708,9 +708,9 @@ $$
 6. Repeat Steps 1-5 till limit.
 
 Optimization (hyperparams):
-- Regularization: {{< math >}}$ \lambda$ (the higher $\lambda ${{</ math>}}, the lower gain, thus easier to prune.)
-- Prune threshold: {{< math >}}$ \gamma$ ($\gamma=0 ${{</ math>}} prunes negative gains.)
-- Learning rate: {{< math >}}$ \eta ${{</ math>}}
+- Regularization: {{<math>}}$ \lambda$ (the higher $\lambda ${{</math>}}, the lower gain, thus easier to prune.)
+- Prune threshold: {{<math>}}$ \gamma$ ($\gamma=0 ${{</math>}} prunes negative gains.)
+- Learning rate: {{<math>}}$ \eta ${{</math>}}
 
 Pros:
 - Perform well when #features is small
@@ -729,8 +729,8 @@ Idea: Gradient Boosting + GOSS + EFB
 
 Preliminaries:
 - **GOSS (Gradient-based One-Side Sampling)**: focus more on under-trained samples without changing the original data distribution.
-    1. Sort all samples based on abs(gradient). Select top {{< math >}}$ \alpha ${{</ math>}}% samples as the samples with large gradients. Keep them.
-    2. Randomly sample {{< math >}}$ b$% of the remaining samples with small gradients. Amplify them with a constant $\frac{1-a}{b} ${{</ math>}}.
+    1. Sort all samples based on abs(gradient). Select top {{<math>}}$ \alpha ${{</math>}}% samples as the samples with large gradients. Keep them.
+    2. Randomly sample {{<math>}}$ b$% of the remaining samples with small gradients. Amplify them with a constant $\frac{1-a}{b} ${{</math>}}.
 - **EFB (Exclusive Feature Bundling)**: bundle mutually exclusive features together into much fewer dense features by conflict rate (more nonzero values lead to higher probability of conflicts).
     1. Sort features based on conflicts in a descending order. Assign each to an existing bundle with a small conflict or create a new bundle.
     2. Merge exclusive features in the same bundle. If two features have joint ranges, add an offset value so that the two features can be merged into one range.
@@ -784,14 +784,14 @@ Idea: Fit LinReg on each observation sequentially.
 
 Model: LinReg
 
-Objective: {{< math >}}$ \mathcal{L}=(y_i-\textbf{w}^T\textbf{x}_i)^2 ${{</ math>}}
+Objective: {{<math>}}$ \mathcal{L}=(y_i-\textbf{w}^T\textbf{x}_i)^2 ${{</math>}}
 
 Optimization: SGD
 $$
 \textbf{w}_{i+1}=\textbf{w}_i-\frac{\eta}{2}\frac{\partial\mathcal{L}}{\partial\textbf{w}_i}=\textbf{w}_i+\eta(y_i-\textbf{w}^T\textbf{x}_i)\textbf{x}_i
 $$
-- This algorithm is guaranteed to converge for {{< math >}}$ \eta\in(0,\lambda_{\max})$, where $\lambda_{\max}$ is the largest eigenvalue of $X^TX ${{</ math>}}.
-- The convergence rate is proportional to {{< math >}}$ \frac{\lambda_{\min}}{\lambda_{\max}}$ (i.e., ratio of extreme eigenvalues of $X^TX ${{</ math>}}).
+- This algorithm is guaranteed to converge for {{<math>}}$ \eta\in(0,\lambda_{\max})$, where $\lambda_{\max}$ is the largest eigenvalue of $X^TX ${{</math>}}.
+- The convergence rate is proportional to {{<math>}}$ \frac{\lambda_{\min}}{\lambda_{\max}}$ (i.e., ratio of extreme eigenvalues of $X^TX ${{</math>}}).
 
 &nbsp;
 
@@ -799,26 +799,26 @@ $$
 Idea: Fit a linear classifier on each observation sequentially.
 
 Model: linear classifier
-- Binary: {{< math >}}$ \hat{y}_i=\text{sign}(\textbf{w}^T\textbf{x}_i) ${{</ math>}}
-- Multiclass: {{< math >}}$ \hat{y}_i=\arg\max_k\textbf{w}_k^T\textbf{x}_i ${{</ math>}}
+- Binary: {{<math>}}$ \hat{y}_i=\text{sign}(\textbf{w}^T\textbf{x}_i) ${{</math>}}
+- Multiclass: {{<math>}}$ \hat{y}_i=\arg\max_k\textbf{w}_k^T\textbf{x}_i ${{</math>}}
 
-Objective: {{< math >}}$ \mathcal{L}=(y_i-\hat{y}_i)^2 ${{</ math>}}
+Objective: {{<math>}}$ \mathcal{L}=(y_i-\hat{y}_i)^2 ${{</math>}}
 
 Optimization: SGD
 - Binary:
 $$
 \textbf{w}_{i+1}=\textbf{w}_i+\frac{1}{2}(y_i-\text{sign}(\textbf{w}^T\textbf{x}_i))\textbf{x}_i=\textbf{w}_i+y_i\textbf{x}_i
 $$
-    - {{< math >}}$ \eta=\frac{1}{2} ${{</ math>}}
+    - {{<math>}}$ \eta=\frac{1}{2} ${{</math>}}
     - If we get it correct, no update at all because the residual is 0.
     - If we get it wrong, drop weights for negative samples and raise weights for positive samples.
 - Multiclass: Similar to Binary but raise the weight vector for the actual class and reduce the weight vector for the predicted wrong class.
 
 Pros:
 - Guaranteed to converge to a solution if samples are **linearly separable**
-    - #mistakes before convergence is always less than {{< math >}}$ \frac{\max_i||\textbf{x}_i||_2}{\gamma} ${{</ math>}}.
+    - #mistakes before convergence is always less than {{<math>}}$ \frac{\max_i||\textbf{x}_i||_2}{\gamma} ${{</math>}}.
     - Numerator: size of the biggest sample.
-    - Denominator: margin of the decision boundary ({{< math >}}$ \gamma>0$ if linearly separable; $\gamma<y_i\textbf{w}_*^T\textbf{x}_i ${{</ math>}})
+    - Denominator: margin of the decision boundary ({{<math>}}$ \gamma>0$ if linearly separable; $\gamma<y_i\textbf{w}_*^T\textbf{x}_i ${{</math>}})
 
 Cons:
 - Highly unstable and bounce around if samples are not linearly separable
@@ -834,7 +834,7 @@ Variations:
 - Cons:
     - Higher memory cost
     - Higher inference cost
-- Further variations: different ways to tune {{< math >}}$ \eta$. (standard chooses $\eta=1$, alternatives chooses $\eta ${{</ math>}} to maximize margin)
+- Further variations: different ways to tune {{<math>}}$ \eta$. (standard chooses $\eta=1$, alternatives chooses $\eta ${{</math>}} to maximize margin)
 
 &nbsp;
 

@@ -43,7 +43,7 @@ Pros:
 - Balance words and characters
 
 Cons:
-- Ignore context {{< math >}}$ \rightarrow ${{</ math>}} suboptimal splits for words with different meanings in different contexts
+- Ignore context {{<math>}}$ \rightarrow ${{</math>}} suboptimal splits for words with different meanings in different contexts
 
 &nbsp;
 
@@ -62,8 +62,8 @@ Pros:
 - Prioritize rare words, where individual parts are less frequent in the vocabulary
 
 Cons:
-- Only save the final vocabulary, not the merge rules {{< math >}}$ \rightarrow ${{</ math>}} label an entire word as [UNK] when any part is not in the vocabulary
-- Ignore context {{< math >}}$ \rightarrow ${{</ math>}} suboptimal splits for words with different meanings in different contexts
+- Only save the final vocabulary, not the merge rules {{<math>}}$ \rightarrow ${{</math>}} label an entire word as [UNK] when any part is not in the vocabulary
+- Ignore context {{<math>}}$ \rightarrow ${{</math>}} suboptimal splits for words with different meanings in different contexts
 
 &nbsp;
 

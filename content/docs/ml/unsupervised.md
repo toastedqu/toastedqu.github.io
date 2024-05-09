@@ -20,7 +20,7 @@ Clustering groups similar samples together without any prior knowledge of the cl
 Idea: Hard clustering (clustering with deterministic results)
 
 Model/Algorithm:
-1. Init centroids {{< math >}}$ \boldsymbol{\mu}_1, \cdots, \boldsymbol{\mu}_K\in\mathbb{R}^n ${{</ math>}}.
+1. Init centroids {{<math>}}$ \boldsymbol{\mu}_1, \cdots, \boldsymbol{\mu}_K\in\mathbb{R}^n ${{</math>}}.
 2. Find cluster for each data point:
 $$
 c_i=\arg\min_k||\mathbf{x}_i-\boldsymbol{\mu}_k||^2\quad(r\_{ik}=\textbf{1}\\{c_i=k\\})
@@ -29,13 +29,13 @@ $$
 $$
 \boldsymbol{\mu}_k=\frac{\sum\_{i=1}^{m}r\_{ik}\mathbf{x}_i}{\sum\_{i=1}^{m}r\_{ik}}
 $$
-4. Repeat Step 2-3 until convergence (i.e., {{< math >}}$ \boldsymbol{\mu}_j ${{</ math>}} remain unchanged).
+4. Repeat Step 2-3 until convergence (i.e., {{<math>}}$ \boldsymbol{\mu}_j ${{</math>}} remain unchanged).
 
-Objective: reconstruction error: {{< math >}}$ \mathcal{L}=\sum_{i=1}^m\sum_{k=1}^Kr\_{ik}||\textbf{x}_i-\boldsymbol{\mu}_k||_2^2 ${{</ math>}}
+Objective: reconstruction error: {{<math>}}$ \mathcal{L}=\sum_{i=1}^m\sum_{k=1}^Kr\_{ik}||\textbf{x}_i-\boldsymbol{\mu}_k||_2^2 ${{</math>}}
 
 Optimization:
 - Objective minimization: Greedy (because this objective is NP-hard to optimize)
-- Hyperparameter tuning: choose the elbow point in the "reconstruction error vs {{< math >}}$ \\# ${{</ math>}}clusters" graph.
+- Hyperparameter tuning: choose the elbow point in the "reconstruction error vs {{<math>}}$ \\# ${{</math>}}clusters" graph.
 
 Pros:
 - Simple. Interpretable
@@ -43,12 +43,12 @@ Pros:
 - Flexible re-training
 - Generalize to any type/shape/size of clusters
 - Suitable for large datasets
-- Time complexity: {{< math >}}$ O(kmn) ${{</ math>}}
+- Time complexity: {{<math>}}$ O(kmn) ${{</math>}}
 
 Cons:
 - Scale variant
 - Numerical features only
-- Manual hyperparameter choice: {{< math >}}$ k ${{</ math>}}
+- Manual hyperparameter choice: {{<math>}}$ k ${{</math>}}
 - Inconsistent: Sensitive to centroid initialization
 - Sensitive to outliers and noisy data by including them
 - Bad performance on high-dimensional data (distance metric works poorly)
@@ -92,37 +92,37 @@ class KMeans:
 ```
 
 ## Gaussian Mixture Model
-Idea: clustering but deterministic {{< math >}}$ r\_{ik}=\textbf{1}\\{c_i=k\\}$ $\rightarrow$ stochastic $r\_{ik}=\mathbb{E}[\textbf{1}\\{z_i=k\\}]=P(z_i=k|\textbf{x}_i) ${{</ math>}}.
+Idea: clustering but deterministic {{<math>}}$ r\_{ik}=\textbf{1}\\{c_i=k\\}$ $\rightarrow$ stochastic $r\_{ik}=\mathbb{E}[\textbf{1}\\{z_i=k\\}]=P(z_i=k|\textbf{x}_i) ${{</math>}}.
 
 Background: Shapes of clusters are determined by the properties of their covariance matrices.
-- **Shared Spherical**: #params=1, same {{< math >}}$ \sigma^2$ for all features, all features independent, same $\Sigma ${{</ math>}} for all clusters.
-    - K-means = GMM with {{< math >}}$ N(\boldsymbol{\mu}_k,\sigma^2I) ${{</ math>}}
-- **Spherical**: #params={{< math >}}$ k$, same $\sigma^2$ for all features, all features independent, diff $\Sigma_k ${{</ math>}} for all clusters.
-- **Shared Diagonal**: #params={{< math >}}$ n$, diff $\sigma_k^2$ for all features, all features independent, same $\Sigma ${{</ math>}} for all clusters.
-- **Diagonal**: #params={{< math >}}$ kn$, diff $\sigma_k^2$ for all features, all features independent, diff $\Sigma_k ${{</ math>}} for all clusters. 
-- **Shared Full Covariance**: #params={{< math >}}$ \frac{n(n+1)}{2}$, same $\Sigma ${{</ math>}} for all clusters. 
-- **Full Covariance**: #params={{< math >}}$ \frac{kn(n+1)}{2}$, diff $\Sigma_k ${{</ math>}} for all clusters. 
+- **Shared Spherical**: #params=1, same {{<math>}}$ \sigma^2$ for all features, all features independent, same $\Sigma ${{</math>}} for all clusters.
+    - K-means = GMM with {{<math>}}$ N(\boldsymbol{\mu}_k,\sigma^2I) ${{</math>}}
+- **Spherical**: #params={{<math>}}$ k$, same $\sigma^2$ for all features, all features independent, diff $\Sigma_k ${{</math>}} for all clusters.
+- **Shared Diagonal**: #params={{<math>}}$ n$, diff $\sigma_k^2$ for all features, all features independent, same $\Sigma ${{</math>}} for all clusters.
+- **Diagonal**: #params={{<math>}}$ kn$, diff $\sigma_k^2$ for all features, all features independent, diff $\Sigma_k ${{</math>}} for all clusters. 
+- **Shared Full Covariance**: #params={{<math>}}$ \frac{n(n+1)}{2}$, same $\Sigma ${{</math>}} for all clusters. 
+- **Full Covariance**: #params={{<math>}}$ \frac{kn(n+1)}{2}$, diff $\Sigma_k ${{</math>}} for all clusters. 
 
 Assumptions:
-- There exists a latent variable {{< math >}}$ z\in\\{1,\cdots,K\\} ${{</ math>}} representing the index of the Gaussian distribution in the mixture.
+- There exists a latent variable {{<math>}}$ z\in\\{1,\cdots,K\\} ${{</math>}} representing the index of the Gaussian distribution in the mixture.
 
-Model: {{< math >}}$ P(\mathbf{x}_i,z_i)=P(\mathbf{x}_i|z_i)P(z_i) ${{</ math>}}, where
-- {{< math >}}$ z_i\sim\text{Multinomial}(\boldsymbol{\phi})$, $\boldsymbol{\phi}\in\mathbb{R}^{K} ${{</ math>}}
-- {{< math >}}$ (\mathbf{x}_i|z_i=k)\sim N(\boldsymbol{\mu}_k,\Sigma_k)$, $\boldsymbol{\mu}_k\in\mathbb{R}^n,\Sigma_k\in\mathbb{R}^{n\times n} ${{</ math>}}
+Model: {{<math>}}$ P(\mathbf{x}_i,z_i)=P(\mathbf{x}_i|z_i)P(z_i) ${{</math>}}, where
+- {{<math>}}$ z_i\sim\text{Multinomial}(\boldsymbol{\phi})$, $\boldsymbol{\phi}\in\mathbb{R}^{K} ${{</math>}}
+- {{<math>}}$ (\mathbf{x}_i|z_i=k)\sim N(\boldsymbol{\mu}_k,\Sigma_k)$, $\boldsymbol{\mu}_k\in\mathbb{R}^n,\Sigma_k\in\mathbb{R}^{n\times n} ${{</math>}}
 
-#params: {{< math >}}$ (K-1)+Kn+K\frac{n(n+1)}{2} ${{</ math>}}
+#params: {{<math>}}$ (K-1)+Kn+K\frac{n(n+1)}{2} ${{</math>}}
 
 Optimization: EM
-1. Init distributions for prior {{< math >}}$ P(z_i)$ and likelihood $P(\mathbf{x}_i|z_i) ${{</ math>}}
-2. E-step: estimate {{< math >}}$ P(z_i=k|\textbf{x}_i)$ given params $(\boldsymbol{\phi},\boldsymbol{\mu}_k,\Sigma_k) ${{</ math>}}:
+1. Init distributions for prior {{<math>}}$ P(z_i)$ and likelihood $P(\mathbf{x}_i|z_i) ${{</math>}}
+2. E-step: estimate {{<math>}}$ P(z_i=k|\textbf{x}_i)$ given params $(\boldsymbol{\phi},\boldsymbol{\mu}_k,\Sigma_k) ${{</math>}}:
 $$
 r\_{ik}=P(z_i=k|\textbf{x}_i)=\frac{P(\textbf{x}_i|z_i=k)P(z_i=k)}{\sum\_{k=1}^{K}P(\textbf{x}_i|z_i=k)P(z_i=k)}
 $$
-3. M-step: estimate params via MLE given {{< math >}}$ P(z_i=k, \textbf{x}_i) ${{</ math>}}:
+3. M-step: estimate params via MLE given {{<math>}}$ P(z_i=k, \textbf{x}_i) ${{</math>}}:
 {{< math class=text-center >}}$$\begin{align*}
 \phi_k&=\frac{1}{m}\sum\_{i=1}^mr\_{ik}\\\\
 \boldsymbol{\mu}_k&=\frac{\sum\_{i=1}^mr\_{ik}\textbf{x}_i}{\sum\_{i=1}^mr\_{ik}}
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 4. Repeat Step 2-3 until convergence.
 
 Pros:
@@ -153,40 +153,40 @@ $$
 X=UDV^T=\sum_{i=1}^{\text{rank}(X)}D_{ii}\textbf{u}_i\textbf{v}_i^T
 $$
 - Input:
-    - {{< math >}}$ X\in\mathbb{R}^{m\times n} ${{</ math>}}: arbitrary input matrix
+    - {{<math>}}$ X\in\mathbb{R}^{m\times n} ${{</math>}}: arbitrary input matrix
 - Output (Matrix ver.):
-    - {{< math >}}$ U\in\mathbb{R}^{m\times m} ${{</ math>}}: left singular vectors (i.e., final rotation)
-    - {{< math >}}$ D\in\mathbb{R}^{m\times n} ${{</ math>}}: singular values (i.e., scaling)
-    - {{< math >}}$ V\in\mathbb{R}^{n\times n} ${{</ math>}}: right singular vectors (i.e., initial rotation)
-    - {{< math >}}$ \text{rank}(X)=\min(m,n) ${{</ math>}}: rank
+    - {{<math>}}$ U\in\mathbb{R}^{m\times m} ${{</math>}}: left singular vectors (i.e., final rotation)
+    - {{<math>}}$ D\in\mathbb{R}^{m\times n} ${{</math>}}: singular values (i.e., scaling)
+    - {{<math>}}$ V\in\mathbb{R}^{n\times n} ${{</math>}}: right singular vectors (i.e., initial rotation)
+    - {{<math>}}$ \text{rank}(X)=\min(m,n) ${{</math>}}: rank
 - Output (Vector ver.):
-    - {{< math >}}$ \textbf{u}_i\textbf{v}_i^T$: outer product matrix of $i ${{</ math>}}th column unit vectors
-    - {{< math >}}$ D_{ii}$: importance/strength of $i ${{</ math>}}th outer product matrix
+    - {{<math>}}$ \textbf{u}_i\textbf{v}_i^T$: outer product matrix of $i ${{</math>}}th column unit vectors
+    - {{<math>}}$ D_{ii}$: importance/strength of $i ${{</math>}}th outer product matrix
 - Note:
-    - rotation matrices are **orthonormal**: {{< math >}}$ U^TU=I, V^TV=I ${{</ math>}}
-    - scaling matrix is **diagonal**: {{< math >}}$ D=\text{diag}(\sigma_1,\cdots,\sigma_{\text{rank}(X)})$, where $\sigma_i=\sqrt{\lambda_i} ${{</ math>}}
+    - rotation matrices are **orthonormal**: {{<math>}}$ U^TU=I, V^TV=I ${{</math>}}
+    - scaling matrix is **diagonal**: {{<math>}}$ D=\text{diag}(\sigma_1,\cdots,\sigma_{\text{rank}(X)})$, where $\sigma_i=\sqrt{\lambda_i} ${{</math>}}
 
-**Idea**: An arbitrary matrix = "unit matrix {{< math >}}$ \rightarrow$ initial rotation $\rightarrow$ scaling $\rightarrow ${{</ math>}} final rotation"
-- Think of an arbitrary {{< math >}}$ 2\times 2 ${{</ math>}} matrix on a 2D plane. We can reconstruct this matrix with a unit disk (i.e., the 2 unit vectors along the coordinates) via the following steps:
-    1. Rotate the unit vectors by {{< math >}}$ V^T ${{</ math>}}.
-    2. Scale the rotated unit disk into an ellipse by {{< math >}}$ D ${{</ math>}}.
-    3. Rotate the ellipse by {{< math >}}$ U ${{</ math>}}.
+**Idea**: An arbitrary matrix = "unit matrix {{<math>}}$ \rightarrow$ initial rotation $\rightarrow$ scaling $\rightarrow ${{</math>}} final rotation"
+- Think of an arbitrary {{<math>}}$ 2\times 2 ${{</math>}} matrix on a 2D plane. We can reconstruct this matrix with a unit disk (i.e., the 2 unit vectors along the coordinates) via the following steps:
+    1. Rotate the unit vectors by {{<math>}}$ V^T ${{</math>}}.
+    2. Scale the rotated unit disk into an ellipse by {{<math>}}$ D ${{</math>}}.
+    3. Rotate the ellipse by {{<math>}}$ U ${{</math>}}.
 
 **Properties**:
-- {{< math >}}$ X^TX=V(D^TD)V^T=\sum_{i=1}^n(D_{ii})^2\textbf{v}_i\textbf{v}_i^T ${{</ math>}} (i.e., right singular vectors = eigenvectors of covariance matrix)
-- {{< math >}}$ XX^T=U(DD^T)U^T=\sum_{i=1}^m(D_{ii})^2\textbf{u}_i\textbf{u}_i^T ${{</ math>}} (i.e., left singular vectors = eigenvectors of outer product matrix)
-- Pseudo-inverse: {{< math >}}$ X^+=VD^{-1}U^T\in\mathbb{R}^{n\times m} ${{</ math>}}
-- If {{< math >}}$ X$ is a positive semi-definite matrix, then $\sigma_{i}=\lambda_{i} ${{</ math>}} (i.e., singular value = eigenvalue).
-    - Positive Semi-Definite: A symmetric matrix {{< math >}}$ X$ s.t. $\forall\textbf{z}\in\mathbb{R}^n,\textbf{z}\geq\textbf{0}: \textbf{z}^TX\textbf{z}\geq 0 ${{</ math>}}.
+- {{<math>}}$ X^TX=V(D^TD)V^T=\sum_{i=1}^n(D_{ii})^2\textbf{v}_i\textbf{v}_i^T ${{</math>}} (i.e., right singular vectors = eigenvectors of covariance matrix)
+- {{<math>}}$ XX^T=U(DD^T)U^T=\sum_{i=1}^m(D_{ii})^2\textbf{u}_i\textbf{u}_i^T ${{</math>}} (i.e., left singular vectors = eigenvectors of outer product matrix)
+- Pseudo-inverse: {{<math>}}$ X^+=VD^{-1}U^T\in\mathbb{R}^{n\times m} ${{</math>}}
+- If {{<math>}}$ X$ is a positive semi-definite matrix, then $\sigma_{i}=\lambda_{i} ${{</math>}} (i.e., singular value = eigenvalue).
+    - Positive Semi-Definite: A symmetric matrix {{<math>}}$ X$ s.t. $\forall\textbf{z}\in\mathbb{R}^n,\textbf{z}\geq\textbf{0}: \textbf{z}^TX\textbf{z}\geq 0 ${{</math>}}.
 
 **Applications**:
-- **Simplify OLS in regression**: when calculating the "inverse" of a rectangular matrix, {{< math >}}$ (X^TX)^{-1}X^T\approx X^+ ${{</ math>}}.
-- **Low-rank matrix approximation**: define a lower rank {{< math >}}$ k$ & approximate $X\approx U_kD_kV_k^T ${{</ math>}}.
+- **Simplify OLS in regression**: when calculating the "inverse" of a rectangular matrix, {{<math>}}$ (X^TX)^{-1}X^T\approx X^+ ${{</math>}}.
+- **Low-rank matrix approximation**: define a lower rank {{<math>}}$ k$ & approximate $X\approx U_kD_kV_k^T ${{</math>}}.
 - **Eigenword**: project high-dimensional context to low-dimensional space, assuming distributional similarity.
     - Distributional similarity: words with similar contexts have similar meanings.
     - Distance-based similarity measure: similar words are close in this low-dimensional space.
     - Eigenwords: left singular vectors (i.e., word embeddings).
-    - Eigentokens: right singular vectors {{< math >}}$ \times ${{</ math>}} Context (i.e., contextual embeddings).
+    - Eigentokens: right singular vectors {{<math>}}$ \times ${{</math>}} Context (i.e., contextual embeddings).
     - Word sense disambiguation: estimate contextual embedding for a word with right singular vectors.
 - **PCA**: see next.
 
@@ -194,29 +194,29 @@ $$
 
 ## Principal Component Analysis
 **Model (Original ver.)**:
-1. Calculate the covariance matrix of {{< math >}}$ X$ in the observation space: $\Sigma=\text{Cov}(X,X)=X^TX ${{</ math>}}.
-2. Diagonalize the covariance matrix via Spectral Theorem: {{< math >}}$ \Sigma=V\Lambda V^T ${{</ math>}}.
-    - {{< math >}}$ \Lambda ${{</ math>}}: eigenvalues (i.e., PC strength / sample variance of projection)
-    - {{< math >}}$ V ${{</ math>}}: orthonormal eigenvectors (i.e., PCs)
-3. Sort eigenvectors in {{< math >}}$ V$ based on eigenvalues in $\Lambda ${{</ math>}} in descending order.
-4. Select & normalize the strongest {{< math >}}$ k$ eigenvectors $\\{\textbf{v}_1,\cdots,\textbf{v}_k\\}$, where $k ${{</ math>}} is a hyperparameter.
-    - Now {{< math >}}$ \Lambda\in\mathbb{R}^{k\times k}, V\in\mathbb{R}^{n\times k} ${{</ math>}}.
-5. Project {{< math >}}$ X$ onto a new space based on the $k$ eigenvectors: $Z=XV ${{</ math>}}
-    - Each projected point is: {{< math >}}$ \textbf{z}_i=(\textbf{x}_i^T\textbf{v}_1,\cdots,\textbf{x}_i^T\textbf{v}_k) ${{</ math>}}
+1. Calculate the covariance matrix of {{<math>}}$ X$ in the observation space: $\Sigma=\text{Cov}(X,X)=X^TX ${{</math>}}.
+2. Diagonalize the covariance matrix via Spectral Theorem: {{<math>}}$ \Sigma=V\Lambda V^T ${{</math>}}.
+    - {{<math>}}$ \Lambda ${{</math>}}: eigenvalues (i.e., PC strength / sample variance of projection)
+    - {{<math>}}$ V ${{</math>}}: orthonormal eigenvectors (i.e., PCs)
+3. Sort eigenvectors in {{<math>}}$ V$ based on eigenvalues in $\Lambda ${{</math>}} in descending order.
+4. Select & normalize the strongest {{<math>}}$ k$ eigenvectors $\\{\textbf{v}_1,\cdots,\textbf{v}_k\\}$, where $k ${{</math>}} is a hyperparameter.
+    - Now {{<math>}}$ \Lambda\in\mathbb{R}^{k\times k}, V\in\mathbb{R}^{n\times k} ${{</math>}}.
+5. Project {{<math>}}$ X$ onto a new space based on the $k$ eigenvectors: $Z=XV ${{</math>}}
+    - Each projected point is: {{<math>}}$ \textbf{z}_i=(\textbf{x}_i^T\textbf{v}_1,\cdots,\textbf{x}_i^T\textbf{v}_k) ${{</math>}}
 
 **Model (SVD ver.)**:
-1. Compute SVD: {{< math >}}$ X=UDV^T ${{</ math>}}.
-2. Select {{< math >}}$ k$ rows of $V^T ${{</ math>}} (the right singular matrix) with the largest singular values as PCs.
-3. Project the original dataset {{< math >}}$ X$ onto a new space based on the $k ${{</ math>}} eigenvectors.
+1. Compute SVD: {{<math>}}$ X=UDV^T ${{</math>}}.
+2. Select {{<math>}}$ k$ rows of $V^T ${{</math>}} (the right singular matrix) with the largest singular values as PCs.
+3. Project the original dataset {{<math>}}$ X$ onto a new space based on the $k ${{</math>}} eigenvectors.
 
-**Idea**: We can project the input data onto an orthonormal basis {{< math >}}$ \\{\textbf{v}_1,\cdots,\textbf{v}_k\\} ${{</ math>}} of smaller dimensions while covering maximal variance among features.
-- **Orthonormal basis**: {{< math >}}$ \textbf{v}_i^T\textbf{v}_j=0,\textbf{v}_i^T\textbf{v}_i=1 ${{</ math>}}.
+**Idea**: We can project the input data onto an orthonormal basis {{<math>}}$ \\{\textbf{v}_1,\cdots,\textbf{v}_k\\} ${{</math>}} of smaller dimensions while covering maximal variance among features.
+- **Orthonormal basis**: {{<math>}}$ \textbf{v}_i^T\textbf{v}_j=0,\textbf{v}_i^T\textbf{v}_i=1 ${{</math>}}.
 - Ideally, we lose minimal info (represented by minimal variance) while successfully reducing the dimensionality.
 
 **Assumptions**:
-- Input matrix {{< math >}}$ X ${{</ math>}} is centered/standardized on the sample space, unless data is sparse.
-    - {{< math >}}$ \bar{\textbf{x}}=\frac{1}{m}\sum_{i=1}^{m}\textbf{x}_i=\textbf{0} ${{</ math>}}
-    - {{< math >}}$ s\_j^2=\frac{1}{m}\sum\_{i=1}^{m}x\_{ij}^2=1 ${{</ math>}} (optional but strongly recommended)
+- Input matrix {{<math>}}$ X ${{</math>}} is centered/standardized on the sample space, unless data is sparse.
+    - {{<math>}}$ \bar{\textbf{x}}=\frac{1}{m}\sum_{i=1}^{m}\textbf{x}_i=\textbf{0} ${{</math>}}
+    - {{<math>}}$ s\_j^2=\frac{1}{m}\sum\_{i=1}^{m}x\_{ij}^2=1 ${{</math>}} (optional but strongly recommended)
 - PCs = linear combinations of original features. (if not, then Kernel PCA)
 - Variance = a measure of feature importance.
 
@@ -227,7 +227,7 @@ $$
 &=\sum\_{i=1}^m\sum\_{j=k+1}^{n}z\_{ij}^2\\\\
 &=m\sum\_{j=k+1}^{n}\textbf{v}_j^T\Sigma\textbf{v}_j\\\\
 &=m\sum\_{j=k+1}^{n}\lambda_j
-\end{align*}$${{< /math >}}
+\end{align*}$${{</math>}}
 - **Variance** (of projected points):
 $$
 \text{Variance}_k=m\sum\_{j=1}^{k}\textbf{v}_j^T\Sigma\textbf{v}_j=m\sum\_{j=1}^{k}\lambda_j
@@ -238,10 +238,10 @@ $$
 $$
 
 **Inference/Reconstruction**: Any sample vector can be approximated in terms of coefficients (scores) on eigenvectors (loadings).
-1. Predict the original point via inverse mapping: {{< math >}}$ \hat{\textbf{x}}_i=\sum\_{j=1}^kz\_{ij}\textbf{v}_j ${{</ math>}}
-    - The projected new points {{< math >}}$ z_i ${{</ math>}}s can still correlate with each other. Only their basis are independent. Therefore, variance is still not 1 even if you standardize data.
-2. The original point can be fully reconstructed if {{< math >}}$ k=n ${{</ math>}}:
-{{< math >}}$ \textbf{x}_i=\bar{\textbf{x}}+\sum\_{j=1}^nz\_{ij}\textbf{u}_j ${{</ math>}}
+1. Predict the original point via inverse mapping: {{<math>}}$ \hat{\textbf{x}}_i=\sum\_{j=1}^kz\_{ij}\textbf{v}_j ${{</math>}}
+    - The projected new points {{<math>}}$ z_i ${{</math>}}s can still correlate with each other. Only their basis are independent. Therefore, variance is still not 1 even if you standardize data.
+2. The original point can be fully reconstructed if {{<math>}}$ k=n ${{</math>}}:
+{{<math>}}$ \textbf{x}_i=\bar{\textbf{x}}+\sum\_{j=1}^nz\_{ij}\textbf{u}_j ${{</math>}}
 
 **Pros**:
 - Guarantee removal of correlated features (PCs are orthogonal)
@@ -252,7 +252,7 @@ $$
 **Cons**:
 - Scale invariant
 - Low interpretability of new features (i.e., PCs)
-- Potential info loss if PCs & {{< math >}}$ \\# ${{</ math>}}PCs are not selected carefully
+- Potential info loss if PCs & {{<math>}}$ \\# ${{</math>}}PCs are not selected carefully
 - Situational (e.g. cannot be applied on NLP because 1) covariance matrix is useless 2) it breaks sparse structure of words)
 - (weak) If any assumption fails, PCA fails (solvable by Kernel PCA)
 
@@ -291,13 +291,13 @@ tbd
 <!-- The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
 
 Discriminative models predict label given sample features, but Generative models uses a completely different thinking process, where we
-1) propose/calculate the prior of labels {{< math >}}$ P(Y) ${{</ math>}}, using relevant params for the prior distribution,
-2) calculate the likelihood of the current combination of values of sample features given the label {{< math >}}$ P(X_1,\cdots,X_n|Y) ${{</ math>}}, using relevant params for the likelihood distribution,
-3) calculate {{< math >}}$ P(X,Y)=P(Y)P(X_1,\cdots,X_n|Y) ${{</ math>}} for generation;
+1) propose/calculate the prior of labels {{<math>}}$ P(Y) ${{</math>}}, using relevant params for the prior distribution,
+2) calculate the likelihood of the current combination of values of sample features given the label {{<math>}}$ P(X_1,\cdots,X_n|Y) ${{</math>}}, using relevant params for the likelihood distribution,
+3) calculate {{<math>}}$ P(X,Y)=P(Y)P(X_1,\cdots,X_n|Y) ${{</math>}} for generation;
     
-    calculate {{< math >}}$ P(Y|X)\propto P(Y)P(X_1,\cdots,X_n|Y) ${{</ math>}} for discrimination.
+    calculate {{<math>}}$ P(Y|X)\propto P(Y)P(X_1,\cdots,X_n|Y) ${{</math>}} for discrimination.
 
-During training, we estimate the params which maximize the combination of prior distribution {{< math >}}$ \times ${{</ math>}} likelihood distribution.
+During training, we estimate the params which maximize the combination of prior distribution {{<math>}}$ \times ${{</math>}} likelihood distribution.
 
 During Prediction, we directly use those params to either generate samples or compute label for the given sample.
 
@@ -310,21 +310,21 @@ Idea: compact specification of full joint distributions with CI assertions using
 
 Background:
 - CI properties:
-    - Symmetry: {{< math >}}$ (X\perp Y|Z)\rightarrow(Y\perp X|Z) ${{</ math>}}
-    - Decomposition: {{< math >}}$ (X\perp Y,W|Z)\rightarrow(X\perp Y|Z) ${{</ math>}}
-    - Weak union: {{< math >}}$ (X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W) ${{</ math>}}
-    - Contraction: {{< math >}}$ (X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z) ${{</ math>}}
-    - {{< math >}}$ P(X|Y)+P(X|\neg Y)\neq1 ${{</ math>}} (they are NOT related)
-    - {{< math >}}$ P(X|Y)+P(\neg X|Y)=1 ${{</ math>}}
+    - Symmetry: {{<math>}}$ (X\perp Y|Z)\rightarrow(Y\perp X|Z) ${{</math>}}
+    - Decomposition: {{<math>}}$ (X\perp Y,W|Z)\rightarrow(X\perp Y|Z) ${{</math>}}
+    - Weak union: {{<math>}}$ (X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W) ${{</math>}}
+    - Contraction: {{<math>}}$ (X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z) ${{</math>}}
+    - {{<math>}}$ P(X|Y)+P(X|\neg Y)\neq1 ${{</math>}} (they are NOT related)
+    - {{<math>}}$ P(X|Y)+P(\neg X|Y)=1 ${{</math>}}
 - **Active Trail** (in an acyclic graph): for each consecutive triplet in the trail:
-    - {{< math >}}$ X\rightarrow Y\rightarrow Z$ and $Y ${{</ math>}} is NOT observed.
-    - {{< math >}}$ X\leftarrow Y\rightarrow Z$ and $Y ${{</ math>}} is NOT observed.
-    - {{< math >}}$ X\rightarrow Y\leftarrow Z$ and $Y ${{</ math>}} or one of its descendants IS observed.
-- If there is NO active trail between {{< math >}}$ X$ and $Y ${{</ math>}}, then they are CI. (i.e., **D-separation**)
+    - {{<math>}}$ X\rightarrow Y\rightarrow Z$ and $Y ${{</math>}} is NOT observed.
+    - {{<math>}}$ X\leftarrow Y\rightarrow Z$ and $Y ${{</math>}} is NOT observed.
+    - {{<math>}}$ X\rightarrow Y\leftarrow Z$ and $Y ${{</math>}} or one of its descendants IS observed.
+- If there is NO active trail between {{<math>}}$ X$ and $Y ${{</math>}}, then they are CI. (i.e., **D-separation**)
 - NB = basic BayesNet with 1 parent (label) and multiple children (features)
 - Complexity scales exponentially with #parents; Complexity scales linearly with #children.
 
-Assumption: A variable {{< math >}}$ X ${{</ math>}} is independent of its non-descendants given its parents (Local Markov Assumption)
+Assumption: A variable {{<math>}}$ X ${{</math>}} is independent of its non-descendants given its parents (Local Markov Assumption)
 
 Model/Algorithm: Graph (built from data/people, or automatic search)
 
@@ -363,17 +363,17 @@ Background:
 - We do not know anything about the probabilities of each outcome at the beginning (i.e., the params of Multinomial distribution), so we use Dirichlet distribution to offer us a prior over these params.
 - Therefore, Dirichlet (like Beta) distribution is a conjugate prior for Multinomial (like Binomial) distribution.
 
-Model/Algorithm: For each document {{< math >}}$ d ${{</ math>}},
-1. Choose its topic distribution {{< math >}}$ \boldsymbol{\theta}_d\sim\text{Dirichlet}(\alpha)$, where $\theta\_{dk}=p(\text{topic}=k|\text{document}=d) ${{</ math>}}
-2. For each word {{< math >}}$ w_j$ in $d ${{</ math>}}:
-    1. Choose this word's topic {{< math >}}$ z_{dj}\sim\text{Multinomial}(\boldsymbol{\theta}_d) ${{</ math>}}
-    2. Choose a word {{< math >}}$ w_j\sim\text{Multinomial}(\beta_{z_{dj}})$ where $\beta_{z_{dj}}=p(w_j|z_{dj}) ${{</ math>}}
+Model/Algorithm: For each document {{<math>}}$ d ${{</math>}},
+1. Choose its topic distribution {{<math>}}$ \boldsymbol{\theta}_d\sim\text{Dirichlet}(\alpha)$, where $\theta\_{dk}=p(\text{topic}=k|\text{document}=d) ${{</math>}}
+2. For each word {{<math>}}$ w_j$ in $d ${{</math>}}:
+    1. Choose this word's topic {{<math>}}$ z_{dj}\sim\text{Multinomial}(\boldsymbol{\theta}_d) ${{</math>}}
+    2. Choose a word {{<math>}}$ w_j\sim\text{Multinomial}(\beta_{z_{dj}})$ where $\beta_{z_{dj}}=p(w_j|z_{dj}) ${{</math>}}
 
 Objective: 0-1
 
 Optimization: EM (Variational EM in practice)
-- E-step: Compute {{< math >}}$ p(\boldsymbol{\theta},\textbf{z}|d;\alpha,\boldsymbol{\beta})$ (posterior of hidden vars $(\boldsymbol{\theta},\textbf{z})$ given each document $d ${{</ math>}})
-- M-step: Estimate params {{< math >}}$ (\alpha,\boldsymbol{\beta}) ${{</ math>}} given posterior estimates
+- E-step: Compute {{<math>}}$ p(\boldsymbol{\theta},\textbf{z}|d;\alpha,\boldsymbol{\beta})$ (posterior of hidden vars $(\boldsymbol{\theta},\textbf{z})$ given each document $d ${{</math>}})
+- M-step: Estimate params {{<math>}}$ (\alpha,\boldsymbol{\beta}) ${{</math>}} given posterior estimates
 
 Naive Bayes vs LDA:
 - Naive Bayes assumes each doc is on a single topic.
@@ -392,26 +392,26 @@ Cons:
 Idea: Hidden Markov Chain + Observed variables
 
 Usage: Seq2Seq Synthesis (Speech recognition, POS Tagging, Named Entity Recognition, etc.)
-- Evaluation: compute {{< math >}}$ P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi) ${{</ math>}}.
-- Decoding: find the best {{< math >}}$ S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi) ${{</ math>}}.
-    - i.e., {{< math >}}$ \arg\max\_{[s_1,\cdots,s_T]}\prod P(x_i|s_i)P(s_i|s_{i-1}) ${{</ math>}}, where the first term is from emission matrix, and the second term is from transition matrix.
-- Learning: estimate {{< math >}}$ (A,B,\pi)$ which maximize $P(X;A,B,\pi) ${{</ math>}}.
+- Evaluation: compute {{<math>}}$ P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi) ${{</math>}}.
+- Decoding: find the best {{<math>}}$ S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi) ${{</math>}}.
+    - i.e., {{<math>}}$ \arg\max\_{[s_1,\cdots,s_T]}\prod P(x_i|s_i)P(s_i|s_{i-1}) ${{</math>}}, where the first term is from emission matrix, and the second term is from transition matrix.
+- Learning: estimate {{<math>}}$ (A,B,\pi)$ which maximize $P(X;A,B,\pi) ${{</math>}}.
 
 Background:
 - Transition Matrix: specifying transition probabilities from one state to another.
 - Emission Matrix: specifying the probabilities of each observed outcome to occur given each hidden state.
 
 Assumptions:
-- Markov Assumption: {{< math >}}$ P(X_t|X_{t-1},\cdots,X_1)=P(X_t|X_{t-1}) ${{</ math>}}.
-- CI Assumption: {{< math >}}$ S_t$ D-separates all $X\in\textbf{X}\_{<t}$ from all $X\in\textbf{X}\_{>t} ${{</ math>}}.
-    - The hidden state at time {{< math >}}$ t$ D-separates all emissions/observations at times before $t$ from all emissions/observations at times after $t ${{</ math>}}.
+- Markov Assumption: {{<math>}}$ P(X_t|X_{t-1},\cdots,X_1)=P(X_t|X_{t-1}) ${{</math>}}.
+- CI Assumption: {{<math>}}$ S_t$ D-separates all $X\in\textbf{X}\_{<t}$ from all $X\in\textbf{X}\_{>t} ${{</math>}}.
+    - The hidden state at time {{<math>}}$ t$ D-separates all emissions/observations at times before $t$ from all emissions/observations at times after $t ${{</math>}}.
     - The future is independent of the past given the present.
 - Stationarity: Transition matrix and emission probabilities stay the same over time.
 
 Model:
-1. Start in some initial state {{< math >}}$ s_i$ with probability $p(s_i)=\pi ${{</ math>}}.
-2. Move to a new state {{< math >}}$ s_j$ with probability $p(s_j|s_i)=a_{ij}$, where $a_{ij}$ is a cell value in transition matrix $A ${{</ math>}}.
-3. Emit an observation {{< math >}}$ x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a cell value in emission matrix $B ${{</ math>}}.
+1. Start in some initial state {{<math>}}$ s_i$ with probability $p(s_i)=\pi ${{</math>}}.
+2. Move to a new state {{<math>}}$ s_j$ with probability $p(s_j|s_i)=a_{ij}$, where $a_{ij}$ is a cell value in transition matrix $A ${{</math>}}.
+3. Emit an observation {{<math>}}$ x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a cell value in emission matrix $B ${{</math>}}.
 
 
 Pros:
