@@ -13,7 +13,7 @@ I'm Renyi Qu. Welcome to my minimalist AI handbook.
 
 Each model/method is decomposed in the following structure:
 - **Why**: Why do we need it? What's the motivation? What's the problem?
-- **What**: What is it? What's the mechanism? What are the components?
+- **What**: What's the intuition? What's the mechanism? What are the components?
 - **How**: How do we use it? How do we apply it?
 - **When**: When can we use it? What are the assumptions/conditions?
 - **Where**: Where can we apply it?

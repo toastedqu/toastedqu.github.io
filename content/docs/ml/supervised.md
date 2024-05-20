@@ -13,69 +13,52 @@ weight: 4
 <!-- ## Linear Discriminant Analysis -->
 
 ## Naive Bayes
-**Why**: It solves problems in scenarios where we need quick and accurate predictions.
+**Why**: provide quick & fairly accurate predictions
 
-**What**: Naive Bayes is the simplest generative, parametric classifier directly using Bayes' Theorem.
+**What**: the simplest generative, parametric classifier solely based on Bayes' Theorem
+{{<math class=text-center >}}$$p(\mathbf{x},y)=p(y)p(\mathbf{x}|y)=p(y)\prod_jp(x_j|y)$${{</math>}}
+- Background (#Params):
+    - General: {{<math>}}$\#[p(a_1,\cdots,a_n|b_1,\cdots,b_m)]=(\prod_{j=1}^{n}|a_j|-1)\prod_{i=1}^{m}|b_i|${{</math>}}
+    - Joint (binary): {{<math>}}$\#[p(\mathbf{x}|y)]=(2^n-1)\cdot2${{</math>}}
+    - Independent (binary): {{<math>}}$ \#[\prod_jp(x_j|y)]=2n ${{</math>}}
+- Assumption: **Conditional Independence** of features given label
+{{<math class=text-center >}}$$p(\mathbf{x}|y=k)=\prod_{j=1}^np(x_j|y=k)$${{</math>}}
+- Params:
+    - {{<math>}}$\pi_k=p(y=k)${{</math>}}: prior probability for class {{<math>}}$k${{</math>}}
+    - {{<math>}}$w_{jk}${{</math>}}: conditional density param for class {{<math>}}$k${{</math>}} and feature {{<math>}}$j${{</math>}}
 
-
-
-**Where**: Mostly text classification.
-
-**When**: Conditional Independence of features given label:
-$$
-p(\mathbf{x}|y=k,\mathbf{w}\_k)=\prod\_{j=1}^np(x\_j|y=k,w\_{jk})
-$$
-
-**How**: Bayes' Theorem
-
-**Training**:
-- **Params**:
-    - {{<math>}}$ \boldsymbol{\pi}=[\pi_k:k\in\mathcal{K}] ${{</math>}}: class prior probability
-    - {{<math>}}$ \mathbf{w}\_k=[w\_{jk}:j\in\\{1,\cdots,n\\}]$: conditional density params for class $k ${{</math>}}
-    - **#Params**:
-        - Background:
-            - {{<math>}}$ \\#\\{p(\mathbf{x}|y=k)\\}=|\mathbf{x}|-1 ${{</math>}}
-            - {{<math>}}$ \\#\\{p(a_1,\cdots,a_n|b_1,\cdots,b_m)\\}=(\prod_{i=1}^{n}|a_i|-1)\prod_{i=1}^{m}|b_j| ${{</math>}}
-            - {{<math>}}$ \\#\\{p(x_1,\cdots,x_n|y)\\}=(2^n-1)\cdot2 ${{</math>}}
-        - Binary: {{<math>}}$ \\#\\{\prod_jp(x_j|y)\\}=2n ${{</math>}}
-        - Discrete: {{<math>}}$ \\#\\{\prod_jp(x_j|y)\\}=O((|\mathbf{x}|-1)n) ${{</math>}}
-
-- **Objective**:
-    - **Loss**: 0-1
-    - **Regularization**: Laplace smoothing
-
-- **Optimization**:
-    - **MLE**:
-    {{< math class=text-center >}}$$\begin{align*}
-    &\text{Likelihood}: &&p(\mathcal{D}|\mathbf{w})=\prod_{i=1}^mp(y_i|\mathbf{\pi})\prod_{j=1}^n\prod_{k=1}^Kp(x_{ij}|w_{jk})^{\mathbf{1}(y_i=k)}\\\\
-    &\text{Log-likelihood}: &&\log p(\mathcal{D}|\mathbf{w})=\log p(\mathcal{D}\_y|\boldsymbol{\pi})+\sum\_{k=1}^K\sum\_{j=1}^n\log p(\mathcal{D}\_{jk}|w\_{jk})\\\\
-    &\text{MLE for }\boldsymbol{\pi}: &&\hat{\pi}_k=\frac{N_k}{N}\\\\
-    &\text{MLE for }\mathbf{w}\text{ (discrete)}: &&\hat{w}\_{jkl}=\frac{N\_{jkl}}{N_k}\\\\
-    &\text{MLE for }\mathbf{w}\text{ (continuous)}: &&\hat{\mu}\_{jk}=\frac{1}{N_k}\sum\_{i:y_i=k}x\_{ij}\\\\
-    &  &&\hat{\sigma}\_{jk}^2=\frac{1}{N_k}\sum\_{i:y_i=k}(x\_{ij}-\hat{\mu}\_{jk})^2
-    \end{align*}$${{</math>}}
-        - {{<math>}}$ N ${{</math>}}: #samples
-        - {{<math>}}$ N_k$: #samples with class $k ${{</math>}}
-        - {{<math>}}$ N\_{jkl}=\sum\_{i=1}^m\mathbf{1}(x\_{ij}=l,y_i=k)$: #samples with feature $j$ equal to $l$ and class $k ${{</math>}}
-    
-    &nbsp;
-
-    - **MAP**:
-    {{< math class=text-center >}}$$\begin{align*}
-    &\text{Prior}: &&p(\boldsymbol{\pi})=\text{Dir}(\boldsymbol{\pi}|\boldsymbol{\alpha}), p(w\_{jk})=\text{Dir}(w\_{jk}|\beta\_{jk})\\\\
-    &\text{Posterior}: &&p(\boldsymbol{\pi},\mathbf{w}|\mathcal{D})=\text{Dir}(\boldsymbol{\pi}|\tilde{\boldsymbol{\alpha}})\prod_{j=1}^n\prod_{k=1}^K\text{Dir}(w\_{jk}|\tilde{\beta}\_{jk})\\\\
-    &\text{MAP for }\boldsymbol{\pi}: &&\hat{\pi}_k=\frac{N_k+\alpha_k}{N+\sum_c\alpha_c}\\\\
-    &\text{MAP for }\mathbf{w}\text{ (discrete)}: &&\hat{w}\_{jkl}=\frac{N\_{jkl}+\beta\_{jkl}}{N_k+\beta_k}\\\\
-    \end{align*}$${{</math>}}
-        - {{<math>}}$ \tilde{\alpha}_k=\alpha_k+N_k$: shifted Dirichlet param for $\pi_k ${{</math>}} (conjugate prior + likelihood)
-        - {{<math>}}$ \tilde{\beta}\_{jkl}=\beta\_{jkl}+N\_{jkl}$: shifted Dirichlet param for $w\_{jkl} ${{</math>}} (conjugate prior + likelihood)
-        - **Laplace smoothing**: {{<math>}}$ \beta\_{jkl}=1, \beta_k=L ${{</math>}}
-
-**Inference**:
-{{< math class=text-center >}}$$\begin{align*}
-&\text{Likelihood}: &&p(y=k|\mathbf{x},\mathbf{w})=\frac{p(y=k|\boldsymbol{\pi})\prod_jp(x\_j|y=k,w\_{jk})}{\sum_cp(y=c|\boldsymbol{\pi})\prod_jp(x\_j|y\_i=c,w\_{jc})}\\\\
-&\text{Posterior}: &&p(y=k|\mathbf{x},\mathcal{D})\propto p(y=k|\mathcal{D})\prod_jp(x\_j|y=k,\mathcal{D})=\hat{\pi}_k\prod_j\prod_l\hat{w}\_{jkl}^{\mathbf{1}(x_j=l)}
+**How**: 
+- Training:
+    - Objective:
+        - Loss: 0-1
+        - Regularization: Laplace smoothing
+    - Optimization:
+        - MLE:
+{{< math >}}$$\begin{align*}
+&\text{Likelihood}: &&p(\mathcal{D}|\mathbf{w})=\prod_{i=1}^mp(y_i|\mathbf{\pi})\prod_{j=1}^n\prod_{k=1}^cp(x_{ij}|w_{jk})^{\mathbf{1}(y_i=k)}\\
+&\text{Log-likelihood}: &&\log p(\mathcal{D}|\mathbf{w})=\log p(\mathcal{D}_y|\boldsymbol{\pi})+\sum_{k=1}^c\sum_{j=1}^n\log p(\mathcal{D}_{jk}|w_{jk})\\
+&\text{MLE for }\boldsymbol{\pi}: &&\hat{\pi}_k=\frac{m_k}{m}\\
+&\text{MLE for }\mathbf{w}\text{ (discrete)}: &&\hat{w}_{jkl}=\frac{m_{jkl}}{m_k}\\
+&\text{MLE for }\mathbf{w}\text{ (continuous)}: &&\hat{\mu}_{jk}=\frac{1}{m_k}\sum_{i:y_i=k}x_{ij}\\
+&  &&\hat{\sigma}_{jk}^2=\frac{1}{m_k}\sum_{i:y_i=k}(x_{ij}-\hat{\mu}_{jk})^2
 \end{align*}$${{</math>}}
+            - {{<math>}}$m_k${{</math>}}: #samples of class {{<math>}}$k${{</math>}}
+            - {{<math>}}$m_{jkl}=\sum_{i=1}^m\mathbf{1}(x_{ij}=l,y_i=k)${{</math>}}: #samples of class {{<math>}}$k${{</math>}} with feature {{<math>}}$j=l${{</math>}}
+        - MAP:
+{{< math >}}$$\begin{align*}
+&\text{Prior}: &&p(\boldsymbol{\pi})=\text{Dir}(\boldsymbol{\pi}|\boldsymbol{\alpha}), p(w_{jk})=\text{Dir}(w_{jk}|\beta_{jk})\\
+&\text{Posterior}: &&p(\boldsymbol{\pi},\mathbf{w}|\mathcal{D})=\text{Dir}(\boldsymbol{\pi}|\tilde{\boldsymbol{\alpha}})\prod_{j=1}^n\prod_{k=1}^c\text{Dir}(w_{jk}|\tilde{\beta}_{jk})\\
+&\text{MAP for }\boldsymbol{\pi}: &&\hat{\pi}_k=\frac{m_k+\alpha_k}{m+\sum_{k'}\alpha_{k'}}\\
+&\text{MAP for }\mathbf{w}\text{ (discrete)}: &&\hat{w}_{jkl}=\frac{m_{jkl}+\beta_{jkl}}{m_k+\beta_k}
+\end{align*}$${{</math>}}
+            - {{<math>}}$ \tilde{\alpha}_k=\alpha_k+m_k${{</math>}}: shifted Dirichlet param for {{<math>}}$\pi_k${{</math>}} (conjugate prior + likelihood)
+            - {{<math>}}$ \tilde{\beta}_{jkl}=\beta_{jkl}+N_{jkl}${{</math>}}: shifted Dirichlet param for {{<math>}}$w_{jkl}${{</math>}} (conjugate prior + likelihood)
+            - **Laplace smoothing**: {{<math>}}$\beta_{jkl}=1,\beta_k=L${{</math>}}
+- Inference:
+    {{< math class=text-center >}}$$\begin{align*}
+    &\text{Likelihood}: &&p(y=k|\mathbf{x},\mathbf{w})=\frac{p(y=k|\boldsymbol{\pi})\prod_jp(x_j|y=k,w_{jk})}{\sum_cp(y=c|\boldsymbol{\pi})\prod_jp(x_j|y_i=c,w_{jc})}\\
+    &\text{Posterior}: &&p(y=k|\mathbf{x},\mathcal{D})\propto p(y=k|\mathcal{D})\prod_jp(x_j|y=k,\mathcal{D})=\hat{\pi}_k\prod_j\prod_l\hat{w}_{jkl}^{\mathbf{1}(x_j=l)}
+    \end{align*}$${{</math>}}
 
 **Pros**:
 - Easy
@@ -90,8 +73,6 @@ $$
 - Assumption fails in real life
 - Low accuracy on large datasets (< LogReg)
 - Low accuracy in terms of probability estimates (<< LogReg)
-
-&nbsp;
 
 &nbsp;
 
@@ -111,7 +92,7 @@ $$
 
 * Basis Transformation ({{<math>}}$ \phi_j(\mathbf{x}_i) ${{</math>}}: transformation of non-linear inputs into linear inputs)
 $$
-\hat{y}\_i=\sum\_{j=1}^dw\_j\phi\_j(\mathbf{x}\_i)
+\hat{y}_i=\sum_{j=1}^dw_j\phi_j(\mathbf{x}_i)
 $$ -->
 
 ## Linear Regression
@@ -139,8 +120,8 @@ $$ -->
 $$\begin{aligned}
 &\text{OLS/MLE}:\ &&\hat{\mathbf{w}}=(X^TX)^{-1}X^T\mathbf{y} \\\\
 &\text{Ridge}:\ &&\hat{\mathbf{w}}=(X^TX+\lambda I)^{-1}X^T\mathbf{y} \\\\
-&\text{Lasso}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda\cdot\text{sign}(w_j) \\\\
-&\text{ElasticNet}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum\_{i=1}\^{m}[x\_{ij}(\hat{y}_i-y_i)]+\lambda r_1\cdot\text{sign}(w_j)+\lambda(1-r_1)w_j
+&\text{Lasso}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum_{i=1}\^{m}[x_{ij}(\hat{y}_i-y_i)]+\lambda\cdot\text{sign}(w_j) \\\\
+&\text{ElasticNet}:\ &&\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum_{i=1}\^{m}[x_{ij}(\hat{y}_i-y_i)]+\lambda r_1\cdot\text{sign}(w_j)+\lambda(1-r_1)w_j
 \end{aligned}$$
 
 **Inference**:
@@ -194,12 +175,12 @@ Idea: use sigmoid/softmax as link function for linear regression for classificat
 Model:
 {{< math class=text-center >}}$$\begin{align*}
 &\text{Binary}: &&P(y_i=1|\mathbf{x}_i,\mathbf{w})=\sigma(\mathbf{w}^T\mathbf{x}_i)=\frac{1}{1+\exp{(-\mathbf{w}^T\mathbf{x}_i)}}=\frac{\exp{(\mathbf{w}^T\mathbf{x}_i)}}{1+\exp{(\mathbf{w}^T\mathbf{x}_i)}}\\\\
-&\text{Multiclass}: &&P(y_i=k|\mathbf{x}_i,W)=\text{softmax}(W^T\mathbf{x}_i)=\frac{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}{\sum\_{k=1}^{K}{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}}
+&\text{Multiclass}: &&P(y_i=k|\mathbf{x}_i,W)=\text{softmax}(W^T\mathbf{x}_i)=\frac{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}{\sum_{k=1}^{K}{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}}
 \end{align*}$${{</math>}}
 
 Prediction:
 $$
-\hat{y}_i=\arg\max_k\hat{p}\_{ik}
+\hat{y}_i=\arg\max_k\hat{p}_{ik}
 $$
 
 Objective:
@@ -208,7 +189,7 @@ Objective:
 
 Optimization:
 $$
-\frac{\partial \mathcal{L}}{\partial w_{jk}}=\frac{1}{m}\sum_{i=1}\^{m}[x\_{ij}(\hat{p}_{ik}-y_i)]
+\frac{\partial \mathcal{L}}{\partial w_{jk}}=\frac{1}{m}\sum_{i=1}\^{m}[x_{ij}(\hat{p}_{ik}-y_i)]
 $$
 
 Pros:
@@ -277,26 +258,26 @@ $$
 Objective: Hinge Loss + L2 Penalty (can use other losses/penalties but rare)
 - Primal (Linear):
 {{< math class=text-center >}}$$\begin{align*}
-\min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
+\min_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum_{i=1}^m \xi_i \\\\
 \text{s.t.}\quad & y_i(\textbf{w}^T\textbf{x}_i) \geq 1-\xi_i\\\\
 & \xi_i \geq 0
 \end{align*}$${{</math>}}
 - Primal (Kernel):
 {{< math class=text-center >}}$$\begin{align*}
-\min\_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum\_{i=1}^m \xi_i \\\\
+\min_{w,\xi}\quad & \frac{1}{2} ||\textbf{w}||^2 + C \sum_{i=1}^m \xi_i \\\\
 \text{s.t.}\quad & y_i(\textbf{w}^T\phi(\textbf{x}_i)) \geq 1-\xi_i\\\\
 & \xi_i \geq 0
 \end{align*}$${{</math>}}
 - Dual (Linear):
 {{< math class=text-center >}}$$\begin{align*}
-\max\_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j \mathbf{x}_i^T \mathbf{x}_j \\\\
-\text{s.t.}\quad & \sum\_{i=1}^n \alpha_i y_i = 0\\\\
+\max_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j \mathbf{x}_i^T \mathbf{x}_j \\\\
+\text{s.t.}\quad & \sum_{i=1}^n \alpha_i y_i = 0\\\\
 & \alpha_i\leq C
 \end{align*}$${{</math>}}
 - Dual (Kernel):
 {{< math class=text-center >}}$$\begin{align*}
-\max\_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j k(\mathbf{x}_i, \mathbf{x}_j) \\\\
-\text{s.t.}\quad & \sum\_{i=1}^n \alpha_i y_i = 0\\\\
+\max_{\alpha\geq 0}\quad & \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j k(\mathbf{x}_i, \mathbf{x}_j) \\\\
+\text{s.t.}\quad & \sum_{i=1}^n \alpha_i y_i = 0\\\\
 & \alpha_i\leq C
 \end{align*}$${{</math>}}
 
@@ -395,7 +376,7 @@ $$
 
 **Assumptions**: The kernel function must satisfy 2 conditions:
 - **Symmetry**: {{<math>}}$ k(\mathbf{x},\mathbf{x}')=k(\mathbf{x}',\mathbf{x}) ${{</math>}}
-- **Positive-Definite**: {{<math>}}$ \forall\mathbf{x}\_1,\cdots,\mathbf{x}\_m\in\mathbb{R}^n\ \forall c_1\cdots c_m\in\mathbb{R}:\ \sum_{i=1}^{m}\sum_{j=1}^{m}c_ic_jk(\mathbf{x}_i,\mathbf{x}_j)\geq0 ${{</math>}}
+- **Positive-Definite**: {{<math>}}$ \forall\mathbf{x}_1,\cdots,\mathbf{x}_m\in\mathbb{R}^n\ \forall c_1\cdots c_m\in\mathbb{R}:\ \sum_{i=1}^{m}\sum_{j=1}^{m}c_ic_jk(\mathbf{x}_i,\mathbf{x}_j)\geq0 ${{</math>}}
 
 **Types of Kernels**:
 | Type | Formula |
@@ -405,8 +386,8 @@ $$
 | RBF (Radial Basis Function) | {{<math>}}$ k(\mathbf{x}_i,\mathbf{x}_j)=\exp\left(-\frac{\|\|\mathbf{x}_i-\mathbf{x}_j\|\|^2}{2\sigma^2}\right) ${{</math>}} |
 
 <!-- {{< math class=text-center >}}$$\begin{align*}
-&\text{Regression}: &&\hat{y}=\frac{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
-&\text{Binary Classification}: &&\hat{y}=\text{sign}(\sum\_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
+&\text{Regression}: &&\hat{y}=\frac{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
+&\text{Binary Classification}: &&\hat{y}=\text{sign}(\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
 \end{align*}$${{</math>}} -->
 
 **Pros**:
@@ -694,7 +675,7 @@ $$
 $$
 2. Find similarity gain of each possible split. Choose the split with the max gain at root node.
 $$
-\text{Gain}=\text{Similarity}\_\text{left}+\text{Similarity}\_\text{right}-\text{Similarity}\_\text{root}
+\text{Gain}=\text{Similarity}_\text{left}+\text{Similarity}_\text{right}-\text{Similarity}_\text{root}
 $$
 3. Repeat Step 2 till limit. Prune branches bottom-up by checking whether the gain of the branch is higher than a predefined threshold {{<math>}}$ \gamma ${{</math>}}. If it is higher, stop. If it is lower, prune it, move on to the next branch.
 4. Define the output value for each leaf of this tree.

@@ -9,12 +9,7 @@ images: []
 weight: 3
 ---
 # Clustering
-Clustering groups similar samples together without any prior knowledge of the clusters.
-
-<!-- Why do we need clustering?
-- **Labeling**: When labeled data is scarce, clustering can provide labels.
-- **Data ** -->
-
+Clustering groups similar samples together with no prior knowledge.
 
 ## K-Means
 Idea: Hard clustering (clustering with deterministic results)

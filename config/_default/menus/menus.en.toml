@@ -35,14 +35,20 @@
   weight = 10
 
 [[main]]
+  name = "Blog"
+  url = "/blog/"
+# url = "/docs/1.0/prologue/introduction/"
+  weight = 20
+
+[[main]]
   name = "CV"
   url = "https://drive.google.com/file/d/1ZRHhH0OX3n3OJ2jsOA6lLca0C6Ws2YBM/view?usp=drive_link"
-  weight = 20
+  weight = 30
 
 [[main]]
   name = "Portfolio"
   url = "https://sites.google.com/view/renyiqu"
-  weight = 30
+  weight = 40
 
 # [[social]]
 #   name = "Twitter"
