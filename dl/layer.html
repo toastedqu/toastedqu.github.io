@@ -1,0 +1,2148 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Layer &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dl/layer';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Overview" href="../irl/overview.html" />
+    <link rel="prev" title="Hi👋" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Layer</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../irl/overview.html">Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../irl/data.html">Data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdl/layer.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/dl/layer.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Layer</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Layer</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic">Basic</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear">Linear</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization">Regularization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha">Alpha</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian">Gaussian</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l1-l2">L1/L2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-connection">Residual Connection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization">Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch">Batch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Layer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional">Convolutional</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depthwise-separable">Depthwise Separable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atrous-dilated">Atrous/Dilated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pooling">Pooling</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent">Recurrent</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gru">GRU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm">LSTM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bidirectional">Bidirectional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked">Stacked</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer">Transformer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#positional-encoding">Positional Encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">Scaled Dot-Product Attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">Multi-Head Attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postion-wise-feed-forward-networks">Postion-wise Feed-Forward Networks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#activation">Activation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-like">Binary-like</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigmoid">Sigmoid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tanh">Tanh</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-units-rectified">Linear Units (Rectified)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relu">ReLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lrelu">LReLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prelu">PReLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rrelu">RReLU</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-units-exponential">Linear Units (Exponential)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#elu">ELU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selu">SELU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#celu">CELU</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-units-others">Linear Units (Others)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gelu">GELU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#silu">SiLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softplus">Softplus</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass">Multiclass</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softmax">Softmax</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softmin">Softmin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="layer">
+<h1>Layer<a class="headerlink" href="#layer" title="Link to this heading">#</a></h1>
+<p>A layer is a mapping from input <span class="math notranslate nohighlight">\(X\)</span> to output <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(g\)</span> denote the gradient <span class="math notranslate nohighlight">\(\frac{\partial\mathcal{L}}{\partial y}\)</span> for readability.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="basic">
+<h1>Basic<a class="headerlink" href="#basic" title="Link to this heading">#</a></h1>
+<section id="linear">
+<h2>Linear<a class="headerlink" href="#linear" title="Link to this heading">#</a></h2>
+<p><strong>Intuition</strong></p>
+<ul class="simple">
+<li><p><strong>What</strong>: Linear transformation.</p></li>
+<li><p><strong>Why</strong>: Universal Approximation Theorem.</p></li>
+<li><p><strong>How</strong>: Multiply the input with a weight matrix and add a bias vector.</p></li>
+<li><p><strong>When</strong>:</p>
+<ul>
+<li><p>If input/output can be linearly approximated.</p></li>
+<li><p>If input features need to be converted to a different dimension.</p></li>
+</ul>
+</li>
+<li><p><strong>Where</strong>: Anywhere.</p></li>
+<li><p><strong>Pros</strong>: Simple, efficient, foundational.</p></li>
+<li><p><strong>Cons</strong>: Cannot capture non-linear/complex patterns.</p></li>
+</ul>
+<p><strong>Math</strong></p>
+<ul class="simple">
+<li><p>Notations</p>
+<ul>
+<li><p>IO:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{x}\in\mathbb{R}^{H_{in}}\)</span>: Input vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{y}\in\mathbb{R}^{H_{out}}\)</span>: Output vector.</p></li>
+</ul>
+</li>
+<li><p>Params:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(W\in\mathbb{R}^{H_{out}\times H_{in}}\)</span>: Weight matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\textbf{b}\in\mathbb{R}^{H_{out}}\)</span>: Bias vector.</p></li>
+</ul>
+</li>
+<li><p>Hyperparams:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(H_{in}\)</span>: Input feature dimension.</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_{out}\)</span>: Output feature dimension.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Forward</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\textbf{y}=W\textbf{x}+\textbf{b}
+\]</div>
+<ul class="simple">
+<li><p>Backward</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+&amp;\frac{\partial\mathcal{L}}{\partial W}=g\textbf{x}^T \\
+&amp;\frac{\partial\mathcal{L}}{\partial\textbf{b}}=g\\
+&amp;\frac{\partial\mathcal{L}}{\partial\textbf{x}}=W^Tg
+\end{align*}\end{split}\]</div>
+<p><strong>Code</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Linear</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span> <span class="o">=</span> <span class="n">input_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y_dim</span> <span class="o">=</span> <span class="n">output_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dY</span><span class="p">):</span>
+        <span class="c1"># compute gradients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dY</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dY</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="c1"># update params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dW</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
+
+        <span class="c1"># pass input gradient</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dX</span>
+</pre></div>
+</div>
+<br/>
+</section>
+<section id="regularization">
+<h2>Regularization<a class="headerlink" href="#regularization" title="Link to this heading">#</a></h2>
+<section id="dropout">
+<h3>Dropout<a class="headerlink" href="#dropout" title="Link to this heading">#</a></h3>
+<p><strong>Intuition</strong></p>
+<ul class="simple">
+<li><p><strong>What</strong>: Randomly set a fraction (<span class="math notranslate nohighlight">\(p\)</span>) of neurons to 0 and scale the outputs/gradients on active neurons by <span class="math notranslate nohighlight">\(\frac{1}{1-p}\)</span> during training.</p></li>
+<li><p><strong>Why</strong>: To reduce overfitting.</p></li>
+<li><p><strong>When</strong>: Training only.</p></li>
+<li><p><strong>Where</strong>: Typically on linear layers and convolutional layers.</p></li>
+<li><p><strong>Pros</strong>: Simple, efficient regularization.</p></li>
+<li><p><strong>Cons</strong>: Requires hyperparameter tuning; Can slow down convergence.</p></li>
+</ul>
+<p><strong>Math</strong></p>
+<ul class="simple">
+<li><p>Forward:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\textbf{y}=\frac{1}{1-p}\textbf{x}_\text{active}
+\]</div>
+<ul class="simple">
+<li><p>Backward:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial\mathcal{L}}{\partial\textbf{x}_\text{active}}= \frac{1}{1-p}\mathbf{g}
+\]</div>
+<ul class="simple">
+<li><p>Hyperparams:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Dropout probability.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Code</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Dropout</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dropout_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">dropout_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">X</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">X</span>
+
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dY</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dY</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span>
+</pre></div>
+</div>
+<section id="alpha">
+<h4>Alpha<a class="headerlink" href="#alpha" title="Link to this heading">#</a></h4>
+</section>
+<section id="gaussian">
+<h4>Gaussian<a class="headerlink" href="#gaussian" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="l1-l2">
+<h3>L1/L2<a class="headerlink" href="#l1-l2" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="residual-connection">
+<h2>Residual Connection<a class="headerlink" href="#residual-connection" title="Link to this heading">#</a></h2>
+<p><strong>Intuition</strong></p>
+<ul class="simple">
+<li><p><strong>What</strong>: Model the residual (<span class="math notranslate nohighlight">\(Y-X\)</span>) instead of the output (<span class="math notranslate nohighlight">\(Y\)</span>).</p></li>
+<li><p><strong>Why</strong>: To reduce vanishing/exploding gradient issues.</p></li>
+<li><p><strong>When</strong>: If convergence or gradient issues occur.</p></li>
+<li><p><strong>Where</strong>: Deep NNs.</p></li>
+<li><p><strong>Pros</strong>: Reduces vanishing/exploding gradients; Higher performance on complex tasks.</p></li>
+<li><p><strong>Cons</strong>: Slightly higher computational cost.</p></li>
+</ul>
+<p><strong>Math</strong></p>
+<ul class="simple">
+<li><p>Forward:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\textbf{y}=\mathcal{F}(\textbf{x})+\textbf{x}
+\]</div>
+<ul class="simple">
+<li><p>Backward:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial\mathcal{L}}{\partial\textbf{x}}=\mathbf{g}(1+\frac{\partial\mathcal{F}}{\partial\textbf{x}})
+\]</div>
+<ul class="simple">
+<li><p>Hyperparams:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{F}(\cdot)\)</span>: The function of other layers within the residual block.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Code</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ResidualBlock</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">F</span> <span class="o">=</span> <span class="n">F</span>
+
+        <span class="c1"># If input and output dimensions are different, add a linear layer for the shortcut connection</span>
+        <span class="k">if</span> <span class="n">input_dim</span> <span class="o">!=</span> <span class="n">output_dim</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="p">:</span>
+            <span class="n">output_shortcut</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output_shortcut</span> <span class="o">=</span> <span class="n">X</span>
+
+        <span class="n">output_F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">output_F</span> <span class="o">+</span> <span class="n">output_shortcut</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dY</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="p">:</span>
+            <span class="n">d_shortcut</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcut</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">dY</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d_shortcut</span> <span class="o">=</span> <span class="n">dY</span>
+
+        <span class="n">d_F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">dY</span><span class="p">)</span>
+        <span class="n">d_input</span> <span class="o">=</span> <span class="n">d_F</span> <span class="o">+</span> <span class="n">d_shortcut</span>
+        <span class="k">return</span> <span class="n">d_input</span>
+</pre></div>
+</div>
+</section>
+<section id="normalization">
+<h2>Normalization<a class="headerlink" href="#normalization" title="Link to this heading">#</a></h2>
+<section id="batch">
+<h3>Batch<a class="headerlink" href="#batch" title="Link to this heading">#</a></h3>
+</section>
+<section id="id1">
+<h3>Layer<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<br/>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="convolutional">
+<h1>Convolutional<a class="headerlink" href="#convolutional" title="Link to this heading">#</a></h1>
+<p><strong>Intuition</strong></p>
+<ul class="simple">
+<li><p><strong>What</strong>: Apply a set of filters to input data to extract local features.</p></li>
+<li><p><strong>Why</strong>: To learn spatial hierarchies of features.</p></li>
+<li><p><strong>How</strong>: Slide multiple filters/kernel (i.e., small matrices) over the input data.</p>
+<ul>
+<li><p>At each step, perform element-wise multiplication and summation between each filter and the scanned area, producing a feature map.</p></li>
+</ul>
+</li>
+<li><p><strong>When</strong>: Used with grid-like data such as images and video frames.</p></li>
+<li><p><strong>Where</strong>: Computer Vision.</p></li>
+<li><p><strong>Pros</strong>:</p>
+<ul>
+<li><p>Translation invariance.</p></li>
+<li><p>Efficiently captures spatial hierarchies.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons</strong>:</p>
+<ul>
+<li><p>High computational cost for big data</p></li>
+<li><p>Requires big data to be performant.</p></li>
+<li><p>Requires extensive hyperparameter tuning.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Math</strong></p>
+<ul>
+<li><p>Notations</p>
+<ul class="simple">
+<li><p>IO:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{H_{in}\times W_{in}\times C_{in}}\)</span>: Input volume.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{Y}\in\mathbb{R}^{H_{out}\times W_{out}\times C_{out}}\)</span>: Output volume.</p></li>
+</ul>
+</li>
+<li><p>Params:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W}\in\mathbb{R}^{F_{H}\times F_{W}\times C_{out}\times C_{in}}\)</span>: Filters.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b}\in\mathbb{R}^{C_{out}}\)</span>: Biases.</p></li>
+</ul>
+</li>
+<li><p>Hyperparams:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(H_{in}, W_{in}\)</span>: Input height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{in}\)</span>: #Input channels.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{out}\)</span>: #Filters (i.e., #Output channels).</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_h, f_w\)</span>: Filter height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span>: Stride size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Padding size.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Forward</p>
+<div class="math notranslate nohighlight">
+\[
+    Y_{h,w,c_{out}}=\sum_{c_{in}=1}^{C_{in}}\sum_{i=1}^{f_h}\sum_{j=1}^{f_w}W_{i,j,c_{out},c_{in}}\cdot X_{sh+i-p,sw+j-p,c_{in}}+b_{c_{out}}
+    \]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+    H_{out}&amp;=\left\lfloor\frac{H_{in}+2p-f_h}{s}\right\rfloor+1\\
+    W_{out}&amp;=\left\lfloor\frac{W_{in}+2p-f_w}{s}\right\rfloor+1
+    \end{align*}\end{split}\]</div>
+</li>
+<li><p>Backward</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+    &amp;\frac{\partial\mathcal{L}}{\partial W_{i,j,c_{out},c_{in}}}=\sum_{h=1}^{H_{out}}\sum_{w=1}^{W_{out}}g_{h,w,c_{out}}\cdot X_{sh+i-p, sw+j-p, c_{in}}\\
+    &amp;\frac{\partial\mathcal{L}}{\partial b_{c_{out}}}=\sum_{h=1}^{H_{out}}\sum_{w=1}^{W_{out}}g_{h,w,c_{out}}\\
+    &amp;\frac{\partial\mathcal{L}}{\partial X_{i,j,c_{in}}}=\sum_{c_{out}=1}^{C_{out}}\sum_{h=1}^{f_h}\sum_{w=1}^{f_w}g_{h,w,c_{out}}\cdot W_{i-sh+p,j-sw+p,c_{out},c_{in}}
+    \end{align*}\end{split}\]</div>
+<p>Notice it is similar to backprop of linear layer except it sums over the scanned area and removes padding.</p>
+</li>
+</ul>
+<p><strong>Code</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Conv2d</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">filter_size</span>    <span class="c1"># assume equal height &amp; weight</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span> <span class="o">=</span> <span class="n">n_filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">stride</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">padding</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_filters</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">)</span> <span class="o">/</span> <span class="n">filter_size</span><span class="o">**</span><span class="mi">2</span>    <span class="c1"># randomly init filter weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_filters</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>    <span class="c1"># zero init biases</span>
+
+    <span class="k">def</span> <span class="nf">pad_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="c1"># pad input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># calculate output dims</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_height</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_width</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># init output tensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">))</span>
+
+        <span class="c1"># compute output per scanned area</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">X_scanned</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X_scanned</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dY</span><span class="p">):</span>
+        <span class="c1"># init gradients</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">dX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">)</span>
+        <span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="c1"># compute gradients</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">):</span>
+                    <span class="n">dW</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">region</span> <span class="o">*</span> <span class="p">(</span><span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">db</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+                    <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># remove padding</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dX</span> <span class="o">=</span> <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># update params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">dW</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">db</span>
+
+        <span class="k">return</span> <span class="n">dX</span>
+</pre></div>
+</div>
+<section id="depthwise-separable">
+<h2>Depthwise Separable<a class="headerlink" href="#depthwise-separable" title="Link to this heading">#</a></h2>
+<p><strong>Intuition</strong></p>
+<ul class="simple">
+<li><p><strong>What</strong>: Depthwise convolution + Pointwise convolution.</p></li>
+<li><p><strong>Why</strong>: To significantly reduce computational cost and #params.</p></li>
+<li><p><strong>How</strong>:</p>
+<ul>
+<li><p><strong>Depthwise</strong>: Use a single filter independently per channel.</p></li>
+<li><p><strong>Pointwise</strong>: Use Conv1d to combine the outputs of depthwise convolution.</p></li>
+</ul>
+</li>
+<li><p><strong>When</strong>: When computational efficiency and model size are crucial.</p></li>
+<li><p><strong>Where</strong>: <a class="reference external" href="https://arxiv.org/pdf/1704.04861">MobileNets</a>, <a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Chollet_Xception_Deep_Learning_CVPR_2017_paper.pdf">Xception</a>, etc.</p></li>
+<li><p><strong>Pros</strong>: Significantly higher computational efficiency (time &amp; space).</p></li>
+<li><p><strong>Cons</strong>: Lower accuracy.</p></li>
+</ul>
+<p><strong>Math</strong></p>
+<ul>
+<li><p>Notations</p>
+<ul class="simple">
+<li><p>IO:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{H_{in} \times W_{in} \times C_{in}}\)</span>: Input volume.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{Y} \in \mathbb{R}^{H_{out} \times W_{out} \times C_{out}}\)</span>: Output volume.</p></li>
+</ul>
+</li>
+<li><p>Params:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W^d} \in \mathbb{R}^{f_h \times f_w \times C_{in}}\)</span>: Depthwise filters.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b^d} \in \mathbb{R}^{C_{in}}\)</span>: Depthwise biases.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W^p} \in \mathbb{R}^{1 \times 1 \times C_{in} \times C_{out}}\)</span>: Pointwise filters.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b^p} \in \mathbb{R}^{C_{out}}\)</span>: Pointwise biases.</p></li>
+</ul>
+</li>
+<li><p>Hyperparams:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(H_{in}, W_{in}\)</span>: Input height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{in}\)</span>: #Input channels.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{out}\)</span>: #Output channels.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_h, f_w\)</span>: Filter height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span>: Stride size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Padding size.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Forward</p>
+<ol class="arabic">
+<li><p>Depthwise convolution: Calculate <span class="math notranslate nohighlight">\(\mathbf{Z} \in \mathbb{R}^{H_{out} \times W_{out} \times C_{in}}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+        Z_{h,w,c_{in}} = \sum_{i=1}^{f_h} \sum_{j=1}^{f_w} W^d_{i,j,c_{in}} \cdot X_{sh+i-p, sw+j-p, c_{in}} + b^d_{c_{in}}
+        \]</div>
+</li>
+<li><p>Pointwise convolution:</p>
+<div class="math notranslate nohighlight">
+\[
+        Y_{h,w,c_{out}} = \sum_{c_{in}=1}^{C_{in}} W^p_{1,1,c_{in},c_{out}} \cdot Z_{h,w,c_{in}} + b^p_{c_{out}}
+        \]</div>
+<p>where
+$<span class="math notranslate nohighlight">\(\begin{align*}
+ H_{out} &amp;= \left\lfloor \frac{H_{in} + 2p - f_h}{s} \right\rfloor + 1 \\
+ W_{out} &amp;= \left\lfloor \frac{W_{in} + 2p - f_w}{s} \right\rfloor + 1
+ \end{align*}\)</span>$</p>
+</li>
+</ol>
+</li>
+<li><p>Backward</p>
+<ol class="arabic">
+<li><p>Pointwise convolution: Let <span class="math notranslate nohighlight">\(g^{p}\in\mathbb{R}^{H_{out}\times W_{out}\times C_{out}}\)</span> be <span class="math notranslate nohighlight">\(\frac{\partial\mathcal{L}}{\partial\mathbf{Y}}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+        &amp;\frac{\partial \mathcal{L}}{\partial W^p_{1,1,c_{in},c_{out}}} = \sum_{h=1}^{H_{out}} \sum_{w=1}^{W_{out}} g^{p}_{h,w,c_{out}} \cdot Z_{h,w,c_{in}}\\
+        &amp;\frac{\partial \mathcal{L}}{\partial b^p_{c_{out}}} = \sum_{h=1}^{H_{out}} \sum_{w=1}^{W_{out}} g^{p}_{h,w,c_{out}}\\
+        &amp;\frac{\partial \mathcal{L}}{\partial Z_{h,w,c_{in}}} = \sum_{c_{out}=1}^{C_{out}} g^{p}_{h,w,c_{out}} \cdot W^p_{1,1,c_{in},c_{out}}
+        \end{align*}\end{split}\]</div>
+</li>
+<li><p>Depthwise convolution: Let <span class="math notranslate nohighlight">\(g^{d}\in\mathbb{R}^{H_{out}\times W_{out}\times C_{in}}\)</span> be <span class="math notranslate nohighlight">\(\frac{\partial\mathcal{L}}{\partial\mathbf{Z}}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+        &amp;\frac{\partial \mathcal{L}}{\partial W^d_{i,j,c_{in}}} = \sum_{h=1}^{H_{out}} \sum_{w=1}^{W_{out}} g^d_{h,w,c_{in}} \cdot X_{sh+i-p, sw+j-p, c_{in}}\\
+        &amp;\frac{\partial \mathcal{L}}{\partial b_{d,c_{in}}} = \sum_{h=1}^{H_{out}} \sum_{w=1}^{W_{out}} g^d_{h,w,c_{in}}\\
+        &amp;\frac{\partial \mathcal{L}}{\partial X_{i,j,c_{in}}} = \sum_{h=1}^{f_h} \sum_{w=1}^{f_w} g^d_{h,w,c_{in}} \cdot W^d_{i-sh+p,j-sw+p,c_{in}}
+        \end{align*}\end{split}\]</div>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>Code</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DepthwiseSeparableConv2d</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">filter_size</span>  <span class="c1"># assume equal height &amp; width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span> <span class="o">=</span> <span class="n">n_filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">stride</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">padding</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">filter_size</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">)</span> <span class="o">/</span> <span class="n">filter_size</span><span class="o">**</span><span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_filters</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_filters</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">pad_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="c1"># pad input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># calculate output dims</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_height</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_width</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># init depthwise output tensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">))</span>
+
+        <span class="c1"># depthwise convolution</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">X_scanned</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">in_channels</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X_scanned</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b_d</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="c1"># init pointwise output tensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">))</span>
+
+        <span class="c1"># pointwise convolution</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_p</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b_p</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dY</span><span class="p">):</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c1"># init gradients</span>
+        <span class="n">dX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">)</span>
+        <span class="n">dW_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_d</span><span class="p">)</span>
+        <span class="n">db_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_d</span><span class="p">)</span>
+        <span class="n">dW_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_p</span><span class="p">)</span>
+        <span class="n">db_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_p</span><span class="p">)</span>
+
+        <span class="c1"># gradients for pointwise convolution</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">):</span>
+                    <span class="n">db_p</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+                    <span class="n">dW_p</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_p</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span>
+
+        <span class="c1"># gradients for depthwise convolution</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">X_scanned</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">in_channels</span><span class="p">):</span>
+                    <span class="n">db_d</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+                    <span class="n">dW_d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X_scanned</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># remove padding</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dX</span> <span class="o">=</span> <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># update params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_d</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">dW_d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_d</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">db_d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_p</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">dW_p</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_p</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">db_p</span>
+
+        <span class="k">return</span> <span class="n">dX</span>
+</pre></div>
+</div>
+</section>
+<section id="atrous-dilated">
+<h2>Atrous/Dilated<a class="headerlink" href="#atrous-dilated" title="Link to this heading">#</a></h2>
+<p><strong>Intuition</strong></p>
+<ul class="simple">
+<li><p><strong>What</strong>: Add holes between filter elements (i.e., dilation).</p></li>
+<li><p><strong>Why</strong>: The filters can capture larger contextual info without increasing #params.</p></li>
+<li><p><strong>How</strong>: Introduce a dilation rate <span class="math notranslate nohighlight">\(r\)</span> to determine the space between the filter elements. Then compute convolution accordingly.</p></li>
+<li><p><strong>When</strong>: When understanding the broader context is important.</p></li>
+<li><p><strong>Where</strong>: Semantic image segmentation, object detection, depth estimation, optical flow estimation, etc.</p></li>
+<li><p><strong>Pros</strong>:</p>
+<ul>
+<li><p>Larger receptive fields without increasing #params.</p></li>
+<li><p>Captures multi-scale info without upsampling layers.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons</strong>:</p>
+<ul>
+<li><p>Requires very careful hyperparameter tuning, or info loss.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Math</strong></p>
+<ul>
+<li><p>Notations</p>
+<ul class="simple">
+<li><p>IO:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{H_{in}\times W_{in}\times C_{in}}\)</span>: Input volume.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{Y}\in\mathbb{R}^{H_{out}\times W_{out}\times C_{out}}\)</span>: Output volume.</p></li>
+</ul>
+</li>
+<li><p>Params:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W}\in\mathbb{R}^{F_{H}\times F_{W}\times C_{out}\times C_{in}}\)</span>: Filters.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b}\in\mathbb{R}^{C_{out}}\)</span>: Biases.</p></li>
+</ul>
+</li>
+<li><p>Hyperparams:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(H_{in}, W_{in}\)</span>: Input height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{in}\)</span>: #Input channels.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{out}\)</span>: #Filters (i.e., #Output channels).</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_h, f_w\)</span>: Filter height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span>: Stride size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Padding size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(r\)</span>: Dilation rate.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Forward</p>
+<ol class="arabic">
+<li><p>(optional) Pad input tensor: <span class="math notranslate nohighlight">\(\mathbf{X}^\text{pad}\in\mathbb{R}^{(H_{in}+2p)\times (W_{in}+2p)\times C_{in}}\)</span></p></li>
+<li><p>Perform element-wise multiplication (i.e., convolution):</p>
+<div class="math notranslate nohighlight">
+\[
+        Y_{h,w,c_{out}}=\sum_{c_{in}=1}^{C_{in}}\sum_{i=1}^{f_h}\sum_{j=1}^{f_w}W_{i,j,c_{out},c_{in}}\cdot X_{sh+r(i-1)-p,sw+r(j-1)-p,c_{in}}+b_{c_{out}}
+        \]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+        H_{out}&amp;=\left\lfloor\frac{H_{in}+2p-r(f_h-1)-1}{s}\right\rfloor+1\\
+        W_{out}&amp;=\left\lfloor\frac{W_{in}+2p-r(f_w-1)-1}{s}\right\rfloor+1
+        \end{align*}\end{split}\]</div>
+</li>
+</ol>
+</li>
+<li><p>Backward</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+    &amp;\frac{\partial\mathcal{L}}{\partial W_{i,j,c_{out},c_{in}}}=\sum_{h=1}^{H_{out}}\sum_{w=1}^{W_{out}}g_{h,w,c_{out}}\cdot X_{sh+r(i-1)-p, sw+r(j-1)-p, c_{in}}\\
+    &amp;\frac{\partial\mathcal{L}}{\partial b_{c_{out}}}=\sum_{h=1}^{H_{out}}\sum_{w=1}^{W_{out}}g_{h,w,c_{out}}\\
+    &amp;\frac{\partial\mathcal{L}}{\partial X_{i,j,c_{in}}}=\sum_{c_{out}=1}^{C_{out}}\sum_{h=1}^{f_h}\sum_{w=1}^{f_w}g_{h,w,c_{out}}\cdot W_{r(i-1)-sh+p,r(j-1)-sw+p,c_{out},c_{in}}
+    \end{align*}\end{split}\]</div>
+</li>
+</ul>
+<p><strong>Code</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AtrousConv2d</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">,</span> <span class="n">dilation_rate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">filter_size</span>  <span class="c1"># assume equal height &amp; width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span> <span class="o">=</span> <span class="n">n_filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">dilation_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">stride</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">padding</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">filter_size</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">n_filters</span><span class="p">)</span> <span class="o">/</span> <span class="n">filter_size</span><span class="o">**</span><span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_filters</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> 
+
+    <span class="k">def</span> <span class="nf">pad_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="c1"># pad input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># calculate output dims</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_height</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_width</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># init output tensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">))</span>
+
+        <span class="c1"># compute output per scanned area</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">X_scanned</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X_scanned</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dY</span><span class="p">):</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c1"># init gradients</span>
+        <span class="n">dX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">)</span>
+        <span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="c1"># compute gradients</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">X_scanned</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_pad</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">):</span>
+                    <span class="n">db</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+                    <span class="n">dW</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X_scanned</span> <span class="o">*</span> <span class="p">(</span><span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># remove padding</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dX</span> <span class="o">=</span> <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">:</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># update params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">dW</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">db</span>
+
+        <span class="k">return</span> <span class="n">dX</span>
+</pre></div>
+</div>
+</section>
+<section id="pooling">
+<h2>Pooling<a class="headerlink" href="#pooling" title="Link to this heading">#</a></h2>
+<p><strong>Intuition</strong></p>
+<ul class="simple">
+<li><p><strong>What</strong>: Convolution but</p>
+<ul>
+<li><p>computes a heuristic per scanned patch.</p></li>
+<li><p>uses the same #channels.</p></li>
+</ul>
+</li>
+<li><p><strong>Why</strong>: Dimensionality reduction while preserving dominant features.</p></li>
+<li><p><strong>How</strong>: Slide the pooling window over the input &amp; apply the heuristic within the scanned patch.</p>
+<ul>
+<li><p><strong>Max</strong>: Output the maximum value from each patch.</p></li>
+<li><p><strong>Average</strong>: Output the average value of each patch.</p></li>
+</ul>
+</li>
+<li><p><strong>When</strong>: When downsampling is necessary.</p></li>
+<li><p><strong>Where</strong>: Anywhere with Convolutional layer.</p></li>
+<li><p><strong>Pros</strong>:</p>
+<ul>
+<li><p>Significantly higher computational efficiency (time &amp; space).</p></li>
+<li><p>No params to train.</p></li>
+<li><p>Reduces overfitting.</p></li>
+<li><p>Preserves translation invariance without losing too much info.</p></li>
+<li><p>High robustness.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons</strong>:</p>
+<ul>
+<li><p>Slight spatial info loss.</p></li>
+<li><p>Requires hyperparameter tuning.</p>
+<ul>
+<li><p>Large filter or stride results in coarse features.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Max vs Average</strong>:</p>
+<ul>
+<li><p><strong>Max</strong>: Captures most dominant features; higher robustness.</p></li>
+<li><p><strong>Avg</strong>: Preserves more info; provides smoother features; dilutes the importance of dominant features.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Math</strong></p>
+<ul>
+<li><p>Notations</p>
+<ul class="simple">
+<li><p>IO:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{H_{in}\times W_{in}\times C_{in}}\)</span>: Input volume.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{Y}\in\mathbb{R}^{H_{out}\times W_{out}\times C_{in}}\)</span>: Output volume.</p></li>
+</ul>
+</li>
+<li><p>Hyperparams:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(H_{in}, W_{in}\)</span>: Input height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{in}\)</span>: #Input channels.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_h, f_w\)</span>: Filter height &amp; width.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span>: Stride size.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Forward</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}
+    \text{Max:} &amp; Y_{h,w,c}=\max_{i=1,\cdots,f_h\ |\ j=1,\cdots,f_w}X_{sh+i,sw+j,c}\\
+    \text{Avg:} &amp; Y_{h,w,c}=\frac{1}{f_hf_w}\sum_{i=1}^{f_h}\sum_{j=1}^{f_w}X_{sh+i,sw+j,c}
+    \end{array}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+    H_{out}&amp;=\left\lfloor\frac{H_{in}-f_h}{s}\right\rfloor+1\\
+    W_{out}&amp;=\left\lfloor\frac{W_{in}-f_h}{s}\right\rfloor+1
+    \end{align*}\end{split}\]</div>
+</li>
+<li><p>Backward</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}
+    \text{Max:} &amp; \frac{\partial\mathcal{L}}{\partial X_{sh+i,sw+j,c}}=g_{h,w,c}\text{ if }X_{sh+i,sw+j,c}=Y_{h,w,c}\\
+    \text{Avg:} &amp; \frac{\partial\mathcal{L}}{\partial X_{sh+i,sw+j,c}}=\frac{g_{h,w,c}}{f_hf_w}
+    \end{array}\end{split}\]</div>
+<ul class="simple">
+<li><p>Max: Gradients only propagate to the max element of each window.</p></li>
+<li><p>Avg: Gradients are equally distributed among all elements in each window.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Code</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">Pooling2D</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;avg&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">filter_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">stride</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="c1"># calculate output dims</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_height</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_width</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># init output tensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">))</span>
+
+        <span class="c1"># perform pooling</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">X_scanned</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X_scanned</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;avg&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_scanned</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dY</span><span class="p">):</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">in_height</span><span class="p">,</span> <span class="n">in_width</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">=</span> <span class="n">dY</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c1"># initialize gradient tensor</span>
+        <span class="n">dX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># propagate gradients</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_width</span><span class="p">):</span>
+                <span class="n">X_scanned</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">in_channels</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+                        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_scanned</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+                        <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">mask</span> <span class="o">*</span> <span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;avg&#39;</span><span class="p">:</span>
+                        <span class="n">dX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dY</span><span class="p">[:,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dX</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="recurrent">
+<h1>Recurrent<a class="headerlink" href="#recurrent" title="Link to this heading">#</a></h1>
+<a class="reference internal image-reference" href="../_images/RNN.png"><img alt="../_images/RNN.png" class="align-center" src="../_images/RNN.png" style="width: 400px;" /></a>
+<div class="math notranslate nohighlight">
+\[
+h_t=\tanh(x_tW_{xh}^T+h_{t-1}W_{hh}^T)
+\]</div>
+<p>Idea: <strong>recurrence</strong> - maintain a hidden state that captures information about previous inputs in the sequence</p>
+<p>Notations:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x_t\)</span>: input at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{in}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( h_t\)</span>: hidden state at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((D,m,H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( W_{xh}\)</span>: weight matrix of shape <span class="math notranslate nohighlight">\((H_{out},H_{in})\)</span> if initial layer, else <span class="math notranslate nohighlight">\((H_{out},DH_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( W_{hh}\)</span>: weight matrix of shape <span class="math notranslate nohighlight">\((H_{out},H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( H_{in}\)</span>: input size, #features in <span class="math notranslate nohighlight">\(x_t \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( H_{out}\)</span>: hidden size, #features in <span class="math notranslate nohighlight">\(h_t \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( m \)</span>: batch size</p></li>
+<li><p><span class="math notranslate nohighlight">\( D\)</span>: <span class="math notranslate nohighlight">\(=2\)</span> if bi-directional else <span class="math notranslate nohighlight">\(1 \)</span></p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Short-term memory: hard to carry info from earlier steps to later ones if long seq</p></li>
+<li><p>Vanishing gradient: gradients in earlier parts become extremely small if long seq</p></li>
+</ul>
+<section id="gru">
+<h2>GRU<a class="headerlink" href="#gru" title="Link to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../_images/GRU.png"><img alt="../_images/GRU.png" class="align-center" src="../_images/GRU.png" style="width: 400px;" /></a>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+&amp;r_t=\sigma(x_tW_{xr}^T+h_{t-1}W_{hr}^T) \\\\
+&amp;z_t=\sigma(x_tW_{xz}^T+h_{t-1}W_{hz}^T) \\\\
+&amp;\tilde{h}\_t=\tanh(x_tW_{xn}^T+r_t\odot(h_{t-1}W_{hn}^T)) \\\\
+&amp;h_t=(1-z_t)\odot\tilde{h}\_t+z_t\odot h_{t-1}
+\end{align*}\end{split}\]</div>
+<p>Idea: Gated Recurrent Unit - use 2 gates to address long-term info propagation issue in RNN:</p>
+<ol class="arabic simple">
+<li><p><strong>Reset gate</strong>: determine how much of <span class="math notranslate nohighlight">\( h_{t-1}\)</span> should be ignored when computing <span class="math notranslate nohighlight">\(\tilde{h}\_t \)</span>.</p></li>
+<li><p><strong>Update gate</strong>: determine how much of <span class="math notranslate nohighlight">\( h_{t-1}\)</span> should be retained for <span class="math notranslate nohighlight">\(h_t \)</span>.</p></li>
+<li><p><strong>Candidate</strong>: calculate candidate <span class="math notranslate nohighlight">\( \tilde{h}\_t\)</span> with reset <span class="math notranslate nohighlight">\(h_{t-1} \)</span>.</p></li>
+<li><p><strong>Final</strong>: calculate weighted average between candidate <span class="math notranslate nohighlight">\( \tilde{h}\_t\)</span> and prev state <span class="math notranslate nohighlight">\(h_{t-1} \)</span> with the retain ratio.</p></li>
+</ol>
+<p>Notations:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( r_t\)</span>: reset gate at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( z_t\)</span>: update gate at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \tilde{h}\_t\)</span>: candidate hidden state at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \odot \)</span>: element-wise product</p></li>
+</ul>
+</section>
+<section id="lstm">
+<h2>LSTM<a class="headerlink" href="#lstm" title="Link to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../_images/LSTM.png"><img alt="../_images/LSTM.png" class="align-center" src="../_images/LSTM.png" style="width: 400px;" /></a>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+&amp;i_t=\sigma(x_tW_{xi}^T+h_{t-1}W_{hi}^T) \\\\
+&amp;f_t=\sigma(x_tW_{xf}^T+h_{t-1}W_{hf}^T) \\\\
+&amp;\tilde{c}\_t=\tanh(x_tW_{xc}^T+h_{t-1}W_{hc}^T) \\\\
+&amp;c_t=f_t\odot c_{t-1}+i_t\odot \tilde{c}\_t \\\\
+&amp;o_t=\sigma(x_tW_{xo}^T+h_{t-1}W_{ho}^T) \\\\
+&amp;h_t=o_t\odot\tanh(c_t)
+\end{align*}\end{split}\]</div>
+<p>Idea: Long Short-Term Memory - use 3 gates:</p>
+<ol class="arabic simple">
+<li><p><strong>Input gate</strong>: determine what new info from <span class="math notranslate nohighlight">\( x_t\)</span> should be added to cell state <span class="math notranslate nohighlight">\(c_t \)</span>.</p></li>
+<li><p><strong>Forget gate</strong>: determine what info from prev cell <span class="math notranslate nohighlight">\( c_{t-1} \)</span> should be forgotten.</p></li>
+<li><p><strong>Candidate cell</strong>: create a new candidate cell from <span class="math notranslate nohighlight">\( x_t\)</span> and <span class="math notranslate nohighlight">\(h_{t-1} \)</span>.</p></li>
+<li><p><strong>Update cell</strong>: use <span class="math notranslate nohighlight">\( i_t\)</span> and <span class="math notranslate nohighlight">\(f_t \)</span> to combine prev and new candidate cells.</p></li>
+<li><p><strong>Output gate</strong>: determine what info from curr cell <span class="math notranslate nohighlight">\( c_t\)</span> should be added to output <span class="math notranslate nohighlight">\(h_t \)</span>.</p></li>
+<li><p><strong>Final</strong>: simply apply <span class="math notranslate nohighlight">\( o_t\)</span> to activated cell <span class="math notranslate nohighlight">\(c_t \)</span>.</p></li>
+</ol>
+<p>Notations:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( i_t\)</span>: input gate at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( f_t\)</span>: forget gate at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( c_t\)</span>: cell state at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{cell}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( o_t\)</span>: output gate at time <span class="math notranslate nohighlight">\(t\)</span> of shape <span class="math notranslate nohighlight">\((m,H_{out}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( H_{cell}\)</span>: cell hidden size (in most cases same as <span class="math notranslate nohighlight">\(H_{out} \)</span>)</p></li>
+</ul>
+</section>
+<section id="bidirectional">
+<h2>Bidirectional<a class="headerlink" href="#bidirectional" title="Link to this heading">#</a></h2>
+</section>
+<section id="stacked">
+<h2>Stacked<a class="headerlink" href="#stacked" title="Link to this heading">#</a></h2>
+<br/>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="transformer">
+<h1>Transformer<a class="headerlink" href="#transformer" title="Link to this heading">#</a></h1>
+<a class="reference internal image-reference" href="../_images/transformer.png"><img alt="../_images/transformer.png" class="align-center" src="../_images/transformer.png" style="width: 500px;" /></a>
+<p><strong>What</strong>: Transformer exploits self-attention mechanisms for sequential data.</p>
+<p><strong>Why</strong>:</p>
+<ul class="simple">
+<li><p><strong>long-range dependencies</strong>: directly model relationships between any two positions in the sequence regardless of their distance, whereas RNNs struggle with tokens that are far apart.</p></li>
+<li><p><strong>parallel processing</strong>: process all tokens in parallel, whereas RNNs process them in sequence.</p></li>
+<li><p><strong>flexibility</strong>: can be easily modified and transferred to various structures and tasks.</p></li>
+</ul>
+<p><strong>Where</strong>: NLP, CV, Speech, Time Series, Generative tasks, etc.</p>
+<p><strong>When</strong>:</p>
+<ul class="simple">
+<li><p>sequential data independence: a sequence can be processed in parallel to a certain extent.</p></li>
+<li><p>importance of contextual relationships</p></li>
+<li><p>importance of high-dimensional representations</p></li>
+<li><p>sufficient data &amp; sufficient computational resources</p></li>
+</ul>
+<p><strong>How</strong>:</p>
+<ul class="simple">
+<li><p>All layers used in transformer:</p>
+<ul>
+<li><p><a class="reference internal" href="#positional-encoding"><span class="xref myst">Positional Encoding</span></a></p></li>
+<li><p><a class="reference internal" href="#residual-block-resnet"><span class="xref myst">Residual Connection</span></a></p></li>
+<li><p><a class="reference internal" href="#layer-normalization"><span class="xref myst">Layer Normalization</span></a></p></li>
+<li><p><a class="reference internal" href="#postion-wise-feed-forward-networks"><span class="xref myst">Position-wise Feed-Forward Networks</span></a></p></li>
+<li><p><a class="reference internal" href="#multi-head-attention"><span class="xref myst">Multi-Head Attention</span></a></p></li>
+</ul>
+</li>
+<li><p>Each sublayer follows this structure: <span class="math notranslate nohighlight">\( \text{LayerNorm}(x+\text{Sublayer}(x)) \)</span></p></li>
+<li><p><strong>Input</strong>: input/output token embeddings <span class="math notranslate nohighlight">\( \xrightarrow{\text{PE}} \)</span> input for Encoder/Decoder</p></li>
+<li><p><strong>Encoder</strong>: input <span class="math notranslate nohighlight">\( \xrightarrow{\text{MHA}}\)</span><span class="math notranslate nohighlight">\(\xrightarrow{\text{FFN}}\)</span> <span class="math notranslate nohighlight">\(K\)</span>&amp;<span class="math notranslate nohighlight">\(V \)</span> for Decoder</p></li>
+<li><p><strong>Decoder</strong>: output <span class="math notranslate nohighlight">\( \xrightarrow{\text{Masked MHA}}\)</span> <span class="math notranslate nohighlight">\(Q\)</span> + Encoder’s <span class="math notranslate nohighlight">\(K\)</span>&amp;<span class="math notranslate nohighlight">\(V\)</span> <span class="math notranslate nohighlight">\(\xrightarrow{\text{MHA}}\)</span><span class="math notranslate nohighlight">\(\xrightarrow{\text{FFN}} \)</span> Decoder embeddings</p></li>
+<li><p><strong>Output</strong>: Decoder embeddings <span class="math notranslate nohighlight">\( \xrightarrow{\text{Linear}}\)</span> embeddings shaped for token prediction <span class="math notranslate nohighlight">\(\xrightarrow{\text{Softmax}} \)</span> token probabilities</p></li>
+</ul>
+<p><strong>Training</strong>:</p>
+<ul class="simple">
+<li><p><strong>Parameters</strong>:</p>
+<ul>
+<li><p>Encoder: <span class="math notranslate nohighlight">\( \text{\\#params}=h\cdot d\_{\text{model}}\cdot (2d\_k+d\_v)+2\cdot d\_{\text{model}}\cdot d\_{\text{ff}} \)</span></p></li>
+<li><p>Decoder: <span class="math notranslate nohighlight">\( \text{\\#params}=2\cdot h\cdot d\_{\text{model}}\cdot (2d\_k+d\_v)+2\cdot d\_{\text{model}}\cdot d\_{\text{ff}} \)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Hyperparameters</strong>:</p>
+<ul>
+<li><p>#layers</p></li>
+<li><p>hidden size</p></li>
+<li><p>#heads</p></li>
+<li><p>learning rate (&amp; warm-up steps)</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Inference</strong>:</p>
+<ol class="arabic simple">
+<li><p>Process input tokens in parallel via encoder.</p></li>
+<li><p>Generate output tokens sequentially via decoder.</p></li>
+</ol>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>high computation efficiency (training &amp; inference)</p></li>
+<li><p>high performance</p></li>
+<li><p>wide applicability</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>require sufficient computation resources</p></li>
+<li><p>require sufficient large-scale data</p></li>
+</ul>
+<section id="positional-encoding">
+<h2>Positional Encoding<a class="headerlink" href="#positional-encoding" title="Link to this heading">#</a></h2>
+<p><strong>What</strong>: Positional Encoding encodes sequence order info of tokens into embeddings.</p>
+<p><strong>Why</strong>: So that the model can still make use of the sequence order info since no recurrence/convolution is available for it.</p>
+<p><strong>Where</strong>: After tokenization &amp; Before feeding into model.</p>
+<p><strong>When</strong>: The hypothesis that <strong>relative positions</strong> allow the model to learn to attend easier holds.</p>
+<p><strong>How</strong>: sinusoid with wavelengths from a geometric progression from <span class="math notranslate nohighlight">\( 2\pi\)</span> to <span class="math notranslate nohighlight">\(10000\cdot2\pi \)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\text{PE}\_{(pos,2i)}&amp;=\sin(\frac{pos}{10000^{\frac{2i}{d_\text{model}}}})\\\\
+\text{PE}\_{(pos,2i+1)}&amp;=\cos(\frac{pos}{10000^{\frac{2i}{d_\text{model}}}})
+\end{align*}\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( pos \)</span>: absolute position of the token</p></li>
+<li><p><span class="math notranslate nohighlight">\( i \)</span>: dimension</p></li>
+<li><p>For any fixed offset <span class="math notranslate nohighlight">\( k\)</span>, <span class="math notranslate nohighlight">\(PE_{pos+k}\)</span> is a linear function of <span class="math notranslate nohighlight">\(PE_{pos} \)</span>.</p></li>
+</ul>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>allow model to extrapolate to sequence lengths longer than the training sequences</p></li>
+</ul>
+<p><strong>Cons</strong>: ???</p>
+</section>
+<section id="scaled-dot-product-attention">
+<h2>Scaled Dot-Product Attention<a class="headerlink" href="#scaled-dot-product-attention" title="Link to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../_images/scaled_dot_product_attention.png"><img alt="../_images/scaled_dot_product_attention.png" class="align-center" src="../_images/scaled_dot_product_attention.png" style="width: 200px;" /></a>
+<p><strong>What</strong>: An effective &amp; efficient variation of self-attention.</p>
+<p><strong>Why</strong>:</p>
+<ul class="simple">
+<li><p>The end goal is <strong>Attention</strong> - “Which parts of the sentence should we focus on?”</p></li>
+<li><p>We want to <strong>capture the most relevant info</strong> in the sentence.</p></li>
+<li><p>And we also want to <strong>keep track of all info</strong> in the sentence as well, just with different weights.</p></li>
+<li><p>We want to create <strong>contextualized representations</strong> of the sentence.</p></li>
+<li><p>Therefore, attention mechanism - we want to assign different attention scores to each token.</p></li>
+</ul>
+<p><strong>When</strong>:</p>
+<ul class="simple">
+<li><p><strong>linearity</strong>: Relationship between tokens can be captured via linear transformation.</p></li>
+<li><p><strong>Position independence</strong>: Relationship between tokens are independent of positions (fixed by Positional Encoding).</p></li>
+</ul>
+<p><strong>How</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V
+\]</div>
+<ul class="simple">
+<li><p>Preliminaries:</p>
+<ul>
+<li><p><strong>Query (Q)</strong>: a <strong>question</strong> about a token - “How important is this token in the context of the whole sentence?”</p></li>
+<li><p><strong>Key (K)</strong>: a piece of <strong>unique identifier</strong> about a token - “Here’s something unique about this token.”</p></li>
+<li><p><strong>Value (V)</strong>: the <strong>actual meaning</strong> of a token - “Here’s the content about this token.”</p></li>
+</ul>
+</li>
+<li><p>Procedure:</p>
+<ol class="arabic simple">
+<li><p><strong>Compare the similarity</strong> between the <strong>Q</strong> of one word and the <strong>K</strong> of every other word.</p>
+<ul>
+<li><p>The more similar, the more attention we should give to that word for the queried word.</p></li>
+</ul>
+</li>
+<li><p><strong>Scale down</strong> by <span class="math notranslate nohighlight">\( \sqrt{d_k} \)</span> to avoid the similarity scores being too large.</p>
+<ul>
+<li><p>Dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients.</p></li>
+<li><p>They grow large because, if <span class="math notranslate nohighlight">\( q,k\sim N(0,1)\)</span>, then <span class="math notranslate nohighlight">\(qk=\sum_{i=1}^{d_k}q_ik_i\sim N(0,d_k) \)</span>.</p></li>
+</ul>
+</li>
+<li><p>Convert the attention scores into a <strong>probability distribution</strong>.</p>
+<ul>
+<li><p>Softmax sums up to 1 and emphasizes important attention weights (and reduces the impact of negligible ones).</p></li>
+</ul>
+</li>
+<li><p>Calculate the <strong>weighted combination</strong> of all words, for each queried word, as the final attention score.</p></li>
+</ol>
+</li>
+</ul>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>significantly higher computational efficiency (time &amp; space) than additive attention</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>outperformed by additive attention if without scaling for large values of <span class="math notranslate nohighlight">\( d_k \)</span></p></li>
+</ul>
+</section>
+<section id="multi-head-attention">
+<h2>Multi-Head Attention<a class="headerlink" href="#multi-head-attention" title="Link to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../_images/mha.png"><img alt="../_images/mha.png" class="align-center" src="../_images/mha.png" style="width: 300px;" /></a>
+<p><strong>What</strong>: A combination of multiple scaled dot-product attention heads in parallel.</p>
+<ul class="simple">
+<li><p>Masked MHA: mask the succeeding tokens off because they can’t be seen during decoding.</p></li>
+</ul>
+<p><strong>Why</strong>: To allow the model to jointly attend to info from different representation subspaces at different positions.</p>
+<p><strong>When</strong>: The assumption of independence of attention heads holds.</p>
+<p><strong>How</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+\text{MultiHead}(Q,K,V)&amp;=\text{Concat}(\text{head}_1,\cdots,\text{head}_h)W^O \\\\
+\text{head}_i&amp;=\text{Attention}(QW_i^Q,KW_i^K,VW_i^V)
+\end{align*}\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( W_i^Q\in\mathbb{R}^{d_\text{model}\times d_k},W_i^K\in\mathbb{R}^{d_\text{model}\times d_k},W_i^V\in\mathbb{R}^{d_\text{model}\times d_v} \)</span>: learnable linear projection params.</p></li>
+<li><p><span class="math notranslate nohighlight">\( W^O\in\mathbb{R}^{d_\text{model}\times hd_v} \)</span>: learnable linear combination weights.</p></li>
+<li><p><span class="math notranslate nohighlight">\( h=8, d_k=d_v=\frac{d_\text{model}}{h}=64 \)</span> in the original paper.</p></li>
+</ul>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>better performance than single head</p></li>
+</ul>
+<p><strong>Cons</strong>: ???</p>
+</section>
+<section id="postion-wise-feed-forward-networks">
+<h2>Postion-wise Feed-Forward Networks<a class="headerlink" href="#postion-wise-feed-forward-networks" title="Link to this heading">#</a></h2>
+<p><strong>What</strong>: 2 linear transformations with ReLU in between.</p>
+<p><strong>Why</strong>: Just like 2 convolutions with kernel size 1.</p>
+<p><strong>How</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{FFN}(x)=\max(0,xW_1+b_1)W_2+b_2
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( d_\text{model}=512 \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( d_\text{FF}=2048 \)</span></p></li>
+</ul>
+<!-- # Transformer
+## Positional Encoding
+## Attention
+### Self-Attention
+### Multi-Head Attention -->
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="activation">
+<h1>Activation<a class="headerlink" href="#activation" title="Link to this heading">#</a></h1>
+<p>An activation function adds nonlinearity to the output of a layer to enhance complexity. <a class="reference internal" href="#relu"><span class="xref myst">ReLU</span></a> and <a class="reference internal" href="#softmax"><span class="xref myst">Softmax</span></a> are SOTA.</p>
+<p>Notations:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( z \)</span>: input (element-wise)</p></li>
+</ul>
+<section id="binary-like">
+<h2>Binary-like<a class="headerlink" href="#binary-like" title="Link to this heading">#</a></h2>
+<section id="sigmoid">
+<h3>Sigmoid<a class="headerlink" href="#sigmoid" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\sigma(z)=\frac{1}{1+e^{-z}}
+\]</div>
+<p>Idea:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \sigma(z)\in(0,1)\)</span> and <span class="math notranslate nohighlight">\(\sigma(0)=0.5 \)</span>.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>imitation of the firing rate of a neuron, 0 if too negative and 1 if too positive.</p></li>
+<li><p>smooth gradient.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>vanishing gradient: gradients rapidly shrink to 0 along backprop as long as any input is too positive or too negative.</p></li>
+<li><p>non-zero centric bias <span class="math notranslate nohighlight">\( \rightarrow \)</span> non-zero mean activations.</p></li>
+<li><p>computationally expensive.</p></li>
+</ul>
+</section>
+<section id="tanh">
+<h3>Tanh<a class="headerlink" href="#tanh" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\tanh(z)=\frac{e^z-e^{-z}}{e^z+e^{-z}}
+\]</div>
+<p>Idea:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \tanh(z)\in(-1,1)\)</span> and <span class="math notranslate nohighlight">\(\tanh(0)=0 \)</span>.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>zero-centered</p></li>
+<li><p>imitation of the firing rate of a neuron, -1 if too negative and 1 if too positive.</p></li>
+<li><p>smooth gradient.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>vanishing gradient.</p></li>
+<li><p>computationally expensive.</p></li>
+</ul>
+</section>
+</section>
+<section id="linear-units-rectified">
+<h2>Linear Units (Rectified)<a class="headerlink" href="#linear-units-rectified" title="Link to this heading">#</a></h2>
+<section id="relu">
+<h3>ReLU<a class="headerlink" href="#relu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{ReLU}(z)=\max{(0,z)}
+\]</div>
+<p>Name: Rectified Linear Unit</p>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>convert negative linear outputs to 0.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>no vanishing gradient</p></li>
+<li><p>activate fewer neurons</p></li>
+<li><p>much less computationally expensive compared to sigmoid and tanh.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>dying ReLU: if most inputs are negative, then most neurons output 0 <span class="math notranslate nohighlight">\( \rightarrow\)</span> no gradient for such neurons <span class="math notranslate nohighlight">\(\rightarrow\)</span> no param update <span class="math notranslate nohighlight">\(\rightarrow \)</span> they die. (NOTE: A SOLVABLE DISADVANTAGE)</p>
+<ul>
+<li><p>Cause 1: high learning rate <span class="math notranslate nohighlight">\( \rightarrow\)</span> too much subtraction in param update <span class="math notranslate nohighlight">\(\rightarrow\)</span> weight too negative <span class="math notranslate nohighlight">\(\rightarrow \)</span> input for neuron too negative.</p></li>
+<li><p>Cause 2: bias too negative <span class="math notranslate nohighlight">\( \rightarrow \)</span> input for neuron too negative.</p></li>
+</ul>
+</li>
+<li><p>activation explosion as <span class="math notranslate nohighlight">\( z\rightarrow\infty \)</span>. (NOTE: NOT A SEVERE DISADVANTAGE SO FAR)</p></li>
+</ul>
+</section>
+<section id="lrelu">
+<h3>LReLU<a class="headerlink" href="#lrelu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{LReLU}(z)=\max{(\alpha z,z)}
+\]</div>
+<p>Name: Leaky Rectified Linear Unit</p>
+<p>Params:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \alpha\in(0,1) \)</span>: hyperparam (negative slope), default 0.01.</p></li>
+</ul>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>scale negative linear outputs by <span class="math notranslate nohighlight">\( \alpha \)</span>.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>no dying ReLU.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>slightly more computationally expensive than ReLU.</p></li>
+<li><p>activation explosion as <span class="math notranslate nohighlight">\( z\rightarrow\infty \)</span>.</p></li>
+</ul>
+</section>
+<section id="prelu">
+<h3>PReLU<a class="headerlink" href="#prelu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{PReLU}(z)=\max{(\alpha z,z)}
+\]</div>
+<p>Name: Parametric Rectified Linear Unit</p>
+<p>Params:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \alpha\in(0,1) \)</span>: learnable parameter (negative slope), default 0.25.</p></li>
+</ul>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>scale negative linear outputs by a learnable <span class="math notranslate nohighlight">\( \alpha \)</span>.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>a variable, adaptive parameter learned from data.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>slightly more computationally expensive than LReLU.</p></li>
+<li><p>activation explosion as <span class="math notranslate nohighlight">\( z\rightarrow\infty \)</span>.</p></li>
+</ul>
+</section>
+<section id="rrelu">
+<h3>RReLU<a class="headerlink" href="#rrelu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{RReLU}(z)=\max{(\alpha z,z)}
+\]</div>
+<p>Name: Randomized Rectified Linear Unit</p>
+<p>Params:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \alpha\sim\mathrm{Uniform}(l,u) \)</span>: a random number sampled from a uniform distribution.</p></li>
+<li><p><span class="math notranslate nohighlight">\( l,u \)</span>: hyperparams (lower bound, upper bound)</p></li>
+</ul>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>scale negative linear outputs by a random <span class="math notranslate nohighlight">\( \alpha \)</span>.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>reduce overfitting by randomization.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>slightly more computationally expensive than LReLU.</p></li>
+<li><p>activation explosion as <span class="math notranslate nohighlight">\( z\rightarrow\infty \)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="linear-units-exponential">
+<h2>Linear Units (Exponential)<a class="headerlink" href="#linear-units-exponential" title="Link to this heading">#</a></h2>
+<section id="elu">
+<h3>ELU<a class="headerlink" href="#elu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathrm{ELU}(z)=\begin{cases}
+z &amp; \mathrm{if}\ z\geq0 \\\\
+\alpha(e^z-1) &amp; \mathrm{if}\ z&lt;0
+\end{cases}
+\end{split}\]</div>
+<p>Name: Exponential Linear Unit</p>
+<p>Params:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \alpha \)</span>: hyperparam, default 1.</p></li>
+</ul>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>convert negative linear outputs to the non-linear exponential function above.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>mean unit activation is closer to 0 <span class="math notranslate nohighlight">\( \rightarrow \)</span> reduce bias shift (i.e., non-zero mean activation is intrinsically a bias for the next layer.)</p></li>
+<li><p>lower computational complexity compared to batch normalization.</p></li>
+<li><p>smooth to <span class="math notranslate nohighlight">\( -\alpha \)</span> slowly with smaller derivatives that decrease forwardprop variation.</p></li>
+<li><p>faster learning and higher accuracy for image classification in practice.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>slightly more computationally expensive than ReLU.</p></li>
+<li><p>activation explosion as <span class="math notranslate nohighlight">\( z\rightarrow\infty \)</span>.</p></li>
+</ul>
+</section>
+<section id="selu">
+<h3>SELU<a class="headerlink" href="#selu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathrm{SELU}(z)=\lambda\begin{cases}
+z &amp; \mathrm{if}\ z\geq0 \\
+\alpha(e^z-1) &amp; \mathrm{if}\ z&lt;0
+\end{cases}
+\end{split}\]</div>
+<p>Name: Scaled Exponential Linear Unit</p>
+<p>Params:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \alpha \)</span>: hyperparam, default 1.67326.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \lambda \)</span>: hyperparam (scale), default 1.05070.</p></li>
+</ul>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>scale ELU.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>self-normalization <span class="math notranslate nohighlight">\( \rightarrow \)</span> activations close to zero mean and unit variance that are propagated through many network layers will converge towards zero mean and unit variance.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>more computationally expensive than ReLU.</p></li>
+<li><p>activation explosion as <span class="math notranslate nohighlight">\( z\rightarrow\infty \)</span>.</p></li>
+</ul>
+</section>
+<section id="celu">
+<h3>CELU<a class="headerlink" href="#celu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathrm{CELU}(z)=\begin{cases}
+z &amp; \mathrm{if}\ z\geq0\\
+\alpha(e^{\frac{z}{\alpha}}-1) &amp; \mathrm{if}\ z&lt;0
+\end{cases}
+\end{split}\]</div>
+<p>Name: Continuously Differentiable Exponential Linear Unit</p>
+<p>Params:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \alpha \)</span>: hyperparam, default 1.</p></li>
+</ul>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>scale the exponential part of ELU with <span class="math notranslate nohighlight">\( \frac{1}{\alpha} \)</span> to make it continuously differentiable.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>smooth gradient due to continuous differentiability (i.e., <span class="math notranslate nohighlight">\( \mathrm{CELU}'(0)=1 \)</span>).</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>slightly more computationally expensive than ELU.</p></li>
+<li><p>activation explosion as <span class="math notranslate nohighlight">\( z\rightarrow\infty \)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="linear-units-others">
+<h2>Linear Units (Others)<a class="headerlink" href="#linear-units-others" title="Link to this heading">#</a></h2>
+<section id="gelu">
+<h3>GELU<a class="headerlink" href="#gelu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{GELU}(z)=z*\Phi(z)=0.5z(1+\tanh{[\sqrt{\frac{2}{\pi}}(z+0.044715z^3)]})
+\]</div>
+<p>Name: Gaussian Error Linear Unit</p>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>weigh each output value by its Gaussian cdf.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>throw away gate structure and add probabilistic-ish feature to neuron outputs.</p></li>
+<li><p>seemingly better performance than the ReLU and ELU families, SOTA in transformers.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>slightly more computationally expensive than ReLU.</p></li>
+<li><p>lack of practical testing at the moment.</p></li>
+</ul>
+</section>
+<section id="silu">
+<h3>SiLU<a class="headerlink" href="#silu" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{SiLU}(z)=z*\sigma(z)
+\]</div>
+<p>Name: Sigmoid Linear Unit</p>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>weigh each output value by its sigmoid value.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>throw away gate structure.</p></li>
+<li><p>seemingly better performance than the ReLU and ELU families.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>worse than GELU.</p></li>
+</ul>
+</section>
+<section id="softplus">
+<h3>Softplus<a class="headerlink" href="#softplus" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{softplus}(z)=\frac{1}{\beta}\log{(1+e^{\beta z})}
+\]</div>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>smooth approximation of ReLU.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>differentiable and thus theoretically better than ReLU.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>empirically far worse than ReLU in terms of computation and performance.</p></li>
+</ul>
+</section>
+</section>
+<section id="multiclass">
+<h2>Multiclass<a class="headerlink" href="#multiclass" title="Link to this heading">#</a></h2>
+<section id="softmax">
+<h3>Softmax<a class="headerlink" href="#softmax" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{softmax}(z_i)=\frac{\exp{(z_i)}}{\sum_j{\exp{(z_j)}}}
+\]</div>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>convert each value <span class="math notranslate nohighlight">\( z_i\)</span> in the output tensor <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> into its corresponding exponential probability s.t. <span class="math notranslate nohighlight">\(\sum_i{\mathrm{softmax}(z_i)}=1 \)</span>.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>your single best choice for multiclass classification.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>mutually exclusive classes (i.e., one input can only be classified into one class.)</p></li>
+</ul>
+</section>
+<section id="softmin">
+<h3>Softmin<a class="headerlink" href="#softmin" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{softmin}(z_i)=\mathrm{softmax}(-z_i)=\frac{\exp{(-z_i)}}{\sum_j{\exp{(-z_j)}}}
+\]</div>
+<p>Idea:</p>
+<ul class="simple">
+<li><p>reverse softmax.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>suitable for multiclass classification.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>why not softmax.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./dl"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Hi👋</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../irl/overview.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Overview</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Layer</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic">Basic</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear">Linear</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization">Regularization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alpha">Alpha</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian">Gaussian</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l1-l2">L1/L2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-connection">Residual Connection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization">Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch">Batch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Layer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional">Convolutional</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depthwise-separable">Depthwise Separable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atrous-dilated">Atrous/Dilated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pooling">Pooling</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent">Recurrent</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gru">GRU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm">LSTM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bidirectional">Bidirectional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked">Stacked</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer">Transformer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#positional-encoding">Positional Encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">Scaled Dot-Product Attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">Multi-Head Attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postion-wise-feed-forward-networks">Postion-wise Feed-Forward Networks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#activation">Activation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-like">Binary-like</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigmoid">Sigmoid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tanh">Tanh</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-units-rectified">Linear Units (Rectified)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relu">ReLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lrelu">LReLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prelu">PReLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rrelu">RReLU</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-units-exponential">Linear Units (Exponential)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#elu">ELU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selu">SELU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#celu">CELU</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-units-others">Linear Units (Others)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gelu">GELU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#silu">SiLU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softplus">Softplus</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass">Multiclass</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softmax">Softmax</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softmin">Softmin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

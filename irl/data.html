@@ -1,0 +1,920 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'irl/data';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Firl/data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/irl/data.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">Data Collection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">Data Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-imputation">Data Imputation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">Data Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardization">Standardization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization">Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-scaling">Min-Max Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-abs-scaling">Max-Abs Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-scaling">Robust Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-transform">Quantile Transform</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#power-transform">Power Transform</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-features">Categorical features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data Loading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">Indexing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharding-horizontal-partitioning">Sharding (Horizontal Partitioning)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-processing">Parallel Processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing">Distributed Computing</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data">
+<h1>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h1>
+<p>2 Types of data pipelines:</p>
+<ul class="simple">
+<li><p><strong>ETL</strong>: Extract → Transform → Load</p></li>
+<li><p><strong>ELT</strong>: Extract → Load → Transform</p></li>
+</ul>
+<p>This guide focuses on ETL basics.</p>
+<section id="data-collection">
+<h2>Data Collection<a class="headerlink" href="#data-collection" title="Link to this heading">#</a></h2>
+<p>Sources:</p>
+<ul class="simple">
+<li><p><strong>Internal</strong>: Transaction logs, customer databases, sensor data, operational data.</p></li>
+<li><p><strong>External</strong>: Public datasets, third-party data, social media feeds, open-source platforms, user reviews.</p></li>
+<li><p><strong>Synthetic</strong>: Auto-generated data for simulation, used when real data is unavailable due to privacy/rarity.</p></li>
+</ul>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Define requirements.</p></li>
+<li><p>Establish scalable infra.</p></li>
+<li><p>Ensure quality.</p></li>
+<li><p>Continuously monitor.</p></li>
+</ol>
+<p>Methods:</p>
+<ul class="simple">
+<li><p><strong>Direct</strong>: Surveys, observations, experiments, purchases</p>
+<ul>
+<li><p>Tailored for ML tasks, common in R&amp;D.</p></li>
+</ul>
+</li>
+<li><p><strong>Indirect</strong>: Scraping, database access, APIs</p>
+<ul>
+<li><p>Require preprocessing.</p></li>
+</ul>
+</li>
+<li><p><strong>Crowdsourcing</strong>: Large group data generation</p>
+<ul>
+<li><p>Often used for annotations.</p></li>
+</ul>
+</li>
+</ul>
+<p>Challenges: Volume, variety, veracity, velocity, ethics.</p>
+</section>
+<section id="data-cleaning">
+<h2>Data Cleaning<a class="headerlink" href="#data-cleaning" title="Link to this heading">#</a></h2>
+<p>Procedure:</p>
+<ul class="simple">
+<li><p><strong>Handle missing data</strong>:</p>
+<ul>
+<li><p><strong>Deletion</strong>: When the proportion is negligible.</p></li>
+<li><p><strong>Imputation</strong>: Applicable to randomly missing data.</p></li>
+</ul>
+</li>
+<li><p><strong>Remove unwanted samples/features</strong>: Duplicates, irrelevant samples/features, etc.</p></li>
+<li><p><strong>Fix structural errors</strong>: Typos, mislabels, inconsistencies, etc.</p></li>
+<li><p><strong>Filter outliers</strong>: Use domain-specific filters or statistical methods (Z-score, IQR, etc.).</p>
+<ul>
+<li><p>Remove for non-robust models, keep for robust models.</p></li>
+</ul>
+</li>
+<li><p><strong>Handle text data</strong>: Lowercase, punctuation, typos, stopwords, lemmatization, etc.</p></li>
+<li><p><strong>Handle image data</strong>:</p>
+<ul>
+<li><p><strong>Size</strong>: Resizing, cropping, padding, etc.</p></li>
+<li><p><strong>Color</strong>: Grayscale conversion, histogram equalization, color space transformation, etc.</p></li>
+<li><p><strong>Noise</strong>: Gaussian blur, median blur, denoising, artifact removal.</p></li>
+<li><p><strong>File</strong>: Ensure uniform format.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Challenges</strong>: Scalability, unstructured data, information loss due to over-cleaning, etc.</p>
+</section>
+<section id="data-imputation">
+<h2>Data Imputation<a class="headerlink" href="#data-imputation" title="Link to this heading">#</a></h2>
+<p>Procedure (like EM):</p>
+<ol class="arabic simple">
+<li><p>Estimate missing data.</p></li>
+<li><p>Estimate params for imputation.</p></li>
+<li><p>Repeat.</p></li>
+</ol>
+<p>Types:</p>
+<ul class="simple">
+<li><p><strong>Simple</strong>: Zero, majority, mean (usually best).</p>
+<ul>
+<li><p>Assumes no multicollinearity.</p></li>
+</ul>
+</li>
+<li><p><strong>Complex</strong>:</p>
+<ul>
+<li><p><strong>Regression</strong>: Fit missing features on other features, assumes multicollinearity.</p>
+<ul>
+<li><p>Cons: potential assumption failures.</p></li>
+</ul>
+</li>
+<li><p><strong>Indicator addition</strong>: Add 0-1 indicators for missing features.</p>
+<ul>
+<li><p>Cons: feature size doubles.</p></li>
+</ul>
+</li>
+<li><p><strong>Category addition</strong>: Add “missing” category for missing values.</p>
+<ul>
+<li><p>Pros: straightforward, better than doubling.</p></li>
+</ul>
+</li>
+<li><p><strong>Unsupervised Learning</strong>: Used if many categories/features.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="data-transformation">
+<h2>Data Transformation<a class="headerlink" href="#data-transformation" title="Link to this heading">#</a></h2>
+<section id="standardization">
+<h3>Standardization<a class="headerlink" href="#standardization" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[X_\text{new}=\frac{X-\bar{X}}{\Sigma_X}\]</div>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Removes mean &amp; scales data to unit variance (i.e., <span class="math notranslate nohighlight">\( x_i\sim N(0,1)\)</span>).</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Sensitive to outliers (because they affect empirical mean &amp; std).</p></li>
+<li><p>Destroys sparsity (because center is shifted).</p></li>
+</ul>
+</section>
+<section id="normalization">
+<h3>Normalization<a class="headerlink" href="#normalization" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[X_\text{new}=\frac{X}{\text{norm}(X)}\]</div>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Scales samples to unit norms.</p></li>
+<li><p>Supports L1/L2/max norms.</p></li>
+</ul>
+</section>
+<section id="min-max-scaling">
+<h3>Min-Max Scaling<a class="headerlink" href="#min-max-scaling" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+&amp;x\in[0,1]: &amp;&amp;X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}\\
+&amp;x\in[\min,\max]: &amp;&amp;X_\text{new}=\frac{X-\min{(X)}}{\max{(X)}-\min{(X)}}(\text{max}-\text{min})+\text{min}
+\end{align*}\end{split}\]</div>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Scales data to a customizable range.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Sensitive to outliers (because they affect empirical min &amp; max).</p></li>
+<li><p>Destroys sparsity (because center is shifted).</p></li>
+</ul>
+</section>
+<section id="max-abs-scaling">
+<h3>Max-Abs Scaling<a class="headerlink" href="#max-abs-scaling" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[X_\text{new}=\frac{X}{\max{(|X|)}}\]</div>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Preserves signs.</p></li>
+<li><p>Preserves sparsity.</p></li>
+<li><p>Scales data to <span class="math notranslate nohighlight">\([-1,1]\)</span>.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Sensitive to outliers.</p></li>
+</ul>
+</section>
+<section id="robust-scaling">
+<h3>Robust Scaling<a class="headerlink" href="#robust-scaling" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[X_\text{new}=\frac{X-\text{med}(X)}{Q_{75\%}(X)-Q_{25\%}(X)}\]</div>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Robust to outliers</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Destroys sparsity (because center is shifted).</p></li>
+</ul>
+</section>
+<section id="quantile-transform">
+<h3>Quantile Transform<a class="headerlink" href="#quantile-transform" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Original: <span class="math notranslate nohighlight">\(X_\text{new}=Q^{-1}(F(X))\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(Q^{-1}\)</span>: Quantile function (i.e., PPF, inverse of CDF).</p></li>
+<li><p><span class="math notranslate nohighlight">\(F\)</span>: Empirical CDF.</p></li>
+</ul>
+</li>
+<li><p>Uniform: <span class="math notranslate nohighlight">\(X_\text{new}=F_U^{-1}(F(X))\in[0,1]\)</span></p></li>
+<li><p>Gaussian: <span class="math notranslate nohighlight">\(X_\text{new}=F_N^{-1}(F(X))\sim N(0,1)\)</span></p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Robust to outliers (by collapsing them).</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Distorts linear correlations between diff features.</p></li>
+<li><p>Requires large #samples.</p></li>
+</ul>
+</section>
+<section id="power-transform">
+<h3>Power Transform<a class="headerlink" href="#power-transform" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Yeo-Johnson Transform</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \mathbf{x}_i^{(\lambda)}=\begin{cases}
+    \frac{(\mathbf{x}_i+1)^\lambda-1}{\lambda} &amp; \text{if }\lambda\neq0,\mathbf{x}_i\geq0 \\
+    \ln{(\mathbf{x}_i+1)}                      &amp; \text{if }\lambda=0,\mathbf{x}_i\geq0 \\
+    \frac{1-(1-\mathbf{x}_i)^{2-\lambda}}{2-\lambda} &amp; \text{if }\lambda\neq2,\mathbf{x}_i&lt;0 \\
+    -\ln{(1-\mathbf{x}_i)}                           &amp; \text{if }\lambda=2,\mathbf{x}_i&lt;0
+    \end{cases}
+    \end{split}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span>: Determined by MLE.</p></li>
+</ul>
+</li>
+<li><p>Box-Cox Transform</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \mathbf{x}_i^{(\lambda)}=\begin{cases}
+    \frac{\mathbf{x}_i^\lambda-1}{\lambda} &amp; \text{if }\lambda\neq0 \\
+    \ln{(\mathbf{x}_i)} &amp; \text{if }\lambda=0
+    \end{cases}
+    \end{split}\]</div>
+<ul class="simple">
+<li><p>Requires <span class="math notranslate nohighlight">\(\mathbf{x}_i&gt;0\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Maps data to Gaussian distribution (stabilizes variance &amp; minimizes skewness)</p></li>
+<li><p>Useful against heteroskedasticity.</p></li>
+<li><p>Sklearn’s PowerTransformer converts data to <span class="math notranslate nohighlight">\(N(0,1)\)</span> by default.</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Distorts linear correlations between diff features.</p></li>
+</ul>
+</section>
+<section id="categorical-features">
+<h3>Categorical features<a class="headerlink" href="#categorical-features" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>One-Hot Encoding</strong>: Converts each category into a 0-1 feature, better for nominal data.</p></li>
+<li><p><strong>Label Encoding</strong>: Converts each category into a numerical label, better for ordinal data.</p></li>
+</ul>
+</section>
+</section>
+<section id="data-loading">
+<h2>Data Loading<a class="headerlink" href="#data-loading" title="Link to this heading">#</a></h2>
+<p>Loading data IRL is more complex than school projects.</p>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p><strong>Choose Storage</strong>:</p>
+<ul class="simple">
+<li><p><strong>Databases</strong>: SQL (relational, structured), NoSQL (unstructured).</p></li>
+<li><p><strong>Data warehouses</strong>: Ideal for analytical tasks.</p></li>
+<li><p><strong>Data lakes</strong>: Store raw big data from various sources.</p></li>
+<li><p><strong>Cloud storage</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Validate</strong>: Check schema, data quality, integrity, etc.</p></li>
+<li><p><strong>Format</strong>: Ensure proper encoding, batching (for big data), raw saving.</p></li>
+<li><p><strong>Load</strong>:</p>
+<ul class="simple">
+<li><p><strong>Bulk Loading</strong>: Load large data chunks</p>
+<ul>
+<li><p>Minimizes logging and transaction overhead.</p></li>
+<li><p>Requires system downtime.</p></li>
+</ul>
+</li>
+<li><p><strong>Incremental Loading</strong>: Load data in small increments</p>
+<ul>
+<li><p>Uses timestamps/logs to track changes.</p></li>
+<li><p>Minimizes disruption.</p></li>
+<li><p>Ideal for real-time processing.</p></li>
+</ul>
+</li>
+<li><p><strong>Streaming</strong>: Load data continuously in real-time.</p></li>
+</ul>
+</li>
+<li><p><strong>Optimize</strong>: Reduce data volume for faster execution.</p>
+<ul class="simple">
+<li><p><strong><a class="reference internal" href="#indexing"><span class="xref myst">Indexing</span></a></strong>: Use primary/secondary indexes for faster data retrieval.</p>
+<ul>
+<li><p>Best for tables with low data churn.</p></li>
+</ul>
+</li>
+<li><p><strong><a class="reference internal" href="#sharding-horizontal-partitioning"><span class="xref myst">Partitioning</span></a></strong>: Divide databases/tables for independent querying.</p>
+<ul>
+<li><p>Best for older records.</p></li>
+</ul>
+</li>
+<li><p><strong><a class="reference internal" href="#parallel-processing"><span class="xref myst">Parallel Processing</span></a></strong></p></li>
+</ul>
+</li>
+<li><p><strong>Handle Errors</strong></p></li>
+<li><p><strong>Ensure Security</strong>: Encryption, access control, etc.</p></li>
+<li><p><strong>Verify</strong>: Audit with test queries, reconcile loaded data with source data, etc.</p></li>
+</ol>
+<section id="indexing">
+<h3>Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h3>
+<p>What: Create quick lookup paths using B trees/B+ trees for faster data retrieval.</p>
+<p>Types:</p>
+<ul class="simple">
+<li><p><strong>Single-column</strong>: For frequent access/filtering of one column.</p></li>
+<li><p><strong>Composite</strong>: For frequent filtering/sorting based on multiple columns.</p></li>
+<li><p><strong>Unique</strong>: Ensures all index values are unique, used as primary key.</p></li>
+<li><p><strong>Full-text</strong>: For complex queries on unstructured texts.</p></li>
+<li><p><strong>Spatial</strong>: For geospatial operations.</p></li>
+</ul>
+<p>Pros: Fast retrieval, automatic sorting, high time efficiency.</p>
+<p>Cons: Low space efficiency, high maintenance complexity.</p>
+</section>
+<section id="sharding-horizontal-partitioning">
+<h3>Sharding (Horizontal Partitioning)<a class="headerlink" href="#sharding-horizontal-partitioning" title="Link to this heading">#</a></h3>
+<p>What: Distribute data across multiple servers/locations using a shard key for horizontal database scaling.</p>
+<p>Types:</p>
+<ul class="simple">
+<li><p><strong>Hash-based</strong>: Even data division using a hash function.</p></li>
+<li><p><strong>Range-based</strong>: Numerical data division using key value ranges.</p></li>
+<li><p><strong>List-based</strong>: Categorical data division using predefined shard key lists.</p></li>
+</ul>
+<p>Uses: Web apps, real-time analytics, game/media services, etc.</p>
+<p>Pros: Horizontal scalability, high availability.</p>
+<p>Cons: Implementation &amp; maintenance complexity.</p>
+</section>
+<section id="parallel-processing">
+<h3>Parallel Processing<a class="headerlink" href="#parallel-processing" title="Link to this heading">#</a></h3>
+<p>Parallel processing runs on a single computer (node).</p>
+<p>Concepts:</p>
+<ul class="simple">
+<li><p><strong>Core</strong>: Independent instruction execution units in a processor.</p></li>
+<li><p><strong>Thread</strong>: Sub-tasks run independently on a core.</p></li>
+<li><p><strong>Memory</strong>: Shared or distributed.</p></li>
+</ul>
+<p>Types:</p>
+<ul class="simple">
+<li><p><strong>Data Parallelism</strong>: Process data chunks simultaneously on different cores.</p></li>
+<li><p><strong>Task Parallelism</strong>: Execute different tasks in parallel.</p></li>
+</ul>
+<p>Methods:</p>
+<ul class="simple">
+<li><p><strong>Multithreading</strong>: Use libraries like C/C++ OpenMP, Python threading, etc.</p></li>
+<li><p><strong>GPGPU</strong>: Use CUDA/OpenCL for efficient parallel computing.</p></li>
+</ul>
+</section>
+<section id="distributed-computing">
+<h3>Distributed Computing<a class="headerlink" href="#distributed-computing" title="Link to this heading">#</a></h3>
+<p>Distributed Computing runs on multiple independent computers (nodes).</p>
+<p>Concepts:</p>
+<ul class="simple">
+<li><p><strong>Networks</strong>: Connect multiple computers.</p></li>
+<li><p><strong>Horizontal Scalability</strong>: Performance improves with more machines.</p></li>
+<li><p><strong>Fault Tolerance</strong>: Handle node/network failures without affecting the overall task.</p></li>
+</ul>
+<p><strong>Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>MapReduce</strong>: Process big data with distributed algorithms.</p>
+<ul>
+<li><p><strong>Map</strong>: Filter and sort data.</p></li>
+<li><p><strong>Reduce</strong>: Summarize data.</p></li>
+</ul>
+</li>
+<li><p><strong>Distributed Databases</strong>: Store data across multiple locations but appear as a single database.</p></li>
+<li><p><strong>Load Balancing</strong>: Evenly distribute workloads to maximize resource usage and minimize response time.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./irl"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Overview</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">Data Collection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">Data Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-imputation">Data Imputation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">Data Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardization">Standardization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization">Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-scaling">Min-Max Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-abs-scaling">Max-Abs Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-scaling">Robust Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-transform">Quantile Transform</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#power-transform">Power Transform</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-features">Categorical features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data Loading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">Indexing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharding-horizontal-partitioning">Sharding (Horizontal Partitioning)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-processing">Parallel Processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing">Distributed Computing</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

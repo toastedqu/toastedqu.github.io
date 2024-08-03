@@ -1,0 +1,1815 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Basics of CNN &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dl/models';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="layer.html">Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toolbox.html">Toolbox</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../irl/overview.html">Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../irl/data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../irl/coding.html">Coding interview</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdl/models.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/dl/models.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Basics of CNN</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basics of CNN</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-examples">CNN Examples</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection">Object Detection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#face-recognition">Face Recognition</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-rnn">Basics of RNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition-of-sequence-models"><strong>Intuition of Sequence Models</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition-of-rnn"><strong>Intuition of RNN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnn-types"><strong>RNN Types</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-model"><strong>Language Model</strong></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rnn-variations">RNN Variations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gru-gated-recurrent-unit"><strong>GRU</strong> (Gated Recurrent Unit)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm-long-short-term-memory"><strong>LSTM</strong> (Long Short-Term Memory)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bidirectional-rnn"><strong>Bidirectional RNN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-rnn"><strong>Deep RNN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#featurized-representation"><strong>Featurized Representation</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-1-word2vec">Learning 1: <strong>Word2Vec</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-2-negative-sampling">Learning 2: <strong>Negative Sampling</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-3-glove-global-vectors">Learning 3: <strong>GloVe</strong> (Global Vectors)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-modeling">Sequence Modeling</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-classification"><strong>Sentiment Classification</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seq2seq"><strong>Seq2Seq</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beam-search"><strong>Beam Search</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bleu-score"><strong>Bleu Score</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-model"><strong>Attention Model</strong></a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>!– # Convolutional Neural Networks {#cnn} –&gt;</p>
+<section id="basics-of-cnn">
+<h1>Basics of CNN<a class="headerlink" href="#basics-of-cnn" title="Link to this heading">#</a></h1>
+<ul>
+<li><p><a name="cnn"></a><strong>Intuition of CNN</strong></p>
+  <center><img src="../../images/DL/cnn.gif" width="500"/></center>
+  <br/>
+  - CNN is mostly used in Computer Vision (image classification, object detection, neural style transfer, etc.)  
+<ul>
+<li><p><strong>Input</strong>: images <span class="math notranslate nohighlight">\( \rightarrow\)</span> volume of numerical values in the shape of <strong>width <span class="math notranslate nohighlight">\(\times\)</span> height <span class="math notranslate nohighlight">\(\times\)</span> color-scale</strong> (color-scale=3 <span class="math notranslate nohighlight">\(\rightarrow\)</span> RGB; color-scale=1 <span class="math notranslate nohighlight">\(\rightarrow \)</span> BW)</p>
+<p>In the gif above, the input shape is <span class="math notranslate nohighlight">\( 5\times5\times3\)</span>, meaning that the image is colored and the image size <span class="math notranslate nohighlight">\(5\times5\)</span>. The “<span class="math notranslate nohighlight">\(7\times7\times3 \)</span>“ results from <strong>padding</strong>, which will be discussed below.</p>
+</li>
+<li><p><strong>Convolution</strong>:</p>
+<ol class="arabic simple">
+<li><p>For each color layer of the input image, we apply a 2d <strong>filter</strong> that <strong>scans</strong> through the layer in order.</p></li>
+<li><p>For each block that the filter scans, we <strong>multiply</strong> the corresponding filter value and the cell value, and we <strong>sum</strong> them up.</p></li>
+<li><p>We <strong>sum</strong> up the output values from all layers of the filter (and add a bias value to it) and <strong>output</strong> this value to the corresponding output cell.</p></li>
+<li><p>(If there are multiple filters, ) After the first filter finishes scanning, the next filter starts scanning and outputs into a new layer.<br />
+<br/></p></li>
+</ol>
+</li>
+<li><p>In the gif above,</p>
+<ol class="arabic">
+<li><p>Apply 2 filters of the shape <span class="math notranslate nohighlight">\( 3\times3\times3 \)</span>.</p></li>
+<li><p>1st filter - 1st layer - 1st block:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+            0+0+0+0+0+0+0+(1\times-1)+0=-1
+            \end{equation}\]</div>
+<p>1st filter - 2nd layer - 1st block:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+            0+0+0+0+(2\times-1)+(1\times1)+0+(2\times1)+0=1
+            \end{equation}\]</div>
+<p>1st filter - 3rd layer - 1st block:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+            0+0+0+0+(2\times1)+0+0+(1\times-1)+0=1
+            \end{equation}\]</div>
+</li>
+<li><p>Sum up + bias <span class="math notranslate nohighlight">\( \rightarrow \)</span> 1st cell of 1st output layer</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+            -1+1+1+1=2
+            \end{equation}\]</div>
+</li>
+<li><p>Repeat till we finish scanning<br />
+<br/></p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>Edge Detection &amp; Filter</strong></p>
+<ul>
+<li><p>Sample filters</p>
+  <center><img src="../../images/DL/edgedetect.png" width="500"/></center>
+<ul class="simple">
+<li><p>Gray Scale: 1 = lighter, 0 = gray, -1 = darker<br />
+<br/></p></li>
+</ul>
+</li>
+<li><p>Notice that we don’t really need to define any filter values. Instead, we are supposed to train the filter values.<br />
+All the convolution operations above are just the same as the operations in ANN. Filters here correspond to <span class="math notranslate nohighlight">\( W \)</span> in ANN.</p></li>
+</ul>
+</li>
+<li><p><strong>Padding</strong></p>
+<ul class="simple">
+<li><p>Problem: corner cells &amp; edge cells are detected much fewer times than the middle cells <span class="math notranslate nohighlight">\( \rightarrow \)</span> info loss of corner &amp; edge</p></li>
+<li><p>Solution: pad the edges of the image with “0” cells (as shown in the gif above)</p></li>
+</ul>
+</li>
+<li><p><strong>Stride</strong>: the step size the filter takes (<span class="math notranslate nohighlight">\( s=2 \)</span> in the gif above)</p></li>
+<li><p><a name="formula"></a><strong>General Formula of Convolution</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \text{Output Size}=\left\lfloor\frac{n+2p-f}{s}+1\right\rfloor\times\left\lfloor\frac{n+2p-f}{s}+1\right\rfloor
+    \end{equation}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n\times n \)</span>: image size</p></li>
+<li><p><span class="math notranslate nohighlight">\( f\times f \)</span>: filter size</p></li>
+<li><p><span class="math notranslate nohighlight">\( p \)</span>: padding</p></li>
+<li><p><span class="math notranslate nohighlight">\( s \)</span>: stride</p></li>
+<li><p>Floor: ignore the computation when the filter sweeps the region outside the image matrix<br />
+<br/></p></li>
+</ul>
+</li>
+<li><p><a name="layers"></a><strong>CNN Layers</strong>:</p>
+<ul>
+<li><p><strong>Convolution</strong> (CONV): as described above</p></li>
+<li><p><a name="pool"></a><strong>Pooling</strong> (POOL): to reduce #params &amp; computations (most common pooling size = <span class="math notranslate nohighlight">\( 2\times2 \)</span>)</p>
+<ul>
+<li><p>Max Pooling</p>
+  <center><img src="../../images/DL/maxpool.png" height="200"/></center>
+<ol class="arabic simple">
+<li><p>Divide the matrix evenly into regions</p></li>
+<li><p>Take the max value in that region as output value<br />
+<br/></p></li>
+</ol>
+</li>
+<li><p>Average Pooling</p>
+  <center><img src="../../images/DL/avgpool.png" height="190"/></center>
+<ol class="arabic simple">
+<li><p>Divide the matrix evenly into regions</p></li>
+<li><p>Take the average value of the cells in that region as output value<br />
+<br/></p></li>
+</ol>
+</li>
+<li><p>Stochastic Pooling</p>
+  <center><img src="../../images/DL/stochasticpool.png" height="200"/></center>
+<ol class="arabic">
+<li><p>Divide the matrix evenly into regions</p></li>
+<li><p>Normalize each cell based on the regional sum:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+                p_i=\frac{a_i}{\sum_{k\in R_j}{a_k}}
+                \end{equation}\]</div>
+</li>
+<li><p>Take a random cell based on multinomial distribution as output value<br />
+<br/></p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><a name="fc"></a><strong>Fully Connected</strong> (FC): to flatten the 2D/3D matrices into a single vector (each neuron is connected with all input values)</p>
+  <center><img src="../../images/DL/fullyconnected.png" width="300"/></center>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="cnn-examples">
+<h1>CNN Examples<a class="headerlink" href="#cnn-examples" title="Link to this heading">#</a></h1>
+<p><a name="lenet"></a><strong>LeNet-5</strong>: LeNet-5 Digit Recognizer</p>
+<center><img src="../../images/DL/cnneg.png"/></center>  
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Layer</p></th>
+<th class="head text-center"><p>Shape</p></th>
+<th class="head text-center"><p>Total Size</p></th>
+<th class="head text-center"><p>#params</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>INPUT</p></td>
+<td class="text-center"><p>32 x 32 x 3</p></td>
+<td class="text-center"><p>3072</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CONV1 (Layer 1)</p></td>
+<td class="text-center"><p>28 x 28 x 6</p></td>
+<td class="text-center"><p>4704</p></td>
+<td class="text-center"><p>156</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>POOL1 (Layer 1)</p></td>
+<td class="text-center"><p>14 x 14 x 6</p></td>
+<td class="text-center"><p>1176</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CONV2 (Layer 2)</p></td>
+<td class="text-center"><p>10 x 10 x 16</p></td>
+<td class="text-center"><p>1600</p></td>
+<td class="text-center"><p>416</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>POOL2 (Layer 2)</p></td>
+<td class="text-center"><p>5 x 5 x 16</p></td>
+<td class="text-center"><p>400</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>FC3 (Layer 3)</p></td>
+<td class="text-center"><p>120 x 1</p></td>
+<td class="text-center"><p>120</p></td>
+<td class="text-center"><p>48001</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>FC4 (Layer 4)</p></td>
+<td class="text-center"><p>84 x 1</p></td>
+<td class="text-center"><p>84</p></td>
+<td class="text-center"><p>10081</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Softmax</p></td>
+<td class="text-center"><p>10 x 1</p></td>
+<td class="text-center"><p>10</p></td>
+<td class="text-center"><p>841</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>Calculation of #params for CONV: <span class="math notranslate nohighlight">\( (f\times f+1)\times n_f \)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( f \)</span>: filter size</p></li>
+<li><p><span class="math notranslate nohighlight">\( +1 \)</span>: bias</p></li>
+<li><p><span class="math notranslate nohighlight">\( n_f \)</span>: #filter</p></li>
+</ul>
+</li>
+</ul>
+<br/>
+<a name="alexnet"></a>**AlexNet**: winner of 2012 ImageNet Large Scale Visual Recognition Challenge  
+<center><img src="../../images/DL/alexnet.png"/></center><br/>  
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Layer</p></th>
+<th class="head text-center"><p>Shape</p></th>
+<th class="head text-center"><p>Total Size</p></th>
+<th class="head text-center"><p>#params</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>INPUT</p></td>
+<td class="text-center"><p>227 x 227 x 3</p></td>
+<td class="text-center"><p>154587</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CONV1 (Layer 1)</p></td>
+<td class="text-center"><p>55 x 55 x 96</p></td>
+<td class="text-center"><p>290400</p></td>
+<td class="text-center"><p>11712</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>POOL1 (Layer 1)</p></td>
+<td class="text-center"><p>27 x 27 x 96</p></td>
+<td class="text-center"><p>69984</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CONV2 (Layer 2)</p></td>
+<td class="text-center"><p>27 x 27 x 256</p></td>
+<td class="text-center"><p>186624</p></td>
+<td class="text-center"><p>6656</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>POOL2 (Layer 2)</p></td>
+<td class="text-center"><p>13 x 13 x 256</p></td>
+<td class="text-center"><p>43264</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CONV3 (Layer 3)</p></td>
+<td class="text-center"><p>13 x 13 x 384</p></td>
+<td class="text-center"><p>64896</p></td>
+<td class="text-center"><p>3840</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>CONV4 (Layer 3)</p></td>
+<td class="text-center"><p>13 x 13 x 384</p></td>
+<td class="text-center"><p>64896</p></td>
+<td class="text-center"><p>3840</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CONV5 (Layer 3)</p></td>
+<td class="text-center"><p>13 x 13 x 256</p></td>
+<td class="text-center"><p>43264</p></td>
+<td class="text-center"><p>2560</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>POOL5 (Layer 3)</p></td>
+<td class="text-center"><p>6 x 6 x 256</p></td>
+<td class="text-center"><p>9216</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>FC5 (Flatten)</p></td>
+<td class="text-center"><p>9216 x 1</p></td>
+<td class="text-center"><p>9216</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>FC6 (Layer 4)</p></td>
+<td class="text-center"><p>4096 x 1</p></td>
+<td class="text-center"><p>4096</p></td>
+<td class="text-center"><p>37748737</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>FC7 (Layer 5)</p></td>
+<td class="text-center"><p>4096 x 1</p></td>
+<td class="text-center"><p>4096</p></td>
+<td class="text-center"><p>16777217</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Softmax</p></td>
+<td class="text-center"><p>1000 x 1</p></td>
+<td class="text-center"><p>1000</p></td>
+<td class="text-center"><p>4096000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>Significantly bigger than LeNet-5 (60M params to be trained)</p></li>
+<li><p>Require multiple GPUs to speed the training up<br/><br/></p></li>
+</ul>
+<p><a name="vgg"></a><strong>VGG</strong>: made by Visual Geometry Group from Oxford</p>
+<center><img src="../../images/DL/vgg.png"/></center>  
+<ul class="simple">
+<li><p>Too large: 138M params<br/><br/></p></li>
+</ul>
+<p><strong>Inception</strong></p>
+<ul>
+<li><p><a name="res"></a><strong>ResNets</strong></p>
+<ul>
+<li><p>Residual Block</p>
+  <center><img src="../../images/DL/resnet.png" width="500"/></center>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+        a^{[l+2]}=g(z^{[l+2]}+a^{[l]})
+        \end{equation}\]</div>
+<p>Intuition: we add activation values from layer <span class="math notranslate nohighlight">\( l\)</span> to the activation in layer <span class="math notranslate nohighlight">\(l+2 \)</span></p>
+</li>
+<li><p>Why ResNets?</p>
+<ul>
+<li><p>ResNets allow parametrization for the identity function <span class="math notranslate nohighlight">\( f(x)=x \)</span></p></li>
+<li><p>ResNets are proven to be more effective than plain networks:</p>
+  <center><img src="../../images/DL/resnetperf.png" width="500"/></center>
+</li>
+<li><p>ResNets add more complexity to the NN in a very simple way</p></li>
+<li><p>The idea of ResNets further inspired the development of RNN<br />
+<br/></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a name="nin"></a><strong>1x1 Conv</strong> (i.e. Network in Network [NiN])</p>
+<ul>
+<li><p>WHY??? This sounds like the stupidest idea ever!!</p></li>
+<li><p>Watch this.</p>
+  <center><img src="../../images/DL/1x1pt1.png" height="300"/></center><br/>
+  <center>In a normal CNN layer like this, we need to do in total 210M calculations.</center><br/>
+  <center><img src="../../images/DL/1x1pt2.png" height="300"/></center><br/>
+  <center>However, if we add a 1x1 Conv layer in between, we only need to do in total 17M calculations.</center><br/>
+</li>
+<li><p>Therefore, 1x1 Conv is significantly more useful than what newbies expect. When we would like to keep the matrix size but reduce #layers, using 1x1 Conv can significantly reduce #computations needed, thus requiring less computing power.<br />
+<br/></p></li>
+</ul>
+</li>
+<li><p><a name="inception"></a><strong>The Inception</strong>: We need to go deeper!</p>
+<ul>
+<li><p>Inception Module</p>
+  <center><img src="../../images/DL/incepm.png" width="400"/></center><br/>
+</li>
+<li><p>Inception Network</p>
+  <center><img src="../../images/DL/incep.png" width="500"/></center>     
+</li>
+</ul>
+</li>
+</ul>
+<p><a name="conv1d"></a><strong>Conv1D &amp; Conv3D</strong>:</p>
+<p>Although CNN (Conv2D) is undoubtedly most useful in Computer Vision, there are also some other forms of CNN used in other fields:</p>
+<ul>
+<li><p><strong>Conv1D</strong>: e.g. text classification, heartbeat detection, …</p>
+  <center><img src="../../images/DL/conv1d.png" width="400"/></center>
+<ul class="simple">
+<li><p>use a 1D filter to convolve a 1D input vector</p></li>
+<li><p>e.g. <span class="math notranslate nohighlight">\( 14\times1\xrightarrow{5\times1,16}10\times16\xrightarrow{5\times16,32}6\times32 \)</span></p></li>
+<li><p>However, this is almost never used since we have <strong>RNN</strong><br />
+<br/></p></li>
+</ul>
+</li>
+<li><p><strong>Conv3D</strong>: e.g. CT scan, …</p>
+  <center><img src="../../images/DL/conv3d.png" width="400"/></center>
+<ul class="simple">
+<li><p>use a 3D filter to convolve a 3D input cube</p></li>
+<li><p>e.g. <span class="math notranslate nohighlight">\( 14\times14\times14\times1\xrightarrow{5\times5\times5\times1,16}10\times10\times10\times16\xrightarrow{5\times5\times5\times16,32}6\times6\times6\times32 \)</span></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="object-detection">
+<h1>Object Detection<a class="headerlink" href="#object-detection" title="Link to this heading">#</a></h1>
+<ul>
+<li><p>Object Localization <span class="math notranslate nohighlight">\( \rightarrow\)</span> 1 obj; Detection <span class="math notranslate nohighlight">\(\rightarrow \)</span> multiple objs.</p></li>
+<li><p><strong>Bounding Box</strong>: to capture the obj in the img with a box</p>
+<ul>
+<li><p>Params:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( b_x, b_y \)</span> = central point</p></li>
+<li><p><span class="math notranslate nohighlight">\( b_h, b_w \)</span> = full height/width</p></li>
+</ul>
+</li>
+<li><p>New target label (in place of image classification output):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation}
+        y=\begin{bmatrix}
+        p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ \vdots \\ c_n
+        \end{bmatrix}
+        \end{equation}\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( p_c \)</span>: “is there any object in this box?”</p>
+<ul>
+<li><p>if <span class="math notranslate nohighlight">\( p_c=0 \)</span>, we ignore the remaining params</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\( c_i\)</span>: class label <span class="math notranslate nohighlight">\(i\)</span> (e.g. <span class="math notranslate nohighlight">\(c_1\)</span>: cat, <span class="math notranslate nohighlight">\(c_2\)</span>: dog, <span class="math notranslate nohighlight">\(c_3 \)</span>: bird, …)<br />
+<br/></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Landmark Detection</strong>: to capture the obj in the img with points</p>
+<ul>
+<li><p>Params: <span class="math notranslate nohighlight">\( (l_{ix},l_{iy}) \)</span> = each landmark point</p></li>
+<li><p>New target label:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation}
+        y=\begin{bmatrix}
+        p_c \\ l_{1x} \\ l_{1y} \\ \vdots \\ l_{nx} \\ l_{ny} \\ c_1 \\ \vdots \\ c_n
+        \end{bmatrix}
+        \end{equation}\end{split}\]</div>
+</li>
+<li><p>THE LABELS MUST BE CONSISTENT!</p>
+<ul class="simple">
+<li><p>Always start from the exact same location of the object! (e.g. if you start with the left corner of the left eye for one image, you should always start with the left corner of the left eye for all images.)</p></li>
+<li><p>#landmarks should be the same!</p></li>
+</ul>
+</li>
+</ul>
+  <br/>
+  I personally have a very awful experience with Landmark Detection. When the algorithms of object detection were not yet well-known in the IT industry, I worked on a project of digital screen defects detection in a Finnish company. Since digital screen defects are 1) black & white 2) in very simple geometric shapes, the usage of bounding boxes could have significantly reduced the complexity of both data collection and NN model building.<br/>  
+  However, the team insisted to use landmark detection. Due to 1) that screen defects are unstructured 2) that the number of landmark points for two different screen defects can hardly be the same, the dataset was basically unusable, and none of the models we built could learn accurate patterns from it, leading to an unfortunate failure.<br/>  
+  I personally would argue that bounding box is much better than landmark detection in most practical cases.
+</li>
+<li><p><strong>Sliding Window</strong></p>
+  <center><img src="../../images/DL/sliding.gif" width="500"/></center><br/>
+<ul>
+<li><p>Apply a sliding window with a fixed size to scan every part of the img left-right and top-bottom (just like CONV), and feed each part to CNN</p></li>
+<li><p>In order to capture the same type of objects in different sizes and positions in the img, shrink the img (i.e. enlarge the sliding window) and scan again, and repeat.<br/></p></li>
+<li><p>Problem: HUGE computational cost!</p></li>
+<li><p>Solution: (contemporary)</p>
+<ol class="arabic">
+<li><p>Convert FC layer into CONV layer</p>
+ <center><img src="../../images/DL/slidingfc.jpg" width="700"/></center><br/>
+</li>
+<li><p>Share the former FC info with latter convolutions</p>
+ <center><img src="../../images/DL/sliding.png" width="700"/></center><br/>
+<ol class="arabic simple">
+<li><p>First run of the CNN.</p></li>
+<li><p>Second run of the same CNN with a bigger size of the same img (due to sliding window). Notice that the FC info from the first run is shared in the second run.</p></li>
+<li><p>Latter runs of the same CNN with bigger sizes of the same img (due to sliding window). Notice that the FC info from all previous runs is shared in this run, thus saving computation power and memories.<br />
+<br/></p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>Intersection over Union</strong></p>
+  <center><img src="../../images/DL/iou.png" width="200"/></center>  
+  <center>Is the purple box a good prediction of the car location?</center>
+<p>Intersection over Union is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \text{IoU}=\frac{\text{area of intersection}}{\text{area of union}}
+    \end{equation}\]</div>
+<p>In this case, area of intersection is the intersection between the red and purple box, and area of union is the total area covered by the red and purple box.<br />
+If <span class="math notranslate nohighlight">\( \text{IoU}\leq 0.5 \)</span>, then the prediction box is correct. (Other threshold values are also okay but 0.5 is conventional.)</p>
+</li>
+<li><p><a name="yolo"></a><strong>YOLO (You Only Look Once)</strong></p>
+  <center><img src="../../images/DL/yolo.jpg" width="300"/></center>
+<ul>
+<li><p><strong>Grids</strong>: divide the image into grids &amp; use each grid as a bounding box</p>
+<ul class="simple">
+<li><p>when <span class="math notranslate nohighlight">\( p_c=0 \)</span>, we ignore the entire grid</p></li>
+<li><p><span class="math notranslate nohighlight">\( p_c=1\)</span> only when the central point of the object <span class="math notranslate nohighlight">\(\in \)</span> the grid</p></li>
+<li><p>target output: <span class="math notranslate nohighlight">\( Y.\text{shape}=n_{\text{grid}}\times n_{\text{grid}}\times y.\text{length} \)</span><br />
+<br/></p></li>
+</ul>
+</li>
+<li><p><strong>Non-Max Suppression</strong>: what happens when the grid is too small to capture the entire object?</p>
+  <center><img src="../../images/DL/nms.jpg" width="500"/></center>
+<ol class="arabic simple">
+<li><p>Discard all boxes with <span class="math notranslate nohighlight">\( p_c\leq 0.6 \)</span></p></li>
+<li><p>Pick the box with the largest <span class="math notranslate nohighlight">\( p_c \)</span> as the prediction</p></li>
+<li><p>Discard any remaining box with <span class="math notranslate nohighlight">\( \text{IoU}\geq 0.5 \)</span> with the prediction</p></li>
+<li><p>Repeat till there is only one box left.<br />
+<br/></p></li>
+</ol>
+</li>
+<li><p><strong>Anchor Boxes</strong>: what happens when two objects overlap? (e.g. a hot girl standing in front of a car)</p>
+  <center><img src="../../images/DL/anchor.jpg" width="300"/></center>
+<ol class="arabic">
+<li><p>Predefine Anchor boxes for different objects</p></li>
+<li><p>Redefine the target value as a combination of Anchor 1 + Anchor 2</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation}
+            y=\begin{bmatrix}
+            p_{c1} \\
+            \vdots \\ 
+            p_{c2} \\
+            \vdots 
+            \end{bmatrix}
+            \end{equation}\end{split}\]</div>
+</li>
+<li><p>Each object in the image is assigned to grid cell that contains object’s central point &amp; anchor box for the grid cell with the highest <span class="math notranslate nohighlight">\( \text{IoU} \)</span><br />
+<br/></p></li>
+</ol>
+</li>
+<li><p><strong>General Procedure</strong>:</p>
+<ol class="arabic simple">
+<li><p>Divide the images into grids and label the objects</p></li>
+<li><p>Train the CNN</p></li>
+<li><p>Get the prediction for each anchor box in each grid cell</p></li>
+<li><p>Get rid of low probability predictions</p></li>
+<li><p>Get final predictions through non-max suppression for each class<br />
+<br/></p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><a name="rcnn"></a><strong>R-CNN</strong></p>
+<p>TO BE CONTINUED</p>
+</li>
+</ul>
+</section>
+<section id="face-recognition">
+<h1>Face Recognition<a class="headerlink" href="#face-recognition" title="Link to this heading">#</a></h1>
+<ul>
+<li><p>Face Verification vs Face Recognition</p>
+<ul class="simple">
+<li><p>Verification</p>
+<ul>
+<li><p>Input image, name/ID</p></li>
+<li><p>Output whether the input image is that of the claimed person (1:1)</p></li>
+</ul>
+</li>
+<li><p>Recognition</p>
+<ul>
+<li><p>Input image</p></li>
+<li><p>Output name/ID if the image is any of the <span class="math notranslate nohighlight">\( K \)</span> ppl in the database (1:K)<br />
+<br/></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a name="sn"></a><strong>Siamese Network</strong></p>
+<ul>
+<li><p><strong>One Shot Learning</strong>: learn a similarity function</p>
+<p>The major difference between normal image classification and face recognition is that we don’t have enough training examples. Therefore, rather than learning image classification, we</p>
+<ol class="arabic simple">
+<li><p>Calculate the degree of diff between the imgs as <span class="math notranslate nohighlight">\( d \)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\( d\leq\tau\)</span>: same person; If <span class="math notranslate nohighlight">\(d&gt;\tau \)</span>: diff person<br />
+<br/></p></li>
+</ol>
+</li>
+<li><p>Preparation &amp; Objective:</p>
+<ul class="simple">
+<li><p>Encode <span class="math notranslate nohighlight">\( x^{(i)}\)</span> as <span class="math notranslate nohighlight">\(f(x^{(i)}) \)</span> (defined by the params of the NN)</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\( d(x^{(i)},x^{(j)})=\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2 \)</span></p>
+<ul>
+<li><p>i.e. distance between the two encoding vectors</p></li>
+<li><p>if <span class="math notranslate nohighlight">\( x^{(i)},x^{(j)}\)</span> are the same person, <span class="math notranslate nohighlight">\(\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2 \)</span> is small</p></li>
+<li><p>if <span class="math notranslate nohighlight">\( x^{(i)},x^{(j)}\)</span> are different people, <span class="math notranslate nohighlight">\(\left\lVert{f(x^{(i)})-f(x^{(j)})}\right\lVert_ 2^2 \)</span> is large<br />
+<br/></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Method 1: <a name="tl"></a>Triplet Loss</strong></p>
+<ul>
+<li><p><u>Learning Objective</u>: distinguish between Anchor image &amp; Positive/Negative images (i.e. <strong>A vs P / A vs N</strong>)</p>
+<ol class="arabic">
+<li><p><u>Initial Objective</u>: <span class="math notranslate nohighlight">\( \left\lVert{f(A)-f(P)}\right\lVert_ 2^2 \leq \left\lVert{f(A)-f(N)}\right\lVert_ 2^2 \)</span></p>
+<p><u>Intuition</u>: We want to make sure the difference of A vs P is smaller than the difference of A vs N, so that this Anchor image is classified as positive (i.e. recognized)</p>
+</li>
+<li><p><u>Problem</u>: <span class="math notranslate nohighlight">\( \exists\ &quot;0-0\leq0&quot; \)</span>, in which case we can’t tell any difference</p></li>
+<li><p><u>Final Objective</u>: <span class="math notranslate nohighlight">\( \left\lVert{f(A)-f(P)}\right\lVert_ 2^2-\left\lVert{f(A)-f(N)}\right\lVert_ 2^2+\alpha\leq0 \)</span></p>
+<p><u>Intuition</u>: We apply a margin <span class="math notranslate nohighlight">\( \alpha \)</span> to solve the problem and meanwhile make sure “A vs N” is significantly larger than “A vs P”</p>
+</li>
+</ol>
+</li>
+<li><p><u>Loss Function</u>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+            \mathcal{L}(A,P,N)=\max{(\left\lVert{f(A)-f(P)}\right\lVert_ 2^2-\left\lVert{f(A)-f(N)}\right\lVert_ 2^2+\alpha, 0)}
+            \end{equation}\]</div>
+<ul class="simple">
+<li><p><u>Intuition</u>: As long as this thing is less than 0, the loss is 0 and that’s a successful recognition!<br />
+<br/></p></li>
+</ul>
+</li>
+<li><p><u>Training Process</u>:</p>
+<ul class="simple">
+<li><p>Given 10k imgs of 1k ppl: use the 10k images to generate triplets <span class="math notranslate nohighlight">\( A^{(i)}, P^{(i)}, N^{(i)} \)</span></p></li>
+<li><p>Make sure to have multiple imgs of the same person in the training set</p></li>
+<li><p><strike>random choosing</strike></p></li>
+<li><p>Choose triplets that are quite “hard” to train on</p></li>
+</ul>
+  <center><img src="../../images/DL/andrew.png" width="300"/></center>
+</li>
+</ul>
+</li>
+<li><p><strong>Method 2: <a name="bc"></a>Binary Classification</strong></p>
+<ul>
+<li><p><u>Learning Objective</u>: Check if two imgs represent the same person or diff ppl</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( y=1 \)</span>: same person</p></li>
+<li><p><span class="math notranslate nohighlight">\( y=0 \)</span>: diff ppl</p></li>
+</ul>
+</li>
+<li><p><u>Training output</u>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+            \hat{y}=\sigma\Bigg(\sum_{k=1}^{128}{w_i \Big|f(x^{(i)})_ k-f(x^{(j)})_ k\Big|+b}\Bigg)
+            \end{equation}\]</div>
+  <center><img src="../../images/DL/binary.png" width="500"/></center>
+<ul class="simple">
+<li><p>Precompute the output vectors <span class="math notranslate nohighlight">\( f(x^{(i)})\ \&amp;\ f(x^{(j)}) \)</span> so that you don’t have to compute them again during each training process<br />
+<br/></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a name="nst"></a><strong>Neural Style Transfer</strong></p>
+<ul>
+<li><p><u>Intuition</u>: <strong>Content(C) + Style(S) = Generated Image(G)</strong></p>
+  <center><img src="../../images/DL/csg.png" width="500"/></center>
+  <center>Combine Content image with Style image to Generate a brand new image</center>  
+</li>
+</ul>
+  <br/>
+  - <u>Cost Function</u>: 
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  $$\begin{equation}
+  \mathcal{J}(G)=\alpha\mathcal{J}_ \text{content}(C,G)+\beta\mathcal{J}_ \text{style}(S,G)
+  \end{equation}$$
+  
+  - $ \mathcal{J} $: the diff between C/S and G
+  - $ \alpha,\beta $: weight params
+  - Style: correlation between activations across channels
+      
+      &lt;center&gt;&lt;img src=&quot;../../images/DL/corr.png&quot; width=&quot;500&quot;/&gt;&lt;/center&gt;
+      
+      When there is some pattern in one patch, and there is another pattern that changes similarly in the other patch, they are **correlated**.  
+      
+      e.g. vertical texture in one patch $ \leftrightarrow $ orange color in another patch  
+      
+      The more often they occur together, the more correlated they are.
+      
+  - Content Cost Function:
+  
+      $$\begin{equation}
+      \mathcal{J}_ \text{content}(C,G)=\frac{1}{2}\left\lVert{a^{[l](C)}-a^{[1](G)}}\right\lVert^2
+      \end{equation}$$
+      
+      - Use hidden layer $ l $ to compute content cost
+      - Use pre-trained CNN (e.g. VGG)
+      - If $ a^{[l](C)}\ \&amp;\ a^{[l](G)} $ are similar, then both imgs have similar content  
+  &lt;br/&gt;
+  - Style Cost Function:
+  
+      $$\begin{equation}
+      \mathcal{J}_ \text{style}(S,G)=\sum_l{\lambda^{[l]}\mathcal{J}_ \text{style}^{[l]}(S,G)}
+      \end{equation}$$
+      
+      - Style Cost per layer:
+      
+          $$\begin{equation}
+          \mathcal{J}^{[l]}_ \text{style}(S,G)=\frac{1}{(2n_h^{[l]}n_w^{[l]}n_c^{[l]})^2}\left\lVert{G^{[l](S)}-G^{[1](G)}}\right\lVert^2_F
+          \end{equation}$$
+          
+          - the first term is simply a normalization param 
+      
+      - Style Matrix:
+      
+          $$\begin{equation}
+          G_{kk&#39;}^{[l]}=\sum_{i=1}^{n_H^{[l]}}{\sum_{j=1}^{n_W^{[l]}}{a_{i,j,k}^{[l]}\cdot a_{i,j,k&#39;}^{[l]}}}
+          \end{equation}$$
+      
+          - $ a_{i,j,k}^{[l]}$: activation at height $i$, width $j$, channel $k $
+          - $ G^{[l]}.\text{shape}=n_c^{[l]}\times n_c^{[l]} $
+          - &lt;u&gt;Intuition&lt;/u&gt;: sum up the multiplication of the two activations on the same cell in two different channels
+          
+  - Training Process:
+  
+      - Intialize $ G $ randomly (e.g. 100 x 100 x 3)
+      - Use GD to minimize $ \mathcal{J}(G)$: $G := G-\frac{\partial{\mathcal{J}(G)}}{\partial{G}} $
+</pre></div>
+</div>
+</li>
+</ul>
+<!-- # Recurrent Neural Networks {#rnn} -->
+</section>
+<section id="basics-of-rnn">
+<h1>Basics of RNN<a class="headerlink" href="#basics-of-rnn" title="Link to this heading">#</a></h1>
+<section id="intuition-of-sequence-models">
+<h2><strong>Intuition of Sequence Models</strong><a class="headerlink" href="#intuition-of-sequence-models" title="Link to this heading">#</a></h2>
+<p>These are called sequence modeling:</p>
+<ul class="simple">
+<li><p>Speech recognition</p></li>
+<li><p>Music generation</p></li>
+<li><p>Sentiment classification</p></li>
+<li><p>DNA sequence analysis</p></li>
+<li><p>Machine translation</p></li>
+<li><p>Video activity recognition</p></li>
+<li><p>Name entity recognition</p></li>
+<li><p>……</p></li>
+</ul>
+<p>Forget about the tedious definitions. As a basic intuition of what we are doing in sequence modeling, here is a very simple example:</p>
+<ul>
+<li><p>We have a sentence: “Pewdiepie and MrBeast are two of the greatest youtubers in human history.”</p></li>
+<li><p>We want to know: where are the “names” in this sentence? (i.e. name entity recognition)</p></li>
+<li><p>We convert the input sentence into <span class="math notranslate nohighlight">\( X\)</span>: <span class="math notranslate nohighlight">\(x^{\langle 1 \rangle}x^{\langle 2 \rangle}...x^{\langle t \rangle}...x^{\langle 12 \rangle} \)</span></p>
+<p>where <span class="math notranslate nohighlight">\( x^{\langle t \rangle} \)</span> represents each word in the sentence.</p>
+<p>But how does it represent a word? Notice that we used the capitalized <span class="math notranslate nohighlight">\( X\)</span> for a single sentence. Actually, <span class="math notranslate nohighlight">\(X.\text{shape}=5000\times12\)</span>, and <span class="math notranslate nohighlight">\(x.\text{shape}=5000\times1 \)</span>. Why?</p>
+<p>We first make a vocabulary list like <span class="math notranslate nohighlight">\( \text{list}=[\text{a; and; ...; history; ...; MrBeast; ...}] \)</span>.</p>
+<p>Then, we convert each word into a one-hot vector representing the index of the word in the dictionary, e.g.:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation}
+    x^{\langle 1 \rangle}=\begin{bmatrix}
+    0 \\ \vdots \\ 1 \\ \vdots \\ 0
+    \end{bmatrix}\longleftarrow 425,\ 
+    x^{\langle 2 \rangle}=\begin{bmatrix}
+    0 \\ \vdots \\ 1 \\ \vdots \\ 0
+    \end{bmatrix}\longleftarrow 3578,\ \cdots\cdots
+    \end{equation}\end{split}\]</div>
+</li>
+<li><p>We then label the output as <span class="math notranslate nohighlight">\( y: 1\ 0\ 1\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0 \)</span> and train our NN on this.</p></li>
+<li><p>Accordingly, we can use most of the sequences in our daily life as datasets and build our NN models on them to solve such ML problems.</p></li>
+</ul>
+</section>
+<section id="intuition-of-rnn">
+<h2><strong>Intuition of RNN</strong><a class="headerlink" href="#intuition-of-rnn" title="Link to this heading">#</a></h2>
+<p>We have very briefly mentioned that Conv1D can be used to scan through a sequence, extract features and make predictions. Then why don’t we just stick to Conv1D or use normal ANNs?</p>
+<ol class="arabic simple">
+<li><p>The scope of sequence modeling is not necessarily recognition or classification, meaning that our inputs &amp; outputs can be in very diff lengths for diff examples.</p></li>
+<li><p>Neither ANNs nor CNNs share features learned across diff positions of a text or a sequence, whereas context matters quite a lot in most sequence modeling problems.</p></li>
+</ol>
+<p>Therefore, we need to define a brand new NN structure that can perfectly align with sequence modeling - RNN:</p>
+<center><img src="../../images/DL/rnn.jpg" height="200"/></center>
+<br/>
+Forward propagation:
+- $ a^{\langle 0 \rangle}=\textbf{0} $
+- $ a^{\langle t \rangle}=g(W_{a}[a^{\langle t-1 \rangle}; x^{\langle t \rangle}]+b_a)\ \ \ \ \|\ g:\ \text{tanh/ReLU} $  
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>where $ W_a=[W_{aa}\ W_{ax}]$ with a shape of $(100,10100)$ if we assume a dictionary of 10000 words (i.e. $x^{\langle t \rangle}.\text{shape}=(10000,100) $) and the activation length of 100.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \hat{y}^{\langle t \rangle}=g(W_{y}a^{\langle t \rangle}+b_y)\ \ \ \ \|\ g:\ \text{sigmoid} \)</span></p></li>
+</ul>
+<p>Backward propagation:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathcal{L}^{\langle t \rangle}(\hat{y}^{\langle t \rangle},y^{\langle t \rangle})=-\sum_i{y_i^{\langle t \rangle}\log{\hat{y}_ i^{\langle t \rangle}}}\ \ \ \ \|\  \)</span>Same loss function as LogReg</p></li>
+</ul>
+</section>
+<section id="rnn-types">
+<h2><strong>RNN Types</strong><a class="headerlink" href="#rnn-types" title="Link to this heading">#</a></h2>
+<center><img src="../../images/DL/rnntypes.png" width="550"/></center>  
+<br/>
+There is nothing much to explain here. The images are pretty clear.  
+</section>
+<section id="language-model">
+<h2><strong>Language Model</strong><a class="headerlink" href="#language-model" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><u>Intuition of Softmax &amp; Conditional Probability</u></p>
+<p>The core of RNN is to calculate the likelihood of a sequence: <span class="math notranslate nohighlight">\( P(y^{\langle 1 \rangle},y^{\langle 2 \rangle},...,y^{\langle t \rangle}) \)</span> and output the one with the highest probability.</p>
+<p>For example, the sequence “<u>the apple and pair salad</u>” has a much smaller possibility to occur than the sequence “<u>the apple and pear salad</u>”. Therefore, RNN will output the latter. This seems much like <strong>Softmax</strong>, and indeed it is.</p>
+<p>Recall from the formula of conditional probability, we can separate the likelihood into:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    P\big(y^{\langle 1 \rangle},y^{\langle 2 \rangle},...,y^{\langle t \rangle}\big)=P\big(y^{\langle 1 \rangle}\big)P\big(y^{\langle 2 \rangle}|y^{\langle 1 \rangle}\big)...P\big(y^{\langle t \rangle}|y^{\langle 1 \rangle},y^{\langle 2 \rangle},...,y^{\langle t-1 \rangle}\big)
+    \end{equation}\]</div>
+<p>For example, to generate the sentence “I like cats.”, we calculate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    P\big(\text{&quot;I like cats&quot;}\big)=P\big(\text{&quot;I&quot;}\big)P\big(\text{&quot;like&quot;}|\text{&quot;I&quot;}\big)P\big(\text{&quot;cats&quot;}|\text{&quot;I like&quot;}\big)
+    \end{equation}\]</div>
+</li>
+<li><p><u>Language Modeling Procedure</u></p>
+<ol class="arabic">
+<li><p>Data Preparation</p>
+<ul class="simple">
+<li><p>Training set: large corpus of English text (or other languages)</p></li>
+<li><p><strong>Tokenize</strong>: mark every word into a token</p>
+<ul>
+<li><p>&lt;EOS&gt;: End of Sentence token</p></li>
+<li><p>&lt;UNK&gt;: Unknown word token</p></li>
+</ul>
+</li>
+<li><p>e.g. “I hate Minecraft and kids.” <span class="math notranslate nohighlight">\( \Rightarrow \)</span> “I hate &lt;UNK&gt; and kids. &lt;EOS&gt;”<br />
+<br/></p></li>
+</ul>
+</li>
+<li><p>Training</p>
+ <center><img src="../../images/DL/rnnlm.png" width="700"/></center>  
+ <br/>
+ We use the sentence "I hate Minecraft and kids. \<EOS>" as one training example.  
+ At the beginning, we initialize $ a^{<0>}$ and $x^{<1>}$ as $\vec{0} $ and let the RNN try to guess the first word.  
+ At each step, we use the original word at the same index $ y^{\<i-1>}$ and the previous activation $a^{\<i-1>}$ to let the RNN try to guess the next word $\hat{y}^{\<i>} $ from Softmax regression.  
+ During the training process, we try to minimize the loss function $ \mathcal{L}(\hat{y},y) $ to ensure the training is effective to predict the sentence correctly.
+</li>
+</ol>
+  <br/>
+  3. Sequence Sampling
+      <center><img src="../../images/DL/rnnsample.png" width="700"/></center>  
+      <br>
+      After the RNN is trained, we can use it to generate a sentence by itself. In each step, the RNN will take the previous word it generated $ \hat{y}^{\<i-1>}$ as $x^{\<i>}$ to generate the next word $\hat{y}^{\<i>} $.
+</li>
+<li><p><u>Character-level LM</u></p>
+<ul class="simple">
+<li><p>Dictionary</p>
+<ul>
+<li><p>Normal LM: [a, abandon, …, zoo, &lt;UNK&gt;]</p></li>
+<li><p>Char-lv LM: [a, b, c, …, z]</p></li>
+</ul>
+</li>
+<li><p>Pros &amp; Cons</p>
+<ul>
+<li><p>Pros: never need to worry about unknown words &lt;UNK&gt;</p></li>
+<li><p>Cons: sequence becomes much much longer; the RNN doesn’t really learn anything about the words.<br />
+<br></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><u>Problems with current RNN</u><br />
+One of the most significant problems with our current simple RNN is <strong>vanishing gradients</strong>. As shown in the figures above, the next word always has a very strong dependency on the previous word, and the dependency between two words weakens as the distance between them gets longer. In other words, the current RNN are very bad at catching long-line dependencies, for example,</p>
+  <center>the <strong>cat</strong>, which already ......, <strong>was</strong> full.</center>
+  <center>the <strong>cats</strong>, which already ......, <strong>were</strong> full.</center>
+  <br>
+  "be" verbs have high dependencies on the "subject", but RNN doesn't know that. Since the distance between these two words are too long, the gradient on the "subject" nouns would barely affect the training on the "be" verbs.
+</li>
+</ul>
+</section>
+</section>
+<section id="rnn-variations">
+<h1>RNN Variations<a class="headerlink" href="#rnn-variations" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>RNN</p></th>
+<th class="head text-center"><p>GRU</p></th>
+<th class="head text-center"><p>LSTM</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><img src="../../images/DL/rnnblock.png" width="330"/></p></td>
+<td class="text-center"><p><img src="../../images/DL/gru.png" width="330"/></p></td>
+<td class="text-center"><p><img src="../../images/DL/lstm.png" width="330"/></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>As shown above, there are currently 3 most used RNN blocks. The original RNN block activates the linear combination of <span class="math notranslate nohighlight">\( a^{\&lt;t-1&gt;}\)</span> and <span class="math notranslate nohighlight">\(x^{\&lt;t&gt;}\)</span> with a <span class="math notranslate nohighlight">\(\text{tanh} \)</span> function and then passes the output value onto the next block.</p>
+<p>However, because of the previously mentioned problem with the original RNN, scholars have created some variations, such as GRU &amp; LSTM.</p>
+<section id="gru-gated-recurrent-unit">
+<h2><strong>GRU</strong> (Gated Recurrent Unit)<a class="headerlink" href="#gru-gated-recurrent-unit" title="Link to this heading">#</a></h2>
+<center><img src="../../images/DL/gru.png" width="400"/></center>  
+<br>
+As the name implies, GRU is an advancement of normal RNN block with "gates". There are 2 gates in GRU:
+<ul class="simple">
+<li><p><strong>R gate</strong>: (Remember) determine whether to remember the previous cell</p></li>
+<li><p><strong>U gate</strong>: (Update) determine whether to update the computation with the candidate</p></li>
+</ul>
+<p>Computing process of GRU:</p>
+<ol class="arabic">
+<li><p>Compute R gate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \Gamma_r=\sigma\big(w_r\big[a^{&lt;t-1&gt;};x^{&lt;t&gt;}\big]+b_r\big)
+    \end{equation}\]</div>
+</li>
+<li><p>Compute U gate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \Gamma_u=\sigma\big(w_u\big[a^{&lt;t-1&gt;};x^{&lt;t&gt;}\big]+b_u\big)
+    \end{equation}\]</div>
+</li>
+<li><p>Compute Candidate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \tilde{c}^{&lt;t&gt;}=\tanh{\big(w_c\big[\Gamma_r * a^{&lt;t-1&gt;};x^{&lt;t&gt;}\big]+b_c\big)}
+    \end{equation}\]</div>
+<p>When <span class="math notranslate nohighlight">\( \Gamma_r=0\)</span>, <span class="math notranslate nohighlight">\(\tilde{c}^{\&lt;t&gt;}=\tanh{\big(w_cx^{\&lt;t&gt;}+b_c\big)} \)</span>, the previous word has no effect on the word choice of this cell.</p>
+</li>
+<li><p>Compute Memory Cell:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    c^{&lt;t&gt;}=\Gamma_u \cdot \tilde{c}^{&lt;t&gt;} + (1-\Gamma_u) \cdot c^{&lt;t-1&gt;}
+    \end{equation}\]</div>
+<p>When <span class="math notranslate nohighlight">\( \Gamma_u=1\)</span>,  <span class="math notranslate nohighlight">\(c^{\&lt;t&gt;}=\tilde{c}^{\&lt;t&gt;} \)</span>. The candidate updates.<br />
+When <span class="math notranslate nohighlight">\( \Gamma_u=0\)</span>,  <span class="math notranslate nohighlight">\(c^{\&lt;t&gt;}=c^{\&lt;t-1&gt;} \)</span>. The candidate does not update.</p>
+</li>
+<li><p>Output:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    a^{&lt;t&gt;}=c^{&lt;t&gt;}
+    \end{equation}\]</div>
+</li>
+</ol>
+</section>
+<section id="lstm-long-short-term-memory">
+<h2><strong>LSTM</strong> (Long Short-Term Memory)<a class="headerlink" href="#lstm-long-short-term-memory" title="Link to this heading">#</a></h2>
+<center><img src="../../images/DL/lstm.png" width="400"/></center>  
+<br>
+LSTM is an advancement of GRU. While GRU relatively saves more computing power, LSTM is more powerful. There are 3 gates in LSTM:
+<ul class="simple">
+<li><p><strong>F gate</strong>: (Forget) determine whether to forget the previous cell</p></li>
+<li><p><strong>U gate</strong>: (Update) determine whether to update the computation with the candidate</p></li>
+<li><p><strong>O gate</strong>: (Update) Compute the normal activation</p></li>
+</ul>
+<p>Computing process of GRU:</p>
+<ol class="arabic">
+<li><p>Compute F gate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \Gamma_f=\sigma\big(w_f\big[a^{&lt;t-1&gt;};x^{&lt;t&gt;}\big]+b_f\big)
+    \end{equation}\]</div>
+</li>
+<li><p>Compute U gate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \Gamma_u=\sigma\big(w_u\big[a^{&lt;t-1&gt;};x^{&lt;t&gt;}\big]+b_u\big)
+    \end{equation}\]</div>
+</li>
+<li><p>Compute O gate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \Gamma_o=\sigma\big(w_o\big[a^{&lt;t-1&gt;};x^{&lt;t&gt;}\big]+b_o\big)
+    \end{equation}\]</div>
+</li>
+<li><p>Compute Candidate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \tilde{c}^{&lt;t&gt;}=\tanh{\big(w_c\big[a^{&lt;t-1&gt;};x^{&lt;t&gt;}\big]+b_c\big)}
+    \end{equation}\]</div>
+</li>
+<li><p>Compute Memory Cell:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    c^{&lt;t&gt;}=\Gamma_u \cdot \tilde{c}^{&lt;t&gt;} + \Gamma_f \cdot c^{&lt;t-1&gt;}
+    \end{equation}\]</div>
+</li>
+<li><p>Output:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    a^{&lt;t&gt;}=\Gamma_o \cdot \tanh{c^{&lt;t&gt;}}
+    \end{equation}\]</div>
+</li>
+</ol>
+<p><strong>Peephole Connection</strong>: as shown in the formulae, the gate values <span class="math notranslate nohighlight">\( \Gamma \propto c^{\&lt;t-1&gt;}\)</span>, therefore, we can always include <span class="math notranslate nohighlight">\(c^{\&lt;t-1&gt;} \)</span> into gate calculations to simplify the computing.</p>
+</section>
+<section id="bidirectional-rnn">
+<h2><strong>Bidirectional RNN</strong><a class="headerlink" href="#bidirectional-rnn" title="Link to this heading">#</a></h2>
+<p><u>Problem</u>: Sometimes, our choices of previous words are dependent on the latter words. For example,</p>
+<center><strong>Teddy</strong> Roosevelt was a nice president.</center>
+<center><strong>Teddy</strong> bears are now on sale!!!&emsp;&emsp;&emsp;</center>  
+<br>
+The word "Teddy" represents two completely different things, but without the context from the latter part, we cannot determine what the "Teddy" stands for. (This example is cited from Andrew Ng's Coursera Specialization)  
+<p><u>Solution</u>: We make the RNN bidirectional:</p>
+<center><img src="../../images/DL/birnn.png" height="250"/></center>  
+<br>
+Each output is calculated as: $ \hat{y}^{\<t>}=g\Big(W_y\Big[\overrightarrow{a}^{\<t>};\overleftarrow{a}^{\<t>}\Big]+b_y\Big) $
+</section>
+<section id="deep-rnn">
+<h2><strong>Deep RNN</strong><a class="headerlink" href="#deep-rnn" title="Link to this heading">#</a></h2>
+<p>Don’t be fascinated by the name. It’s just stacks of RNN layers:</p>
+<center><img src="../../images/DL/drnn.png" width="700"/></center>  
+## Word Embeddings
+<p>Word embedding is a vectorized representation of a word. Because our PC cannot directly understand the meaning of words, we need to convert these words into numerical values first. So far, we have been using <a name="ohr"></a><strong>One-hot Encoding</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation}
+x^{&lt;1&gt;}=\begin{bmatrix}
+0 \\ \vdots \\ 1 \\ \vdots \\ 0
+\end{bmatrix}\longleftarrow 425,\ 
+x^{&lt;2&gt;}=\begin{bmatrix}
+0 \\ \vdots \\ 1 \\ \vdots \\ 0
+\end{bmatrix}\longleftarrow 3578,\ \cdots\cdots
+\end{equation}\end{split}\]</div>
+<p><u>Problem</u>: our RNN doesn’t really learn anything about these words from one-hot representation.</p>
+</section>
+<section id="featurized-representation">
+<h2><strong>Featurized Representation</strong><a class="headerlink" href="#featurized-representation" title="Link to this heading">#</a></h2>
+<p><u><strong>Intuition:</strong></u> Suppose we have an online shopping review: “Love this dress! Sexy and comfy!”, we can represent this sentence as:</p>
+<center><img src="../../images/DL/fr.png" width="600"/></center>  
+<br>
+We predefine a certain number of features (e.g. gender, royalty, food, size, cost, etc.). 
+<p>Then, we give each word (column categories) their relevance to each feature (row categories). As shown in the picture for example, “dress” is very closely related to the feature “gender”, therefore given the value “1”. Meanwhile, “love” is very closely related to the feature “positive”, therefore given the value “0.99”.</p>
+<p>After we define all the featurized values for the words, we get a vectorized representation of each word:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation}
+\text{love}=e_ {1479}=\begin{bmatrix}
+0.03 \\ 0.01 \\ 0.99 \\ 1.00 \\ \vdots
+\end{bmatrix},\text{comfy}=e_ {987}=\begin{bmatrix}
+0.01 \\ 0.56 \\ 0.98 \\ 0.00 \\ \vdots
+\end{bmatrix},\cdots\cdots\end{equation}\end{split}\]</div>
+<p>This way, our RNN will get to know the rough meanings of these words.</p>
+<p>For example, when it needs to generate the next word of this sentence: <strong>“I want a glass of orange _____.”</strong></p>
+<p>Since it knows that <strong>“orange”</strong> is a <strong>fruit</strong> and that <strong>“glass”</strong> is closely related to <strong>liquid</strong>, there is a much higher possibility that our RNN will choose <strong>“juice”</strong> to fill in the blank.</p>
+<p><u><strong>Embedding matrix:</strong></u> To acquire the word embeddings such as <span class="math notranslate nohighlight">\( \vec{e}_ {1479}\)</span> and <span class="math notranslate nohighlight">\(\vec{e}_ {987} \)</span> above, we can multiply our embedding matrix with the one-hot encoding:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+E\times \vec{o}_ j=\vec{e}_ j
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\( E\)</span> is our featurized representation (i.e. embedding matrix) and <span class="math notranslate nohighlight">\(\vec{o}_ j \)</span> is the one-hot encoding of the word (i.e. the index of the word).</p>
+<p>In practice, this is too troublesome since the dimensions of our <span class="math notranslate nohighlight">\( E\)</span> tend to be huge (e.g. <span class="math notranslate nohighlight">\((500,10000) \)</span>). Thus, we use specialized function to look up an embedding directly from the embedding matrix.</p>
+<p><u><strong>Analogies:</strong></u> One of the most useful properties of word embeddings is analogies. For example, <strong>“man <span class="math notranslate nohighlight">\( \rightarrow\)</span> woman”=”king <span class="math notranslate nohighlight">\(\rightarrow \)</span> ?”</strong>.</p>
+<p>Suppose we have the following featurized representation:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p></p></th>
+<th class="head text-center"><p>man</p></th>
+<th class="head text-center"><p>woman</p></th>
+<th class="head text-center"><p>king</p></th>
+<th class="head text-center"><p>queen</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>gender</p></td>
+<td class="text-center"><p>-1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>-0.99</p></td>
+<td class="text-center"><p>0.99</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>royal</p></td>
+<td class="text-center"><p>0.01</p></td>
+<td class="text-center"><p>0.02</p></td>
+<td class="text-center"><p>0.97</p></td>
+<td class="text-center"><p>0.96</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>age</p></td>
+<td class="text-center"><p>0.01</p></td>
+<td class="text-center"><p>0.01</p></td>
+<td class="text-center"><p>0.78</p></td>
+<td class="text-center"><p>0.77</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>food</p></td>
+<td class="text-center"><p>0.03</p></td>
+<td class="text-center"><p>0.04</p></td>
+<td class="text-center"><p>0.04</p></td>
+<td class="text-center"><p>0.02</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In order to learn the analogy, our RNN will have the following thinking process:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+&amp;\text{Goal: look for}\ w: \mathop{\arg\max}_ w{sim(e_w, e_{\text{king}}-(e_{\text{man}}-e_{\text{woman}}))} \\
+&amp;\because e_{\text{man}}-e_{\text{woman}}\approx\begin{bmatrix}-2 \\ 0 \\ 0 \\ 0\end{bmatrix}, e_{\text{king}}-e_{\text{queen}}\approx\begin{bmatrix}-2 \\ 0 \\ 0 \\ 0\end{bmatrix} \\
+&amp;\therefore e_{\text{man}}-e_{\text{woman}}\approx e_{\text{king}}-e_{\text{queen}} \\
+&amp;\text{Calculate cosine similarity: } sim(\vec{u},\vec{v})=\cos{\phi}=\frac{\vec{u}^T\vec{v}}{\|\vec{u}\|_ 2\|\vec{v}\|_ 2} \\
+&amp;\text{Confirm: }e_w\approx e_{queen}
+\end{align}\end{split}\]</div>
+</section>
+<section id="learning-1-word2vec">
+<h2>Learning 1: <strong>Word2Vec</strong><a class="headerlink" href="#learning-1-word2vec" title="Link to this heading">#</a></h2>
+<p><u>Problem</u>: We definitely do not want to write the embedding matrix by ourselves. Instead, we train a NN model to learn the word embeddings.</p>
+<p>Suppose we have a sentence “Pewdiepie and MrBeast are two of the greatest youtubers in human history”. Before Word2Vec, let’s define context &amp; target:</p>
+<ul class="simple">
+<li><p><strong>Context</strong>: words around target word</p>
+<ul>
+<li><p>last 4 words: “two of the greatest ______”</p></li>
+<li><p>4 words on both sides: “two of the greatest ______ in human history.”</p></li>
+<li><p>last 1 word: “greatest ______”</p></li>
+<li><p><strong>skip-gram</strong>: (any nearby word) “… MrBeast … ______ …”</p></li>
+</ul>
+</li>
+<li><p><strong>Target</strong>: the word we want our NN to generate</p>
+<ul>
+<li><p>“youtubers”</p></li>
+</ul>
+</li>
+</ul>
+<p><u>Algorithm</u>:</p>
+<ol class="arabic">
+<li><p><strong>Randomly</strong> choose context &amp; target words with <strong>skip-gram</strong>. (e.g. context “MrBeast” &amp; target “youtubers”)</p></li>
+<li><p>Learn <strong>mapping</strong> of “<span class="math notranslate nohighlight">\( c\ (\text{&quot;mrbeast&quot;}[1234])\rightarrow t\ (\text{&quot;youtubers&quot;}[765]) \)</span>“</p></li>
+<li><p>Use <strong>softmax</strong> to calculate the probability of appearance of target given context:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \hat{y}=P(t|c)=\frac{e^{\theta_t^Te_c}}{\sum_{j=1}^{n}{e^{\theta_j^Te_c}}}
+    \end{equation}\]</div>
+</li>
+<li><p>Minimize the <strong>loss</strong> function:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \mathcal{L}(\hat{y},y)=-\sum_{i=1}^{n}{y_i\log{\hat{y}_ i}}
+    \end{equation}\]</div>
+</li>
+</ol>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>Computation of softmax is very slow: Hierarchical Softmax (i.e. Huffman Tree + LogReg) can solve this problem - with common words at the top and useless words at the bottom.</p></li>
+<li><p><span class="math notranslate nohighlight">\( c\ \&amp;\ t \)</span> should not be entirely random: words like “the/at/on/it/…” should not be chosen.</p></li>
+</ul>
+</section>
+<section id="learning-2-negative-sampling">
+<h2>Learning 2: <strong>Negative Sampling</strong><a class="headerlink" href="#learning-2-negative-sampling" title="Link to this heading">#</a></h2>
+<p><u>Problem</u>: Given a pair of words, predict whether it’s a context-target pair.</p>
+<p>For example, given the word “orange” as the context, we want our model to know that “orange &amp; juice” is a context-target pair but “orange &amp; king” is not.</p>
+<p><u>Algorithm</u>:</p>
+<ol class="arabic">
+<li><p>Pick a context-target pair <span class="math notranslate nohighlight">\( (c,t) \)</span> (the target should be near the context) from the text corpus as a <strong>positive example</strong>.</p></li>
+<li><p>Pick random words <span class="math notranslate nohighlight">\( \\{t_1,\cdots,t_k\\}\)</span> from the dictionary and form word pairs <span class="math notranslate nohighlight">\(\\{(c,t_1),\cdots,(c,t_k)\\} \)</span> as <strong>negative examples</strong> based on the following probability that the creator recommended:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    P(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=1}^{n}{f(w_i)^{\frac{3}{4}}}}
+    \end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\( w_i\)</span> is the <span class="math notranslate nohighlight">\(i \)</span>th word in the dictionary.</p>
+</li>
+<li><p>Train a <strong>binary classifier</strong> based on the training examples from previous steps:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \hat{y}_ i=P(y=1|c,t_i)=\sigma(\theta_{t_i}^Te_c)
+    \end{equation}\]</div>
+</li>
+<li><p>Repeat Step 1-3 till we form our final embedding matrix <span class="math notranslate nohighlight">\( E \)</span>.</p></li>
+</ol>
+<p>Negative Sampling is relatively faster and less costly compared to Word2Vec, since it replaces softmax with binary classification.</p>
+</section>
+<section id="learning-3-glove-global-vectors">
+<h2>Learning 3: <strong>GloVe</strong> (Global Vectors)<a class="headerlink" href="#learning-3-glove-global-vectors" title="Link to this heading">#</a></h2>
+<p><u>Problem</u>: Learn word embeddings based on how many times target <span class="math notranslate nohighlight">\( i\)</span> appears in context of word <span class="math notranslate nohighlight">\(j \)</span>.</p>
+<p><u>Algorithm</u>:</p>
+<ol class="arabic">
+<li><p>Minimize</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \sum_{i=1}^{n}{\sum_{j=1}^{n}{f\big(X_{ij}\big)\big(\theta_i^Te_j+b_i+b'_ j-\log{X_{ij}}\big)^2}}
+    \end{equation}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( X_{ij}\)</span>: #times <span class="math notranslate nohighlight">\(i\)</span> appears in context of <span class="math notranslate nohighlight">\(j \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( f\big(X_{ij}\big) \)</span>: weighing term</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( f\big(X_{ij}\big)=0\)</span> if <span class="math notranslate nohighlight">\(X_{ij}=0 \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( f\big(X_{ij}\big) \)</span> high for uncommon words</p></li>
+<li><p><span class="math notranslate nohighlight">\( f\big(X_{ij}\big) \)</span> low for too-common words</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\( b_i:t\)</span>, <span class="math notranslate nohighlight">\(b'_ j:c \)</span></p></li>
+</ul>
+</li>
+<li><p>Compute the final embedding of word <span class="math notranslate nohighlight">\( w \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    e_w^{\text{final}}=\frac{e_w+\theta_w}{2}
+    \end{equation}\]</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="sequence-modeling">
+<h1>Sequence Modeling<a class="headerlink" href="#sequence-modeling" title="Link to this heading">#</a></h1>
+<section id="sentiment-classification">
+<h2><strong>Sentiment Classification</strong><a class="headerlink" href="#sentiment-classification" title="Link to this heading">#</a></h2>
+<p><u>Problem Setting</u>: (many-to-one) given text, predict sentiment.</p>
+<center><img src="../../images/DL/sent.png" width="550"/></center>  
+<br>
+<u>Model</u>:
+<center><img src="../../images/DL/sentrnn.png" width="550"/></center>  
+</section>
+<section id="seq2seq">
+<h2><strong>Seq2Seq</strong><a class="headerlink" href="#seq2seq" title="Link to this heading">#</a></h2>
+<p><u>Problem Setting</u>: (many-to-many) given an entire sequence, generate a new sequence.</p>
+<p><u>Example 1: Machine Translation</u>:</p>
+<center><img src="../../images/DL/seq2seq.png" width="550"/></center>  
+<br>
+Machine Translation vs Language Model:
+* Language Model: maximize $ P(y^{\<1>},\cdots,y^{\<T_y>}) $
+* Machine Translation: maximize $ P(y^{\<1>},\cdots,y^{\<T_y>} \| \vec{x}) $
+<p><u>Example 2: Image Captioning</u></p>
+<center><img src="../../images/DL/seq2seqic.png" width="550"/></center>  
+</section>
+<section id="beam-search">
+<h2><strong>Beam Search</strong><a class="headerlink" href="#beam-search" title="Link to this heading">#</a></h2>
+<p><u>Problem</u>: So far, when we choose a word from softmax for each RNN block, we are doing <strong>greedy search</strong>, that we only look for <strong>local optimum</strong> instead of <strong>global optimum</strong>.</p>
+<p>That is, we only choose the word with the highest <span class="math notranslate nohighlight">\( P(y^{\&lt;1&gt;}\|\vec{x})\)</span> and then the word with the highest <span class="math notranslate nohighlight">\(P(y^{\&lt;2&gt;}\|\vec{x}) \)</span> and then …</p>
+<p>As we already know, local optimum does not necessarily represent global optimum. In the world of NLP, the word <strong>“going”</strong> always has a much higher probability to appear than the word <strong>“visiting”</strong>, but in certain situations when we need to use “visiting”, the algorithm will still choose “going”, therefore generating a weird sequence as a whole.</p>
+<p><u>Beam Search Algorithm</u>:</p>
+<ol class="arabic simple">
+<li><p>Define a beam size of <span class="math notranslate nohighlight">\( B\)</span> (usually <span class="math notranslate nohighlight">\(B\in\\{1\times10^n,3\times10^n\\},\ n\in\mathbb{Z}^+ \)</span>).</p></li>
+<li><p>Look at the top <span class="math notranslate nohighlight">\( B\)</span> words with the highest <span class="math notranslate nohighlight">\(P\)</span>s for the first word. (i.e. look for <span class="math notranslate nohighlight">\(P(\vec{y}^{\&lt;1&gt;}\|\vec{x}) \)</span>)</p></li>
+<li><p>Repeat till &lt;EOS&gt;. Choose the sequence with the highest combined probability.</p></li>
+</ol>
+<p><u>Improvement</u>: The original Beam Search is very costly in computing, therefore it is necessary to refine it:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+&amp;\because P(y^{&lt;1&gt;},\cdots,y^{&lt;T_y&gt;}|x)=\prod_{t=1}^{T_y}{P(y^{&lt;t&gt;}|x,y^{&lt;1&gt;},\cdots,y^{&lt;t-1&gt;})} \\
+&amp;\therefore \text{goal}=\mathop{\arg\max}_ y{\prod_{t=1}^{T_y}{P(y^{&lt;t&gt;}|x,y^{&lt;1&gt;},\cdots,y^{&lt;t-1&gt;})}} \\
+&amp;\Rightarrow \mathop{\arg\max}_ y{\sum_{t=1}^{T_y}{\log{P(y^{&lt;t&gt;}|x,y^{&lt;1&gt;},\cdots,y^{&lt;t-1&gt;})}}} \\
+&amp;\Rightarrow \mathop{\arg\max}_ y{\frac{1}{T_y^{\alpha}}\sum_{t=1}^{T_y}{\log{P(y^{&lt;t&gt;}|x,y^{&lt;1&gt;},\cdots,y^{&lt;t-1&gt;})}}}
+\end{align}\end{split}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \prod\rightarrow\sum{\log} \)</span>: log scaling</p></li>
+<li><p><span class="math notranslate nohighlight">\( \frac{1}{T_y^{\alpha}}\)</span>: length normalization (when you add more negative values (<span class="math notranslate nohighlight">\(\log{(P&lt;1)}&lt;0 \)</span>), the sum becomes more negative)</p></li>
+<li><p><span class="math notranslate nohighlight">\( \alpha \)</span>: <strike>learning rate</strike> just a coefficient</p></li>
+</ul>
+<p><u>Error Analysis</u>: Suppose we want to analyze the following error:</p>
+<ul class="simple">
+<li><p>Human: Jimmy visits Africa in September. (<span class="math notranslate nohighlight">\( y^\* \)</span>)</p></li>
+<li><p>Algorithm: Jimmy visited Africa last September. (<span class="math notranslate nohighlight">\( \hat{y} \)</span>)</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\( P(y^\*\|x)&gt;P(\hat{y}\|x)\)</span>, Beam search is at fault <span class="math notranslate nohighlight">\(\rightarrow\)</span> increase <span class="math notranslate nohighlight">\(B \)</span><br />
+If <span class="math notranslate nohighlight">\( P(y^\*\|x)\leq P(\hat{y}\|x)\)</span>, RNN is at fault <span class="math notranslate nohighlight">\(\rightarrow \)</span> improve RNN (data augmentation, regularization, architecture, etc.)</p>
+</section>
+<section id="bleu-score">
+<h2><strong>Bleu Score</strong><a class="headerlink" href="#bleu-score" title="Link to this heading">#</a></h2>
+<p><u>Problem</u>: For many sequence modeling problems (especially seq2seq), there is no fixed correct answer. For example, there are many different Chinese translated versions of the same fiction Sherlock Holmes, and they are all correct. In this case, how do we define “correctness” for machine translation?</p>
+<p><u>Bilingual Evaluation Understudy</u>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+p_n=\frac{\sum_{\text{n-gram}\in\hat{y}}{\text{count}_ {clip}(\text{n-gram})}}{\sum_{\text{n-gram}\in\hat{y}}{\text{count}(\text{n-gram})}}
+\end{equation}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \text{n-gram}\)</span>: <span class="math notranslate nohighlight">\(n\)</span> consecutive words (e.g. bigram: “I have a pen.” <span class="math notranslate nohighlight">\(\rightarrow \)</span> “I have”, “have a”, “a pen”)</p></li>
+<li><p><span class="math notranslate nohighlight">\( \text{count}_ {clip}(\text{n-gram}) \)</span>: maximal #times an n-gram appears in one of the reference sequences</p></li>
+<li><p><span class="math notranslate nohighlight">\( \text{count}(\text{n-gram})\)</span>: #times an n-gram appears in <span class="math notranslate nohighlight">\(\hat{y} \)</span></p></li>
+</ul>
+<p>For example,</p>
+<ul class="simple">
+<li><p>input: “Le chat est sur le tapis.”</p></li>
+<li><p>Reference 1: “The cat is on the mat.”</p></li>
+<li><p>Reference 2: “There is a cat on the mat.”</p></li>
+<li><p>MT output: “the cat the cat on the mat.”</p></li>
+</ul>
+<p>The unigrams here are: “the”, “cat”, “on”, “mat”. Then,</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+p_1=\frac{2+1+1+1}{3+2+1+1}=\frac{5}{7}
+\end{equation}\]</div>
+<p>The bigrams here are: “the cat”, “cat the”, “cat on”, “on the”, “the mat”. Then,</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+p_2=\frac{1+0+1+1+1}{2+1+1+1+1}=\frac{2}{3}
+\end{equation}\]</div>
+<p>The final Bleu score will be calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+\text{BLEU}=BP\times e^{\frac{1}{4}\sum_{n=1}^{4}{p_n}}
+\end{equation}\]</div>
+<ul class="simple">
+<li><p>usually we take <span class="math notranslate nohighlight">\( n=4 \)</span> as the upper limit for n-grams.</p></li>
+<li><p><span class="math notranslate nohighlight">\( BP\)</span>: param to penalize short outputs (<span class="math notranslate nohighlight">\(\because \)</span> short outputs tend to have high BLEU scores.)</p></li>
+<li><p><span class="math notranslate nohighlight">\( BP=1\)</span> if <span class="math notranslate nohighlight">\(\text{len}(\hat{y})&gt;\text{len}(\text{ref}) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( BP=e^{\frac{1-\text{len}(\hat{y})}{\text{len}(\text{ref})}}\)</span> if <span class="math notranslate nohighlight">\(\text{len}(\hat{y})\leq\text{len}(\text{ref}) \)</span></p></li>
+</ul>
+</section>
+<section id="attention-model">
+<h2><strong>Attention Model</strong><a class="headerlink" href="#attention-model" title="Link to this heading">#</a></h2>
+<p><u>Problem</u>: Our Seq2Seq model memorizes the entire sequence and then start to generate output sequence. However, a better approach to such problems like machine translation is actually to memorize part of the sequence, translate it, then memorize the next part of the sequence, translate it, and then keep going. Memorizing the entire fiction series of Sherlock Holmes and then translate it is just inefficient.</p>
+<p><u>Model</u>:</p>
+<center><img src="../../images/DL/attention.png" width="400"/></center>  
+<center>Attention Model = Encoding BRNN + Decoding RNN</center>
+<p><u>Algorithm</u>:</p>
+<ol class="arabic">
+<li><p>Combine BRNN activations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    a^{&lt;t'&gt;}=\Big(\overleftarrow{a}^{&lt;t'&gt;},\overrightarrow{a}^{&lt;t'&gt;}\Big)
+    \end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\( t' \)</span> refers to the index of the encoding BRNN layer.</p>
+</li>
+<li><p>Calculate the amount of “attention” that <span class="math notranslate nohighlight">\( y^{\&lt;t&gt;}\)</span> should pay to <span class="math notranslate nohighlight">\(a^{\&lt;t'&gt;} \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \alpha^{&lt;t,t'&gt;}=\frac{e^{(e^{&lt;t,t'&gt;})}}{\sum_{t'=1}^{T_x}{e^{(e^{&lt;t,t'&gt;})}}}
+    \end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\( e^{\&lt;t,t'&gt;}=W_e^{\&lt;t,t'&gt;}[s^{\&lt;t-1&gt;};a^{\&lt;t'&gt;}] +b_e^{\&lt;t,t'&gt;}\)</span> is a linear combination of both encoding activation <span class="math notranslate nohighlight">\(a^{\&lt;t'&gt;}\)</span> and decoding activation <span class="math notranslate nohighlight">\(s^{\&lt;t-1&gt;}\)</span>. <span class="math notranslate nohighlight">\(t \)</span> refers to the index of the decoding RNN layer.</p>
+</li>
+<li><p>Calculate the total attention at <span class="math notranslate nohighlight">\( t \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    c^{&lt;t&gt;}=\sum_{t'}{\alpha^{&lt;t,t'&gt;}a^{&lt;t'&gt;}}
+    \end{equation}\]</div>
+</li>
+<li><p>Include the total attention into the input for output calculation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{equation}
+    \hat{y}^{&lt;t&gt;}=s^{&lt;t&gt;}=g\big(W_y[\hat{y}^{&lt;t-1&gt;};c^{&lt;t&gt;}]+b_y\big)
+    \end{equation}\]</div>
+</li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./dl"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basics of CNN</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-examples">CNN Examples</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection">Object Detection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#face-recognition">Face Recognition</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-rnn">Basics of RNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition-of-sequence-models"><strong>Intuition of Sequence Models</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuition-of-rnn"><strong>Intuition of RNN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnn-types"><strong>RNN Types</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-model"><strong>Language Model</strong></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rnn-variations">RNN Variations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gru-gated-recurrent-unit"><strong>GRU</strong> (Gated Recurrent Unit)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm-long-short-term-memory"><strong>LSTM</strong> (Long Short-Term Memory)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bidirectional-rnn"><strong>Bidirectional RNN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-rnn"><strong>Deep RNN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#featurized-representation"><strong>Featurized Representation</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-1-word2vec">Learning 1: <strong>Word2Vec</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-2-negative-sampling">Learning 2: <strong>Negative Sampling</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-3-glove-global-vectors">Learning 3: <strong>GloVe</strong> (Global Vectors)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-modeling">Sequence Modeling</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-classification"><strong>Sentiment Classification</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seq2seq"><strong>Seq2Seq</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beam-search"><strong>Beam Search</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bleu-score"><strong>Bleu Score</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-model"><strong>Attention Model</strong></a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1004 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Unsupervised Learning &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ml/unsupervised';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dl/activation.html">Activation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dl/qa.html">Q&amp;A</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Neuroscience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../neuro/compneuro.html">Computational Neuroscience</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../irl/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../irl/data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../irl/coding.html">Coding interview</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fml/unsupervised.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/ml/unsupervised.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Unsupervised Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means">K-Means</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-model">Gaussian Mixture Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition">Singular Value Decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">Autoencoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-autoencoder">Variational Autoencoder</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="unsupervised-learning">
+<h1>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Link to this heading">#</a></h1>
+<section id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h2>
+<p>Clustering groups similar samples together with no prior knowledge.</p>
+<section id="k-means">
+<h3>K-Means<a class="headerlink" href="#k-means" title="Link to this heading">#</a></h3>
+<p>Idea: Hard clustering (clustering with deterministic results)</p>
+<p>Model/Algorithm:</p>
+<ol class="arabic simple">
+<li><p>Init centroids <span class="math notranslate nohighlight">\( \boldsymbol{\mu}_1, \cdots, \boldsymbol{\mu}_K\in\mathbb{R}^n \)</span>.</p></li>
+<li><p>Find cluster for each data point:
+$<span class="math notranslate nohighlight">\(
+c_i=\arg\min_k||\mathbf{x}_i-\boldsymbol{\mu}_k||^2\quad(r\_{ik}=\textbf{1}\\{c_i=k\\})
+\)</span>$</p></li>
+<li><p>Update centroids as the mean of all data points in the current cluster:
+$<span class="math notranslate nohighlight">\(
+\boldsymbol{\mu}_k=\frac{\sum\_{i=1}^{m}r\_{ik}\mathbf{x}_i}{\sum\_{i=1}^{m}r\_{ik}}
+\)</span>$</p></li>
+<li><p>Repeat Step 2-3 until convergence (i.e., <span class="math notranslate nohighlight">\( \boldsymbol{\mu}_j \)</span> remain unchanged).</p></li>
+</ol>
+<p>Objective: reconstruction error: <span class="math notranslate nohighlight">\( \mathcal{L}=\sum_{i=1}^m\sum_{k=1}^Kr\_{ik}||\textbf{x}_i-\boldsymbol{\mu}_k||_2^2 \)</span></p>
+<p>Optimization:</p>
+<ul class="simple">
+<li><p>Objective minimization: Greedy (because this objective is NP-hard to optimize)</p></li>
+<li><p>Hyperparameter tuning: choose the elbow point in the “reconstruction error vs <span class="math notranslate nohighlight">\( \\## \)</span>clusters” graph.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Simple. Interpretable</p></li>
+<li><p>Guarantee convergence in a finite number of iterations</p></li>
+<li><p>Flexible re-training</p></li>
+<li><p>Generalize to any type/shape/size of clusters</p></li>
+<li><p>Suitable for large datasets</p></li>
+<li><p>Time complexity: <span class="math notranslate nohighlight">\( O(kmn) \)</span></p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Scale variant</p></li>
+<li><p>Numerical features only</p></li>
+<li><p>Manual hyperparameter choice: <span class="math notranslate nohighlight">\( k \)</span></p></li>
+<li><p>Inconsistent: Sensitive to centroid initialization</p></li>
+<li><p>Sensitive to outliers and noisy data by including them</p></li>
+<li><p>Bad performance on high-dimensional data (distance metric works poorly)</p></li>
+<li><p>Hard clustering (assume 100% in the designated cluster)</p></li>
+</ul>
+<p>Code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">,</span><span class="n">metric_type</span><span class="o">=</span><span class="s1">&#39;L2&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">metric_type</span> <span class="o">==</span> <span class="s2">&quot;L0&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">v1</span><span class="o">-</span><span class="n">v2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">metric_type</span> <span class="o">==</span> <span class="s2">&quot;L1&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">v1</span><span class="o">-</span><span class="n">v2</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">metric_type</span> <span class="o">==</span> <span class="s2">&quot;L2&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">v1</span><span class="o">-</span><span class="n">v2</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">metric_type</span> <span class="o">==</span> <span class="s2">&quot;Linf&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">v1</span><span class="o">-</span><span class="n">v2</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">KMeans</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">n_clusters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">):</span>
+        <span class="c1">## 1) Init centroids uniformly</span>
+        <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">)]</span>
+        
+        <span class="c1">## 4) Repeat Step 2-3</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">centroids_cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">not_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">,</span> <span class="n">centroids_cache</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="c1">## 2) Find cluster for each data point</span>
+            <span class="n">clustered_points</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">:</span>
+                <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">centroid</span><span class="p">)</span> <span class="k">for</span> <span class="n">centroid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">]</span>
+                <span class="n">clustered_points</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            
+            <span class="c1">## 3) Update centroids</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">clustered_points</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="gaussian-mixture-model">
+<h3>Gaussian Mixture Model<a class="headerlink" href="#gaussian-mixture-model" title="Link to this heading">#</a></h3>
+<p>Idea: clustering but deterministic <span class="math notranslate nohighlight">\( r\_{ik}=\textbf{1}\\{c_i=k\\}\)</span> <span class="math notranslate nohighlight">\(\rightarrow\)</span> stochastic <span class="math notranslate nohighlight">\(r\_{ik}=\mathbb{E}[\textbf{1}\\{z_i=k\\}]=P(z_i=k|\textbf{x}_i) \)</span>.</p>
+<p>Background: Shapes of clusters are determined by the properties of their covariance matrices.</p>
+<ul class="simple">
+<li><p><strong>Shared Spherical</strong>: #params=1, same <span class="math notranslate nohighlight">\( \sigma^2\)</span> for all features, all features independent, same <span class="math notranslate nohighlight">\(\Sigma \)</span> for all clusters.</p>
+<ul>
+<li><p>K-means = GMM with <span class="math notranslate nohighlight">\( N(\boldsymbol{\mu}_k,\sigma^2I) \)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Spherical</strong>: #params=<span class="math notranslate nohighlight">\( k\)</span>, same <span class="math notranslate nohighlight">\(\sigma^2\)</span> for all features, all features independent, diff <span class="math notranslate nohighlight">\(\Sigma_k \)</span> for all clusters.</p></li>
+<li><p><strong>Shared Diagonal</strong>: #params=<span class="math notranslate nohighlight">\( n\)</span>, diff <span class="math notranslate nohighlight">\(\sigma_k^2\)</span> for all features, all features independent, same <span class="math notranslate nohighlight">\(\Sigma \)</span> for all clusters.</p></li>
+<li><p><strong>Diagonal</strong>: #params=<span class="math notranslate nohighlight">\( kn\)</span>, diff <span class="math notranslate nohighlight">\(\sigma_k^2\)</span> for all features, all features independent, diff <span class="math notranslate nohighlight">\(\Sigma_k \)</span> for all clusters.</p></li>
+<li><p><strong>Shared Full Covariance</strong>: #params=<span class="math notranslate nohighlight">\( \frac{n(n+1)}{2}\)</span>, same <span class="math notranslate nohighlight">\(\Sigma \)</span> for all clusters.</p></li>
+<li><p><strong>Full Covariance</strong>: #params=<span class="math notranslate nohighlight">\( \frac{kn(n+1)}{2}\)</span>, diff <span class="math notranslate nohighlight">\(\Sigma_k \)</span> for all clusters.</p></li>
+</ul>
+<p>Assumptions:</p>
+<ul class="simple">
+<li><p>There exists a latent variable <span class="math notranslate nohighlight">\( z\in\\{1,\cdots,K\\} \)</span> representing the index of the Gaussian distribution in the mixture.</p></li>
+</ul>
+<p>Model: <span class="math notranslate nohighlight">\( P(\mathbf{x}_i,z_i)=P(\mathbf{x}_i|z_i)P(z_i) \)</span>, where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( z_i\sim\text{Multinomial}(\boldsymbol{\phi})\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{\phi}\in\mathbb{R}^{K} \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( (\mathbf{x}_i|z_i=k)\sim N(\boldsymbol{\mu}_k,\Sigma_k)\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_k\in\mathbb{R}^n,\Sigma_k\in\mathbb{R}^{n\times n} \)</span></p></li>
+</ul>
+<p>#params: <span class="math notranslate nohighlight">\( (K-1)+Kn+K\frac{n(n+1)}{2} \)</span></p>
+<p>Optimization: EM</p>
+<ol class="arabic simple">
+<li><p>Init distributions for prior <span class="math notranslate nohighlight">\( P(z_i)\)</span> and likelihood <span class="math notranslate nohighlight">\(P(\mathbf{x}_i|z_i) \)</span></p></li>
+<li><p>E-step: estimate <span class="math notranslate nohighlight">\( P(z_i=k|\textbf{x}_i)\)</span> given params <span class="math notranslate nohighlight">\((\boldsymbol{\phi},\boldsymbol{\mu}_k,\Sigma_k) \)</span>:
+$<span class="math notranslate nohighlight">\(
+r\_{ik}=P(z_i=k|\textbf{x}_i)=\frac{P(\textbf{x}_i|z_i=k)P(z_i=k)}{\sum\_{k=1}^{K}P(\textbf{x}_i|z_i=k)P(z_i=k)}
+\)</span>$</p></li>
+<li><p>M-step: estimate params via MLE given <span class="math notranslate nohighlight">\( P(z_i=k, \textbf{x}_i) \)</span>:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+\phi_k&amp;=\frac{1}{m}\sum\_{i=1}^mr\_{ik}\\\\
+\boldsymbol{\mu}_k&amp;=\frac{\sum\_{i=1}^mr\_{ik}\textbf{x}_i}{\sum\_{i=1}^mr\_{ik}}
+\end{align*}\)</span>$</p></li>
+<li><p>Repeat Step 2-3 until convergence.</p></li>
+</ol>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>More robust to outliers and noisy data</p></li>
+<li><p>Flexible to a great variety of shapes of data points</p></li>
+<li><p>Soft clustering</p></li>
+<li><p>Weighted distance instead of absolute distance in k-means</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>High computational cost</p></li>
+</ul>
+</section>
+</section>
+<section id="dimensionality-reduction">
+<h2>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Link to this heading">#</a></h2>
+<p>Dimensionality reduction reduces dimensionality (i.e., #features) of input data.</p>
+<p>We need dimensionality reduction because:</p>
+<ul class="simple">
+<li><p><strong>Curse of Dimensionality</strong>: high-dimensional data has high sparsity.</p></li>
+<li><p><strong>Computational Efficiency</strong>: high-dimensional data requires more computational resources (time &amp; space).</p></li>
+<li><p><strong>Overfitting</strong>: high-dimensional data are prone to overfitting.</p></li>
+<li><p><strong>Visualization</strong>: we cannot visualize any data beyond 3D.</p></li>
+<li><p><strong>Performance</strong>: high-dimensional data are prone to have more noises, which are reducible by selecting the most important features.</p></li>
+<li><p><strong>Interpretability</strong>: only the most relevant features matter.</p></li>
+</ul>
+<section id="singular-value-decomposition">
+<h3>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Link to this heading">#</a></h3>
+<p><strong>Model</strong>:
+$<span class="math notranslate nohighlight">\(
+X=UDV^T=\sum_{i=1}^{\text{rank}(X)}D_{ii}\textbf{u}_i\textbf{v}_i^T
+\)</span>$</p>
+<ul class="simple">
+<li><p>Input:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( X\in\mathbb{R}^{m\times n} \)</span>: arbitrary input matrix</p></li>
+</ul>
+</li>
+<li><p>Output (Matrix ver.):</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( U\in\mathbb{R}^{m\times m} \)</span>: left singular vectors (i.e., final rotation)</p></li>
+<li><p><span class="math notranslate nohighlight">\( D\in\mathbb{R}^{m\times n} \)</span>: singular values (i.e., scaling)</p></li>
+<li><p><span class="math notranslate nohighlight">\( V\in\mathbb{R}^{n\times n} \)</span>: right singular vectors (i.e., initial rotation)</p></li>
+<li><p><span class="math notranslate nohighlight">\( \text{rank}(X)=\min(m,n) \)</span>: rank</p></li>
+</ul>
+</li>
+<li><p>Output (Vector ver.):</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( \textbf{u}_i\textbf{v}_i^T\)</span>: outer product matrix of <span class="math notranslate nohighlight">\(i \)</span>th column unit vectors</p></li>
+<li><p><span class="math notranslate nohighlight">\( D_{ii}\)</span>: importance/strength of <span class="math notranslate nohighlight">\(i \)</span>th outer product matrix</p></li>
+</ul>
+</li>
+<li><p>Note:</p>
+<ul>
+<li><p>rotation matrices are <strong>orthonormal</strong>: <span class="math notranslate nohighlight">\( U^TU=I, V^TV=I \)</span></p></li>
+<li><p>scaling matrix is <strong>diagonal</strong>: <span class="math notranslate nohighlight">\( D=\text{diag}(\sigma_1,\cdots,\sigma_{\text{rank}(X)})\)</span>, where <span class="math notranslate nohighlight">\(\sigma_i=\sqrt{\lambda_i} \)</span></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Idea</strong>: An arbitrary matrix = “unit matrix <span class="math notranslate nohighlight">\( \rightarrow\)</span> initial rotation <span class="math notranslate nohighlight">\(\rightarrow\)</span> scaling <span class="math notranslate nohighlight">\(\rightarrow \)</span> final rotation”</p>
+<ul class="simple">
+<li><p>Think of an arbitrary <span class="math notranslate nohighlight">\( 2\times 2 \)</span> matrix on a 2D plane. We can reconstruct this matrix with a unit disk (i.e., the 2 unit vectors along the coordinates) via the following steps:</p>
+<ol class="arabic simple">
+<li><p>Rotate the unit vectors by <span class="math notranslate nohighlight">\( V^T \)</span>.</p></li>
+<li><p>Scale the rotated unit disk into an ellipse by <span class="math notranslate nohighlight">\( D \)</span>.</p></li>
+<li><p>Rotate the ellipse by <span class="math notranslate nohighlight">\( U \)</span>.</p></li>
+</ol>
+</li>
+</ul>
+<p><strong>Properties</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( X^TX=V(D^TD)V^T=\sum_{i=1}^n(D_{ii})^2\textbf{v}_i\textbf{v}_i^T \)</span> (i.e., right singular vectors = eigenvectors of covariance matrix)</p></li>
+<li><p><span class="math notranslate nohighlight">\( XX^T=U(DD^T)U^T=\sum_{i=1}^m(D_{ii})^2\textbf{u}_i\textbf{u}_i^T \)</span> (i.e., left singular vectors = eigenvectors of outer product matrix)</p></li>
+<li><p>Pseudo-inverse: <span class="math notranslate nohighlight">\( X^+=VD^{-1}U^T\in\mathbb{R}^{n\times m} \)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\( X\)</span> is a positive semi-definite matrix, then <span class="math notranslate nohighlight">\(\sigma_{i}=\lambda_{i} \)</span> (i.e., singular value = eigenvalue).</p>
+<ul>
+<li><p>Positive Semi-Definite: A symmetric matrix <span class="math notranslate nohighlight">\( X\)</span> s.t. <span class="math notranslate nohighlight">\(\forall\textbf{z}\in\mathbb{R}^n,\textbf{z}\geq\textbf{0}: \textbf{z}^TX\textbf{z}\geq 0 \)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Applications</strong>:</p>
+<ul class="simple">
+<li><p><strong>Simplify OLS in regression</strong>: when calculating the “inverse” of a rectangular matrix, <span class="math notranslate nohighlight">\( (X^TX)^{-1}X^T\approx X^+ \)</span>.</p></li>
+<li><p><strong>Low-rank matrix approximation</strong>: define a lower rank <span class="math notranslate nohighlight">\( k\)</span> &amp; approximate <span class="math notranslate nohighlight">\(X\approx U_kD_kV_k^T \)</span>.</p></li>
+<li><p><strong>Eigenword</strong>: project high-dimensional context to low-dimensional space, assuming distributional similarity.</p>
+<ul>
+<li><p>Distributional similarity: words with similar contexts have similar meanings.</p></li>
+<li><p>Distance-based similarity measure: similar words are close in this low-dimensional space.</p></li>
+<li><p>Eigenwords: left singular vectors (i.e., word embeddings).</p></li>
+<li><p>Eigentokens: right singular vectors <span class="math notranslate nohighlight">\( \times \)</span> Context (i.e., contextual embeddings).</p></li>
+<li><p>Word sense disambiguation: estimate contextual embedding for a word with right singular vectors.</p></li>
+</ul>
+</li>
+<li><p><strong>PCA</strong>: see next.</p></li>
+</ul>
+</section>
+<section id="principal-component-analysis">
+<h3>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Link to this heading">#</a></h3>
+<p><strong>Model (Original ver.)</strong>:</p>
+<ol class="arabic simple">
+<li><p>Calculate the covariance matrix of <span class="math notranslate nohighlight">\( X\)</span> in the observation space: <span class="math notranslate nohighlight">\(\Sigma=\text{Cov}(X,X)=X^TX \)</span>.</p></li>
+<li><p>Diagonalize the covariance matrix via Spectral Theorem: <span class="math notranslate nohighlight">\( \Sigma=V\Lambda V^T \)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \Lambda \)</span>: eigenvalues (i.e., PC strength / sample variance of projection)</p></li>
+<li><p><span class="math notranslate nohighlight">\( V \)</span>: orthonormal eigenvectors (i.e., PCs)</p></li>
+</ul>
+</li>
+<li><p>Sort eigenvectors in <span class="math notranslate nohighlight">\( V\)</span> based on eigenvalues in <span class="math notranslate nohighlight">\(\Lambda \)</span> in descending order.</p></li>
+<li><p>Select &amp; normalize the strongest <span class="math notranslate nohighlight">\( k\)</span> eigenvectors <span class="math notranslate nohighlight">\(\\{\textbf{v}_1,\cdots,\textbf{v}_k\\}\)</span>, where <span class="math notranslate nohighlight">\(k \)</span> is a hyperparameter.</p>
+<ul class="simple">
+<li><p>Now <span class="math notranslate nohighlight">\( \Lambda\in\mathbb{R}^{k\times k}, V\in\mathbb{R}^{n\times k} \)</span>.</p></li>
+</ul>
+</li>
+<li><p>Project <span class="math notranslate nohighlight">\( X\)</span> onto a new space based on the <span class="math notranslate nohighlight">\(k\)</span> eigenvectors: <span class="math notranslate nohighlight">\(Z=XV \)</span></p>
+<ul class="simple">
+<li><p>Each projected point is: <span class="math notranslate nohighlight">\( \textbf{z}_i=(\textbf{x}_i^T\textbf{v}_1,\cdots,\textbf{x}_i^T\textbf{v}_k) \)</span></p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Model (SVD ver.)</strong>:</p>
+<ol class="arabic simple">
+<li><p>Compute SVD: <span class="math notranslate nohighlight">\( X=UDV^T \)</span>.</p></li>
+<li><p>Select <span class="math notranslate nohighlight">\( k\)</span> rows of <span class="math notranslate nohighlight">\(V^T \)</span> (the right singular matrix) with the largest singular values as PCs.</p></li>
+<li><p>Project the original dataset <span class="math notranslate nohighlight">\( X\)</span> onto a new space based on the <span class="math notranslate nohighlight">\(k \)</span> eigenvectors.</p></li>
+</ol>
+<p><strong>Idea</strong>: We can project the input data onto an orthonormal basis <span class="math notranslate nohighlight">\( \\{\textbf{v}_1,\cdots,\textbf{v}_k\\} \)</span> of smaller dimensions while covering maximal variance among features.</p>
+<ul class="simple">
+<li><p><strong>Orthonormal basis</strong>: <span class="math notranslate nohighlight">\( \textbf{v}_i^T\textbf{v}_j=0,\textbf{v}_i^T\textbf{v}_i=1 \)</span>.</p></li>
+<li><p>Ideally, we lose minimal info (represented by minimal variance) while successfully reducing the dimensionality.</p></li>
+</ul>
+<p><strong>Assumptions</strong>:</p>
+<ul class="simple">
+<li><p>Input matrix <span class="math notranslate nohighlight">\( X \)</span> is centered/standardized on the sample space, unless data is sparse.</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( \bar{\textbf{x}}=\frac{1}{m}\sum_{i=1}^{m}\textbf{x}_i=\textbf{0} \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( s\_j^2=\frac{1}{m}\sum\_{i=1}^{m}x\_{ij}^2=1 \)</span> (optional but strongly recommended)</p></li>
+</ul>
+</li>
+<li><p>PCs = linear combinations of original features. (if not, then Kernel PCA)</p></li>
+<li><p>Variance = a measure of feature importance.</p></li>
+</ul>
+<p><strong>Optimization</strong>: minimize distortion (i.e., maximize variance in new coordinates)</p>
+<ul class="simple">
+<li><p><strong>Distortion</strong>:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+\text{Distortion}_k=||X-ZV^T||_F&amp;=\sum\_{i=1}^m||\textbf{x}_i-\hat{\textbf{x}}_i||_2^2 \\\\
+&amp;=\sum\_{i=1}^m\sum\_{j=k+1}^{n}z\_{ij}^2\\\\
+&amp;=m\sum\_{j=k+1}^{n}\textbf{v}_j^T\Sigma\textbf{v}_j\\\\
+&amp;=m\sum\_{j=k+1}^{n}\lambda_j
+\end{align*}\)</span>$</p></li>
+<li><p><strong>Variance</strong> (of projected points):
+$<span class="math notranslate nohighlight">\(
+\text{Variance}_k=m\sum\_{j=1}^{k}\textbf{v}_j^T\Sigma\textbf{v}_j=m\sum\_{j=1}^{k}\lambda_j
+\)</span>$</p></li>
+<li><p><strong>Minimizing distortion = Maximizing variance</strong>:
+$<span class="math notranslate nohighlight">\(
+\text{Variance}_k+\text{Distortion}_k=m\sum\_{j=1}^{n}\lambda_j=m\cdot\text{trace}(\Sigma)
+\)</span>$</p></li>
+</ul>
+<p><strong>Inference/Reconstruction</strong>: Any sample vector can be approximated in terms of coefficients (scores) on eigenvectors (loadings).</p>
+<ol class="arabic simple">
+<li><p>Predict the original point via inverse mapping: <span class="math notranslate nohighlight">\( \hat{\textbf{x}}_i=\sum\_{j=1}^kz\_{ij}\textbf{v}_j \)</span></p>
+<ul class="simple">
+<li><p>The projected new points <span class="math notranslate nohighlight">\( z_i \)</span>s can still correlate with each other. Only their basis are independent. Therefore, variance is still not 1 even if you standardize data.</p></li>
+</ul>
+</li>
+<li><p>The original point can be fully reconstructed if <span class="math notranslate nohighlight">\( k=n \)</span>:
+<span class="math notranslate nohighlight">\( \textbf{x}_i=\bar{\textbf{x}}+\sum\_{j=1}^nz\_{ij}\textbf{u}_j \)</span></p></li>
+</ol>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>Guarantee removal of correlated features (PCs are orthogonal)</p></li>
+<li><p>Reduce overfitting for supervised learning</p></li>
+<li><p>Improve visualization for high-dimensional data</p></li>
+<li><p>Robust to outliers &amp; noisy data</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>Scale invariant</p></li>
+<li><p>Low interpretability of new features (i.e., PCs)</p></li>
+<li><p>Potential info loss if PCs &amp; <span class="math notranslate nohighlight">\( \\## \)</span>PCs are not selected carefully</p></li>
+<li><p>Situational (e.g. cannot be applied on NLP because 1) covariance matrix is useless 2) it breaks sparse structure of words)</p></li>
+<li><p>(weak) If any assumption fails, PCA fails (solvable by Kernel PCA)</p></li>
+</ul>
+<!-- ### Independent Component Analysis
+Idea: find an embedding so that different features are "deconfounded" (i.e., as independent as possible from each other).
+
+tbd -->
+</section>
+<section id="autoencoder">
+<h3>Autoencoder<a class="headerlink" href="#autoencoder" title="Link to this heading">#</a></h3>
+<p>Idea: Use unsupervised NNs to <strong>learn latent representations</strong> via reconstruction. (Semi-supervised learning)</p>
+<ul class="simple">
+<li><p>The goal of AE is NOT to reconstruct the input as accurately as possible but to LEARN major features from it. Reconstruction is only an objective for the learning process.</p></li>
+</ul>
+<p>Model: NN</p>
+<ul class="simple">
+<li><p><strong>Denoising AE</strong>: add noise to the input and try to output the original image (to avoid perfect fitting)</p></li>
+</ul>
+<p>Objective: minimize reconstruction error</p>
+<p>Optimization: see DL</p>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>= Nonlinear PCA (PCA = Linear Manifold)</p></li>
+<li><p>Offer embeddings that can be used in supervised learning</p></li>
+<li><p>Better performance than PCA in general</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>High computational cost</p></li>
+</ul>
+</section>
+<section id="variational-autoencoder">
+<h3>Variational Autoencoder<a class="headerlink" href="#variational-autoencoder" title="Link to this heading">#</a></h3>
+<p>tbd</p>
+<!-- ## Bayesian Belief Networks -->
+<!-- The core of generative models in comparison to discriminative models is that the generative model **GENERATES** samples, which many newbies like me overlooked at the very beginning.
+
+Discriminative models predict label given sample features, but Generative models uses a completely different thinking process, where we
+1) propose/calculate the prior of labels $ P(Y) $, using relevant params for the prior distribution,
+2) calculate the likelihood of the current combination of values of sample features given the label $ P(X_1,\cdots,X_n|Y) $, using relevant params for the likelihood distribution,
+3) calculate $ P(X,Y)=P(Y)P(X_1,\cdots,X_n|Y) $ for generation;
+    
+    calculate $ P(Y|X)\propto P(Y)P(X_1,\cdots,X_n|Y) $ for discrimination.
+
+During training, we estimate the params which maximize the combination of prior distribution $ \times $ likelihood distribution.
+
+During Prediction, we directly use those params to either generate samples or compute label for the given sample.
+
+The following models are already abandoned in practice because of DL, but the ideas behind them are still important for forming a deep understanding of ML.
+
+Note that Naive Bayes and GMM are also generative models. This section is more like a miscellaneous collection of Bayesian-Network-based models. -->
+<!-- ### Bayesian Network
+Idea: compact specification of full joint distributions with CI assertions using Conditional Probability Table (CPT)
+
+Background:
+- CI properties:
+    - Symmetry: $ (X\perp Y|Z)\rightarrow(Y\perp X|Z) $
+    - Decomposition: $ (X\perp Y,W|Z)\rightarrow(X\perp Y|Z) $
+    - Weak union: $ (X\perp Y,W|Z)\rightarrow(X\perp Y|Z,W) $
+    - Contraction: $ (X\perp W|Y,Z),(X\perp Y|Z)\rightarrow(X\perp Y,W|Z) $
+    - $ P(X|Y)+P(X|\neg Y)\neq1 $ (they are NOT related)
+    - $ P(X|Y)+P(\neg X|Y)=1 $
+- **Active Trail** (in an acyclic graph): for each consecutive triplet in the trail:
+    - $ X\rightarrow Y\rightarrow Z$ and $Y $ is NOT observed.
+    - $ X\leftarrow Y\rightarrow Z$ and $Y $ is NOT observed.
+    - $ X\rightarrow Y\leftarrow Z$ and $Y $ or one of its descendants IS observed.
+- If there is NO active trail between $ X$ and $Y $, then they are CI. (i.e., **D-separation**)
+- NB = basic BayesNet with 1 parent (label) and multiple children (features)
+- Complexity scales exponentially with #parents; Complexity scales linearly with #children.
+
+Assumption: A variable $ X $ is independent of its non-descendants given its parents (Local Markov Assumption)
+
+Model/Algorithm: Graph (built from data/people, or automatic search)
+
+Objective: NLL or 0-1
+
+Optimization:
+- Annealing (if all vars are observable):
+    1. Estimate params from data.
+    2. Randomly change the net structure by one link.
+    3. Re-estimate params.
+    4. Accept change if lower loss, else repeat Step 2-4.
+- EM (if hidden vars exist):
+    1. Assuming priors onto the latent variables, estimate params from data (CPT).
+    2. With the params (probabilities), estimate expected values of the latent variables.
+
+Pros:
+- Guaranteed to be a consistent specification
+- Clear visualization of conditional independence (a compact representation of joint distributions)
+- Nets that capture causality tend to be sparser
+- Easy estimation when everything is observable and when the net structure is available
+
+Cons:
+- There is still no universal method for constructing BayesNet from data (require serious search if net structure is unknown)
+- Fail to define cyclic relationships
+- bad performance on high-dimensional data
+
+
+### Latent Dirichlet Allocation
+Usage: Topic Modeling
+
+Assumption: CI (just like NB)
+
+Background:
+- Multinomial (like Binomial) distribution models the outcomes of a series of i.i.d. experiments (e.g., dice rolling).
+- Dirichlet (like Beta) distribution models probability vectors.
+- We do not know anything about the probabilities of each outcome at the beginning (i.e., the params of Multinomial distribution), so we use Dirichlet distribution to offer us a prior over these params.
+- Therefore, Dirichlet (like Beta) distribution is a conjugate prior for Multinomial (like Binomial) distribution.
+
+Model/Algorithm: For each document $ d $,
+1. Choose its topic distribution $ \boldsymbol{\theta}_d\sim\text{Dirichlet}(\alpha)$, where $\theta\_{dk}=p(\text{topic}=k|\text{document}=d) $
+2. For each word $ w_j$ in $d $:
+    1. Choose this word's topic $ z_{dj}\sim\text{Multinomial}(\boldsymbol{\theta}_d) $
+    2. Choose a word $ w_j\sim\text{Multinomial}(\beta_{z_{dj}})$ where $\beta_{z_{dj}}=p(w_j|z_{dj}) $
+
+Objective: 0-1
+
+Optimization: EM (Variational EM in practice)
+- E-step: Compute $ p(\boldsymbol{\theta},\textbf{z}|d;\alpha,\boldsymbol{\beta})$ (posterior of hidden vars $(\boldsymbol{\theta},\textbf{z})$ given each document $d $)
+- M-step: Estimate params $ (\alpha,\boldsymbol{\beta}) $ given posterior estimates
+
+Naive Bayes vs LDA:
+- Naive Bayes assumes each doc is on a single topic.
+- LDA allows each doc to be a mixture of topics (i.e., each word can be on a different topic).
+
+Pros: 
+- Discovery of implicit topics that were not explicit in the documents
+- Applicable on semi-supervised learning
+- Sometimes dimensionality reduction
+
+Cons:
+- High computational cost (Param Estimation is a bit messy)
+- Low interpretability
+
+### Hidden Markov Model
+Idea: Hidden Markov Chain + Observed variables
+
+Usage: Seq2Seq Synthesis (Speech recognition, POS Tagging, Named Entity Recognition, etc.)
+- Evaluation: compute $ P(X)$ given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi) $.
+- Decoding: find the best $ S=[s_1,\cdots,s_T]$ which best explains the observations given $X=[x_1,\cdots,x_T]$ and $(A,B,\pi) $.
+    - i.e., $ \arg\max\_{[s_1,\cdots,s_T]}\prod P(x_i|s_i)P(s_i|s_{i-1}) $, where the first term is from emission matrix, and the second term is from transition matrix.
+- Learning: estimate $ (A,B,\pi)$ which maximize $P(X;A,B,\pi) $.
+
+Background:
+- Transition Matrix: specifying transition probabilities from one state to another.
+- Emission Matrix: specifying the probabilities of each observed outcome to occur given each hidden state.
+
+Assumptions:
+- Markov Assumption: $ P(X_t|X_{t-1},\cdots,X_1)=P(X_t|X_{t-1}) $.
+- CI Assumption: $ S_t$ D-separates all $X\in\textbf{X}\_{<t}$ from all $X\in\textbf{X}\_{>t} $.
+    - The hidden state at time $ t$ D-separates all emissions/observations at times before $t$ from all emissions/observations at times after $t $.
+    - The future is independent of the past given the present.
+- Stationarity: Transition matrix and emission probabilities stay the same over time.
+
+Model:
+1. Start in some initial state $ s_i$ with probability $p(s_i)=\pi $.
+2. Move to a new state $ s_j$ with probability $p(s_j|s_i)=a_{ij}$, where $a_{ij}$ is a cell value in transition matrix $A $.
+3. Emit an observation $ x_v$ with probability $p(x_v|s_i)=b_{iv}$, where $b_{iv}$ is a cell value in emission matrix $B $.
+
+
+Pros:
+- Can handle inputs of variable lengths
+- Efficient learning
+- Wild range of applications (until DL bloomed)
+
+Cons:
+- A large number of unstructured params
+- Limited by Markov Assumption
+- No dependency between hidden states
+- Completely destroyed by DL --></section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ml"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means">K-Means</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-model">Gaussian Mixture Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition">Singular Value Decomposition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">Autoencoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-autoencoder">Variational Autoencoder</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

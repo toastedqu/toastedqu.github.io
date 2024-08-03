@@ -1,0 +1,960 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Overview of System Design &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ml/application';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dl/activation.html">Activation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dl/qa.html">Q&amp;A</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Neuroscience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../neuro/compneuro.html">Computational Neuroscience</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../irl/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../irl/data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../irl/coding.html">Coding interview</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fml/application.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/ml/application.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Overview of System Design</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Overview of System Design</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experimental-design">Experimental Design</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-learning">Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-experimental-design">Optimal Experimental Design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#response-surface-modeling">Response Surface Modeling</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explanable-ai-xai">Explanable AI (XAI)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#automl">AutoML</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-sklearn">Auto-sklearn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autodl">AutoDL</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>There will be no common notations as different sections involve different aspects. However, most notations will be straightforward and used in all previous chapters.</p>
+<p>Congrats! By understanding all the previous chapters, we finally became able to understand 1% of how ML works in practice. Very nice.</p>
+<p>Ever wonder why MLE interviews focus hugely on software engineering, system design, and experiences with data processing?</p>
+<section class="tex2jax_ignore mathjax_ignore" id="overview-of-system-design">
+<h1>Overview of System Design<a class="headerlink" href="#overview-of-system-design" title="Link to this heading">#</a></h1>
+<p><strong>1. Clarify Requirements</strong></p>
+<ul class="simple">
+<li><p>Data</p>
+<ul>
+<li><p>What size? small <span class="math notranslate nohighlight">\( \rightarrow\)</span> simpler model; large <span class="math notranslate nohighlight">\(\rightarrow \)</span> complex model</p></li>
+<li><p>What is <span class="math notranslate nohighlight">\( y \)</span>? Regression/Classification/Clustering</p></li>
+<li><p>What is <span class="math notranslate nohighlight">\( x \)</span>?</p></li>
+</ul>
+</li>
+<li><p>Hardware Constraints</p>
+<ul>
+<li><p>Time limit?</p></li>
+<li><p>Space limit?</p></li>
+</ul>
+</li>
+<li><p>Objective</p>
+<ul>
+<li><p>Accuracy or Speed? small models <span class="math notranslate nohighlight">\( \rightarrow\)</span> faster; large models <span class="math notranslate nohighlight">\(\rightarrow \)</span> accurate</p></li>
+<li><p>Will we retrain after eval?</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>2. Determine Metrics</strong></p>
+<ul class="simple">
+<li><p>Offline Metrics:</p>
+<ul>
+<li><p>i.e., training/testing metrics</p></li>
+<li><p>e.g., AUC, precision/F1, R^2, MSE, etc.</p></li>
+</ul>
+</li>
+<li><p>Online Metrics:</p>
+<ul>
+<li><p>i.e., eval metrics</p></li>
+<li><p>e.g., click rate, active hours, etc.</p></li>
+</ul>
+</li>
+<li><p>Non-functional metrics:</p>
+<ul>
+<li><p>Training speed</p></li>
+<li><p>Scalability to large datasets</p></li>
+<li><p>Extensibility to new techniques</p></li>
+<li><p>Convenience for deployment</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>3. Input &amp; Data</strong></p>
+<ul class="simple">
+<li><p>Target variable <span class="math notranslate nohighlight">\( y \)</span></p>
+<ul>
+<li><p>Explicit: a user action that directly indicates the label/value of <span class="math notranslate nohighlight">\( y \)</span>. (e.g., “bought”, “liked”) (BEST)</p></li>
+<li><p>Implicit: a user action that might potentially relate to <span class="math notranslate nohighlight">\( y \)</span>. (e.g., “save for later”, long review, etc.) (extra)</p></li>
+</ul>
+</li>
+<li><p>Features <span class="math notranslate nohighlight">\( x \)</span></p>
+<ul>
+<li><p>Identify different features for different systems.</p></li>
+<li><p>Feature engineering</p>
+<ul>
+<li><p>Train/Test split</p></li>
+<li><p>Missing values/Outliers</p></li>
+<li><p>Scaling</p></li>
+<li><p>Balance pos/neg samples (e.g., up-sampling, under-sampling, SMOTE)</p></li>
+</ul>
+</li>
+<li><p>Feature selection</p>
+<ul>
+<li><p>Use some models like trees, L1, L0, etc.</p></li>
+<li><p>Unnecessary for large models.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Extra concerns</p>
+<ul>
+<li><p>Sample range: are we sampling from a large enough subset of demographics?</p></li>
+<li><p>Privacy/law: anonymize? remove some features violating privacy?</p></li>
+<li><p>Data accessibility:</p>
+<ul>
+<li><p>tabular: SQL</p></li>
+<li><p>images/videos: GCP</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>4. Model</strong></p>
+<ul class="simple">
+<li><p>Order:</p>
+<ul>
+<li><p>A baseline model with no ML component</p>
+<ul>
+<li><p>e.g., majority vote, max/min, mean, etc.</p></li>
+</ul>
+</li>
+<li><p>Traditional ML models (typically small &amp; fast)</p></li>
+<li><p>Advanced models (typically large &amp; slow)</p></li>
+</ul>
+</li>
+<li><p>Model Explanation</p>
+<ul>
+<li><p>Idea &amp; Procedure (rough)</p></li>
+<li><p>Key hyperparameters</p></li>
+<li><p>Loss/Optimization objective</p></li>
+<li><p>Pros &amp; Cons</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>5. Output &amp; Serving</strong></p>
+<ul class="simple">
+<li><p>Online A/B Testing</p></li>
+<li><p>Where to run inference</p></li>
+<li><p>Monitoring performance</p></li>
+<li><p>Biases/Misuses of model</p></li>
+<li><p>Retraining frequency</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="experimental-design">
+<h1>Experimental Design<a class="headerlink" href="#experimental-design" title="Link to this heading">#</a></h1>
+<section id="active-learning">
+<h2>Active Learning<a class="headerlink" href="#active-learning" title="Link to this heading">#</a></h2>
+<p>Problem: Given existing data <span class="math notranslate nohighlight">\( (X,y) \)</span>, choose where to collect more labels.</p>
+<p>Assumption: access to cheap unlabeled samples.</p>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Active learner picks which sample(s) <span class="math notranslate nohighlight">\( \textbf{x} \)</span> to query by minimizing some loss (risk).</p></li>
+<li><p>An oracle (ground truth) generates a label/response <span class="math notranslate nohighlight">\( y \)</span>.</p></li>
+<li><p>Update the params of the model.</p></li>
+<li><p>Repeat Step 1-3.</p></li>
+</ol>
+<p><strong>Uncertainty Sampling</strong>: Select <strong>most uncertain</strong> samples to query</p>
+<ul class="simple">
+<li><p>Measures of <strong>uncertainty</strong>: entropy, least confident predicted label, Euclidean distance (e.g., point closest to SVM margin)</p></li>
+<li><p>Cons: Sensitive to noisy data where uncertainty is the highest (e.g., images)</p></li>
+</ul>
+<p><strong>Information-based Loss</strong>: Select <strong>most informative</strong> samples to query</p>
+<ul class="simple">
+<li><p>Quantification of <strong>information gain</strong>:</p>
+<ul>
+<li><p>Maximize <strong>KL divergence</strong> between posterior and prior <span class="math notranslate nohighlight">\( KL(p(\textbf{w}|X,\textbf{x}')||p(\textbf{w}|X))\)</span> (i.e., maximize <span class="math notranslate nohighlight">\(\\# \)</span>bits gained)</p></li>
+<li><p>Maximize <strong>model entropy reduction</strong> between posterior and prior (i.e., reduce <span class="math notranslate nohighlight">\( \\# \)</span>bits required to describe distribution)</p></li>
+</ul>
+</li>
+<li><p>Pros: Better than Uncertainty Sampling (by looking at the expected effect after adding the sample to the model)</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Save computational cost</p></li>
+</ul>
+</section>
+<section id="optimal-experimental-design">
+<h2>Optimal Experimental Design<a class="headerlink" href="#optimal-experimental-design" title="Link to this heading">#</a></h2>
+<p>Problem: Given a parametric model, find which queries are maximally informative (i.e., best minimizes <span class="math notranslate nohighlight">\( \text{Var}[\hat{\textbf{w}}]\leftarrow \)</span> minimize the inverse covariance matrix of samples):
+$<span class="math notranslate nohighlight">\(
+\hat{\textbf{w}}\sim N(\textbf{w},\sigma^2(X^TX)^{-1})
+\)</span>$</p>
+<ul class="simple">
+<li><p>Linear models: optimal design is independent of <span class="math notranslate nohighlight">\( \textbf{w} \)</span>.</p></li>
+<li><p>Nonlinear models: use Taylor expansion to linear model.</p></li>
+<li><p>The more samples, the smaller the covariance.</p></li>
+</ul>
+<p>Solutions:</p>
+<ul class="simple">
+<li><p><strong>A-optimal (average) design</strong>: minimize <span class="math notranslate nohighlight">\( \text{trace}(X^TX)^{-1} \)</span></p></li>
+<li><p><strong>D-optimal (log&amp;det) design</strong>: minimize <span class="math notranslate nohighlight">\( \log\det(X^TX)^{-1} \)</span></p></li>
+<li><p><strong>E-optimal (extreme) design</strong>: minimize <span class="math notranslate nohighlight">\( \max\text{eigenvalue}(X^TX)^{-1} \)</span></p></li>
+<li><p>The best one so far is A-optimal, which is equivalent to minimizing Frobenius norm <span class="math notranslate nohighlight">\( \rightarrow \)</span> minimizing size of matrix.</p></li>
+<li><p>A-optimal effectively chooses points near the border of the dataset.</p></li>
+</ul>
+</section>
+<section id="response-surface-modeling">
+<h2>Response Surface Modeling<a class="headerlink" href="#response-surface-modeling" title="Link to this heading">#</a></h2>
+<p>Problem: Find the optimum of an unknown function <span class="math notranslate nohighlight">\( y=f(\textbf{x}) \)</span>.</p>
+<ul class="simple">
+<li><p>Why? In some situations we don’t care about what the model is. We simply want to know where the optimum is. (e.g., find optimal conditions for growing cell cultures)</p></li>
+</ul>
+<p>Idea: Simultaneously learn what the function looks like near the optimum and find the optimum.</p>
+<p>Procedure: <strong>RL</strong></p>
+<ol class="arabic simple">
+<li><p>Initialize: Given data <span class="math notranslate nohighlight">\( (X,\textbf{y})\)</span>, fit <span class="math notranslate nohighlight">\(y=f(\textbf{x};\textbf{w}) \)</span> as the <strong>response surface</strong>.</p></li>
+<li><p>Repeat:</p>
+<ul class="simple">
+<li><p>Pick the next <span class="math notranslate nohighlight">\( \textbf{x}_i\)</span> by doing GD on <span class="math notranslate nohighlight">\(f(\textbf{x}) \)</span> (i.e., action).</p></li>
+<li><p>Measure the corresponding <span class="math notranslate nohighlight">\( y_i \)</span> (i.e., reward).</p></li>
+<li><p>Add <span class="math notranslate nohighlight">\( (\textbf{x}_i,y_i)\)</span> to the training data to update response surface <span class="math notranslate nohighlight">\(f(\textbf{x}) \)</span>.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="explanable-ai-xai">
+<h1>Explanable AI (XAI)<a class="headerlink" href="#explanable-ai-xai" title="Link to this heading">#</a></h1>
+<p>Why do we want to explain ML/AI?</p>
+<ul class="simple">
+<li><p>Explain the model: <strong>Debugging/Verification</strong></p></li>
+<li><p>Explain the world: <strong>Science</strong></p></li>
+<li><p>Explain the prediction: <strong>Decision support</strong></p></li>
+</ul>
+<p>Types of Explanations:</p>
+<ul class="simple">
+<li><p><strong>Interventional vs Conditional</strong>:</p>
+<ul>
+<li><p>Interventional changes one feature with others fixed (focus on explaining the model).</p></li>
+<li><p>Conditional changes other features to respect correlations.</p></li>
+</ul>
+</li>
+<li><p><strong>Model-based vs Model-agnostic</strong>:</p>
+<ul>
+<li><p>Model-based looks at the params.</p></li>
+<li><p>Model-agnostic focuses on explaining the world.</p></li>
+</ul>
+</li>
+<li><p><strong>Local vs Global</strong>:</p>
+<ul>
+<li><p>Local looks at the feature importance for a single sample or a small group of samples.</p></li>
+<li><p>Global looks at the average feature importance over all samples.</p></li>
+</ul>
+</li>
+</ul>
+<p>Measures of <strong>Feature Importance</strong>:</p>
+<ul class="simple">
+<li><p><strong>Univariate Correlation</strong></p></li>
+<li><p><strong>Replacement with Mean/Zero</strong> (e.g., LIME uses Zero and explains which features in a model are most important for predicting at a particular point in the training data)</p></li>
+<li><p><strong>Permutation</strong></p></li>
+<li><p><strong>Remove &amp; Retrain</strong></p></li>
+<li><p><strong>Partial Dependence Plot</strong>: marginalize over all other features and look at the effect of the current feature (effectively assume features are independent):
+$<span class="math notranslate nohighlight">\(
+\hat{f}S(x_S)=\frac{1}{m}\sum\_{i=1}^{m}\hat{f}(x_S,\textbf{x}_C^{(i)})
+\)</span>$</p></li>
+<li><p><strong>Shapley values (SHAP)</strong>: a class of efficiently computable metrics with great axiomatic properties.</p>
+<ul>
+<li><p><strong>Local SV</strong>: measure the change in prediction accuracy between using the true value of the feature(s) and masking the feature(s) with baseline values (e.g., mean):
+$<span class="math notranslate nohighlight">\(
+\phi\_{ij}(\textbf{w}^T\textbf{x})=w_j(x\_{ij}-\mathbb{E}[\textbf{x}_j])
+\)</span>$</p></li>
+<li><p><strong>Global SV</strong>: measure the average of the absolute value of the accuracy changes over all samples:
+$<span class="math notranslate nohighlight">\(
+\phi_j(\textbf{w}^T\textbf{x})=\frac{1}{m}\sum\_{i=1}^mw_j(x\_{ij}-\mathbb{E}[\textbf{x}_j])
+\)</span>$</p></li>
+<li><p>Properties of SV:</p>
+<ul>
+<li><p><strong>Efficiency</strong>: The feature contributions <span class="math notranslate nohighlight">\( \phi_j \)</span> must add up to the difference of the prediction for x and the average.
+$<span class="math notranslate nohighlight">\(
+\sum\_{j=1}^p\phi_j=\hat{f}(x)-\mathbb{E}_X[\hat{f}(X)]
+\)</span>$</p></li>
+<li><p><strong>Additivity</strong>: For a game with combined payoutts <span class="math notranslate nohighlight">\( val+val^+\)</span>, the respective Shapley values are <span class="math notranslate nohighlight">\(\phi_j+\phi_j^+ \)</span>.</p></li>
+<li><p><strong>Dummy</strong>: A feature <span class="math notranslate nohighlight">\( j\)</span> that has no effect has <span class="math notranslate nohighlight">\(\phi_j=0 \)</span>.</p></li>
+<li><p><strong>Symmetry</strong>: For features <span class="math notranslate nohighlight">\( i,j\)</span> with identical effect, <span class="math notranslate nohighlight">\(\phi_i=\phi_j \)</span>.</p></li>
+<li><p><strong>Consistency</strong>: If a model is altered so that the marginal contribution of a feature value increases (regardless of other features), the Shapley value also increases.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Contenability</strong>: It generally doesn’t make sense to change one feature without others changing as well. (i.e., Cons of measures of feature importance)</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="automl">
+<h1>AutoML<a class="headerlink" href="#automl" title="Link to this heading">#</a></h1>
+<p>Problem: Automate hyperparameter tuning.</p>
+<p>AutoML automates the search for the best hyperparams in an ensemble of sklearn models / NN structures. So far, it has insane performance, is less likely to overfit, and produces varieties of ensembles for various problem types.</p>
+<p>Yes. R.I.P. “<em>import sklearn</em>” folks.</p>
+<section id="auto-sklearn">
+<h2>Auto-sklearn<a class="headerlink" href="#auto-sklearn" title="Link to this heading">#</a></h2>
+<p>Idea: Combined Algorithm Selection and Hyperparameter Optimization (CASH Opt)</p>
+<p>Overview: 15 classifiers, 14 feature preprocessing methods, 4 data preprocessing techniques <span class="math notranslate nohighlight">\( \rightarrow \)</span> 110 hyperparams</p>
+<p>Assumption: <strong>Similar problems need similar models.</strong></p>
+<p><strong>Warmstart/Metalearning</strong>: start with hyperparams that worked in the past for similar datasets (38 metafeatures from 140 datasets)</p>
+<p><strong>Bayesian Optimization</strong>:</p>
+<ul class="simple">
+<li><p>Use a fitted random forest to find the optimal hyperparams.</p>
+<ul>
+<li><p>Fit on what: Given the problem description and hyperparams, predict how accurate they will be.</p></li>
+</ul>
+</li>
+<li><p>Discard bad values on the first fold of 10-fold CV to accelerate.</p></li>
+</ul>
+<p><strong>Ensemble Selection</strong>: Stagewisely generate an ensemble of the top 50 classifiers</p>
+<ul class="simple">
+<li><p>Start with an empty ensemble.</p></li>
+<li><p>Iteratively add the model that minimizes ensemble validation loss, with uniform weight but allowing repetitions.</p>
+<ul>
+<li><p>Why no weight optimization? To <strong>avoid overfitting</strong>: We do not want perfect fitting to residuals at each step, so equal weight.</p></li>
+<li><p>The more accurate we get to, the weaker model gets added to the ensemble.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Metafeatures</strong>: useful for assessing similarities between two problems/datasets.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \\#\)</span>samples, <span class="math notranslate nohighlight">\(\\# \)</span>features</p></li>
+<li><p><span class="math notranslate nohighlight">\( \\# \)</span>missing</p></li>
+<li><p>Fraction of Numerical/Categorical features</p></li>
+<li><p>Data transformations</p></li>
+<li><p>Exploratory statistics</p></li>
+<li><p>PCs, entropy, …</p></li>
+<li><p>The modern way: Use <strong>language embeddings</strong> from text descriptions of problems to pick hyperparams</p>
+<ol class="arabic simple">
+<li><p>Generate/Acquire vector embeddings of dataset title, description and keywords.</p></li>
+<li><p>Calculate similarity between past datasets and new dataset (the similarity metric here is learnt in advance).</p></li>
+<li><p>Find the most similar prior dataset and use its hyperparams.</p></li>
+</ol>
+</li>
+</ul>
+<p><strong>Nested CV</strong>: further reduction in overfitting</p>
+<ol class="arabic simple">
+<li><p>For each of 10 folds on the selected 90% data, do 10-fold CV to find the best method.</p></li>
+<li><p>Observe performance on the held-out 10%.</p></li>
+</ol>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Bye sklearn!</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>(weak) High computational cost (BUT it is worth it)</p></li>
+<li><p>Limited to sklearn (i.e., tabular data)</p></li>
+<li><p>Unstable in rare cases (still need DS folks to monitor at the moment)</p></li>
+</ul>
+</section>
+<section id="autodl">
+<h2>AutoDL<a class="headerlink" href="#autodl" title="Link to this heading">#</a></h2>
+<p>Idea: Use RL to search for the best NN architecture.</p>
+<ul class="simple">
+<li><p>Search in the embedding space of PyTorch code and do GD on it. Generate tons of them and see which ones are good, like states in RL.</p></li>
+<li><p>Why RL instead of other search algorithms? We want only a little exploration and most exploitation.</p></li>
+</ul>
+<p>Agent: a controller RNN which generates sequence of characters (Python code).</p>
+<ul class="simple">
+<li><p>Action: text specifying the NN structure.</p></li>
+</ul>
+<p>Environment: train a NN with architecture <span class="math notranslate nohighlight">\( A\)</span> to get accuracy/reward <span class="math notranslate nohighlight">\(R \)</span>.</p>
+<p>Agent <span class="math notranslate nohighlight">\( \rightarrow\)</span> Environment: sample architecture <span class="math notranslate nohighlight">\(A\)</span> with probability <span class="math notranslate nohighlight">\(p \)</span>.</p>
+<p>Environment <span class="math notranslate nohighlight">\( \rightarrow\)</span> Agent: compute gradient of <span class="math notranslate nohighlight">\(p\)</span> and scale it by <span class="math notranslate nohighlight">\(R \)</span> to update the controller’s policy.</p>
+<p>Pros &amp; Cons: still in progress.</p>
+<!-- # What really matters in ML?
+ML system design consists 4 parts:
+
+<center>
+<img src="/images/ml/system_design_flow.png"/>
+</center>
+
+## Problem
+1. Reword the problem: inputs? outputs? why doing this?
+2. Focus on **user experience**: user POV? user interaction? recent user experience report? company intention for users?
+3. Clarify the problem scope
+    - **Data constraints**: #samples? #features? feature types? (just get a rough idea at this step; smaller -> simpler; larger -> complex)
+    - **Model constraints**: performance or quality? interpretability? retrainability? single general or multiple specific?
+    - **Resource constraints**: time? computing resources? local or cloud?
+4. Determine the evaluation metrics
+    - **Offline**: MSE, P/R/F1, AUC, R^2, etc.
+    - **Online**: usage time, usage frequency, click rate, etc.
+
+## Data
+1. Identify **features** ($ X$) and **target** ($Y $)
+    - 3 types of features: user, content, context
+    - 2 types of target: explicit (direct indicators), implicit (indirect indicators)
+2. Confirm data availability
+    - **Available**: What is available? How much is available? Annotated? How good are the annotations?
+    - **Unavailable**: What is unavailable? How expensive is data annotation? How many annotators for each sample? How to resolve annotators' disagreements? Is it possible to generate these data automatically (e.g., ChatGPT, rule-based generation, etc.)
+    - **Privacy**: What user data can we access? How do we access? How do we get user feedback on the system? Online or periodic data? Anonymity? 
+    - **Logistics**: Where are the data (local or cloud)? What data structures? How big? What biases exist in such data?
+3. **Data Processing**
+4. **Feature Selection**
+
+## Modeling
+1. Give a baseline method (no model)
+2. Give an easy model
+3. Give a hard model (i.e., NNs)
+
+For each model, specify:
+- Functionality
+- Assumption/Conditions (if any)
+- Pros & Cons
+- Objective & Optimization (i.e., loss & training)
+
+## Production
+1. Inference location:
+    - local (user's phone/PC): low latency, require their memory/storage
+    - server (ours): low memory/storage usage, high latency, privacy concerns
+2. Feature serving:
+    - **batch features** should be handled offline and served online (i.e., need daily/weekly jobs for data generation/collection)
+    - **real-time features** should be handled and served at request time (i.e., need to create a feature store to look up features at serve time; caching may be necessary) $ \rightarrow $ watch out for scalability and latency.
+3. Performance Monitoring: latency, biases, data drift, CPU load, memory, etc.
+4. Retrain Frequency
+5. Online A/B Testing
+
+### Online A/B Testing
+1. **Goal**: Define the objective. (e.g., improving click-through rates, increasing sign-up rates, etc.)
+    - **Significancec level** ($ \alpha $): threshold of whether the observed difference between the control and treatment groups is statistically significant or occurred by chance.
+        - Common values: 0.05 and 0.01
+        - A lower $ \alpha $ makes it more challenging to detect difference
+    - **Power** ($ 1-\beta$): probability of correctly rejecting $H_0 $ when it is false, meaning the ability to detect a meaningful difference when it exists
+        - Common value: 80%
+        - A higher power requires larger sample sizes to achieve
+    - *notes:
+        - $ \alpha=P$(FP), Type I error: probability of rejecting $H_0 $ when it is true.
+        - $ \beta=P$(FN), Type II error: probability of not rejecting $H_0 $ when it is false.
+
+<t>
+
+2. **Variation**: Generation 2/more versions of whatever element we want to test. (e.g., 2 different designs of a button; blue round button to **control group** A; green square button to **treatment group** B)
+
+<t>
+
+3. **Traffic**: Calculate required sample size per variation
+$ $n=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\times p(1-p)$ $
+    - $ p $ (baseline conversion rate): the rate at which a desired action/event occurs in the control group
+    - $ \text{MDE} $ (Minimum Detectable Effect): smallest difference in the conversion rate that you want to be able to detect as statistically significant
+        - e.g., if $ p=10\\%$ and we want a minimum improvement of $2\\%$, then $\text{MDE}=20\\% $
+    - Both groups should be statistically similar in terms of characteristics for a fair comparison
+
+<t>
+
+4. **Splitting**: Randomly assign users into control & treatment groups 
+    - **User-level**: the user consistently experience the same variation throughout their entire interaction.
+        - Pros: useful when the tested variations are expected to have a long-lasting impact on user experience, reducing potential biases or confusion due to inconsistency.
+    - **Request-level**: the system randomly determines the variation to be shown at each request made by the user, regardless of previous assignments.
+        - Pros: useful for measuring immediate or session-specific effects of the tested variations, allowing us to capture any potential context-dependent or short-term effects.
+
+<t>
+
+5. **Measurement & Analysis**: Track and record user interactions, events, or conversions for both the control and treatment groups.  Compare the performance of the control and treatment groups using statistical analysis. Determine if there is a statistically significant difference in the metrics you are measuring between the variations. -->
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ml"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Overview of System Design</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experimental-design">Experimental Design</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-learning">Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-experimental-design">Optimal Experimental Design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#response-surface-modeling">Response Surface Modeling</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explanable-ai-xai">Explanable AI (XAI)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#automl">AutoML</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-sklearn">Auto-sklearn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autodl">AutoDL</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
