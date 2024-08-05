@@ -1,0 +1,1458 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Coding &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'irl/dsa';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Firl/dsa.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/irl/dsa.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Coding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Coding</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-test">Implement &amp; Test</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ds-a">DS/A</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array">Array</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-pointer">Two Pointer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#left-right">Left &amp; Right</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#slow-fast-sliding-window">Slow &amp; Fast (Sliding Window)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-search">Binary Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-intervals">Merge Intervals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-programming">Dynamic Programming</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-list">Linked List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-queue">Stack &amp; Queue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monotonic-stack">Monotonic Stack</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree">Tree</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dfs">DFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bfs">BFS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heap">Heap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-heap">Two Heap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph">Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">BFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#union-find">Union-Find</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-sort">Topological Sort</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dijkstra-s-shortest-path">Dijkstra’s Shortest Path</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floyd-warshall">Floyd Warshall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prim-s-mst">Prim’s MST</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kruskal-s-mst">Kruskal’s MST</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding">
+<h1>Coding<a class="headerlink" href="#coding" title="Link to this heading">#</a></h1>
+<section id="problem">
+<h2>Problem<a class="headerlink" href="#problem" title="Link to this heading">#</a></h2>
+<p>ALWAYS understand the problem first!</p>
+<ul class="simple">
+<li><p>What are some naive examples?</p></li>
+<li><p>What data structure(s)?</p>
+<ul>
+<li><p>1D array/string?</p></li>
+<li><p>Specific structure (e.g., Tree)?</p></li>
+<li><p>Entity relations (i.e., Graph)?</p></li>
+</ul>
+</li>
+<li><p>What algorithm pattern(s)?</p>
+<ul>
+<li><p>Sequence search (Binary Search)?</p></li>
+<li><p>Recursion (DFS &amp; BFS)?</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+</ul>
+<p>ASK clarification questions!</p>
+<ul class="simple">
+<li><p>What are the <strong>TYPE, ROLE &amp; DIMENSION</strong> of EACH element in EACH <strong>input &amp; output</strong>?</p></li>
+<li><p>Is the input <strong>VALID</strong>?</p></li>
+<li><p>Is the input <strong>SORTED</strong>?</p></li>
+<li><p>Is the input <strong>UNIQUE</strong>?</p></li>
+<li><p>What’s the input <strong>RANGE</strong>?</p></li>
+<li><p>Is the output a <strong>full structure</strong> or just a <strong>counter</strong>?</p></li>
+<li><p>What are the <strong>edge cases</strong>?</p></li>
+<li><p>Draw <strong>specific, large, mediocre EXAMPLE PAIRS</strong> (pos &amp; neg) to confirm understanding with the interviewer.</p></li>
+</ul>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p><strong>COMMUNICATE</strong> with your interviewer!</p>
+<ul class="simple">
+<li><p>Do NOT code.</p></li>
+<li><p>State <strong>Brute-Force</strong> &amp; its time &amp; space complexity.</p></li>
+<li><p>Optimize BUDs in naive solution: <strong>Bottlenecks, Unnecessary work, Duplicated work</strong>.</p></li>
+<li><p>Use any <strong>unused info</strong>.</p></li>
+<li><p><strong>Walk through</strong> your entire approach in detail with the interviewer.</p></li>
+</ul>
+<p>When stuck,</p>
+<ul class="simple">
+<li><p>Use <strong>HashMap</strong>.</p></li>
+<li><p>Solve <strong>base cases</strong>.</p></li>
+<li><p>Solve <strong>subproblems</strong>.</p></li>
+<li><p>Try different DS/As.</p></li>
+</ul>
+</section>
+<section id="data-structure">
+<h2>Data Structure<a class="headerlink" href="#data-structure" title="Link to this heading">#</a></h2>
+<p>Identify useful DSs.</p>
+<ul class="simple">
+<li><p><strong>Storage</strong>:</p>
+<ul>
+<li><p><strong>Array</strong>: Stores index-specific values.</p></li>
+<li><p><strong>HashSet</strong>: Stores unique values, ignores duplicates, reduces search time to <span class="math notranslate nohighlight">\(O(1)\)</span>.</p></li>
+<li><p><strong>HashMap</strong>: Map 2 entities (e.g., <code class="docutils literal notranslate"><span class="pre">defaultdict(list),</span> <span class="pre">defaultdict(set),</span> <span class="pre">Counter()</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>Process</strong>:</p>
+<ul>
+<li><p><strong>Stack</strong>: Backward processing (DFS).</p></li>
+<li><p><strong>Queue</strong>: Forward processing (BFS).</p></li>
+<li><p><strong>Heap</strong>: Store, sort, find min/max at each step.</p></li>
+</ul>
+</li>
+<li><p><strong>Question-specific</strong>:</p>
+<ul>
+<li><p><strong>LinkedList</strong>: (I suck at this. FML.)</p></li>
+<li><p><strong>Tree</strong>: DFS &amp; BFS, Trie.</p></li>
+<li><p><strong>Graph</strong>: Entity relations.</p></li>
+</ul>
+</li>
+</ul>
+<p>For any question,</p>
+<center>Use <strong>HashMap</strong> when in doubt.</center>
+</section>
+<section id="implement-test">
+<h2>Implement &amp; Test<a class="headerlink" href="#implement-test" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Walk through your code on your own.</p></li>
+<li><p>Modify unusual parts.</p></li>
+<li><p>Check null nodes.</p></li>
+<li><p>Test small mediocre cases.</p></li>
+<li><p>Test edge cases.</p></li>
+<li><p>Test special cases.</p></li>
+<li><p>Fix bugs as needed.</p></li>
+<li><p>Be ready to discuss time &amp; space complexity.</p></li>
+</ul>
+<p> </p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ds-a">
+<h1>DS/A<a class="headerlink" href="#ds-a" title="Link to this heading">#</a></h1>
+<section id="array">
+<h2>Array<a class="headerlink" href="#array" title="Link to this heading">#</a></h2>
+<section id="two-pointer">
+<h3>Two Pointer<a class="headerlink" href="#two-pointer" title="Link to this heading">#</a></h3>
+<section id="left-right">
+<h4>Left &amp; Right<a class="headerlink" href="#left-right" title="Link to this heading">#</a></h4>
+<p><strong>Where</strong>: bi-directional, often on 1d array/string.</p>
+<p><strong>How</strong>:</p>
+<ol class="arabic simple">
+<li><p>left &amp; right pointers (either facing from both ends, or expanding from middle).</p></li>
+<li><p>Loop. Break when meet.</p></li>
+</ol>
+<p><strong>Tips</strong>:</p>
+<ul class="simple">
+<li><p>Sort when necessary!</p></li>
+<li><p>Use WHILE loop to go over elems that do not break condition.</p></li>
+<li><p>3-pointer (or more) is always an option.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Question</p></th>
+<th class="head text-left"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/longest-mountain-in-array/description/">845. Longest Mountain in Array</a></p></td>
+<td class="text-left"><p><strong>Hint: FOR loop; expand both ends.</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/longest-palindromic-substring/description/">5. Longest Palindromic Substring</a></p></td>
+<td class="text-left"><p><strong>Hint: FOR loop; expand one end first, then expand both ends.</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/rotate-array/description/">189. Rotate Array</a></p></td>
+<td class="text-left"><p><strong>Hint: flip array, then flip both subarrays.</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/container-with-most-water/description/">11. Container With Most Water</a></p></td>
+<td class="text-left"><p><strong>Hint: only higher heights can lead to higher volume.</strong><br>1. WHILE loop between l &amp; r.<br>2. At each step, check if volume needs to be updated.<br>3. Move the pointer with a smaller height.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/sort-colors/description/">75. Sort Colors</a></p></td>
+<td class="text-left"><p><strong>Hint: red &amp; blue pointers for reference, white pointer for iteration.</strong><br>1. r,b to left,right; w for looping from left.<br>2. If w is 0, swap with r and move both.<br>3. If w is 2, swap with b and move only b.<br>4. If w is 1, move w.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="slow-fast-sliding-window">
+<h4>Slow &amp; Fast (Sliding Window)<a class="headerlink" href="#slow-fast-sliding-window" title="Link to this heading">#</a></h4>
+<p><strong>Where</strong>: uni-directional, 1d subarray/substring problem</p>
+<p><strong>How</strong>:</p>
+<ol class="arabic simple">
+<li><p>Init cache(s) with int/arr/map.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fast</span></code> for iteration, <code class="docutils literal notranslate"><span class="pre">slow</span></code> for operation (threshold, comparison, etc.)</p></li>
+<li><p>MIN:</p>
+<ol class="arabic simple">
+<li><p>Expand <code class="docutils literal notranslate"><span class="pre">fast</span></code> until condition is met.</p></li>
+<li><p>Shrink <code class="docutils literal notranslate"><span class="pre">slow</span></code> until condition is broken.</p></li>
+</ol>
+</li>
+<li><p>MAX:</p>
+<ol class="arabic simple">
+<li><p>Expand <code class="docutils literal notranslate"><span class="pre">fast</span></code> until condition is broken.</p></li>
+<li><p>Dynamically update cache to track condition. If condition is met again, stop <code class="docutils literal notranslate"><span class="pre">slow</span></code>.</p></li>
+</ol>
+</li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sliding_window</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="c1">## Step 1: init</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>                               <span class="c1">## slow pointer</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>   <span class="c1">## cache</span>
+
+    <span class="c1">## Step 2: iterate</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>          <span class="c1">## fast pointer</span>
+        <span class="c1">## Step 2.1 expand</span>
+        <span class="n">cache</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1">## Step 2.2 shrink</span>
+        <span class="k">while</span> <span class="n">condition</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>             <span class="c1">## condition state</span>
+            <span class="n">cache</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1">## Step 3: return whatever the question asks for</span>
+    <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Tips</strong>:</p>
+<ul class="simple">
+<li><p>Plan out what to do at every step in every case. It’s OK to write them all out at the beginning and optimize afterwards. The key is to think carefully.</p></li>
+<li><p>Don’t overthink over cases that do not matter. “collections” contains all keys by default, which comes in handy in some cases.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Question</p></th>
+<th class="head text-left"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/">3. Longest Substring Without Repeating Characters</a></p></td>
+<td class="text-left"><p>1. Expand till f char is already visited.<br>2. Remove visited s chars till f char is no longer visited.<br>Cache: visited (set), max len (int).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/minimum-size-subarray-sum/description/">209. Minimum Size Subarray Sum</a></p></td>
+<td class="text-left"><p>1. Expand till curr sum exceeds target.<br>2. Shrink s till curr sum goes below target again.<br>Cache: curr sum (int), min len (int).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/longest-repeating-character-replacement/description/">424. Longest Repeating Character Replacement</a></p></td>
+<td class="text-left"><p>1. Expand till curr len &gt;= max char freq + k. Keep track of char counts, max freq, curr len, and max len (i.e., the answer).<br>2. Shrink s till curr len is smaller again. Update char counts and max freq if necessary.<br>Cache: count (dict), max freq (int), curr len (int), max len (int).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/subarray-product-less-than-k/description/">713. Subarray Product Less Than K</a></p></td>
+<td class="text-left"><p>1. Expand &amp; update curr product till it exceeds k.<br>2. Shrink s till curr product goes below k again.<br>At each step, update #subarrays with the window length.<br>Cache: curr product (int), #subarrays (int).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/count-subarrays-with-score-less-than-k/description/">2302. Count Subarrays With Score Less Than K</a></p></td>
+<td class="text-left"><p>1. Expand till score exceeds k.<br>2. Shrink s till score goes below k again.<br>At each step, update #subarrays with the window length (window length = #subarrays for the current f pointer.)<br>Cache: curr sum (int), #subarrays (int).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/">1493. Longest Subarray of 1’s After Deleting One Element</a></p></td>
+<td class="text-left"><p>1. Expand till 0 is met.<br>2. If first time, update deleted. If not, move s after 0 index. Update 0 index to f in both cases.<br>Cache: deleted (bool), 0 index (int), max len (int).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/fruit-into-baskets/description/">904. Fruit Into Baskets</a></p></td>
+<td class="text-left"><p>1. Expand till &gt;=2 types of fruits in basket.<br>2. Move both f &amp; s till only 2 types of fruits in basket. Update window count at each step. Delete the fruit with 0 count.<br>3. The max length is the window length.<br>Cache: basket (dict).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/find-all-anagrams-in-a-string/description/">438. Find All Anagrams in a String</a></p></td>
+<td class="text-left"><p>0. Get p count.<br>1. Expand till length of p first.<br>2. Move both f &amp; s. Update window count at each step. Whenever window count is identical to p count, append s to answer.<br>Cache: p count (dict), window count (dict).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/minimum-window-substring/description/">76. Minimum Window Substring</a></p></td>
+<td class="text-left"><p>0. Get t count. Init #missing as len(t).<br>1. Expand till #missing is 0 (i.e., curr window has the substring).<br>2. Shrink till #missing exceeds 0 again.<br>At each step, we update t count by subtracting f char count (and adding slow char count). We should only update #missing when the counts of t chars (which should always be &gt;=0) change.<br>The trick is, the counts of s chars that are not in t will always be below 0, so they will never affect #missing.<br>Cache: t count (dict), #missing chars (int), min substring indices (int)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="binary-search">
+<h3>Binary Search<a class="headerlink" href="#binary-search" title="Link to this heading">#</a></h3>
+<p>Credits to <a class="reference external" href="https://leetcode.com/problems/find-k-th-smallest-pair-distance/solutions/769705/python-clear-explanation-powerful-ultimate-binary-search-template-solved-many-problems/">zhijun_liao</a> and <a class="reference external" href="https://leetcode.com/problems/find-peak-element/solutions/788474/general-binary-search-thought-process-4-templates/">user8301z</a> for helping me understand binary search a lot better.</p>
+<p><strong>Where</strong>: Find a function that maps elements in the left/right half to True and the other to False.</p>
+<ul class="simple">
+<li><p>Although it’s mostly applicable to sorted arrays, this is NOT a necessary requirement.</p></li>
+</ul>
+<p><strong>How</strong>: There are 2 cases to consider. (originally 4, but I think 2 are sufficient for explanation.)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Find First True (i.e., assume `lefts=False, rights=True`)</span>
+<span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">condition</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">mid</span>   <span class="c1">## If True, ans is on the left (inclusive), so we go left.</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span>         <span class="c1">## If False, ans is on the right, so we go right.</span>
+
+<span class="c1">## Find Last True (i.e., assume `lefts=True, rights=False`)</span>
+<span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">condition</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="n">mid</span>   <span class="c1">## If True, answer is on the right (inclusive), so we go right.</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">mid</span><span class="o">-</span><span class="mi">1</span>         <span class="c1">## If not, answer is on the left, so we go left.</span>
+</pre></div>
+</div>
+<p>These 2 templates are easily interchangeable by swapping the condition, so we end up with 1 universal template:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">binary_search</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">condition</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">l</span><span class="p">,</span><span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>     <span class="c1">## NOTE: Pay attention to edge cases. Sometimes we need to change this boundary.</span>
+    <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="n">l</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+        <span class="k">if</span> <span class="n">condition</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span> <span class="n">r</span> <span class="o">=</span> <span class="n">mid</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">l</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Question</p></th>
+<th class="head text-left"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/find-peak-element/description/">162. Find Peak Element</a></p></td>
+<td class="text-left"><p><strong>Condition: find the first element &gt; its next element.</strong> (<code class="docutils literal notranslate"><span class="pre">nums[mid]</span> <span class="pre">&gt;</span> <span class="pre">nums[mid+1]</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/peak-index-in-a-mountain-array/description/">852. Peak Index in a Mountain Array</a></p></td>
+<td class="text-left"><p><strong>Condition: find the first element &gt; its next element.</strong> (<code class="docutils literal notranslate"><span class="pre">nums[mid]</span> <span class="pre">&gt;</span> <span class="pre">nums[mid+1]</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/">153. Find Minimum in Rotated Sorted Array</a></p></td>
+<td class="text-left"><p><strong>Condition: find the first element &lt;= everything on its right.</strong> (<code class="docutils literal notranslate"><span class="pre">nums[mid]</span> <span class="pre">&lt;=</span> <span class="pre">nums[r]</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/random-pick-with-weight/description/">528. Random Pick with Weight</a></p></td>
+<td class="text-left"><p><strong>Condition: find the first index with a cumulative probability &gt;= a random probability.</strong> (<code class="docutils literal notranslate"><span class="pre">self.w[mid]</span> <span class="pre">&gt;=</span> <span class="pre">p</span></code>)<br>NOTE: convert input array to cumulative probabilities.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/">34. Find First and Last Position of Element in Sorted Array</a></p></td>
+<td class="text-left"><p><strong>Condition: find the first element &gt;= input number.</strong> (<code class="docutils literal notranslate"><span class="pre">nums[mid]</span> <span class="pre">&gt;=</span> <span class="pre">n</span></code>)<br>1. Write this condition in a func.<br>2. The first occurrence is bs(target). (i.e., first element &gt;= target)<br>3. The last occurrence is bs(target+1)-1. (i.e., first element &gt;= target+1, then on its left)<br>4. If first &lt;= last, ans is valid. Else, target not in array.<br>NOTE: given the way <code class="docutils literal notranslate"><span class="pre">last</span></code> is defined, <code class="docutils literal notranslate"><span class="pre">r=len(nums)</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/design-hit-counter/description/">362. Design Hit Counter</a></p></td>
+<td class="text-left"><p><strong>Condition: find the index where <code class="docutils literal notranslate"><span class="pre">timestamp-300</span></code> would have been inserted at.</strong> (<code class="docutils literal notranslate"><span class="pre">self.hits[mid]</span> <span class="pre">&gt;</span> <span class="pre">target</span></code>)<br>1. Write this condition in a func.<br>2. #hits = <code class="docutils literal notranslate"><span class="pre">len(self.hits)-self.bs(timestamp-300)</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/single-element-in-a-sorted-array/description/">540. Single Element in a Sorted Array</a></p></td>
+<td class="text-left"><p><strong>Condition: find the first element that distorts the duplicate order.</strong><br>- For the input array, if <code class="docutils literal notranslate"><span class="pre">i</span></code> is odd / <code class="docutils literal notranslate"><span class="pre">i-1</span></code> is even, the condition should always hold: <code class="docutils literal notranslate"><span class="pre">nums[i]</span> <span class="pre">==</span> <span class="pre">nums[i-1]</span></code>.<br>- However, the element we are looking for violates this condition, so we have 2 cases:<br>- if <code class="docutils literal notranslate"><span class="pre">mid</span></code> is odd and <code class="docutils literal notranslate"><span class="pre">nums[mid]</span> <span class="pre">!=</span> <span class="pre">nums[mid-1]</span></code>.<br>- if <code class="docutils literal notranslate"><span class="pre">mid</span></code> is even and <code class="docutils literal notranslate"><span class="pre">nums[mid]</span> <span class="pre">!=</span> <span class="pre">nums[mid+1]</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/find-k-closest-elements/description/">658. Find K Closest Elements</a></p></td>
+<td class="text-left"><p><strong>Condition: find the first element that starts the subarray.</strong><br>- Since <code class="docutils literal notranslate"><span class="pre">a</span></code> is closer than <code class="docutils literal notranslate"><span class="pre">b</span></code> if <code class="docutils literal notranslate"><span class="pre">|a-x|</span> <span class="pre">&lt;=</span> <span class="pre">|b-x|</span></code> and <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span></code>, it is straightforward that our first element in the subarray satisfies <code class="docutils literal notranslate"><span class="pre">|nums[mid]-x|</span> <span class="pre">&lt;=</span> <span class="pre">|nums[mid+k]-x|</span></code>.<br>- It’s the same as <code class="docutils literal notranslate"><span class="pre">x-nums[mid]</span> <span class="pre">&lt;=</span> <span class="pre">nums[mid+k]-x</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/">719. Find K-th Smallest Pair Distance</a></p></td>
+<td class="text-left"><p><strong>Condition: find the smallest distance that has &gt;=k pairs within its range.</strong><br>1. Write a function that uses two pointers (slow &amp; fast) to find the #pairs with distances &lt;= input distance. Return True if there are &gt;=k pairs, else False.<br>2. Sort <code class="docutils literal notranslate"><span class="pre">nums</span></code> for two pointers to work.<br>3. Set <code class="docutils literal notranslate"><span class="pre">r=nums[-1]-nums[0]</span></code> because our search space is not <code class="docutils literal notranslate"><span class="pre">nums</span></code> but distances.<br>4. Search.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="merge-intervals">
+<h3>Merge Intervals<a class="headerlink" href="#merge-intervals" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: interval problems</p>
+<p><strong>How</strong>: depends on the question tbh.</p>
+<center>
+<img src="/images/dsa/merge_interval.jpg" width=50%/>
+</center>
+<p><strong>Tips</strong>:</p>
+<ul class="simple">
+<li><p>There are only 2 conditions for 2 intervals to overlap: <strong>front.start &lt;= back.end</strong> AND <strong>back.start &lt;= front.end</strong>.</p></li>
+<li><p>Use MIN/MAX to update merged <code class="docutils literal notranslate"><span class="pre">start</span></code>/<code class="docutils literal notranslate"><span class="pre">end</span></code>.</p></li>
+<li><p>Sort by <code class="docutils literal notranslate"><span class="pre">start</span></code>/<code class="docutils literal notranslate"><span class="pre">end</span></code> when necessary.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Question</p></th>
+<th class="head text-left"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/merge-intervals/description/">56. Merge Intervals</a></p></td>
+<td class="text-left"><p>0. Sort.<br>1. Loop.<br>Append interval till <code class="docutils literal notranslate"><span class="pre">front.end</span> <span class="pre">&gt;=</span> <span class="pre">back.start</span></code>.<br>Update <code class="docutils literal notranslate"><span class="pre">front.end</span></code> with max end.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/employee-free-time/description/">759. Employee Free Time (opposite of 56)</a></p></td>
+<td class="text-left"><p>0. Flatten &amp; Sort a workhour array by start time.<br>1. Loop.<br>Append interval till <code class="docutils literal notranslate"><span class="pre">front.end</span> <span class="pre">&gt;=</span> <span class="pre">back.start</span></code>.<br>Update <code class="docutils literal notranslate"><span class="pre">front.end</span></code> with max end.<br>2. Loop through the array of merged workhours. The intervals in between (i.e., <code class="docutils literal notranslate"><span class="pre">[front.end,</span> <span class="pre">back.start]</span></code>) are free hours.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/insert-interval/description/">57. Insert Interval</a></p></td>
+<td class="text-left"><p>0. Init left &amp; right subarrays.<br>1. Loop.<br>Append interval to left if <code class="docutils literal notranslate"><span class="pre">interval.end</span> <span class="pre">&lt;</span> <span class="pre">newinterval.start</span></code> (i.e., on the left of new interval)<br>Append interval to right if <code class="docutils literal notranslate"><span class="pre">interval.start</span> <span class="pre">&gt;</span> <span class="pre">newinterval.end</span></code> (i.e., on the right of new interval).<br>Else, we find the insertion position. Keep track of the position with MIN of start and MAX of end.<br>2. Concatenate left, <code class="docutils literal notranslate"><span class="pre">[insert_start,</span> <span class="pre">insert_end]</span></code>, and right together as the answer.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/interval-list-intersections/description/">986. Interval List Intersections</a></p></td>
+<td class="text-left"><p>0. Init a pointer for each list.<br>1. Loop till length.<br>If intersect, append <code class="docutils literal notranslate"><span class="pre">[max_start,</span> <span class="pre">min_end]</span></code> to answer (i.e., the intersection interval)<br>Else, move the pointer with the smaller end value.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="dynamic-programming">
+<h3>Dynamic Programming<a class="headerlink" href="#dynamic-programming" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: The OG problem can be divided into smaller overlapping subproblems with an optimal substructure.</p>
+<p><strong>How</strong>:</p>
+<ol class="arabic simple">
+<li><p>Choose a method: Decide between the two main methods of DP: Top-Down (Memoization) and Bottom-Up (Tabulation).</p>
+<ul class="simple">
+<li><p>Top-Down (<strong>Memoization</strong>): Break problem into smaller subproblems. Store results for each subproblem in an array/hash.</p></li>
+<li><p>Bottom-Up (<strong>Tabulation</strong>): Start from the simplest subproblems and iteratively solve larger problems. Store results in a table (i.e., 2d array).</p></li>
+</ul>
+</li>
+<li><p>Define the state:</p>
+<ul class="simple">
+<li><p>Variables: Determine what parameters can uniquely identify a subproblem, which will be used to index into your memoization table or array.</p></li>
+<li><p>Transition: Define how to break your problem into subproblems.</p></li>
+</ul>
+</li>
+<li><p>Initialize (DP table &amp; Base cases) &amp; Iterate (based on the defined state transition).</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">DP</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="c1">## Step 1: Init</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>          <span class="c1">## DP table</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>               <span class="c1">## base case</span>
+
+    <span class="c1">## Step 2: Iterate</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>   <span class="c1">## state transition</span>
+
+    <span class="c1">## Step 3: Return end case</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Question</p></th>
+<th class="head text-left"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/combination-sum/description/">39. Combination Sum</a></p></td>
+<td class="text-left"><p><strong>DP: store the combinations to get the desired amount with the given coins.</strong><br>Base: f(0)=[]; f(coin)=[coin].<br>Transition: loop through each candidate and all numbers between candidate and target.<br>- If the number is the candidate, store the candidate.<br>- Else, append candidate to all combinations of the previous store. (<code class="docutils literal notranslate"><span class="pre">dp[i]</span> <span class="pre">=</span> <span class="pre">dp[i-c]+[c]</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/maximum-subarray/description/">53. Maximum Subarray</a></p></td>
+<td class="text-left"><p><strong>DP: store max attainable sum for the given index.</strong><br>Base: all 0.<br>Transition: loop through each index.<br>- If previous max sum is bigger than 0, curr max sum = prev + curr num.<br>- Else, curr max sum = curr num (because adding negative sum is not max.)<br>Return <code class="docutils literal notranslate"><span class="pre">max(dp)</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/unique-paths/description/">62. Unique Paths</a></p></td>
+<td class="text-left"><p><strong>DP: store #unique paths for the given point.</strong><br>Base: set all starting edges to 1.<br>Transition: loop through each point from top left to bottom right.<br>- <code class="docutils literal notranslate"><span class="pre">dp[i][j]</span> <span class="pre">=</span> <span class="pre">dp[i-1][j]</span> <span class="pre">+</span> <span class="pre">dp[i][j-1]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/word-break/description/">139. Word Break</a></p></td>
+<td class="text-left"><p><strong>DP: store whether there is a word in worddict that ends with index i in string s.</strong><br>Base: all False.<br>Transition: loop through each index and each word in dict.<br>- If there is such a word and (the preceding word also exists or this word is the first word), then <code class="docutils literal notranslate"><span class="pre">dp[i]=True</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/coin-change/description/">322. Coin Change</a></p></td>
+<td class="text-left"><p><strong>DP: store min #coins for each amount till target.</strong><br>Base: f(0)=0; f(coin)=1.<br>Transition: loop through each amount and each coin.<br>- If curr ammount is bigger than the coin, <code class="docutils literal notranslate"><span class="pre">dp[i]</span> <span class="pre">=</span> <span class="pre">min(dp[i-coin]</span> <span class="pre">for</span> <span class="pre">coin</span> <span class="pre">in</span> <span class="pre">coins)+1</span></code>.<br>- Else, <code class="docutils literal notranslate"><span class="pre">dp[i]=float(&quot;inf&quot;)</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/combination-sum-iv/description/">377. Combination Sum IV</a></p></td>
+<td class="text-left"><p><strong>DP: store #combinations for each target till target.</strong><br>Base: f(0)=1.<br>Transition: loop through each target and each number.<br>- <code class="docutils literal notranslate"><span class="pre">dp[i]</span> <span class="pre">=</span> <span class="pre">sum(dp[i-num]</span> <span class="pre">for</span> <span class="pre">num</span> <span class="pre">in</span> <span class="pre">nums)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/longest-common-subsequence/description/">1143. Longest Common Subsequence</a></p></td>
+<td class="text-left"><p><strong>DP: store max common subsequence length for each index in each string.</strong><br>Base: all 0.<br>Transition: loop through each index in each string.<br>- If two chars are the same, <code class="docutils literal notranslate"><span class="pre">dp[i+i][j+1]</span> <span class="pre">=</span> <span class="pre">dp[i][j]+1</span></code><br>- Else, <code class="docutils literal notranslate"><span class="pre">dp[i+1][j+1]</span> <span class="pre">=</span> <span class="pre">max(dp[i][j+1],dp[i+1][j])</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/partition-equal-subset-sum/description/">416. Partition Equal Subset Sum</a></p></td>
+<td class="text-left"><p><strong>2 DPs: both sets store the sums of all subsets till this index. 1 for main store, 1 for looping.</strong><br>Base: f(0)=0.<br>Transition: loop through each index and each stored sum for previous index.<br>1. Init looping dp. Also, init target sum (i.e., half of total sum).<br>2. For each stored sum for previous index, stored in the main dp,<br>- At each number, we have 2 options: add it, or don’t.<br>- When add it, we append <code class="docutils literal notranslate"><span class="pre">sum+num</span></code> to the looping dp.<br>- When don’t, we append <code class="docutils literal notranslate"><span class="pre">sum</span></code> to the looping dp.<br>- Do both options at each loop because there is no if-else for this problem.<br>3. Update main dp with looping dp. If target sum in main dp, return True. If no true after all loops, return False.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/target-sum/description/">494. Target Sum</a></p></td>
+<td class="text-left"><p><strong>DP: store mappings of “(index, target) -&gt; #ways to get to target from curr index”.</strong><br><strong>DFS: return #ways to get to target from curr index.</strong><br>Leaf case: #ways is either 1 (if hit target) or 0 (if not).<br>Break case: if we already visited (index, target), no need to loop further.<br>Loop: #ways at curr index = #ways at left + #ways at right.<br>Start with (0,0).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/">329. Longest Increasing Path in a Matrix</a></p></td>
+<td class="text-left"><p><strong>DP: store max attainable len for each point.</strong><br><strong>DFS: return max attainable len for curr point.</strong><br>Break case: return 0 if out of boundary or not increasing (keep track of previous number to check if increasing).<br>Loop: if curr point not visited, set curr point store to max of all 4 movements plus 1.<br>Start with all points on matrix. Return the max len.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="linked-list">
+<h2>Linked List<a class="headerlink" href="#linked-list" title="Link to this heading">#</a></h2>
+<p>My peanut brain literally cannot understand linked list problems, so take this section with a grain of salt.</p>
+<p><strong>Where</strong>: linked list</p>
+<p><strong>Tips</strong>:</p>
+<ul class="simple">
+<li><p>Problem: search, insert, delete, reverse, etc.</p></li>
+<li><p>Diagram: if you can, draw them.</p></li>
+<li><p>Pointer: carefully keep track of what your “prev” and “curr” pointers are doing at every single step. Are they doing add, remove, or rearrange nodes?</p>
+<ul>
+<li><p>It involves 3 nodes instead of 2 to make a full reverse.</p></li>
+</ul>
+</li>
+<li><p>Dummies: don’t be afraid to init bunch of temp nodes. They are all O(1) anyway.</p></li>
+<li><p>Edge cases: empty list, single node list, head/tail nodes, etc.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Question</p></th>
+<th class="head text-left"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/">19. Remove Nth Node From End of List</a></p></td>
+<td class="text-left"><p>1. Two pointers at head.<br>2. Loop fast first till <code class="docutils literal notranslate"><span class="pre">n</span></code>. If fast cannot reach <code class="docutils literal notranslate"><span class="pre">n</span></code>, no need to remove.<br>3. Loop both fast and slow. When fast finishes, slow will be at <code class="docutils literal notranslate"><span class="pre">n-1</span></code>th node.<br>4. Put slow.next to slow.next.next. Return head.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/merge-k-sorted-lists/description/">23. Merge k Sorted Lists</a></p></td>
+<td class="text-left"><p>1. Init a dummy node for the later merged list. Init a pointer for the list.<br>2. Init a heap with first nodes of each list, storing both value and index for the node.<br>3. Recursively pop &amp; push values and indices to the heap till we run out of nodes.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://leetcode.com/problems/swap-nodes-in-pairs/description/">24. Swap Nodes in Pairs</a></p></td>
+<td class="text-left"><p>1. Init a dummy node for the head. Init 2 pointers (<code class="docutils literal notranslate"><span class="pre">prev</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">curr</span></code>) to <code class="docutils literal notranslate"><span class="pre">dummy</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">head</span></code>.<br>2. Keep track of 3 nodes in each iteration of the WHILE loop on <code class="docutils literal notranslate"><span class="pre">curr</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">post</span></code>.<br>2.1. Point curr &amp; post to new curr &amp; new post.<br>2.2. Point <code class="docutils literal notranslate"><span class="pre">curr.next</span></code> to <code class="docutils literal notranslate"><span class="pre">post.next</span></code>.<br>2.3. Point <code class="docutils literal notranslate"><span class="pre">post.next</span></code> to <code class="docutils literal notranslate"><span class="pre">curr</span></code>.<br>2.4. Point <code class="docutils literal notranslate"><span class="pre">prev.next</span></code> to <code class="docutils literal notranslate"><span class="pre">post</span></code>.<br>2.5. Move <code class="docutils literal notranslate"><span class="pre">prev</span></code> to <code class="docutils literal notranslate"><span class="pre">curr</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- ```python
+def reverseList(self, head):
+    prev, curr = None, head
+    while curr:
+        temp = curr.next
+        curr.next = prev
+        prev, curr = curr, temp
+    return prev
+``` -->
+</section>
+<section id="stack-queue">
+<h2>Stack &amp; Queue<a class="headerlink" href="#stack-queue" title="Link to this heading">#</a></h2>
+<section id="monotonic-stack">
+<h3>Monotonic Stack<a class="headerlink" href="#monotonic-stack" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: increasing/decreasing trend</p>
+<p><strong>Tips</strong>:</p>
+<ul class="simple">
+<li><p>Understand clearly what the variable for comparison is. Use stack to store</p>
+<ul>
+<li><p>the variable for comparison</p></li>
+<li><p>another variable closely associated with it</p></li>
+</ul>
+</li>
+<li><p>If an element violates the condition, enter a WHILE loop. Continuously update and pop values from stack until</p>
+<ul>
+<li><p>this element stays in condition.</p></li>
+<li><p>the stack is EMPTY.</p></li>
+</ul>
+</li>
+<li><p>Else, append element to stack.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## 739. Daily Temperatures</span>
+<span class="k">def</span> <span class="nf">dailyTemperatures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temperatures</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">temperatures</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1">## store indices of monotonically decreasing temps</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">temperatures</span><span class="p">):</span>
+        <span class="k">while</span> <span class="n">s</span> <span class="ow">and</span> <span class="n">temperatures</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">:</span>  <span class="c1">## if a higher temp is met</span>
+            <span class="n">ans</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>              <span class="c1">## update ans</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>                           <span class="c1">## pop till no higher temp</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>                           <span class="c1">## append unanswered index to stack</span>
+    <span class="k">return</span> <span class="n">ans</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="tree">
+<h2>Tree<a class="headerlink" href="#tree" title="Link to this heading">#</a></h2>
+<section id="dfs">
+<h3>DFS<a class="headerlink" href="#dfs" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: longest/specific search problems</p>
+<p><strong>How?</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dfs_pre</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">is_end_case</span><span class="p">():</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">break_condition</span><span class="p">():</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1">####### ACTION HERE ######</span>
+    <span class="c1">####### ACTION ENDS ######</span>
+    <span class="n">dfs_pre</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">dfs_pre</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">dfs_in</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">is_end_case</span><span class="p">():</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">break_condition</span><span class="p">():</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">dfs_in</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="c1">####### ACTION HERE ######</span>
+    <span class="c1">####### ACTION ENDS ######</span>
+    <span class="n">dfs_in</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">dfs_post</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">is_end_case</span><span class="p">():</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">break_condition</span><span class="p">():</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">dfs_post</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="n">dfs_post</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="c1">####### ACTION HERE ######</span>
+    <span class="c1">####### ACTION ENDS ######</span>
+</pre></div>
+</div>
+<p><strong>Tips</strong>:</p>
+<ul class="simple">
+<li><p>Choose carefully what you want: pre-order / in-order / post-order.</p></li>
+<li><p>Each loop should ONLY focus on</p>
+<ol class="arabic simple">
+<li><p>the end/base case</p></li>
+<li><p>the curr node</p></li>
+</ol>
+</li>
+<li><p>When returning bool, specify both True and False end/base cases.</p></li>
+</ul>
+</section>
+<section id="bfs">
+<h3>BFS<a class="headerlink" href="#bfs" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: shortest search problems</p>
+<p><strong>Tips</strong>: queue/priority queue</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">([</span><span class="n">node</span><span class="p">])</span>
+    <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="c1">####### ACTION HERE ######</span>
+        <span class="c1">####### ACTION ENDS ######</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>  <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="heap">
+<h2>Heap<a class="headerlink" href="#heap" title="Link to this heading">#</a></h2>
+<p><strong>Where</strong>: get min/max fast</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>top()</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>insert()</p></td>
+<td><p>O(logn)</p></td>
+</tr>
+<tr class="row-even"><td><p>remove()</p></td>
+<td><p>O(logn)</p></td>
+</tr>
+<tr class="row-odd"><td><p>heapify()</p></td>
+<td><p>O(n)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="two-heap">
+<h3>Two Heap<a class="headerlink" href="#two-heap" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: scheduling, median, any problem that involves both min and max somehow.</p>
+<p><strong>Tips</strong>:</p>
+<ul class="simple">
+<li><p>Set up 2 heaps:</p>
+<ul>
+<li><p>small: max heap (i.e., negative min heap)</p></li>
+<li><p>large: min heap</p></li>
+</ul>
+</li>
+<li><p>Use their length as storage condition</p></li>
+<li><p>Do NOT pop when looking up items. Use index (0 for root).</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## 295. Find Median from Data Stream</span>
+<span class="k">class</span> <span class="nc">MedianFinder</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">small</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">## heap for the smaller half (negative so that min heap works)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">large</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">## heap for the larger half</span>
+
+    <span class="k">def</span> <span class="nf">addNum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="c1">## O(logn)</span>
+        <span class="c1">## It doesn&#39;t really matter which one has one more value than the other. But be consistent during interview.</span>
+        <span class="c1">## In this case, we allow &quot;small&quot; to store one more value than &quot;large&quot; when #nums is odd.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">):</span>                                 <span class="c1">## if #nums is now even</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="o">-</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappushpop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">,</span> <span class="n">num</span><span class="p">))</span>  <span class="c1">## push new num to &quot;large&quot;, pop the smallest from &quot;large&quot;, put it in &quot;small&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">,</span> <span class="o">-</span><span class="n">heapq</span><span class="o">.</span><span class="n">heappushpop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="o">-</span><span class="n">num</span><span class="p">))</span> <span class="c1">## push new num to &quot;small&quot;, pop the largest from &quot;small&quot;, put it in &quot;large&quot;</span>
+
+    <span class="k">def</span> <span class="nf">findMedian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>      <span class="c1">## O(1)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">):</span>        
+            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">large</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">small</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="graph">
+<h2>Graph<a class="headerlink" href="#graph" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Time</p></th>
+<th class="head"><p>DS needed</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DFS</p></td>
+<td><p>O(n)</p></td>
+<td><p>set (and stack if iteration)</p></td>
+</tr>
+<tr class="row-odd"><td><p>BFS</p></td>
+<td><p>O(n)</p></td>
+<td><p>set, queue</p></td>
+</tr>
+<tr class="row-even"><td><p>Union-Find</p></td>
+<td><p>O(nlogn)</p></td>
+<td><p>array, tree</p></td>
+</tr>
+<tr class="row-odd"><td><p>Topological Sort</p></td>
+<td><p>O(n)</p></td>
+<td><p>array, set, queue</p></td>
+</tr>
+<tr class="row-even"><td><p>Dijkstra’s Shortest Path</p></td>
+<td><p>O(ElogV)</p></td>
+<td><p>set, heap</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prim’s MST</p></td>
+<td><p>O(V<span class="math notranslate nohighlight">\( ^2 \)</span>logV)</p></td>
+<td><p>set, heap</p></td>
+</tr>
+<tr class="row-even"><td><p>Kruskal’s MST</p></td>
+<td><p>O(ElogE)</p></td>
+<td><p>array, tree</p></td>
+</tr>
+<tr class="row-odd"><td><p>Floyd Warshall</p></td>
+<td><p>O(n<span class="math notranslate nohighlight">\( ^3 \)</span>)</p></td>
+<td><p>matrix</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="id1">
+<h3>DFS<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">dfs_recursive</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="c1">####### ACTION HERE ######</span>
+    <span class="c1">####### ACTION ENDS ######</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">dfs_iterative</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>                   <span class="c1">## make sure every node gets a chance (some nodes aren&#39;t connected)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="k">continue</span>     <span class="c1">## prevent cycle</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">([</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">while</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+            <span class="c1">####### ACTION HERE ######</span>
+            <span class="c1">####### ACTION ENDS ######</span>
+            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>BFS<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">bfs</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>                   <span class="c1">## make sure every node gets a chance (some nodes aren&#39;t connected)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="k">continue</span>     <span class="c1">## prevent cycle</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">([</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="c1">####### ACTION HERE ######</span>
+            <span class="c1">####### ACTION ENDS ######</span>
+            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="union-find">
+<h3>Union-Find<a class="headerlink" href="#union-find" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: connected components in undirected graphs</p>
+<p><strong>Tips</strong>: Don’t forget to UPDATE PARENTS.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parent</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If not root, keep finding the root of the curr parent and set it as the new parent.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If same parent, then they are in the same set already.</span>
+<span class="sd">    If diff parents,</span>
+<span class="sd">        higher rank will be the parent.</span>
+<span class="sd">        if same rank, add one below the other.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rx</span><span class="p">,</span><span class="n">ry</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rx</span> <span class="o">==</span> <span class="n">ry</span><span class="p">:</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="n">rank</span><span class="p">[</span><span class="n">rx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">rank</span><span class="p">[</span><span class="n">ry</span><span class="p">]:</span>
+        <span class="n">parent</span><span class="p">[</span><span class="n">ry</span><span class="p">]</span> <span class="o">=</span> <span class="n">rx</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">parent</span><span class="p">[</span><span class="n">rx</span><span class="p">]</span> <span class="o">=</span> <span class="n">ry</span>
+        <span class="k">if</span> <span class="n">rank</span><span class="p">[</span><span class="n">rx</span><span class="p">]</span> <span class="o">==</span> <span class="n">rank</span><span class="p">[</span><span class="n">ry</span><span class="p">]:</span>
+            <span class="n">rank</span><span class="p">[</span><span class="n">ry</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1">## update parents once again</span>
+<span class="n">parent</span> <span class="o">=</span> <span class="p">[</span><span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+</pre></div>
+</div>
+</section>
+<section id="topological-sort">
+<h3>Topological Sort<a class="headerlink" href="#topological-sort" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: directed acyclic graphs</p>
+<p><strong>Tips</strong>:</p>
+<ol class="arabic simple">
+<li><p>Init <strong>graph</strong> &amp; <strong>indegree</strong>.</p></li>
+<li><p>Init <strong>queue</strong> with 0-indegree nodes.</p></li>
+<li><p>Loop q by updating &amp; appending neighbors of 0-indegree.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">topologicalSort</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="n">indegree</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">()</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1">## if graph is not usable, reformat it</span>
+    <span class="o">...</span>
+
+    <span class="c1">## compute indegree</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="n">vs</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vs</span><span class="p">:</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="c1">## get 0-indegree nodes</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1">## loop queue</span>
+    <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="c1">####### ACTION HERE ######</span>
+        <span class="c1">####### ACTION ENDS ######</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+    
+    <span class="k">return</span>
+</pre></div>
+</div>
+</section>
+<section id="dijkstra-s-shortest-path">
+<h3>Dijkstra’s Shortest Path<a class="headerlink" href="#dijkstra-s-shortest-path" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: find shortest path from one node to all other nodes</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">):</span>
+    <span class="n">heap</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">start</span><span class="p">)]</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1">## true Dijkstra</span>
+    <span class="k">while</span> <span class="n">heap</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>         <span class="c1">## get node &amp; path</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span> <span class="k">return</span> <span class="n">p</span>               <span class="c1">## return path when found</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="k">continue</span>           <span class="c1">## prevent cycle</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>                      <span class="c1">## prevent cycle</span>
+        <span class="k">for</span> <span class="n">v</span><span class="p">,</span><span class="n">w</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>                <span class="c1">## check neighbor</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,(</span><span class="n">p</span><span class="o">+</span><span class="n">w</span><span class="p">,</span><span class="n">v</span><span class="p">))</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="floyd-warshall">
+<h3>Floyd Warshall<a class="headerlink" href="#floyd-warshall" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: find shortest path from all nodes to all other nodes</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">floyd_warshall</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="c1">## init</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)]</span><span class="o">*</span><span class="n">N</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
+    
+    <span class="c1">## set it identical as graph</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="c1">## assume graph is 2d matrix</span>
+    
+    <span class="c1">## true Floyd Warshall</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>          <span class="c1">## intermediate node</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>      <span class="c1">## start node</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>  <span class="c1">## end node</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>  <span class="c1">## the triangle rule</span>
+    
+    <span class="k">return</span> <span class="n">dist</span>
+</pre></div>
+</div>
+</section>
+<section id="prim-s-mst">
+<h3>Prim’s MST<a class="headerlink" href="#prim-s-mst" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: find MST with given node</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">primsMST</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">heap</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)]</span> <span class="c1">## (edge,node)</span>
+
+    <span class="c1">## true Prim</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>                <span class="c1">## #edges should not exceed #nodes</span>
+        <span class="n">e</span><span class="p">,</span><span class="n">n</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>                   <span class="c1">## get node &amp; edge</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="k">continue</span>                   <span class="c1">## prevent cycle</span>
+        <span class="n">ans</span> <span class="o">+=</span> <span class="n">e</span>                                    <span class="c1">## add edge to ans</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>                           <span class="c1">## prevent cycle</span>
+        <span class="k">for</span> <span class="n">new_e</span><span class="p">,</span><span class="n">new_n</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>                <span class="c1">## check neighbor</span>
+            <span class="k">if</span> <span class="n">new_n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">[</span><span class="n">new_e</span><span class="p">,</span><span class="n">new_n</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">ans</span>
+</pre></div>
+</div>
+</section>
+<section id="kruskal-s-mst">
+<h3>Kruskal’s MST<a class="headerlink" href="#kruskal-s-mst" title="Link to this heading">#</a></h3>
+<p><strong>Where</strong>: find MST with nothing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">KruskalMST</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="n">MST</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1">## index for sorted edges in graph</span>
+    
+    <span class="c1">## sort graph by edge weight</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  
+    <span class="c1">## true Kruskal</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">MST</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>  <span class="c1">## #edges should not exceed #nodes</span>
+        <span class="n">u</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>            <span class="c1">## get nodes &amp; edge</span>
+        <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">),</span><span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>       <span class="c1">## get parents</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">y</span><span class="p">:</span>                  <span class="c1">## prevent cycle</span>
+            <span class="n">MST</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">u</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">v</span><span class="p">])</span>     <span class="c1">## append to MST</span>
+            <span class="n">union</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>              <span class="c1">## now they are connected</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>                      <span class="c1">## on to the next edge in graph</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./irl"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Coding</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-test">Implement &amp; Test</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ds-a">DS/A</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array">Array</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-pointer">Two Pointer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#left-right">Left &amp; Right</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#slow-fast-sliding-window">Slow &amp; Fast (Sliding Window)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-search">Binary Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-intervals">Merge Intervals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-programming">Dynamic Programming</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-list">Linked List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-queue">Stack &amp; Queue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monotonic-stack">Monotonic Stack</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree">Tree</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dfs">DFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bfs">BFS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heap">Heap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-heap">Two Heap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph">Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">BFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#union-find">Union-Find</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-sort">Topological Sort</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dijkstra-s-shortest-path">Dijkstra’s Shortest Path</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floyd-warshall">Floyd Warshall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prim-s-mst">Prim’s MST</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kruskal-s-mst">Kruskal’s MST</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1552 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Supervised Learning &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ml/supervised';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dl/activation.html">Activation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dl/qa.html">Q&amp;A</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Neuroscience</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../neuro/compneuro.html">Computational Neuroscience</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../irl/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../irl/data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../irl/coding.html">Coding interview</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fml/supervised.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/ml/supervised.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Supervised Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-models">Linear Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">Linear Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machine">Support Vector Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-learning">Local Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors">K Nearest Neighbors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-method">Kernel Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-methods">Ensemble Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest">Random Forest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaboost">AdaBoost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-boosting">Gradient Boosting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xgboost">XGBoost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-learning">Online Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-mean-squares">Least Mean Squares</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron">Perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#passive-aggressive">Passive Aggressive</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-cons-summary">Pros &amp; Cons Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="supervised-learning">
+<h1>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Link to this heading">#</a></h1>
+<section id="linear-models">
+<h2>Linear Models<a class="headerlink" href="#linear-models" title="Link to this heading">#</a></h2>
+<!-- ### Linear Discriminant Analysis -->
+<section id="naive-bayes">
+<h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h3>
+<p><strong>Why</strong>: provide quick &amp; fairly accurate predictions</p>
+<p><strong>What</strong>: the simplest generative, parametric classifier solely based on Bayes’ Theorem
+$<span class="math notranslate nohighlight">\(p(\mathbf{x},y)=p(y)p(\mathbf{x}|y)=p(y)\prod_jp(x_j|y)\)</span>$</p>
+<ul class="simple">
+<li><p>Background (#Params):</p>
+<ul>
+<li><p>General: <span class="math notranslate nohighlight">\(\#[p(a_1,\cdots,a_n|b_1,\cdots,b_m)]=(\prod_{j=1}^{n}|a_j|-1)\prod_{i=1}^{m}|b_i|\)</span></p></li>
+<li><p>Joint (binary): <span class="math notranslate nohighlight">\(\#[p(\mathbf{x}|y)]=(2^n-1)\cdot2\)</span></p></li>
+<li><p>Independent (binary): <span class="math notranslate nohighlight">\( \#[\prod_jp(x_j|y)]=2n \)</span></p></li>
+</ul>
+</li>
+<li><p>Assumption: <strong>Conditional Independence</strong> of features given label
+$<span class="math notranslate nohighlight">\(p(\mathbf{x}|y=k)=\prod_{j=1}^np(x_j|y=k)\)</span>$</p></li>
+<li><p>Params:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\pi_k=p(y=k)\)</span>: prior probability for class <span class="math notranslate nohighlight">\(k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(w_{jk}\)</span>: conditional density param for class <span class="math notranslate nohighlight">\(k\)</span> and feature <span class="math notranslate nohighlight">\(j\)</span></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>How</strong>:</p>
+<ul class="simple">
+<li><p>Training:</p>
+<ul>
+<li><p>Objective:</p>
+<ul>
+<li><p>Loss: 0-1</p></li>
+<li><p>Regularization: Laplace smoothing</p></li>
+</ul>
+</li>
+<li><p>Optimization:</p>
+<ul>
+<li><p>MLE:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+&amp;\text{Likelihood}: &amp;&amp;p(\mathcal{D}|\mathbf{w})=\prod_{i=1}^mp(y_i|\mathbf{\pi})\prod_{j=1}^n\prod_{k=1}^cp(x_{ij}|w_{jk})^{\mathbf{1}(y_i=k)}\\
+&amp;\text{Log-likelihood}: &amp;&amp;\log p(\mathcal{D}|\mathbf{w})=\log p(\mathcal{D}_y|\boldsymbol{\pi})+\sum_{k=1}^c\sum_{j=1}^n\log p(\mathcal{D}_{jk}|w_{jk})\\
+&amp;\text{MLE for }\boldsymbol{\pi}: &amp;&amp;\hat{\pi}_k=\frac{m_k}{m}\\
+&amp;\text{MLE for }\mathbf{w}\text{ (discrete)}: &amp;&amp;\hat{w}_{jkl}=\frac{m_{jkl}}{m_k}\\
+&amp;\text{MLE for }\mathbf{w}\text{ (continuous)}: &amp;&amp;\hat{\mu}_{jk}=\frac{1}{m_k}\sum_{i:y_i=k}x_{ij}\\
+&amp;  &amp;&amp;\hat{\sigma}_{jk}^2=\frac{1}{m_k}\sum_{i:y_i=k}(x_{ij}-\hat{\mu}_{jk})^2
+\end{align*}\)</span>$</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(m_k\)</span>: #samples of class <span class="math notranslate nohighlight">\(k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m_{jkl}=\sum_{i=1}^m\mathbf{1}(x_{ij}=l,y_i=k)\)</span>: #samples of class <span class="math notranslate nohighlight">\(k\)</span> with feature <span class="math notranslate nohighlight">\(j=l\)</span></p></li>
+</ul>
+</li>
+<li><p>MAP:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+&amp;\text{Prior}: &amp;&amp;p(\boldsymbol{\pi})=\text{Dir}(\boldsymbol{\pi}|\boldsymbol{\alpha}), p(w_{jk})=\text{Dir}(w_{jk}|\beta_{jk})\\
+&amp;\text{Posterior}: &amp;&amp;p(\boldsymbol{\pi},\mathbf{w}|\mathcal{D})=\text{Dir}(\boldsymbol{\pi}|\tilde{\boldsymbol{\alpha}})\prod_{j=1}^n\prod_{k=1}^c\text{Dir}(w_{jk}|\tilde{\beta}_{jk})\\
+&amp;\text{MAP for }\boldsymbol{\pi}: &amp;&amp;\hat{\pi}_k=\frac{m_k+\alpha_k}{m+\sum_{k'}\alpha_{k'}}\\
+&amp;\text{MAP for }\mathbf{w}\text{ (discrete)}: &amp;&amp;\hat{w}_{jkl}=\frac{m_{jkl}+\beta_{jkl}}{m_k+\beta_k}
+\end{align*}\)</span>$</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( \tilde{\alpha}_k=\alpha_k+m_k\)</span>: shifted Dirichlet param for <span class="math notranslate nohighlight">\(\pi_k\)</span> (conjugate prior + likelihood)</p></li>
+<li><p><span class="math notranslate nohighlight">\( \tilde{\beta}_{jkl}=\beta_{jkl}+N_{jkl}\)</span>: shifted Dirichlet param for <span class="math notranslate nohighlight">\(w_{jkl}\)</span> (conjugate prior + likelihood)</p></li>
+<li><p><strong>Laplace smoothing</strong>: <span class="math notranslate nohighlight">\(\beta_{jkl}=1,\beta_k=L\)</span></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Inference:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+  &amp;\text{Likelihood}: &amp;&amp;p(y=k|\mathbf{x},\mathbf{w})=\frac{p(y=k|\boldsymbol{\pi})\prod_jp(x_j|y=k,w_{jk})}{\sum_cp(y=c|\boldsymbol{\pi})\prod_jp(x_j|y_i=c,w_{jc})}\\
+  &amp;\text{Posterior}: &amp;&amp;p(y=k|\mathbf{x},\mathcal{D})\propto p(y=k|\mathcal{D})\prod_jp(x_j|y=k,\mathcal{D})=\hat{\pi}_k\prod_j\prod_l\hat{w}_{jkl}^{\mathbf{1}(x_j=l)}
+  \end{align*}\)</span>$</p></li>
+</ul>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>Easy</p></li>
+<li><p>Scale invariant</p></li>
+<li><p>High computational efficiency (significantly low #params)</p></li>
+<li><p>Robust to outliers and noisy data</p></li>
+<li><p>No overfitting (unless feature value missing in training set)</p></li>
+<li><p>Can handle real-time prediction</p></li>
+<li><p>High accuracy on small datasets (&gt; LogReg)</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>Assumption fails in real life</p></li>
+<li><p>Low accuracy on large datasets (&lt; LogReg)</p></li>
+<li><p>Low accuracy in terms of probability estimates (&lt;&lt; LogReg)</p></li>
+</ul>
+<!-- All linear models are parametric. -->
+<!-- Types:
+
+* Linear Regression
+$$
+\hat{y_i}=\sum_{j=1}^{n}{w_jx_{ij}}
+$$
+
+* Generalized Linear Models ($ f$: link function; $\mathbf{w}^T\mathbf{x} $: logits)
+$$
+\hat{y_i}=f\left(\sum_{j=1}^{n}{w_jx_{ij}}\right)
+$$
+
+* Basis Transformation ($ \phi_j(\mathbf{x}_i) $: transformation of non-linear inputs into linear inputs)
+$$
+\hat{y}_i=\sum_{j=1}^dw_j\phi_j(\mathbf{x}_i)
+$$ -->
+</section>
+<section id="linear-regression">
+<h3>Linear Regression<a class="headerlink" href="#linear-regression" title="Link to this heading">#</a></h3>
+<p><strong>What</strong>: Linear regression fits a linear hyperplane between features and labels.</p>
+<p><strong>When</strong>:</p>
+<ul class="simple">
+<li><p><strong>Linearity</strong>: The underlying relationship between <span class="math notranslate nohighlight">\( \textbf{y}\)</span> and <span class="math notranslate nohighlight">\(X \)</span> is linear.</p></li>
+<li><p><strong>Independence</strong>: <span class="math notranslate nohighlight">\( \varepsilon_i \)</span> is independent of each other.</p></li>
+<li><p><strong>Normality</strong>: <span class="math notranslate nohighlight">\( \varepsilon_i \)</span> follows Gaussian distribution.</p></li>
+<li><p><strong>Non-Collinearity</strong>: No/Minimal explanatory variables correlate with each other.</p></li>
+<li><p><strong>Homoskedasticity</strong>: The variance of all noises is the same constant <span class="math notranslate nohighlight">\( \sigma^2 \)</span>.</p></li>
+</ul>
+<p><strong>How</strong>:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+&amp;\text{Frequentist:} &amp;&amp;\mathbf{y}=X\mathbf{w}+\boldsymbol{\varepsilon},\varepsilon_i\sim N(0,\sigma^2) \\\\
+&amp;\text{Bayesian:}    &amp;&amp;p(\mathbf{y}|X,\mathbf{w})=N(X\mathbf{w},\sigma^2)
+\end{align*}\)</span>$</p>
+<p><strong>Training</strong>:</p>
+<ul class="simple">
+<li><p><strong>Hyperparameters</strong>:</p></li>
+<li><p><strong>Objective</strong>:</p>
+<ul>
+<li><p>Loss: MSE</p></li>
+<li><p>Regularization: L1, L2, ElasticNet, L0</p></li>
+</ul>
+</li>
+<li><p><strong>Optimization</strong>:
+$<span class="math notranslate nohighlight">\(\begin{aligned}
+&amp;\text{OLS/MLE}:\ &amp;&amp;\hat{\mathbf{w}}=(X^TX)^{-1}X^T\mathbf{y} \\\\
+&amp;\text{Ridge}:\ &amp;&amp;\hat{\mathbf{w}}=(X^TX+\lambda I)^{-1}X^T\mathbf{y} \\\\
+&amp;\text{Lasso}:\ &amp;&amp;\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum_{i=1}\^{m}[x_{ij}(\hat{y}_i-y_i)]+\lambda\cdot\text{sign}(w_j) \\\\
+&amp;\text{ElasticNet}:\ &amp;&amp;\frac{\partial \mathcal{L}_B}{\partial w_j}=\frac{1}{m}\sum_{i=1}\^{m}[x_{ij}(\hat{y}_i-y_i)]+\lambda r_1\cdot\text{sign}(w_j)+\lambda(1-r_1)w_j
+\end{aligned}\)</span>$</p></li>
+</ul>
+<p><strong>Inference</strong>:
+$<span class="math notranslate nohighlight">\(
+\hat{y}_i=\mathbf{w}^T\mathbf{x}_i
+\)</span>$</p>
+<p><strong>Pros</strong>:</p>
+<p><strong>Cons</strong>:</p>
+<p>Objective:</p>
+<p>Optimization:</p>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Simple and Interpretable</p></li>
+<li><p>Scale invariant</p></li>
+<li><p>Consistent and Unbiased (OLS/MLE ver.)</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Sensitive to outliers</p></li>
+<li><p>Limited to assumptions (if any assumption fails, LinReg fails)</p></li>
+</ul>
+<p>Time complexity:</p>
+<ul class="simple">
+<li><p>Train:</p>
+<ul>
+<li><p>Exact Solution: <span class="math notranslate nohighlight">\( O(n^2(m+n)) \)</span></p></li>
+<li><p>Gradient Descent: <span class="math notranslate nohighlight">\( O(mn) \)</span></p></li>
+</ul>
+</li>
+<li><p>Test: <span class="math notranslate nohighlight">\( O(n) \)</span></p></li>
+</ul>
+<!-- Code:
+```python
+class LinearRegression:
+    def __init__(self):
+        self.w = None
+    
+    def fit(self, X, y, intercept=False):
+        if intercept: X = np.hstack(np.ones((X.shape[0],1)),X)
+        self.w = (np.linalg.inv(X.T @ X) @ X.T @ y).reshape(-1)
+
+    def predict(self, X):
+        return np.dot(self.w, X.T)
+``` -->
+</section>
+<section id="logistic-regression">
+<h3>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h3>
+<p>Idea: use sigmoid/softmax as link function for linear regression for classification.</p>
+<p>Model:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+&amp;\text{Binary}: &amp;&amp;P(y_i=1|\mathbf{x}_i,\mathbf{w})=\sigma(\mathbf{w}^T\mathbf{x}_i)=\frac{1}{1+\exp{(-\mathbf{w}^T\mathbf{x}_i)}}=\frac{\exp{(\mathbf{w}^T\mathbf{x}_i)}}{1+\exp{(\mathbf{w}^T\mathbf{x}_i)}}\\\\
+&amp;\text{Multiclass}: &amp;&amp;P(y_i=k|\mathbf{x}_i,W)=\text{softmax}(W^T\mathbf{x}_i)=\frac{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}{\sum_{k=1}^{K}{\exp{(\mathbf{w}_k^T\mathbf{x}_i)}}}
+\end{align*}\)</span>$</p>
+<p>Prediction:
+$<span class="math notranslate nohighlight">\(
+\hat{y}_i=\arg\max_k\hat{p}_{ik}
+\)</span>$</p>
+<p>Objective:</p>
+<ul class="simple">
+<li><p>Loss: Cross Entropy</p></li>
+<li><p>Regularization: L1, L2, ElasticNet</p></li>
+</ul>
+<p>Optimization:
+$<span class="math notranslate nohighlight">\(
+\frac{\partial \mathcal{L}}{\partial w_{jk}}=\frac{1}{m}\sum_{i=1}\^{m}[x_{ij}(\hat{p}_{ik}-y_i)]
+\)</span>$</p>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Scale invariant</p></li>
+<li><p>Easy expansion to multiclass</p></li>
+<li><p>Coefficients resemble feature importance</p></li>
+<li><p>Easy gradient calculation</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>bad performance when <span class="math notranslate nohighlight">\( n&gt;&gt;m \)</span></p></li>
+<li><p>bad performance for nonlinear cases (assume linearity by log odds)</p></li>
+<li><p>prioritize correctly classifying the more prevalent class, even if it means misclassifying the less prevalent class</p></li>
+</ul>
+<p>Time Complexity: Train: <span class="math notranslate nohighlight">\( O(mn)\)</span>; Test: <span class="math notranslate nohighlight">\(O(n) \)</span></p>
+<p>Space Complexity: <span class="math notranslate nohighlight">\( O(n) \)</span></p>
+<!-- ### Principal Component Regression
+Idea: PCA + LinReg (Semi-supervised learning)
+
+Model:
+1. Do PCA on $ X$ to get scores $Z$ and loadings $V $.
+2. Do OLS on projected points $ Z $:
+$$
+\hat{\textbf{w}}=(Z^TZ)^{-1}Z^TY
+$$
+
+Prediction:
+1. Get projection: $ \hat{\textbf{z}}=V^T\textbf{x} $
+2. Get label: $ \hat{y}=\textbf{w}\hat{\textbf{z}} $
+
+Pros:
+- Great performance with high-dimensional data (via Dimensionality Reduction)
+- Better performance than LinReg in many situations (via filtering out irrelevant/noisy features)
+- Simple
+
+Cons:
+- Make LinReg scale variant
+- Sensitive to choices of PCs
+- Bad performance with nonlinear relationships (might be solvable via Kernel PCR but then there would be no need to use PCA at all) -->
+</section>
+</section>
+<section id="support-vector-machine">
+<h2>Support Vector Machine<a class="headerlink" href="#support-vector-machine" title="Link to this heading">#</a></h2>
+<p>Idea: choose a decision boundary that maximizes the soft margin between classes.</p>
+<p>Preliminaries:</p>
+<ul class="simple">
+<li><p><strong>Primal vs Dual</strong></p>
+<ul>
+<li><p>Primal operates in the feature space <span class="math notranslate nohighlight">\( X^TX \)</span></p></li>
+<li><p>Dual operates in the sample space <span class="math notranslate nohighlight">\( XX^T \)</span> (i.e., Kernel Matrix)</p></li>
+<li><p>Params in Primal &amp; Dual are transferable: <span class="math notranslate nohighlight">\( \textbf{w}=\sum_{i=1}^m\alpha_iy_i\textbf{x}_i \)</span></p></li>
+<li><p>Dual &gt; Primal:</p>
+<ul>
+<li><p>= Weighted combination of support vectors</p></li>
+<li><p>Sparsity</p></li>
+<li><p>Kernel Trick</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Hard margin vs Soft margin</strong></p>
+<ul>
+<li><p>Hard margin does NOT accept any misclassification <span class="math notranslate nohighlight">\( \rightarrow \)</span> prone to overfitting</p></li>
+<li><p>Soft margin allows some misclassifications <span class="math notranslate nohighlight">\( \rightarrow \)</span> regularization</p></li>
+</ul>
+</li>
+<li><p>Support vectors are 1) on the margin 2) on the wrong side 3) within the margin.</p></li>
+<li><p>In linearly separable case, the decision boundary with the maximal margin is unique.</p></li>
+</ul>
+<p>Model/Prediction: linear classifier
+$<span class="math notranslate nohighlight">\(
+\hat{y}_i=\text{sign}(\textbf{w}^T\phi(\textbf{x}_i))
+\)</span>$</p>
+<p>Objective: Hinge Loss + L2 Penalty (can use other losses/penalties but rare)</p>
+<ul class="simple">
+<li><p>Primal (Linear):
+$<span class="math notranslate nohighlight">\(\begin{align*}
+\min_{w,\xi}\quad &amp; \frac{1}{2} ||\textbf{w}||^2 + C \sum_{i=1}^m \xi_i \\\\
+\text{s.t.}\quad &amp; y_i(\textbf{w}^T\textbf{x}_i) \geq 1-\xi_i\\\\
+&amp; \xi_i \geq 0
+\end{align*}\)</span>$</p></li>
+<li><p>Primal (Kernel):
+$<span class="math notranslate nohighlight">\(\begin{align*}
+\min_{w,\xi}\quad &amp; \frac{1}{2} ||\textbf{w}||^2 + C \sum_{i=1}^m \xi_i \\\\
+\text{s.t.}\quad &amp; y_i(\textbf{w}^T\phi(\textbf{x}_i)) \geq 1-\xi_i\\\\
+&amp; \xi_i \geq 0
+\end{align*}\)</span>$</p></li>
+<li><p>Dual (Linear):
+$<span class="math notranslate nohighlight">\(\begin{align*}
+\max_{\alpha\geq 0}\quad &amp; \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j \mathbf{x}_i^T \mathbf{x}_j \\\\
+\text{s.t.}\quad &amp; \sum_{i=1}^n \alpha_i y_i = 0\\\\
+&amp; \alpha_i\leq C
+\end{align*}\)</span>$</p></li>
+<li><p>Dual (Kernel):
+$<span class="math notranslate nohighlight">\(\begin{align*}
+\max_{\alpha\geq 0}\quad &amp; \sum_{i=1}^m \alpha_i - \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m y_i y_j \alpha_i \alpha_j k(\mathbf{x}_i, \mathbf{x}_j) \\\\
+\text{s.t.}\quad &amp; \sum_{i=1}^n \alpha_i y_i = 0\\\\
+&amp; \alpha_i\leq C
+\end{align*}\)</span>$</p></li>
+</ul>
+<p>Optimization:</p>
+<ul class="simple">
+<li><p>Param Estimation: Decomposition (quadratic programming), Closed-form, GD, etc.</p></li>
+<li><p>Hyperparam Tuning: <span class="math notranslate nohighlight">\( C\)</span> tells SVM how much misclassification to avoid. The larger <span class="math notranslate nohighlight">\(C\)</span>, a smaller-margin hyperplane will be chosen. The smaller <span class="math notranslate nohighlight">\(C \)</span>, a larger-margin hyperplane will be chosen.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Good performance on high-dimensional and non-linearly separable data (with Kernel trick)</p></li>
+<li><p>Good generalization to unseen data</p></li>
+<li><p>Guaranteed convexity. Easy to optimize</p></li>
+<li><p>Low memory cost (only support vectors matter)</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>High computational cost, especially 1) with Kernels 2) when sample size is too large 3) with Multiclass classification (no native support for it; need 1v1 or 1-v-rest strategies)</p></li>
+<li><p>Low interpretability: No probability estimates</p></li>
+<li><p>Bad performance when <span class="math notranslate nohighlight">\( n&gt;&gt;m \)</span>.</p></li>
+<li><p>Bad performance on large datasets (i.e., <span class="math notranslate nohighlight">\( m&gt;&gt;0 \)</span>).</p></li>
+<li><p>Sensitive to outliers and noisy data</p></li>
+<li><p>Sensitive to overlapping classes (i.e., classes which share the same parts of some feature values)</p></li>
+</ul>
+<p>Time Complexity:</p>
+<ul class="simple">
+<li><p>Train: <span class="math notranslate nohighlight">\( O(m^2) \)</span></p></li>
+<li><p>Test: <span class="math notranslate nohighlight">\( O(kn)\)</span>, where <span class="math notranslate nohighlight">\(k= \)</span> #support vectors.</p></li>
+</ul>
+</section>
+<section id="local-learning">
+<h2>Local Learning<a class="headerlink" href="#local-learning" title="Link to this heading">#</a></h2>
+<section id="k-nearest-neighbors">
+<h3>K Nearest Neighbors<a class="headerlink" href="#k-nearest-neighbors" title="Link to this heading">#</a></h3>
+<p>Idea: label a sample based on its <span class="math notranslate nohighlight">\( K \)</span> nearest neighbors.</p>
+<p>Model:</p>
+<ol class="arabic simple">
+<li><p>Calculate distance between sample point and every training point.</p></li>
+<li><p>Find the <span class="math notranslate nohighlight">\( K \)</span> nearest neighbors with minimal distances.</p></li>
+<li><p>Take the majority vote and output it as the label for the sample point.</p></li>
+</ol>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>No training: instance-based learning (i.e., lazy learner)</p></li>
+<li><p>Seamless data augmentation at any step</p></li>
+<li><p>Simple and interpretable</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Scale variant</p></li>
+<li><p>High computational cost for large datasets</p></li>
+<li><p>High computational cost + Low variance in distance measure for high-dimensional data</p></li>
+<li><p>Sensitive to noisy data, missing values, and outliers</p></li>
+</ul>
+<p>Time Complexity: Test: <span class="math notranslate nohighlight">\( O(kmn) \)</span></p>
+<p>Space Complexity: <span class="math notranslate nohighlight">\( O(mn) \)</span></p>
+<!-- Code:
+```python
+####### Scratch ######
+def distance(metric_type,v1,v2):
+    if metric_type == "L0":
+        return np.count_nonzero(v1-v2)
+    if metric_type == "L1":
+        return np.sum(np.abs(v1-v2))
+    if metric_type == "L2":
+        return np.sqrt(np.sum(np.square(v1-v2)))
+    if metric_type == "Linf":
+        return np.max(np.abs(v1-v2))
+    
+def KNN(X_train,y_train,samples,K=5,metric_type="L2"):
+    def KNN_for_single_sample(K,metric_type,X_train,y_train,sample):
+        ## Calculate dist between each X_train[i] and sample
+        dis_vec = np.array([distance(metric_type,X_train[i],sample) for i in range(len(X_train))])
+        
+        ## Find index of top-K neighbors
+        ids = np.argsort(dis_vec)[:K]
+        
+        ## Find neighbors' labels from y_train
+        neighbors = list(y_train[ids])
+        
+        ## Return majority vote for the sample
+        return max(set(neighbors),key=neighbors.count)
+    
+    return [KNN_for_single_sample(K,metric_type,X_train,y_train,sample) for sample in samples]
+``` -->
+</section>
+<section id="kernel-method">
+<h3>Kernel Method<a class="headerlink" href="#kernel-method" title="Link to this heading">#</a></h3>
+<p><strong>Model (Mercer’s Theorem)</strong>:
+$<span class="math notranslate nohighlight">\(
+\forall\phi:\mathbb{R}^n\rightarrow\mathbb{R}^p\ \exists k:\mathbb{R}^{n\times n}\rightarrow\mathbb{R}\ \text{ s.t. }\ k(\mathbf{x},\mathbf{x}')=\phi(\mathbf{x})^T\phi(\mathbf{x}')
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{x}\in\mathbb{R}^n \)</span>: input sample</p></li>
+<li><p><span class="math notranslate nohighlight">\( \phi:\mathbb{R}^n\rightarrow\mathbb{R}^p \)</span>: feature map from one space to another (typically a higher dimensional space)</p></li>
+<li><p><span class="math notranslate nohighlight">\( k:\mathbb{R}^{n\times n}\rightarrow\mathbb{R} \)</span>: kernel function</p></li>
+</ul>
+<p><strong>Idea</strong>: Allow using linear models for non-linear samples, without transforming data into a higher dimensional space (i.e., without computing <span class="math notranslate nohighlight">\( \phi(\cdot) \)</span>).</p>
+<p><strong>Assumptions</strong>: The kernel function must satisfy 2 conditions:</p>
+<ul class="simple">
+<li><p><strong>Symmetry</strong>: <span class="math notranslate nohighlight">\( k(\mathbf{x},\mathbf{x}')=k(\mathbf{x}',\mathbf{x}) \)</span></p></li>
+<li><p><strong>Positive-Definite</strong>: <span class="math notranslate nohighlight">\( \forall\mathbf{x}_1,\cdots,\mathbf{x}_m\in\mathbb{R}^n\ \forall c_1\cdots c_m\in\mathbb{R}:\ \sum_{i=1}^{m}\sum_{j=1}^{m}c_ic_jk(\mathbf{x}_i,\mathbf{x}_j)\geq0 \)</span></p></li>
+</ul>
+<p><strong>Types of Kernels</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Formula</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Linear</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\( k(\mathbf{x}_i,\mathbf{x}_j)=\mathbf{x}_i^T\mathbf{x}_j \)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Polynomial</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\( k(\mathbf{x}_i,\mathbf{x}_j)=(\mathbf{x}_i^T\mathbf{x}_j+c)^d, c\geq0 \)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>RBF (Radial Basis Function)</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\( k(\mathbf{x}_i,\mathbf{x}_j)=\exp\left(-\frac{||\mathbf{x}_i-\mathbf{x}_j||^2}{2\sigma^2}\right) \)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- $$\begin{align*}
+&\text{Regression}: &&\hat{y}=\frac{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i}}{\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)}}\\\\
+&\text{Binary Classification}: &&\hat{y}=\text{sign}(\sum_{i=1}^{m}{k(\mathbf{x},\mathbf{x}_i)y_i})
+\end{align*}$$ -->
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p>Low computational cost (relative to feature mapping calculation)</p></li>
+<li><p>Applicable to all data type</p></li>
+<li><p>Easy validation of kernel by finding arbitrary 2 points with negative determinant (i.e., negative eigenvalue)</p></li>
+<li><p>Consider all samples as each sample’s neighbors</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul class="simple">
+<li><p>Scale variant</p></li>
+<li><p>Overfitting</p></li>
+<li><p>Low interpretability of kernels</p></li>
+<li><p>High difficulty in kernel selection</p></li>
+<li><p>Biased toward closer samples</p></li>
+</ul>
+<!-- KNN vs KernelReg: 
+
+<center>
+
+|               KNN              |                   Kernel                  |
+|:------------------------------:|:-----------------------------------------:|
+|         distance metric        |              kernel function              |
+|         $ K $ neighbors          |               all neighbors               |
+| same impact from all neighbors | weighted impact favoring closer neighbors |
+|          Scale variant         |               Scale variant               |
+
+</center> -->
+</section>
+</section>
+<section id="decision-tree">
+<h2>Decision Tree<a class="headerlink" href="#decision-tree" title="Link to this heading">#</a></h2>
+<p>Idea: build a tree where each node is a feature split to classify data points into different leaf outputs.</p>
+<p>Preliminaries:</p>
+<ul class="simple">
+<li><p><strong>Information gain</strong>: <span class="math notranslate nohighlight">\( IG(Y|X)=H(Y)-H(Y|X) \)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( H(\cdot) \)</span>: Impurity measure</p>
+<ul>
+<li><p>Gini: <span class="math notranslate nohighlight">\( H(Y)=\sum_{y}{p_y(1-p_y)} \)</span></p></li>
+<li><p>Entropy: <span class="math notranslate nohighlight">\( H(Y)=-\sum_{y}{p_y\log_2{p_y}} \)</span></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Entropy</strong>: a measure of uncertainty</p>
+<ul>
+<li><p>Conditional entropy (Average): <span class="math notranslate nohighlight">\( H(Y|X)=\sum_{x}{P(X=x)H(Y|X=x)} \)</span></p></li>
+<li><p>Specific conditional entropy: <span class="math notranslate nohighlight">\( H(Y|X=x)=-\sum_{y}{P(Y=y|X=x)\log_2{P(Y=y|X=x)}} \)</span></p></li>
+</ul>
+</li>
+</ul>
+<p>Model:</p>
+<ol class="arabic simple">
+<li><p>Calculate info gain for each feature.</p></li>
+<li><p>Select the feature that maximizes info gain as the decision threshold.</p></li>
+<li><p>Split data based on the decision. Repeat Step 1-2 until stop.</p></li>
+</ol>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Scale invariant</p></li>
+<li><p>Low computational cost</p></li>
+<li><p>Can handle multiclass classification</p></li>
+<li><p>Interpretable and Easy to validate (easy model visualization)</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Prone to overfitting (perfect fit on smaller sample size)</p></li>
+<li><p>Bad performance with class imbalance (biased toward most frequently occurring class)</p></li>
+<li><p>Sensitive to noisy data, missing value, and outliers</p></li>
+<li><p>Discrete predictions only</p></li>
+<li><p>Difficult to find globally optimal decisions (only support locally optimal decisions at each node)</p></li>
+<li><p>Bad performance overall</p></li>
+</ul>
+<p>Time complexity:</p>
+<ul class="simple">
+<li><p>Train: <span class="math notranslate nohighlight">\( O(mn\log{m}) \)</span></p></li>
+<li><p>Test: <span class="math notranslate nohighlight">\( O(d)\)</span>, where <span class="math notranslate nohighlight">\(d=\)</span> depth. (Ideally <span class="math notranslate nohighlight">\(O(\log{m}) \)</span> if balanced binary tree)</p></li>
+</ul>
+<!-- Code:
+```python
+####### SCRATCH ######
+## This scratch is only meant for binary classification.
+
+def IG(X_train,y_train,feature_index,impurity="entropy"):
+    ## Compute impurity
+    def H(probs):
+        if impurity=="entropy":
+            return -np.sum(np.multiply(probs[probs!=0],np.log2(probs[probs!=0])))
+        if impurity=="gini":
+            return np.sum(np.multiply(probs,1-probs))
+    
+    ## Calculate H(Y)
+    m = len(y_train)
+    p_y_1 = np.count_nonzero(y_train)/m
+    p_y = np.array([1-p_y_1,p_y_1])
+    H_y = H(p_y)
+    
+    x_col = X_train[:,feature_index].reshape(-1)
+    y_col = y_train.reshape(-1)
+    p_y_x = {}  ## for each value of the selected feature, store its y count. 
+    p_x = {}    ## for each value of the selected feature, store its own count.
+    
+    ## Count all occurrences of all values of the selected feature, together with their corresponding y value counts.
+    for i in range(m):
+        p_x[x_col[i]] = p_x.get(x_col[i],0)+1
+        if x_col[i] not in p_y_x:
+            p_y_x[x_col[i]] = [0,0]
+        if y_col[i] == 0:
+            p_y_x[x_col[i]][0] += 1
+        elif y_col[i] == 1:
+            p_y_x[x_col[i]][1] += 1
+            
+    ## Calculate H(Y|X=v)
+    H_y_x_specs = {} ## for each value v of the selected feature, store H(Y|X=v).
+    x_total_count = sum(p_x.values())
+    for key in p_y_x:
+        y_total = sum(p_y_x[key])
+        p_x[key] /= x_total_count   ## normalize counts to P(X=v)
+        p_y_x[key] = [p_y_x[key][0]/y_total, p_y_x[key][1]/y_total] ## normalize counts to P(Y=u|X=v)
+        H_y_x_specs[key] = H(np.array(p_y_x[key])) 
+        
+    ## Calculate H(Y|X)
+    H_y_x = sum([p_x[key]*H_y_x_specs[key] for key in p_x])
+    
+    ## Return IG
+    return H_y-H_y_x
+
+def select_feature_max_IG(X_train,y_train,impurity="entropy"):
+    IG_cache = [IG(X_train,y_train,i,impurity="entropy") for i in range(X_train.shape[1])]
+    return IG_cache.index(max(IG_cache))
+
+## to be continued
+``` -->
+</section>
+<section id="ensemble-methods">
+<h2>Ensemble Methods<a class="headerlink" href="#ensemble-methods" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Bootstrapping</strong>: randomly select <span class="math notranslate nohighlight">\( fm\)</span> samples with replacement from the original training set into subsets, where <span class="math notranslate nohighlight">\(f \)</span> is the fraction of samples to bootstrap.</p></li>
+<li><p><strong>Bagging</strong> (<strong>b</strong>ootstrap <strong>agg</strong>regat<strong>ing</strong>): aggregate a bunch of weak models trained on bootstrapped subsets individually.</p></li>
+<li><p><strong>Boosting</strong>: train multiple models sequentially and dependently.</p>
+<ul>
+<li><p>Converge exponentially with #iterations.</p></li>
+<li><p>Cons: Highly sensitive to outliers and noisy data.</p></li>
+</ul>
+</li>
+<li><p>Common Pros of Ensemble Methods:</p>
+<ul>
+<li><p>Scale invariant</p></li>
+<li><p>Reduce overfitting</p></li>
+<li><p>Greater performance</p></li>
+<li><p>Can handle high-dimensional data efficiently</p></li>
+</ul>
+</li>
+<li><p>Common Cons of Ensemble Methods:</p>
+<ul>
+<li><p>High computational cost</p></li>
+<li><p>Low interpretability</p></li>
+</ul>
+</li>
+</ul>
+<section id="random-forest">
+<h3>Random Forest<a class="headerlink" href="#random-forest" title="Link to this heading">#</a></h3>
+<p>Idea: Bagging with Decision Trees</p>
+<p>Model:</p>
+<ol class="arabic simple">
+<li><p>Bootstrap.</p></li>
+<li><p>Create a full decision tree (no pruning). On each node, randomly select <span class="math notranslate nohighlight">\( \sqrt{n} \)</span> features from bootstrapped subset. Find the best split.</p></li>
+<li><p>Repeat 1-2 to create a random forest till #tree reaches limit.</p></li>
+<li><p>Use out-of-bag samples to determine the accuracy of each tree.</p></li>
+</ol>
+<p>Prediction: Take a majority/average vote of all trees.</p>
+<p>Objective:</p>
+<ul class="simple">
+<li><p>Loss: any</p></li>
+<li><p>Regularization: increase #trees</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Reduce overfitting in decision tree &amp; much more accurate than a single decision tree</p></li>
+<li><p>Flexible to both categorical &amp; numerical outputs</p></li>
+<li><p>Automatically handle missing values by dropping or filling with median/mode</p></li>
+<li><p>Robust to outliers and noisy data</p></li>
+<li><p>Best used in banking and healthcare</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Worse performance than Boosting in general</p></li>
+</ul>
+<p>Time Complexity:</p>
+<ul class="simple">
+<li><p>Train: <span class="math notranslate nohighlight">\( O(kmn\log{m})\)</span>, where <span class="math notranslate nohighlight">\(k= \)</span> #trees</p></li>
+<li><p>Test: <span class="math notranslate nohighlight">\( O(kd)\)</span>, where <span class="math notranslate nohighlight">\(d= \)</span> max depth</p></li>
+</ul>
+</section>
+<section id="adaboost">
+<h3>AdaBoost<a class="headerlink" href="#adaboost" title="Link to this heading">#</a></h3>
+<p>Idea: train a bunch of stumps (weak learners) sequentially and take a weighted majority vote.</p>
+<p>Model:</p>
+<ol class="arabic simple">
+<li><p>Init all samples with equal sample weight.</p></li>
+<li><p>Find optimal feature for first stump. Calculate total error. Calculate amount of say:
+$<span class="math notranslate nohighlight">\(
+\text{Amount of Say}=\frac{1}{2}\log{\frac{1-Err_\text{tot}}{Err_\text{tot}}}
+\)</span>$</p></li>
+<li><p>Modify sample weights for incorrectly and correctly predicted samples as follows:
+$<span class="math notranslate nohighlight">\(\begin{align*}
+w_\text{incorrect}&amp;\leftarrow w_\text{incorrect}\cdot e^\text{Amount of Say}\\\\
+w_\text{correct}&amp;\leftarrow w_\text{correct}\cdot e^{-\text{Amount of Say}}\\\\
+\end{align*}\)</span>$</p></li>
+<li><p>Normalize all sample weights.</p></li>
+<li><p>Select new samples based on new sample weights as probabilities with replacement to generate a new set.</p></li>
+<li><p>Give equal sample weights to all samples in the new training set.</p></li>
+<li><p>Repeat Steps 1-6 till #stumps reaches limit.</p></li>
+</ol>
+<p>Prediction: Take a weighted majority vote using the Amount of Say from each stump.</p>
+<p>Objective: Exponential Loss</p>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Reduce overfitting more than bagging (because parameters are not optimized jointly but stagewise)</p></li>
+<li><p>Fewer hyperparameters than other models</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Guaranteed perfect fitting (training error=0) if infinite epochs</p></li>
+<li><p>Sensitive to outliers and noisy data</p></li>
+<li><p>Slower and generally worse performance than Gradient Boosting</p></li>
+</ul>
+<p>Random Forest vs AdaBoost:</p>
+<center>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Random Forest</p></th>
+<th class="head text-center"><p>AdaBoost</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>No tree shape requirement</p></td>
+<td class="text-center"><p>Each tree is a stump (1 node + 2 leaves)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Each tree has equal influence</p></td>
+<td class="text-center"><p>Stumps have weighted influence</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Each tree is independent</p></td>
+<td class="text-center"><p>Each stump is dependent of its previous one</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</center>
+</section>
+<section id="gradient-boosting">
+<h3>Gradient Boosting<a class="headerlink" href="#gradient-boosting" title="Link to this heading">#</a></h3>
+<p>Idea: train a bunch of fixed-size trees to fit residuals sequentially. take a weighted majority vote.</p>
+<p>Model:</p>
+<ol class="arabic simple">
+<li><p>Init a constant-value leaf as initial prediction (average for reg; log-odds for cls)</p></li>
+<li><p>Train a tree (#leaves &lt; <span class="math notranslate nohighlight">\( m \)</span>) to predict the <strong>negative loss gradient</strong> w.r.t. curr ensemble’s predictions for each sample in the training data.</p>
+<ul class="simple">
+<li><p><strong>Pseudo-residuals</strong>: negative gradients represent how far off curr predictions are from actual targets</p></li>
+<li><p>The weak learner aims to capture the patterns in the errors made by curr ensemble.</p></li>
+</ul>
+</li>
+<li><p>Combine leaf (+ prev trees) + curr tree (scaled with a learning rate) to make new predictions on the same data. Calculate new negative loss gradients.</p></li>
+<li><p>Repeat Steps 2-3 till #trees reaches limit.</p></li>
+</ol>
+<p>Objective:</p>
+<ul class="simple">
+<li><p>Loss: arbitrary</p></li>
+<li><p>Regularization:</p>
+<ul>
+<li><p>smaller learning rate (i.e., multiplicative shrinking of the weight on the weak learner)</p></li>
+<li><p>bootstrapping</p></li>
+</ul>
+</li>
+</ul>
+<p>Optimization (Hyperparams):</p>
+<ul class="simple">
+<li><p>#stages: <span class="math notranslate nohighlight">\( T \)</span></p></li>
+<li><p>bag size (fraction): <span class="math notranslate nohighlight">\( f \)</span></p></li>
+<li><p>learning rate: <span class="math notranslate nohighlight">\( \eta \)</span></p></li>
+<li><p>tree depth: <span class="math notranslate nohighlight">\( d \)</span></p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Great performance in general</p></li>
+<li><p>Fast Prediction</p></li>
+<li><p>High flexibility (multiple hyperparameters to tune, multiple loss functions to use)</p></li>
+<li><p>Can handle missing data</p></li>
+<li><p>Reduce overfitting by using a small learning rate and incorporate bootstrapping</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Sensitive to outliers and noisy data (may cause overfitting by overemphasizing them)</p></li>
+<li><p>Require a large grid search for hyperparameter tuning</p></li>
+<li><p>Longer training due to sequential building</p></li>
+</ul>
+<p>AdaBoost vs Gradient Boosting:</p>
+<center>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>AdaBoost</p></th>
+<th class="head text-center"><p>Gradient Boosting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Init with a stump</p></td>
+<td class="text-center"><p>Init with a leaf of <span class="math notranslate nohighlight">\( \bar{y} \)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Stumps</p></td>
+<td class="text-center"><p>Fixed-size trees</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Scale stumps differently</p></td>
+<td class="text-center"><p>Scale trees equally</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Train on <span class="math notranslate nohighlight">\( y \)</span></p></td>
+<td class="text-center"><p>Train on residuals</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</center>
+</section>
+<section id="xgboost">
+<h3>XGBoost<a class="headerlink" href="#xgboost" title="Link to this heading">#</a></h3>
+<p>Idea: use a unique tree to make decisions based on similarity scores.</p>
+<p>Preliminaries:</p>
+<ul class="simple">
+<li><p><strong>Pre-sort algorithm</strong>: sort samples by the feature value, then split linearly.</p></li>
+<li><p><strong>Histogram-based algorithm</strong>: bucket continuous feature values into discrete bins.</p></li>
+<li><p><strong>Level-wise tree growth</strong> (BFS)</p></li>
+</ul>
+<p>Model:</p>
+<ol class="arabic simple">
+<li><p>Calculate residuals for all samples based on current prediction. Calculate similarity score for the root node of a new tree.
+$<span class="math notranslate nohighlight">\(
+\text{Similarity}=\frac{\sum_{i=1}^{m_r}{r_i^2}}{m_r+\lambda}
+\)</span>$</p></li>
+<li><p>Find similarity gain of each possible split. Choose the split with the max gain at root node.
+$<span class="math notranslate nohighlight">\(
+\text{Gain}=\text{Similarity}_\text{left}+\text{Similarity}_\text{right}-\text{Similarity}_\text{root}
+\)</span>$</p></li>
+<li><p>Repeat Step 2 till limit. Prune branches bottom-up by checking whether the gain of the branch is higher than a predefined threshold <span class="math notranslate nohighlight">\( \gamma \)</span>. If it is higher, stop. If it is lower, prune it, move on to the next branch.</p></li>
+<li><p>Define the output value for each leaf of this tree.
+$<span class="math notranslate nohighlight">\(
+\text{Output}=\frac{\sum_{i=1}^{m_r}{r_i}}{m_r+\lambda}
+\)</span>$</p></li>
+<li><p>Define the predicted value for each sample.
+$<span class="math notranslate nohighlight">\(
+\hat{y}_i=\bar{y}+\eta\sum{\text{Tree}(\mathbf{x}_i)} 
+\)</span>$</p></li>
+<li><p>Repeat Steps 1-5 till limit.</p></li>
+</ol>
+<p>Optimization (hyperparams):</p>
+<ul class="simple">
+<li><p>Regularization: <span class="math notranslate nohighlight">\( \lambda\)</span> (the higher <span class="math notranslate nohighlight">\(\lambda \)</span>, the lower gain, thus easier to prune.)</p></li>
+<li><p>Prune threshold: <span class="math notranslate nohighlight">\( \gamma\)</span> (<span class="math notranslate nohighlight">\(\gamma=0 \)</span> prunes negative gains.)</p></li>
+<li><p>Learning rate: <span class="math notranslate nohighlight">\( \eta \)</span></p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Perform well when #features is small</p></li>
+<li><p>The Pros of Gradient Boosting</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Cannot handle categorical features (must do encoding)</p></li>
+<li><p>Bad performance on sparse and unstructured data</p></li>
+<li><p>The Cons of Gradient Boosting</p></li>
+</ul>
+</section>
+<section id="lightgbm">
+<h3>LightGBM<a class="headerlink" href="#lightgbm" title="Link to this heading">#</a></h3>
+<p>Idea: Gradient Boosting + GOSS + EFB</p>
+<p>Preliminaries:</p>
+<ul class="simple">
+<li><p><strong>GOSS (Gradient-based One-Side Sampling)</strong>: focus more on under-trained samples without changing the original data distribution.</p>
+<ol class="arabic simple">
+<li><p>Sort all samples based on abs(gradient). Select top <span class="math notranslate nohighlight">\( \alpha \)</span>% samples as the samples with large gradients. Keep them.</p></li>
+<li><p>Randomly sample <span class="math notranslate nohighlight">\( b\)</span>% of the remaining samples with small gradients. Amplify them with a constant <span class="math notranslate nohighlight">\(\frac{1-a}{b} \)</span>.</p></li>
+</ol>
+</li>
+<li><p><strong>EFB (Exclusive Feature Bundling)</strong>: bundle mutually exclusive features together into much fewer dense features by conflict rate (more nonzero values lead to higher probability of conflicts).</p>
+<ol class="arabic simple">
+<li><p>Sort features based on conflicts in a descending order. Assign each to an existing bundle with a small conflict or create a new bundle.</p></li>
+<li><p>Merge exclusive features in the same bundle. If two features have joint ranges, add an offset value so that the two features can be merged into one range.</p></li>
+</ol>
+</li>
+<li><p><strong>Leaf-wise tree growth</strong>: choose the leaf with max delta loss to grow. (DFS)</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Can handle categorical features</p></li>
+<li><p>Much faster and efficient training both in time and space</p></li>
+<li><p>Higher accuracy than most other boosting algorithms, especially on large datasets</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Overfitting (Because of leaf-wise splitting, the tree can be much more complex)</p></li>
+<li><p>Bad performance on small datasets</p></li>
+</ul>
+<p>Gradient Boosting Comparisons:</p>
+<center>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p></p></th>
+<th class="head text-center"><p>XGBoost</p></th>
+<th class="head text-center"><p>CatBoost</p></th>
+<th class="head text-center"><p>LightGBM</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Tree growth</p></td>
+<td class="text-center"><p>Asymmetric level-wise tree growth</p></td>
+<td class="text-center"><p>Symmetric growth</p></td>
+<td class="text-center"><p>Asymmetric leaf-wise tree growth</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Split</p></td>
+<td class="text-center"><p>Pre-sort + Histogram</p></td>
+<td class="text-center"><p>Greedy</p></td>
+<td class="text-center"><p>GOSS + EFB</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Numerical features</p></td>
+<td class="text-center"><p>Support</p></td>
+<td class="text-center"><p>Support</p></td>
+<td class="text-center"><p>Support</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Categorical features</p></td>
+<td class="text-center"><p>Need external encoding into numerical features<br>Cannot interpret ordinal category</p></td>
+<td class="text-center"><p>Support with default encoding methods</p></td>
+<td class="text-center"><p>Support with default encoding methods<br>Can interpret ordinal category</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>Text features</p></td>
+<td class="text-center"><p>NO</p></td>
+<td class="text-center"><p>YES by converting them to numerical features<br>via bag-of-words, BM-25, or Naive Bayes</p></td>
+<td class="text-center"><p>NO</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>Missing values</p></td>
+<td class="text-center"><p>Interpret as NaN<br>Assign to side that reduces loss the most in each split</p></td>
+<td class="text-center"><p>Interpret as NaN<br>Process as min/max</p></td>
+<td class="text-center"><p>Interpret as NaN<br>Assign to side that reduces loss the most in each split</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</center>
+</section>
+</section>
+<section id="online-learning">
+<h2>Online Learning<a class="headerlink" href="#online-learning" title="Link to this heading">#</a></h2>
+<p>In comparison to batch learning which can be extremely expensive for big datasets, online learning is easy in a map-reduce environment.</p>
+<p>Online learning is like SGD where we learn only on a single sample each time.</p>
+<p>Common Pros:</p>
+<ul class="simple">
+<li><p>Extreme flexibility</p></li>
+<li><p>Extremely fast in terms of reaching optimum</p></li>
+<li><p>The only door towards continual learning so far</p></li>
+</ul>
+<p>Common Cons:</p>
+<ul class="simple">
+<li><p>Catastrophic forgetting (The model forgets what it learnt before)</p></li>
+<li><p>Highly noisy convergence (might not converge due to frequent updates)</p></li>
+</ul>
+<section id="least-mean-squares">
+<h3>Least Mean Squares<a class="headerlink" href="#least-mean-squares" title="Link to this heading">#</a></h3>
+<p>Idea: Fit LinReg on each observation sequentially.</p>
+<p>Model: LinReg</p>
+<p>Objective: <span class="math notranslate nohighlight">\( \mathcal{L}=(y_i-\textbf{w}^T\textbf{x}_i)^2 \)</span></p>
+<p>Optimization: SGD
+$<span class="math notranslate nohighlight">\(
+\textbf{w}_{i+1}=\textbf{w}_i-\frac{\eta}{2}\frac{\partial\mathcal{L}}{\partial\textbf{w}_i}=\textbf{w}_i+\eta(y_i-\textbf{w}^T\textbf{x}_i)\textbf{x}_i
+\)</span>$</p>
+<ul class="simple">
+<li><p>This algorithm is guaranteed to converge for <span class="math notranslate nohighlight">\( \eta\in(0,\lambda_{\max})\)</span>, where <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span> is the largest eigenvalue of <span class="math notranslate nohighlight">\(X^TX \)</span>.</p></li>
+<li><p>The convergence rate is proportional to <span class="math notranslate nohighlight">\( \frac{\lambda_{\min}}{\lambda_{\max}}\)</span> (i.e., ratio of extreme eigenvalues of <span class="math notranslate nohighlight">\(X^TX \)</span>).</p></li>
+</ul>
+</section>
+<section id="perceptron">
+<h3>Perceptron<a class="headerlink" href="#perceptron" title="Link to this heading">#</a></h3>
+<p>Idea: Fit a linear classifier on each observation sequentially.</p>
+<p>Model: linear classifier</p>
+<ul class="simple">
+<li><p>Binary: <span class="math notranslate nohighlight">\( \hat{y}_i=\text{sign}(\textbf{w}^T\textbf{x}_i) \)</span></p></li>
+<li><p>Multiclass: <span class="math notranslate nohighlight">\( \hat{y}_i=\arg\max_k\textbf{w}_k^T\textbf{x}_i \)</span></p></li>
+</ul>
+<p>Objective: <span class="math notranslate nohighlight">\( \mathcal{L}=(y_i-\hat{y}_i)^2 \)</span></p>
+<p>Optimization: SGD</p>
+<ul class="simple">
+<li><p>Binary:
+$<span class="math notranslate nohighlight">\(
+\textbf{w}_{i+1}=\textbf{w}_i+\frac{1}{2}(y_i-\text{sign}(\textbf{w}^T\textbf{x}_i))\textbf{x}_i=\textbf{w}_i+y_i\textbf{x}_i
+\)</span>$</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( \eta=\frac{1}{2} \)</span></p></li>
+<li><p>If we get it correct, no update at all because the residual is 0.</p></li>
+<li><p>If we get it wrong, drop weights for negative samples and raise weights for positive samples.</p></li>
+</ul>
+</li>
+<li><p>Multiclass: Similar to Binary but raise the weight vector for the actual class and reduce the weight vector for the predicted wrong class.</p></li>
+</ul>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Guaranteed to converge to a solution if samples are <strong>linearly separable</strong></p>
+<ul>
+<li><p>#mistakes before convergence is always less than <span class="math notranslate nohighlight">\( \frac{\max_i||\textbf{x}_i||_2}{\gamma} \)</span>.</p></li>
+<li><p>Numerator: size of the biggest sample.</p></li>
+<li><p>Denominator: margin of the decision boundary (<span class="math notranslate nohighlight">\( \gamma&gt;0\)</span> if linearly separable; <span class="math notranslate nohighlight">\(\gamma&lt;y_i\textbf{w}_*^T\textbf{x}_i \)</span>)</p></li>
+</ul>
+</li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Highly unstable and bounce around if samples are not linearly separable</p></li>
+</ul>
+<p>Variations:</p>
+<ul class="simple">
+<li><p><strong>Voted Perceptron</strong>: Perceptron but keep track of all the intermediate models and take a majority vote during prediction.</p></li>
+<li><p><strong>Averaged Perceptron</strong>: Voted Perceptron but take an average vote during prediction.</p></li>
+<li><p>Pros:</p>
+<ul>
+<li><p>Better generalization performance than perceptron</p></li>
+<li><p>Same training time as perceptron</p></li>
+<li><p>Nearly as good as SVM</p></li>
+<li><p>Can use the Kernel Trick to replace dot product with Kernel</p></li>
+</ul>
+</li>
+<li><p>Cons:</p>
+<ul>
+<li><p>Higher memory cost</p></li>
+<li><p>Higher inference cost</p></li>
+</ul>
+</li>
+<li><p>Further variations: different ways to tune <span class="math notranslate nohighlight">\( \eta\)</span>. (standard chooses <span class="math notranslate nohighlight">\(\eta=1\)</span>, alternatives chooses <span class="math notranslate nohighlight">\(\eta \)</span> to maximize margin)</p></li>
+</ul>
+</section>
+<section id="passive-aggressive">
+<h3>Passive Aggressive<a class="headerlink" href="#passive-aggressive" title="Link to this heading">#</a></h3>
+<p>Idea: Perceptron but minimizing <strong>hinge loss</strong> (i.e., maximize margin)</p>
+<p>Model: Perceptron</p>
+<p>Objective: Hinge loss
+$<span class="math notranslate nohighlight">\(
+\mathcal{L}=\begin{cases}
+0 &amp; \text{ if }y_i\textbf{w}^T\textbf{x}_i\geq1 \\\\
+1-y_i\textbf{w}^T\textbf{x}_i &amp; \text{ if }y_i\textbf{w}^T\textbf{x}_i&lt;1
+\end{cases}
+\)</span>$</p>
+<p>Optimization: Margin-Infused Relaxed Algorithm (MIRA)</p>
+<ul class="simple">
+<li><p>If correct classification with a margin of at least 1, no change.</p></li>
+<li><p>If wrong,
+$<span class="math notranslate nohighlight">\(
+\textbf{w}_{i+1}=\textbf{w}_i+\frac{\mathcal{L}}{||\textbf{x}_i||^2}y_i\textbf{x}_i
+\)</span>$</p></li>
+<li><p>MIRA attempts to make the smallest changes to the weight vector(s) by moving the hyperplane to include the new sample point onto the margin, therefore maximizing the margin for the entire dataset.</p></li>
+</ul>
+</section>
+</section>
+<section id="pros-cons-summary">
+<h2>Pros &amp; Cons Summary<a class="headerlink" href="#pros-cons-summary" title="Link to this heading">#</a></h2>
+<p>| | Scale Invariance | Robustness | Consistency | Generalization |</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ml"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-models">Linear Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">Linear Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machine">Support Vector Machine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-learning">Local Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors">K Nearest Neighbors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-method">Kernel Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-methods">Ensemble Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest">Random Forest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaboost">AdaBoost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-boosting">Gradient Boosting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xgboost">XGBoost</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lightgbm">LightGBM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-learning">Online Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-mean-squares">Least Mean Squares</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron">Perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#passive-aggressive">Passive Aggressive</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-cons-summary">Pros &amp; Cons Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
