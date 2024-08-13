@@ -10,90 +10,107 @@ kernelspec:
   name: python3
 ---
 # Data
-Data pipelines in ML follow either one below:
-- **ETL**: Extract $\rightarrow$ Transform $\rightarrow$ Load
-- **ELT**: Extract $\rightarrow$ Load $\rightarrow$ Transform
+2 Types of data pipelines:
+- **ETL**: Extract → Transform → Load
+- **ELT**: Extract → Load → Transform
 
-This page follows ETL and only covers the basics because I'm not a data engineer.
+This guide focuses on ETL basics.
+
+## Chapter 8: Feature Engineering and Data Preprocessing
+- 8.1 Introduction to Feature Engineering
+- 8.2 Data Cleaning
+  - 8.2.1 Handling Missing Data
+  - 8.2.2 Outlier Detection and Treatment
+- 8.3 Feature Scaling
+  - 8.3.1 Normalization
+  - 8.3.2 Standardization
+- 8.4 Feature Selection Techniques
+  - 8.4.1 Filter Methods
+  - 8.4.2 Wrapper Methods
+  - 8.4.3 Embedded Methods
+- 8.5 Feature Transformation
+  - 8.5.1 Polynomial Features
+  - 8.5.2 Interaction Features
+  - 8.5.3 Binning and Discretization
+  - 8.5.4 Encoding Categorical Variables
+- 8.6 Handling High-Dimensional Data
+- 8.7 Data Augmentation Techniques
 
 ## Data Collection
 Sources:
-- **Internal**: transaction logs, customer databases, sensor data, operational data, etc.
-- **External**: public datasets, third-party purchases, social media feeds, open-source platforms, user reviews, etc.
-- **Synthetic**: auto-generated data to simulate real world; used when real data are unavailable due to privacy concerns/rarity
+- **Internal**: Transaction logs, customer databases, sensor data, operational data.
+- **External**: Public datasets, third-party data, social media feeds, open-source platforms, user reviews.
+- **Synthetic**: Auto-generated data for simulation, used when real data is unavailable due to privacy/rarity.
 
 Procedure:
-1. Define requirements
-2. Establish scalable infra
-3. Quality assurance
-4. Continuous monitoring
+1. Define requirements.
+2. Establish scalable infra.
+3. Ensure quality.
+4. Continuously monitor.
 
 Methods:
-- **Direct**: surveys, observations, experiments, purchases, etc.; tailored for ML tasks; commonly used in R&D
-- **Indirect**: scraping, database access, APIs, etc.; require preprocessing
-- **Crowdsourcing**: gather a large group of people to generate data; commonly used for annotations
+- **Direct**: Surveys, observations, experiments, purchases
+    - Tailored for ML tasks, common in R&D.
+- **Indirect**: Scraping, database access, APIs
+    - Require preprocessing.
+- **Crowdsourcing**: Large group data generation
+    - Often used for annotations.
 
-Challenges: volume, variety, veracity, velocity, ethics, etc.
-
-
+Challenges: Volume, variety, veracity, velocity, ethics.
 
 ## Data Cleaning
-Procedure (unordered):
-- **Handle missing data**: either at random/not at random
-    - **Deletion** (only when the proportion is negligible)
-    - [**Imputation**](#imputation) (only applicable to random missing, likely non-factual)
-- **Remove unwanted samples/features**: duplicates, irrelevant samples/features, etc.
-- **Fix structural errors**: typos, mislabels, inconsistency, etc.
-- **Filter unwanted outliers**: statistical methods (Z-score, IQR [interquartile range], etc.), domain-specific filters
-    - remove if non-robust model, keep if robust model
-- **Handle text data**: lowercase, punctuations, typos, stopwords, lemmatization (reduce word to root form), etc.
-- **Handle image data**: 
-    - **Size**: resizing, cropping, padding, etc.
-    - **Color**: grayscale conversion, histogram equalization (enhance contrast), color space transformation (e.g., RGB $\rightarrow$ HSV)
-    - **Noise**: Gaussian blur, median blur, denoising, artifact remmoval (e.g., text overlays, watermarks, etc.)
-    - **File**: ensure uniform file format
+Procedure:
+- **Handle missing data**:
+  - **Deletion**: When the proportion is negligible.
+  - **Imputation**: Applicable to randomly missing data.
+- **Remove unwanted samples/features**: Duplicates, irrelevant samples/features, etc.
+- **Fix structural errors**: Typos, mislabels, inconsistencies, etc.
+- **Filter outliers**: Use domain-specific filters or statistical methods (Z-score, IQR, etc.).
+  - Remove for non-robust models, keep for robust models.
+- **Handle text data**: Lowercase, punctuation, typos, stopwords, lemmatization, etc.
+- **Handle image data**:
+  - **Size**: Resizing, cropping, padding, etc.
+  - **Color**: Grayscale conversion, histogram equalization, color space transformation, etc.
+  - **Noise**: Gaussian blur, median blur, denoising, artifact removal.
+  - **File**: Ensure uniform format.
 
-Challenges: scalability, unstructured data, info loss due to overcleaning, etc.
+**Challenges**: Scalability, unstructured data, information loss due to over-cleaning, etc.
 
-### Data Imputation
-Procedure (like EM): 
-1. Estimate the missing data.
-2. Estimate the params for imputation.
+## Data Imputation
+Procedure (like EM):
+1. Estimate missing data.
+2. Estimate params for imputation.
 3. Repeat.
 
 Types:
-- Simple imputation: zero, majority, mean (usually best)
-    - assume no multicollinearity
-- Complex imputation:
-    - **Regression**: fit missing feature on other features (assume multicollinearity)
-        - NOT necessarily better than simple imputations because assumptions can fail
-    - **Indicator addition**: add 0-1 indicators for each feature on whether this feature is missing (0: present; 1: absent)
-        - treat the fact "missing" as an informative value
-        - Cons: doubled feature size
-    - **Category addition**: add one more category called "missing" to represent missing values
-        - treat the fact "missing" as an informative value
-        - Pros: straightforward & much better than doubled numerical values
-    - **Unsupervised Learning**: ussed if there are lots of categories and/or features
-
-
+- **Simple**: Zero, majority, mean (usually best).
+  - Assumes no multicollinearity.
+- **Complex**:
+  - **Regression**: Fit missing features on other features, assumes multicollinearity.
+    - Cons: potential assumption failures.
+  - **Indicator addition**: Add 0-1 indicators for missing features.
+    - Cons: feature size doubles.
+  - **Category addition**: Add "missing" category for missing values.
+    - Pros: straightforward, better than doubling.
+  - **Unsupervised Learning**: Used if many categories/features.
 
 ## Data Transformation
 ### Standardization
 $$X_\text{new}=\frac{X-\bar{X}}{\Sigma_X}$$
 
 Pros:
-- remove mean and/or scale data to unit variance (i.e., $ x_i\sim N(0,1)$)
+- Removes mean & scales data to unit variance (i.e., $ x_i\sim N(0,1)$).
 
 Cons:
-- highly sensitive to outliers (because they greatly impact empirical mean & std)
-- destroy sparsity (because center is shifted)
+- Sensitive to outliers (because they affect empirical mean & std).
+- Destroys sparsity (because center is shifted).
 
 ### Normalization
 $$X_\text{new}=\frac{X}{\text{norm}(X)}$$
 
 Pros:
-- scale individual samples to their unit norms
-- can choose l1/l2/max as $\text{norm}(\cdot)$
+- Scales samples to unit norms.
+- Supports L1/L2/max norms.
 
 ### Min-Max Scaling
 $$\begin{align*}
@@ -102,48 +119,50 @@ $$\begin{align*}
 \end{align*}$$
 
 Pros:
-- can scale each $ x_i $ into a range of your choice
+- Scales data to a customizable range.
 
 Cons:
-- highly sensitive to outliers (because they greatly impact empirical min & max)
-- destroy sparsity (because center is shifted)
+- Sensitive to outliers (because they affect empirical min & max).
+- Destroys sparsity (because center is shifted).
 
 ### Max-Abs Scaling
 $$X_\text{new}=\frac{X}{\max{(|X|)}}$$
 
 Pros:
-- preserve signs of each $ x_i $.- preserve sparsity
-- scale each $x_i$  into a range of $[-1,1]$ ($[-1,0)$ for neg entries, $(0,1]$ for pos entries)
+- Preserves signs.
+- Preserves sparsity.
+- Scales data to $[-1,1]$.
 
 Cons:
-- highly sensitive to outliers
+- Sensitive to outliers.
 
 ### Robust Scaling
 $$X_\text{new}=\frac{X-\text{med}(X)}{Q_{75\%}(X)-Q_{25\%}(X)}$$
 
 Pros:
-- robust to outliers
+- Robust to outliers
 
 Cons:
-- destroy sparsity (because center is shifted)
+- Destroys sparsity (because center is shifted).
 
 ### Quantile Transform
-- Original form: $X_\text{new}=Q^{-1}(F(X))$
-    - $Q^{-1}$: quantile func (i.e., PPF [percent-point func], inverse of CDF)
-    - $F$: empirical CDF
-- Uniform outputs: $X_\text{new}=F_U^{-1}(F(X))\in[0,1]$
-- Gaussian outputs: $X_\text{new}=F_N^{-1}(F(X))\sim N(0,1)$
+- Original: $X_\text{new}=Q^{-1}(F(X))$
+    - $Q^{-1}$: Quantile function (i.e., PPF, inverse of CDF).
+    - $F$: Empirical CDF.
+- Uniform: $X_\text{new}=F_U^{-1}(F(X))\in[0,1]$
+- Gaussian: $X_\text{new}=F_N^{-1}(F(X))\sim N(0,1)$
 
 Pros:
-- robust to outliers (literally collapse them)
+- Robust to outliers (by collapsing them).
 
 Cons:
-- distort linear correlations between diff features
-- only work well with sufficiently large #samples
+- Distorts linear correlations between diff features.
+- Requires large #samples.
 
 
 ### Power Transform
 - Yeo-Johnson Transform
+
     $$
     \mathbf{x}_i^{(\lambda)}=\begin{cases}
     \frac{(\mathbf{x}_i+1)^\lambda-1}{\lambda} & \text{if }\lambda\neq0,\mathbf{x}_i\geq0 \\
@@ -152,137 +171,117 @@ Cons:
     -\ln{(1-\mathbf{x}_i)}                           & \text{if }\lambda=2,\mathbf{x}_i<0
     \end{cases}
     $$
-    - $ \lambda $: determined by MLE
+
+    - $\lambda$: Determined by MLE.
 
 - Box-Cox Transform
+
     $$
     \mathbf{x}_i^{(\lambda)}=\begin{cases}
     \frac{\mathbf{x}_i^\lambda-1}{\lambda} & \text{if }\lambda\neq0 \\
     \ln{(\mathbf{x}_i)} & \text{if }\lambda=0
     \end{cases}
     $$
-    - only applicable when $ \mathbf{x}_i>0 $
-    
+
+    - Requires $\mathbf{x}_i>0$.
+
 Pros:
-- map any data to Gaussian distribution (i.e., stabilize variance and minimize skewness)
-- useful against heteroskedasticity (i.e., non-const variance).
-- Sklearn's PowerTransformer converts data to $ N(0,1) $ by default.
+- Maps data to Gaussian distribution (stabilizes variance & minimizes skewness)
+- Useful against heteroskedasticity.
+- Sklearn's PowerTransformer converts data to $N(0,1)$ by default.
 
 Cons:
-- distort linear correlations between diff features
+- Distorts linear correlations between diff features.
 
 ### Categorical features
-- **One-Hot Encoding**: convert each category into a 0-1 feature (excluding a dummy)
-    - better for nominal data (i.e., no inherent order among categories)
-- **Label Encoding**: convert each category into a numerical label
-    - better for ordinal data (i.e., inherent order among categories)
-
-
+- **One-Hot Encoding**: Converts each category into a 0-1 feature, better for nominal data.
+- **Label Encoding**: Converts each category into a numerical label, better for ordinal data.
 
 ## Data Loading
-NOTE: Loading is significantly more complex IRL compared to school projects.
+Loading data IRL is more complex than school projects.
 
 Procedure:
-1. Choose storage:
-    - **Databases**: SQL/Relational (only structured data), NoSQL (better for unstructured data)
-    - **Data Warehouses**: best for analytical tasks
-    - **Data Lakes**: raw storage of big data from various sources
-    - **Cloud Storage**
-2. Validate: check schema, data quality, integrity, etc.
-3. Format: encoding, batching (for big data), raw saving
-4. Load:
-    - **Bulk loading**: load data in large chunks
-        - minimize logging & transaction overhead
-        - require system downtime
-    - **Incremental loading**: load data in small increments
-        - use timestamps/logs to track changes
-        - minimize system disruption
-        - best for real-time data processing
-    - **Streaming**: load data continuously in real time
-5. Optimize (i.e., reduce data volume for faster execution)
-    - [**Indexing**](#indexing): set a primary/secondary index on features with unique/repeated values to retrieve them faster
-        - best for tables with low data churn (i.e., with fewer inserts/deletes/updates)
-    - [**Partitioning**](#sharding-horizontal-partitioning): divide a database/table into distinct sections/tables to query them independently
-        - best for storing older records
-    - [**Parallel Processing**](#parallel-processing)
-6. Handle errors
-7. Handle security: encryption, access control, etc.
-8. Verify: audit using test queries, reconcile loaded data with source data, etc.
+1. **Choose Storage**:
+    - **Databases**: SQL (relational, structured), NoSQL (unstructured).
+    - **Data warehouses**: Ideal for analytical tasks.
+    - **Data lakes**: Store raw big data from various sources.
+    - **Cloud storage**
+2. **Validate**: Check schema, data quality, integrity, etc.
+3. **Format**: Ensure proper encoding, batching (for big data), raw saving.
+4. **Load**:
+    - **Bulk Loading**: Load large data chunks
+        - Minimizes logging and transaction overhead.
+        - Requires system downtime.
+    - **Incremental Loading**: Load data in small increments
+        - Uses timestamps/logs to track changes.
+        - Minimizes disruption.
+        - Ideal for real-time processing.
+    - **Streaming**: Load data continuously in real-time.
+5. **Optimize**: Reduce data volume for faster execution.
+    - **[Indexing](#indexing)**: Use primary/secondary indexes for faster data retrieval. 
+        - Best for tables with low data churn.
+    - **[Partitioning](#sharding-horizontal-partitioning)**: Divide databases/tables for independent querying.
+        - Best for older records.
+    - **[Parallel Processing](#parallel-processing)**
+6. **Handle Errors**
+7. **Ensure Security**: Encryption, access control, etc.
+8. **Verify**: Audit with test queries, reconcile loaded data with source data, etc.
 
 ### Indexing
-Why: faster retrieval
-
-What: create quick lookup paths to access the data
-
-How: Each Index stores values of specific columns & the location of corresponding rows. Indices are stored as B trees/B+ trees.
-- **B tree**: balanced tree where each node contains multiple keys sorted in order & pointers to child nodes
-- **B+ tree**: B tree & all records are stored at leaf level with leaf nodes linked to one another
+What: Create quick lookup paths using B trees/B+ trees for faster data retrieval.
 
 Types:
-- **Single-column Indexes**: created on only one column; used when queries frequently access/filter based on that specific column
-- **Composite Indexes** (Multi-column Indexes): created on two/more columns; used when queries frequently filter/sort based on these columns in combination
-- **Unique Indexes**: ensure all index values are unique; used as a primary key
-- **Full-text Indexes**: allow complex queries on unstructured texts (e.g., search engines, document search)
-- **Spatial Indexes**: used when queries do geospatial operations
+- **Single-column**: For frequent access/filtering of one column.
+- **Composite**: For frequent filtering/sorting based on multiple columns.
+- **Unique**: Ensures all index values are unique, used as primary key.
+- **Full-text**: For complex queries on unstructured texts.
+- **Spatial**: For geospatial operations.
 
-Pros:
-- fast retrieval
-- auto sort (useful for fetching & presenting data)
-- high time efficiency (reduce #disk accesses required during queries)
+Pros: Fast retrieval, automatic sorting, high time efficiency.
 
-Cons:
-- low space efficiency (require additional space to store indices)
-- high maintenance complexity
+Cons: Low space efficiency, high maintenance complexity.
 
-### Sharding (horizontal partitioning)
-Why: scale databases horizontally
+### Sharding (Horizontal Partitioning)
+What: Distribute data across multiple servers/locations using a shard key for horizontal database scaling.
 
-What: distribute data across multiple servers/locations, where each shard is an independent database and all shards form a single logical database
+Types:
+- **Hash-based**: Even data division using a hash function.
+- **Range-based**: Numerical data division using key value ranges.
+- **List-based**: Categorical data division using predefined shard key lists.
 
-How: use a specific (set of) columns as a **shard key** that determines how the data is distributed across the shards
-- **Hash-based**: use a hash function to determine which shard will store a given data row; useful for even data division
-- **Range-based**: use ranges of shard key values to divide data; useful for numerical data division
-- **List-based**: use predefined lists of shard keys to divide; useful for categorical data division
+Uses: Web apps, real-time analytics, game/media services, etc.
 
-Where: web apps, real-time analytics, game/media services, etc.
+Pros: Horizontal scalability, high availability.
 
-Pros:
-- horizontal scalability
-- high availability
-
-Cons:
-- implementation complexity
-- high maintenance complexity
+Cons: Implementation & maintenance complexity.
 
 ### Parallel Processing
+Parallel processing runs on a single computer (node).
+
 Concepts:
-- **Core**: A processor has multiple cores, each of which can execute instructions independently.
-- **Thread**: A core can run multiple threads, each of which can execute sub-tasks independently.
-- **Memory**:
-    - Shared memory architectures allow multiple cores to access the same memory space.
-    - Distributed memory architectures require communication between cores.
+- **Core**: Independent instruction execution units in a processor.
+- **Thread**: Sub-tasks run independently on a core.
+- **Memory**: Shared or distributed.
 
 Types:
-- **Data Parallelism**: divide data into smaller chunks & processing each chunk simultaneously on different cores
-- **Task Parallelism**: execute different tasks of one program in parallel
+- **Data Parallelism**: Process data chunks simultaneously on different cores.
+- **Task Parallelism**: Execute different tasks in parallel.
 
 Methods:
-- **Multithreading**: C/C++ OpenMP, Python threading libraries, etc.
-- **GPGPU** (General-Purpose computing on Graphics Processing Units): use CUDA and OpenCL to perform highly parallelized computing more efficiently than CPUs
+- **Multithreading**: Use libraries like C/C++ OpenMP, Python threading, etc.
+- **GPGPU**: Use CUDA/OpenCL for efficient parallel computing.
 
 ### Distributed Computing
-NOTE: Distributed Computing $\neq$ Parallel Processing
-- Parallel processing runs on a single computer.
-- Distributed computing runs on multiple independent computers (i.e., nodes).
+Distributed Computing runs on multiple independent computers (nodes).
 
 Concepts:
-- **Networks**: to connect multiple computers
-- **Horizontal scalability**: the more machines the better performance (unless beyond capacity)
-- **Fault Tolerance**: handle failures of individual nodes / network components without affecting the overall task
+- **Networks**: Connect multiple computers.
+- **Horizontal Scalability**: Performance improves with more machines.
+- **Fault Tolerance**: Handle node/network failures without affecting the overall task.
 
-Methods:
-- **MapReduce**: process big data with a distributed algorithm on a cluster
-    - Map: filter & sort data
-    - Reduce: perform a summary operation
-- **Distributed Databases**: store data across multiple physical locations BUT appear as a single database to users
-- **Load Balancing**: distribute workloads evenly across all nodes to maximize resource usage & minimize response time
+**Methods**:
+- **MapReduce**: Process big data with distributed algorithms.
+    - **Map**: Filter and sort data.
+    - **Reduce**: Summarize data.
+- **Distributed Databases**: Store data across multiple locations but appear as a single database.
+- **Load Balancing**: Evenly distribute workloads to maximize resource usage and minimize response time.

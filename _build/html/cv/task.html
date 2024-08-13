@@ -1,0 +1,796 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Object Detection and Recognition &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cv/task';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcv/task.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/cv/task.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Object Detection and Recognition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Object Detection and Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-matching">Template Matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sliding-window-techniques">Sliding Window Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#haar-cascades-and-viola-jones-detector">Haar Cascades and Viola-Jones Detector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformable-part-models-dpm">Deformable Part Models (DPM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-based-recognition">Feature-Based Recognition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-visual-words-bovw">Bag of Visual Words (BoVW)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-vocabulary-construction">Visual Vocabulary Construction</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-categorization-and-classification">Object Categorization and Classification</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-and-grouping">Segmentation and Grouping</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superpixel-segmentation">Superpixel Segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-based-segmentation-methods">Graph-Based Segmentation Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-contours-snakes">Active Contours (Snakes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-algorithm">Watershed Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-shift-clustering">Mean-Shift Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-segmentation">Semantic Segmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fully-convolutional-networks-fcn">Fully Convolutional Networks (FCN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-random-fields-crf">Conditional Random Fields (CRF)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#motion-analysis">Motion Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optical-flow-estimation">Optical Flow Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lucas-kanade-method">Lucas-Kanade Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#horn-schunck-method">Horn-Schunck Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-algorithms">Tracking Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kalman-filter-particle-filter">Kalman Filter, Particle Filter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-shift-tracking">Mean-Shift Tracking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-object-tracking-mot">Multiple Object Tracking (MOT)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-subtraction-techniques">Background Subtraction Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#action-recognition-in-video">Action Recognition in Video</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#image-generation">Image Generation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#d-vision">3D Vision</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-object-detection">3D Object Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-estimation-with-cnns">Depth Estimation with CNNs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point-cloud-processing-pointnet-pointcnn">Point Cloud Processing: PointNet, PointCNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-reconstruction-with-neural-networks">3D Reconstruction with Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-in-ar-vr-and-robotics">Applications in AR/VR and Robotics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#video-analysis">Video Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#action-recognition-using-cnns-and-rnns">Action Recognition using CNNs and RNNs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks-c3d">3D Convolutional Networks (C3D)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatiotemporal-models">Spatiotemporal Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-captioning-and-description">Video Captioning and Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-time-video-analysis">Real-Time Video Analysis</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centered-vision">Human-Centered Vision</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#face-detection-and-recognition">Face Detection and Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-pose-estimation">Human Pose Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gesture-recognition">Gesture Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emotion-and-expression-recognition">Emotion and Expression Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biometric-systems">Biometric Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-applications">Industrial Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-vehicles">Autonomous Vehicles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#healthcare-and-medical-imaging">Healthcare and Medical Imaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surveillance-and-security">Surveillance and Security</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-reality-and-virtual-reality-ar-vr">Augmented Reality and Virtual Reality (AR/VR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-automation-and-robotics">Industrial Automation and Robotics</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="object-detection-and-recognition">
+<h1>Object Detection and Recognition<a class="headerlink" href="#object-detection-and-recognition" title="Link to this heading">#</a></h1>
+<section id="template-matching">
+<h2>Template Matching<a class="headerlink" href="#template-matching" title="Link to this heading">#</a></h2>
+</section>
+<section id="sliding-window-techniques">
+<h2>Sliding Window Techniques<a class="headerlink" href="#sliding-window-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="haar-cascades-and-viola-jones-detector">
+<h2>Haar Cascades and Viola-Jones Detector<a class="headerlink" href="#haar-cascades-and-viola-jones-detector" title="Link to this heading">#</a></h2>
+</section>
+<section id="deformable-part-models-dpm">
+<h2>Deformable Part Models (DPM)<a class="headerlink" href="#deformable-part-models-dpm" title="Link to this heading">#</a></h2>
+</section>
+<section id="feature-based-recognition">
+<h2>Feature-Based Recognition<a class="headerlink" href="#feature-based-recognition" title="Link to this heading">#</a></h2>
+<section id="bag-of-visual-words-bovw">
+<h3>Bag of Visual Words (BoVW)<a class="headerlink" href="#bag-of-visual-words-bovw" title="Link to this heading">#</a></h3>
+</section>
+<section id="visual-vocabulary-construction">
+<h3>Visual Vocabulary Construction<a class="headerlink" href="#visual-vocabulary-construction" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="object-categorization-and-classification">
+<h2>Object Categorization and Classification<a class="headerlink" href="#object-categorization-and-classification" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="segmentation-and-grouping">
+<h1>Segmentation and Grouping<a class="headerlink" href="#segmentation-and-grouping" title="Link to this heading">#</a></h1>
+<section id="superpixel-segmentation">
+<h2>Superpixel Segmentation<a class="headerlink" href="#superpixel-segmentation" title="Link to this heading">#</a></h2>
+</section>
+<section id="graph-based-segmentation-methods">
+<h2>Graph-Based Segmentation Methods<a class="headerlink" href="#graph-based-segmentation-methods" title="Link to this heading">#</a></h2>
+</section>
+<section id="active-contours-snakes">
+<h2>Active Contours (Snakes)<a class="headerlink" href="#active-contours-snakes" title="Link to this heading">#</a></h2>
+</section>
+<section id="watershed-algorithm">
+<h2>Watershed Algorithm<a class="headerlink" href="#watershed-algorithm" title="Link to this heading">#</a></h2>
+</section>
+<section id="mean-shift-clustering">
+<h2>Mean-Shift Clustering<a class="headerlink" href="#mean-shift-clustering" title="Link to this heading">#</a></h2>
+</section>
+<section id="semantic-segmentation">
+<h2>Semantic Segmentation<a class="headerlink" href="#semantic-segmentation" title="Link to this heading">#</a></h2>
+<section id="fully-convolutional-networks-fcn">
+<h3>Fully Convolutional Networks (FCN)<a class="headerlink" href="#fully-convolutional-networks-fcn" title="Link to this heading">#</a></h3>
+</section>
+<section id="conditional-random-fields-crf">
+<h3>Conditional Random Fields (CRF)<a class="headerlink" href="#conditional-random-fields-crf" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="motion-analysis">
+<h1>Motion Analysis<a class="headerlink" href="#motion-analysis" title="Link to this heading">#</a></h1>
+<section id="optical-flow-estimation">
+<h2>Optical Flow Estimation<a class="headerlink" href="#optical-flow-estimation" title="Link to this heading">#</a></h2>
+<section id="lucas-kanade-method">
+<h3>Lucas-Kanade Method<a class="headerlink" href="#lucas-kanade-method" title="Link to this heading">#</a></h3>
+</section>
+<section id="horn-schunck-method">
+<h3>Horn-Schunck Method<a class="headerlink" href="#horn-schunck-method" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="tracking-algorithms">
+<h2>Tracking Algorithms<a class="headerlink" href="#tracking-algorithms" title="Link to this heading">#</a></h2>
+<section id="kalman-filter-particle-filter">
+<h3>Kalman Filter, Particle Filter<a class="headerlink" href="#kalman-filter-particle-filter" title="Link to this heading">#</a></h3>
+</section>
+<section id="mean-shift-tracking">
+<h3>Mean-Shift Tracking<a class="headerlink" href="#mean-shift-tracking" title="Link to this heading">#</a></h3>
+</section>
+<section id="multiple-object-tracking-mot">
+<h3>Multiple Object Tracking (MOT)<a class="headerlink" href="#multiple-object-tracking-mot" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="background-subtraction-techniques">
+<h2>Background Subtraction Techniques<a class="headerlink" href="#background-subtraction-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="action-recognition-in-video">
+<h2>Action Recognition in Video<a class="headerlink" href="#action-recognition-in-video" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="image-generation">
+<h1>Image Generation<a class="headerlink" href="#image-generation" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="d-vision">
+<h1>3D Vision<a class="headerlink" href="#d-vision" title="Link to this heading">#</a></h1>
+<section id="d-object-detection">
+<h2>3D Object Detection<a class="headerlink" href="#d-object-detection" title="Link to this heading">#</a></h2>
+</section>
+<section id="depth-estimation-with-cnns">
+<h2>Depth Estimation with CNNs<a class="headerlink" href="#depth-estimation-with-cnns" title="Link to this heading">#</a></h2>
+</section>
+<section id="point-cloud-processing-pointnet-pointcnn">
+<h2>Point Cloud Processing: PointNet, PointCNN<a class="headerlink" href="#point-cloud-processing-pointnet-pointcnn" title="Link to this heading">#</a></h2>
+</section>
+<section id="d-reconstruction-with-neural-networks">
+<h2>3D Reconstruction with Neural Networks<a class="headerlink" href="#d-reconstruction-with-neural-networks" title="Link to this heading">#</a></h2>
+</section>
+<section id="applications-in-ar-vr-and-robotics">
+<h2>Applications in AR/VR and Robotics<a class="headerlink" href="#applications-in-ar-vr-and-robotics" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="video-analysis">
+<h1>Video Analysis<a class="headerlink" href="#video-analysis" title="Link to this heading">#</a></h1>
+<section id="action-recognition-using-cnns-and-rnns">
+<h2>Action Recognition using CNNs and RNNs<a class="headerlink" href="#action-recognition-using-cnns-and-rnns" title="Link to this heading">#</a></h2>
+</section>
+<section id="d-convolutional-networks-c3d">
+<h2>3D Convolutional Networks (C3D)<a class="headerlink" href="#d-convolutional-networks-c3d" title="Link to this heading">#</a></h2>
+</section>
+<section id="spatiotemporal-models">
+<h2>Spatiotemporal Models<a class="headerlink" href="#spatiotemporal-models" title="Link to this heading">#</a></h2>
+</section>
+<section id="video-captioning-and-description">
+<h2>Video Captioning and Description<a class="headerlink" href="#video-captioning-and-description" title="Link to this heading">#</a></h2>
+</section>
+<section id="real-time-video-analysis">
+<h2>Real-Time Video Analysis<a class="headerlink" href="#real-time-video-analysis" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="human-centered-vision">
+<h1>Human-Centered Vision<a class="headerlink" href="#human-centered-vision" title="Link to this heading">#</a></h1>
+<section id="face-detection-and-recognition">
+<h2>Face Detection and Recognition<a class="headerlink" href="#face-detection-and-recognition" title="Link to this heading">#</a></h2>
+</section>
+<section id="human-pose-estimation">
+<h2>Human Pose Estimation<a class="headerlink" href="#human-pose-estimation" title="Link to this heading">#</a></h2>
+</section>
+<section id="gesture-recognition">
+<h2>Gesture Recognition<a class="headerlink" href="#gesture-recognition" title="Link to this heading">#</a></h2>
+</section>
+<section id="emotion-and-expression-recognition">
+<h2>Emotion and Expression Recognition<a class="headerlink" href="#emotion-and-expression-recognition" title="Link to this heading">#</a></h2>
+</section>
+<section id="biometric-systems">
+<h2>Biometric Systems<a class="headerlink" href="#biometric-systems" title="Link to this heading">#</a></h2>
+</section>
+<section id="industrial-applications">
+<h2>Industrial Applications<a class="headerlink" href="#industrial-applications" title="Link to this heading">#</a></h2>
+</section>
+<section id="autonomous-vehicles">
+<h2>Autonomous Vehicles<a class="headerlink" href="#autonomous-vehicles" title="Link to this heading">#</a></h2>
+</section>
+<section id="healthcare-and-medical-imaging">
+<h2>Healthcare and Medical Imaging<a class="headerlink" href="#healthcare-and-medical-imaging" title="Link to this heading">#</a></h2>
+</section>
+<section id="surveillance-and-security">
+<h2>Surveillance and Security<a class="headerlink" href="#surveillance-and-security" title="Link to this heading">#</a></h2>
+</section>
+<section id="augmented-reality-and-virtual-reality-ar-vr">
+<h2>Augmented Reality and Virtual Reality (AR/VR)<a class="headerlink" href="#augmented-reality-and-virtual-reality-ar-vr" title="Link to this heading">#</a></h2>
+</section>
+<section id="industrial-automation-and-robotics">
+<h2>Industrial Automation and Robotics<a class="headerlink" href="#industrial-automation-and-robotics" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./cv"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Object Detection and Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-matching">Template Matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sliding-window-techniques">Sliding Window Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#haar-cascades-and-viola-jones-detector">Haar Cascades and Viola-Jones Detector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformable-part-models-dpm">Deformable Part Models (DPM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-based-recognition">Feature-Based Recognition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-visual-words-bovw">Bag of Visual Words (BoVW)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-vocabulary-construction">Visual Vocabulary Construction</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-categorization-and-classification">Object Categorization and Classification</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-and-grouping">Segmentation and Grouping</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#superpixel-segmentation">Superpixel Segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-based-segmentation-methods">Graph-Based Segmentation Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-contours-snakes">Active Contours (Snakes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-algorithm">Watershed Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-shift-clustering">Mean-Shift Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-segmentation">Semantic Segmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fully-convolutional-networks-fcn">Fully Convolutional Networks (FCN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-random-fields-crf">Conditional Random Fields (CRF)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#motion-analysis">Motion Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optical-flow-estimation">Optical Flow Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lucas-kanade-method">Lucas-Kanade Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#horn-schunck-method">Horn-Schunck Method</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-algorithms">Tracking Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kalman-filter-particle-filter">Kalman Filter, Particle Filter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-shift-tracking">Mean-Shift Tracking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-object-tracking-mot">Multiple Object Tracking (MOT)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-subtraction-techniques">Background Subtraction Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#action-recognition-in-video">Action Recognition in Video</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#image-generation">Image Generation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#d-vision">3D Vision</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-object-detection">3D Object Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-estimation-with-cnns">Depth Estimation with CNNs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point-cloud-processing-pointnet-pointcnn">Point Cloud Processing: PointNet, PointCNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-reconstruction-with-neural-networks">3D Reconstruction with Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-in-ar-vr-and-robotics">Applications in AR/VR and Robotics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#video-analysis">Video Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#action-recognition-using-cnns-and-rnns">Action Recognition using CNNs and RNNs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks-c3d">3D Convolutional Networks (C3D)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatiotemporal-models">Spatiotemporal Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-captioning-and-description">Video Captioning and Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-time-video-analysis">Real-Time Video Analysis</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centered-vision">Human-Centered Vision</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#face-detection-and-recognition">Face Detection and Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-pose-estimation">Human Pose Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gesture-recognition">Gesture Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emotion-and-expression-recognition">Emotion and Expression Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biometric-systems">Biometric Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-applications">Industrial Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-vehicles">Autonomous Vehicles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#healthcare-and-medical-imaging">Healthcare and Medical Imaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surveillance-and-security">Surveillance and Security</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-reality-and-virtual-reality-ar-vr">Augmented Reality and Virtual Reality (AR/VR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-automation-and-robotics">Industrial Automation and Robotics</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

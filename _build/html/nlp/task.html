@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Syntax and Parsing &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nlp/task';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fnlp/task.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/nlp/task.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Syntax and Parsing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Syntax and Parsing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constituency-parsing">Constituency Parsing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-parsing">Dependency Parsing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#treebanks-and-grammar-formalisms">Treebanks and Grammar Formalisms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-context-free-grammars-pcfgs">Probabilistic Context-Free Grammars (PCFGs)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-based-parsing">Transition-Based Parsing</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#semantics-and-pragmatics">Semantics and Pragmatics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compositional-semantics">Compositional Semantics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-role-labeling-srl">Semantic Role Labeling (SRL)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coreference-resolution">Coreference Resolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discourse-analysis-and-coherence">Discourse Analysis and Coherence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-representation-in-nlp">Knowledge Representation in NLP</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-translation">Machine Translation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-machine-translation-rbmt">Rule-Based Machine Translation (RBMT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-machine-translation-smt">Statistical Machine Translation (SMT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-machine-translation-nmt">Neural Machine Translation (NMT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-translation-quality">Evaluation of Translation Quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilingual-and-low-resource-language-translation">Multilingual and Low-Resource Language Translation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#information-retrieval">Information Retrieval</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-information-retrieval">Basics of Information Retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space-model-and-tf-idf">Vector Space Model and TF-IDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relevance-feedback-and-query-expansion">Relevance Feedback and Query Expansion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-semantic-analysis-lsa">Latent Semantic Analysis (LSA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-dirichlet-allocation-lda">Latent Dirichlet Allocation (LDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-precision-recall-f-measure-map">Evaluation Metrics: Precision, Recall, F-Measure, MAP</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#question-answering">Question Answering</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-qa-systems">Overview of QA Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-qa">Rule-Based QA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#information-retrieval-based-qa">Information Retrieval-Based QA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-reading-comprehension">Machine Reading Comprehension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-domain-qa">Open-Domain QA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qa-datasets-and-benchmarks">QA Datasets and Benchmarks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#text-classification">Text Classification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-classification-approaches">Text Classification Approaches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-in-text-classification">Feature Engineering in Text Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised-text-classification">Supervised vs. Unsupervised Text Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis-techniques">Sentiment Analysis Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emotion-detection-and-opinion-mining">Emotion Detection and Opinion Mining</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-modeling">Topic Modeling</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-topic-modeling">Overview of Topic Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Latent Dirichlet Allocation (LDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-negative-matrix-factorization-nmf">Non-Negative Matrix Factorization (NMF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-topic-models">Dynamic Topic Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-topic-modeling-in-social-media">Applications of Topic Modeling in Social Media</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization">Summarization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extractive-summarization-techniques">Extractive Summarization Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstractive-summarization">Abstractive Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-summarization-methods">Evaluation of Summarization Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization-for-different-media-types-text-speech-video">Summarization for Different Media Types: Text, Speech, Video</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dialogue-systems-and-conversational-agents">Dialogue Systems and Conversational Agents</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-dialogue-systems">Rule-Based Dialogue Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-dialogue-systems">Statistical Dialogue Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-oriented-vs-open-domain-dialogue">Task-Oriented vs. Open-Domain Dialogue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbots-and-virtual-assistants">Chatbots and Virtual Assistants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-dialogue-systems">Evaluation of Dialogue Systems</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="syntax-and-parsing">
+<h1>Syntax and Parsing<a class="headerlink" href="#syntax-and-parsing" title="Link to this heading">#</a></h1>
+<section id="constituency-parsing">
+<h2>Constituency Parsing<a class="headerlink" href="#constituency-parsing" title="Link to this heading">#</a></h2>
+</section>
+<section id="dependency-parsing">
+<h2>Dependency Parsing<a class="headerlink" href="#dependency-parsing" title="Link to this heading">#</a></h2>
+</section>
+<section id="treebanks-and-grammar-formalisms">
+<h2>Treebanks and Grammar Formalisms<a class="headerlink" href="#treebanks-and-grammar-formalisms" title="Link to this heading">#</a></h2>
+</section>
+<section id="probabilistic-context-free-grammars-pcfgs">
+<h2>Probabilistic Context-Free Grammars (PCFGs)<a class="headerlink" href="#probabilistic-context-free-grammars-pcfgs" title="Link to this heading">#</a></h2>
+</section>
+<section id="transition-based-parsing">
+<h2>Transition-Based Parsing<a class="headerlink" href="#transition-based-parsing" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="semantics-and-pragmatics">
+<h1>Semantics and Pragmatics<a class="headerlink" href="#semantics-and-pragmatics" title="Link to this heading">#</a></h1>
+<section id="compositional-semantics">
+<h2>Compositional Semantics<a class="headerlink" href="#compositional-semantics" title="Link to this heading">#</a></h2>
+</section>
+<section id="semantic-role-labeling-srl">
+<h2>Semantic Role Labeling (SRL)<a class="headerlink" href="#semantic-role-labeling-srl" title="Link to this heading">#</a></h2>
+</section>
+<section id="coreference-resolution">
+<h2>Coreference Resolution<a class="headerlink" href="#coreference-resolution" title="Link to this heading">#</a></h2>
+</section>
+<section id="discourse-analysis-and-coherence">
+<h2>Discourse Analysis and Coherence<a class="headerlink" href="#discourse-analysis-and-coherence" title="Link to this heading">#</a></h2>
+</section>
+<section id="knowledge-representation-in-nlp">
+<h2>Knowledge Representation in NLP<a class="headerlink" href="#knowledge-representation-in-nlp" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="machine-translation">
+<h1>Machine Translation<a class="headerlink" href="#machine-translation" title="Link to this heading">#</a></h1>
+<section id="rule-based-machine-translation-rbmt">
+<h2>Rule-Based Machine Translation (RBMT)<a class="headerlink" href="#rule-based-machine-translation-rbmt" title="Link to this heading">#</a></h2>
+</section>
+<section id="statistical-machine-translation-smt">
+<h2>Statistical Machine Translation (SMT)<a class="headerlink" href="#statistical-machine-translation-smt" title="Link to this heading">#</a></h2>
+</section>
+<section id="neural-machine-translation-nmt">
+<h2>Neural Machine Translation (NMT)<a class="headerlink" href="#neural-machine-translation-nmt" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-of-translation-quality">
+<h2>Evaluation of Translation Quality<a class="headerlink" href="#evaluation-of-translation-quality" title="Link to this heading">#</a></h2>
+</section>
+<section id="multilingual-and-low-resource-language-translation">
+<h2>Multilingual and Low-Resource Language Translation<a class="headerlink" href="#multilingual-and-low-resource-language-translation" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="information-retrieval">
+<h1>Information Retrieval<a class="headerlink" href="#information-retrieval" title="Link to this heading">#</a></h1>
+<section id="basics-of-information-retrieval">
+<h2>Basics of Information Retrieval<a class="headerlink" href="#basics-of-information-retrieval" title="Link to this heading">#</a></h2>
+</section>
+<section id="vector-space-model-and-tf-idf">
+<h2>Vector Space Model and TF-IDF<a class="headerlink" href="#vector-space-model-and-tf-idf" title="Link to this heading">#</a></h2>
+</section>
+<section id="relevance-feedback-and-query-expansion">
+<h2>Relevance Feedback and Query Expansion<a class="headerlink" href="#relevance-feedback-and-query-expansion" title="Link to this heading">#</a></h2>
+</section>
+<section id="latent-semantic-analysis-lsa">
+<h2>Latent Semantic Analysis (LSA)<a class="headerlink" href="#latent-semantic-analysis-lsa" title="Link to this heading">#</a></h2>
+</section>
+<section id="latent-dirichlet-allocation-lda">
+<h2>Latent Dirichlet Allocation (LDA)<a class="headerlink" href="#latent-dirichlet-allocation-lda" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-metrics-precision-recall-f-measure-map">
+<h2>Evaluation Metrics: Precision, Recall, F-Measure, MAP<a class="headerlink" href="#evaluation-metrics-precision-recall-f-measure-map" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="question-answering">
+<h1>Question Answering<a class="headerlink" href="#question-answering" title="Link to this heading">#</a></h1>
+<section id="overview-of-qa-systems">
+<h2>Overview of QA Systems<a class="headerlink" href="#overview-of-qa-systems" title="Link to this heading">#</a></h2>
+</section>
+<section id="rule-based-qa">
+<h2>Rule-Based QA<a class="headerlink" href="#rule-based-qa" title="Link to this heading">#</a></h2>
+</section>
+<section id="information-retrieval-based-qa">
+<h2>Information Retrieval-Based QA<a class="headerlink" href="#information-retrieval-based-qa" title="Link to this heading">#</a></h2>
+</section>
+<section id="machine-reading-comprehension">
+<h2>Machine Reading Comprehension<a class="headerlink" href="#machine-reading-comprehension" title="Link to this heading">#</a></h2>
+</section>
+<section id="open-domain-qa">
+<h2>Open-Domain QA<a class="headerlink" href="#open-domain-qa" title="Link to this heading">#</a></h2>
+</section>
+<section id="qa-datasets-and-benchmarks">
+<h2>QA Datasets and Benchmarks<a class="headerlink" href="#qa-datasets-and-benchmarks" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="text-classification">
+<h1>Text Classification<a class="headerlink" href="#text-classification" title="Link to this heading">#</a></h1>
+<section id="text-classification-approaches">
+<h2>Text Classification Approaches<a class="headerlink" href="#text-classification-approaches" title="Link to this heading">#</a></h2>
+</section>
+<section id="feature-engineering-in-text-classification">
+<h2>Feature Engineering in Text Classification<a class="headerlink" href="#feature-engineering-in-text-classification" title="Link to this heading">#</a></h2>
+</section>
+<section id="supervised-vs-unsupervised-text-classification">
+<h2>Supervised vs. Unsupervised Text Classification<a class="headerlink" href="#supervised-vs-unsupervised-text-classification" title="Link to this heading">#</a></h2>
+</section>
+<section id="sentiment-analysis-techniques">
+<h2>Sentiment Analysis Techniques<a class="headerlink" href="#sentiment-analysis-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="emotion-detection-and-opinion-mining">
+<h2>Emotion Detection and Opinion Mining<a class="headerlink" href="#emotion-detection-and-opinion-mining" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="topic-modeling">
+<h1>Topic Modeling<a class="headerlink" href="#topic-modeling" title="Link to this heading">#</a></h1>
+<section id="overview-of-topic-modeling">
+<h2>Overview of Topic Modeling<a class="headerlink" href="#overview-of-topic-modeling" title="Link to this heading">#</a></h2>
+</section>
+<section id="id1">
+<h2>Latent Dirichlet Allocation (LDA)<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+</section>
+<section id="non-negative-matrix-factorization-nmf">
+<h2>Non-Negative Matrix Factorization (NMF)<a class="headerlink" href="#non-negative-matrix-factorization-nmf" title="Link to this heading">#</a></h2>
+</section>
+<section id="dynamic-topic-models">
+<h2>Dynamic Topic Models<a class="headerlink" href="#dynamic-topic-models" title="Link to this heading">#</a></h2>
+</section>
+<section id="applications-of-topic-modeling-in-social-media">
+<h2>Applications of Topic Modeling in Social Media<a class="headerlink" href="#applications-of-topic-modeling-in-social-media" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summarization">
+<h1>Summarization<a class="headerlink" href="#summarization" title="Link to this heading">#</a></h1>
+<section id="extractive-summarization-techniques">
+<h2>Extractive Summarization Techniques<a class="headerlink" href="#extractive-summarization-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="abstractive-summarization">
+<h2>Abstractive Summarization<a class="headerlink" href="#abstractive-summarization" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-of-summarization-methods">
+<h2>Evaluation of Summarization Methods<a class="headerlink" href="#evaluation-of-summarization-methods" title="Link to this heading">#</a></h2>
+</section>
+<section id="summarization-for-different-media-types-text-speech-video">
+<h2>Summarization for Different Media Types: Text, Speech, Video<a class="headerlink" href="#summarization-for-different-media-types-text-speech-video" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="dialogue-systems-and-conversational-agents">
+<h1>Dialogue Systems and Conversational Agents<a class="headerlink" href="#dialogue-systems-and-conversational-agents" title="Link to this heading">#</a></h1>
+<section id="rule-based-dialogue-systems">
+<h2>Rule-Based Dialogue Systems<a class="headerlink" href="#rule-based-dialogue-systems" title="Link to this heading">#</a></h2>
+</section>
+<section id="statistical-dialogue-systems">
+<h2>Statistical Dialogue Systems<a class="headerlink" href="#statistical-dialogue-systems" title="Link to this heading">#</a></h2>
+</section>
+<section id="task-oriented-vs-open-domain-dialogue">
+<h2>Task-Oriented vs. Open-Domain Dialogue<a class="headerlink" href="#task-oriented-vs-open-domain-dialogue" title="Link to this heading">#</a></h2>
+</section>
+<section id="chatbots-and-virtual-assistants">
+<h2>Chatbots and Virtual Assistants<a class="headerlink" href="#chatbots-and-virtual-assistants" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-of-dialogue-systems">
+<h2>Evaluation of Dialogue Systems<a class="headerlink" href="#evaluation-of-dialogue-systems" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nlp"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Syntax and Parsing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constituency-parsing">Constituency Parsing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-parsing">Dependency Parsing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#treebanks-and-grammar-formalisms">Treebanks and Grammar Formalisms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-context-free-grammars-pcfgs">Probabilistic Context-Free Grammars (PCFGs)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transition-based-parsing">Transition-Based Parsing</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#semantics-and-pragmatics">Semantics and Pragmatics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compositional-semantics">Compositional Semantics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-role-labeling-srl">Semantic Role Labeling (SRL)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coreference-resolution">Coreference Resolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discourse-analysis-and-coherence">Discourse Analysis and Coherence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-representation-in-nlp">Knowledge Representation in NLP</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-translation">Machine Translation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-machine-translation-rbmt">Rule-Based Machine Translation (RBMT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-machine-translation-smt">Statistical Machine Translation (SMT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-machine-translation-nmt">Neural Machine Translation (NMT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-translation-quality">Evaluation of Translation Quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilingual-and-low-resource-language-translation">Multilingual and Low-Resource Language Translation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#information-retrieval">Information Retrieval</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-information-retrieval">Basics of Information Retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space-model-and-tf-idf">Vector Space Model and TF-IDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relevance-feedback-and-query-expansion">Relevance Feedback and Query Expansion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-semantic-analysis-lsa">Latent Semantic Analysis (LSA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-dirichlet-allocation-lda">Latent Dirichlet Allocation (LDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-precision-recall-f-measure-map">Evaluation Metrics: Precision, Recall, F-Measure, MAP</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#question-answering">Question Answering</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-qa-systems">Overview of QA Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-qa">Rule-Based QA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#information-retrieval-based-qa">Information Retrieval-Based QA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-reading-comprehension">Machine Reading Comprehension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-domain-qa">Open-Domain QA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qa-datasets-and-benchmarks">QA Datasets and Benchmarks</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#text-classification">Text Classification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-classification-approaches">Text Classification Approaches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-in-text-classification">Feature Engineering in Text Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised-text-classification">Supervised vs. Unsupervised Text Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis-techniques">Sentiment Analysis Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emotion-detection-and-opinion-mining">Emotion Detection and Opinion Mining</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-modeling">Topic Modeling</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-topic-modeling">Overview of Topic Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Latent Dirichlet Allocation (LDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-negative-matrix-factorization-nmf">Non-Negative Matrix Factorization (NMF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-topic-models">Dynamic Topic Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-topic-modeling-in-social-media">Applications of Topic Modeling in Social Media</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization">Summarization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extractive-summarization-techniques">Extractive Summarization Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstractive-summarization">Abstractive Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-summarization-methods">Evaluation of Summarization Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization-for-different-media-types-text-speech-video">Summarization for Different Media Types: Text, Speech, Video</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dialogue-systems-and-conversational-agents">Dialogue Systems and Conversational Agents</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-dialogue-systems">Rule-Based Dialogue Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-dialogue-systems">Statistical Dialogue Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-oriented-vs-open-domain-dialogue">Task-Oriented vs. Open-Domain Dialogue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbots-and-virtual-assistants">Chatbots and Virtual Assistants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-dialogue-systems">Evaluation of Dialogue Systems</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
@@ -37,9 +37,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -141,6 +141,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../intro.html">
   
@@ -162,7 +164,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -174,14 +176,10 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dl/activation.html">Activation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dl/qa.html">Q&amp;A</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../irl/overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../irl/data.html">Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../irl/coding.html">Coding interview</a></li>
+
+
+
+
 
 </ul>
 
@@ -339,10 +337,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -350,7 +348,7 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
@@ -378,21 +376,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Overview</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">Modeling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production">Production</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-ml">Types of ML</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#occam-s-razor">Occam’s Razor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-a-b-testing">Online A/B Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production">Production</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#online-a-b-testing">Online A/B Testing</a></li>
 </ul>
 </li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -405,24 +396,41 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h1>
-<p>An ML project consists of 4 parts:</p>
-<img alt="images/ml/system_design_flow.png" class="align-center" src="images/ml/system_design_flow.png" />
-<p>qwdqwdq</p>
+<p>An AI project consists of 4 parts:</p>
+<img alt="../_images/ml_system_design_flow.png" class="align-center" src="../_images/ml_system_design_flow.png" />
 <section id="problem">
 <h2>Problem<a class="headerlink" href="#problem" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Overview</strong>: What problem? Why? What inputs &amp; outputs? (rough idea)</p></li>
-<li><p><strong>Scope</strong>: What constraints?</p>
+<li><p><strong>Overview</strong>: Define the problem, the goal, and the expected inputs &amp; outputs.</p></li>
+<li><p><strong>Scope</strong>: Identify constraints.</p>
 <ul class="simple">
-<li><p><strong>Data constraints</strong>: #samples, #features, feature types, etc.</p></li>
-<li><p><strong>Model constraints</strong>: priority (performance/quality), model type (single general/multiple specific), interpretability, retrainability, etc.</p></li>
-<li><p><strong>Resource constraints</strong>: time (training, inference, project duration, etc.), computation (training, inference, local/cloud, etc.)</p></li>
+<li><p><strong>Data</strong>: #samples, #features, types, etc.</p></li>
+<li><p><strong>Model constraints</strong>:</p>
+<ul>
+<li><p>Priority: Performance / Quality</p></li>
+<li><p>Type: Single general / Multiple specific</p></li>
+<li><p>Interpretability</p></li>
+<li><p>Retrainability</p></li>
+<li><p>…</p></li>
 </ul>
 </li>
-<li><p><strong>Evaluation</strong>: Is the problem solved? How do we know?</p>
+<li><p><strong>Resource constraints</strong>:</p>
+<ul>
+<li><p>Time: Training, inference, project duration, etc.</p></li>
+<li><p>Computation: Training, inference, local/cloud, etc.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Evaluation</strong>: Define success measurement.</p>
 <ul class="simple">
-<li><p><strong>Auto metrics</strong>: offline (MSE, P/R/F1, etc.), online (usage time, usage frequency, click rate, etc.)</p></li>
-<li><p><strong>Human metrics</strong>: user interaction, recent reports, company intention for users, personalization, etc.</p></li>
+<li><p><strong>Automatic metrics</strong>:</p>
+<ul>
+<li><p>Offline: MSE, P/R/F1, etc.</p></li>
+<li><p>Online: Usage time, usage frequency, click rate, etc.</p></li>
+</ul>
+</li>
+<li><p><strong>Human metrics</strong>: User interaction, recent reports, company intention for users, personalization, etc.</p></li>
 </ul>
 </li>
 </ol>
@@ -432,238 +440,128 @@ document.write(`
 <ol class="arabic simple">
 <li><p><strong>Type</strong></p>
 <ul class="simple">
-<li><p><strong>Features</strong>: user, content, context, etc.</p></li>
-<li><p><strong>Targets</strong>: explicit (direct indicators), implicit (indirect indicators)</p></li>
+<li><p><strong>Features</strong>: User, content, context, etc.</p></li>
+<li><p><strong>Targets</strong>: Explicit (direct), implicit (indirect).</p></li>
 </ul>
 </li>
 <li><p><strong>Availability</strong></p>
 <ul class="simple">
-<li><p><strong>Available/Unavailable</strong>: What is available/unavailable? How much is available/unavailable?</p></li>
-<li><p><strong>Annotation</strong>: Are they Annotated? How good are the annotations? How expensive to annotate the rest? How to resolve annotators’ disagreements? Is auto-annotation feasible (e.g., ChatGPT, rule-based generation, etc.)?</p></li>
-<li><p><strong>Privacy</strong>: What user data can we access? How do we obtain them? Can we use online/periodic data? Do we need anonymity?</p></li>
-<li><p><strong>Logistics</strong>: Where are the data (local/cloud)? What data structures? How big? What biases in it?</p></li>
+<li><p><strong>Status</strong>: Available/unavailable, quantity, etc.</p></li>
+<li><p><strong>Annotation</strong>: Quality, cost, resolving disagreements, feasibility of auto-annotation, etc.</p></li>
+<li><p><strong>Privacy</strong>: User data accessibility, methods, online/periodic data use, anonymity, etc.</p></li>
+<li><p><strong>Logistics</strong>: Storage location, structure, biases, etc.</p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="data.html"><span class="std std-doc"><strong>Processing (ETL)</strong></span></a></p></li>
-<li><p><a class="reference internal" href="unsupervised.html"><span class="std std-doc"><strong>Feature Engineering</strong></span></a></p></li>
+<li><p><a class="reference internal" href="#../irl/data.md"><span class="xref myst"><strong>Processing (ETL)</strong></span></a></p></li>
+<li><p><a class="reference internal" href="#../irl/unsupervised.md"><span class="xref myst"><strong>Feature Engineering</strong></span></a></p></li>
 </ol>
 </section>
 <section id="modeling">
 <h2>Modeling<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h2>
-<p>NOTE: For each model, specify:</p>
+<p>For each model, specify:</p>
 <ul class="simple">
-<li><p>Why (Motivation)</p></li>
-<li><p>What (Functionality)</p></li>
-<li><p>How (Objective &amp; Optimization)</p></li>
-<li><p>When (Assumptions if any)</p></li>
+<li><p>Why: Motivation</p></li>
+<li><p>What: Functionality</p></li>
+<li><p>How: Objective and optimization</p></li>
+<li><p>When: Assumptions</p></li>
 <li><p>Pros &amp; Cons</p></li>
 </ul>
 <p>Procedure:</p>
 <ol class="arabic simple">
-<li><p>Baseline ~~model~~: stats (mean, median, mode), random benchmarks, etc.</p></li>
+<li><p>Baseline: Stats (mean, median, mode), random benchmarks, etc.</p></li>
 <li><p>Easy model</p></li>
 <li><p>Hard model</p></li>
-<li><p>Experiment, Evaluation &amp; Ablation Study</p></li>
+<li><p>Experiment, evaluation &amp; ablation study</p></li>
 </ol>
 </section>
 <section id="production">
 <h2>Production<a class="headerlink" href="#production" title="Link to this heading">#</a></h2>
-<p>NOTE: Production <span class="math notranslate nohighlight">\(\neq\)</span> Experiment. Performance degrades in production because of uncertainty:</p>
+<p>Performance can degrade in production due to:</p>
 <ul class="simple">
-<li><p><strong>Data Drift</strong>: production data <span class="math notranslate nohighlight">\(\neq\)</span> training data <span class="math notranslate nohighlight">\(\rightarrow\)</span> assumption fails</p></li>
-<li><p><strong>Feature Drift</strong>: new features / feature transformations <span class="math notranslate nohighlight">\(\rightarrow\)</span> feature engineering pipeline fails</p></li>
-<li><p><strong>Concept Drift</strong>: Relationship between features and target variable can change over time, especially in a dynamic environment.</p></li>
-<li><p><strong>Data Quality</strong>: missing values, outliers, noisy data, etc.</p></li>
-<li><p><strong>Model Versioning</strong>: mismatches between R&amp;D models &amp; deployed models</p></li>
-<li><p><strong>Scaling &amp; Latency</strong>: Models IRL need to handle a significantly larger volume of data and to respond significantly faster to enormous requests.</p></li>
-<li><p><strong>Ethics</strong>: adversarial attacks, privacy concerns, regulatory compliance, interpretability, etc.</p></li>
-<li><p><strong>Others</strong>: Even if everything is flawless, a random error may just appear for no reason (e.g., network issues)</p></li>
+<li><p><strong>Data Drift</strong>: Production data <span class="math notranslate nohighlight">\(\neq\)</span> training data.</p></li>
+<li><p><strong>Feature Drift</strong>: Changes in features or feature transformations.</p></li>
+<li><p><strong>Concept Drift</strong>: Changes in the relationship between features &amp; target variables, especially in a dynamic environment.</p></li>
+<li><p><strong>Data Quality</strong>: Missing values, outliers, noise, etc.</p></li>
+<li><p><strong>Model Versioning</strong>: R&amp;D models <span class="math notranslate nohighlight">\(\neq\)</span> deployed models.</p></li>
+<li><p><strong>Scaling &amp; Latency</strong>: Handling large data volumes and fast response times.</p></li>
+<li><p><strong>Ethics</strong>: Adversarial attacks, privacy concerns, regulatory compliance, interpretability, etc.</p></li>
+<li><p><strong>Others</strong>: Random errors (e.g., network issues).</p></li>
 </ul>
-<p>Consider the following factors for production:</p>
+<p>Consider these factors for production:</p>
 <ol class="arabic simple">
 <li><p><strong>Inference location</strong>:</p>
 <ul class="simple">
-<li><p><strong>local</strong> (phone/PC): high memory/storage usage, low latency</p></li>
-<li><p><strong>server</strong> (ours/cloud): low memory/storage usage, high latency, privacy concerns</p></li>
+<li><p><strong>Local</strong>: High memory/storage usage, low latency.</p></li>
+<li><p><strong>Server</strong>: Low memory/storage usage, high latency, privacy concerns.</p></li>
 </ul>
 </li>
 <li><p><strong>Feature serving</strong>:</p>
 <ul class="simple">
-<li><p><strong>batch features</strong> should be handled offline &amp; served online</p>
-<ul>
-<li><p>need daily/weekly jobs for auto data generation/collection</p></li>
+<li><p><strong>Batch</strong>: Handled offline, served online with periodic data generation/collection.</p></li>
+<li><p><strong>Real-time</strong>: Handled &amp; served online at request time, prioritize scalability &amp; latency, use feature stores and caching.</p></li>
 </ul>
 </li>
-<li><p><strong>real-time features</strong> should be handled &amp; served at request time (scalability &amp; latency = priority)</p>
-<ul>
-<li><p>need a feature store to look up features at serve time</p></li>
-<li><p>caching may be necessary</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Performance Monitoring</strong>: errors, latency, biases, data drift, CPU load, memory, …</p></li>
-<li><p><a class="reference internal" href="#online-a-b-testing"><span class="xref myst"><strong>Online A/B Testing</strong></span></a></p></li>
-<li><p><strong>Retrain Frequency</strong></p></li>
+<li><p><strong>Performance Monitoring</strong>: Errors, latency, biases, data drift, CPU load, memory usage, retrain frequency, etc.</p></li>
 </ol>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="concepts">
-<h1>Concepts<a class="headerlink" href="#concepts" title="Link to this heading">#</a></h1>
-<section id="types-of-ml">
-<h2>Types of ML<a class="headerlink" href="#types-of-ml" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Supervision</p>
-<ul>
-<li><p><strong>Supervised</strong> (labeled): learn a mapping from input data to output labels</p></li>
-<li><p><strong>Unsupervised</strong> (unlabeled): find patterns/structures/relationships in data with no labeled output</p></li>
-<li><p><strong>Semi-supervised</strong> (partially labeled): use labeled data to guide learning, use unlabeled data to uncover patterns or improve model performance</p></li>
-<li><p><strong>Active</strong> (continuously labeled): add most informative samples for labeling in an iterative and adaptive manner</p></li>
-</ul>
-</li>
-<li><p>Parameterization</p>
-<ul>
-<li><p><strong>Parametric</strong>: estimate trainable params from data</p>
-<ul>
-<li><p>Assume prior functional form/shape of data distribution</p></li>
-<li><p>Used when we have strong prior knowledge</p></li>
-<li><p>Pros: high interpretability, low data requirement, high computational efficiency</p></li>
-</ul>
-</li>
-<li><p><strong>Nonparametric</strong>: learn patterns based on data alone</p>
-<ul>
-<li><p>Assume nothing</p></li>
-<li><p>Used in EDA / when we have unknown data distribution</p></li>
-<li><p>Pros: high versatility</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Prediction</p>
-<ul>
-<li><p><strong>Generative</strong>: model <span class="math notranslate nohighlight">\(p(x,y)\)</span></p>
-<ul>
-<li><p>Pros: easy to fit, handle missing features, handle unlabeled data, fit classes separately, better generalization</p></li>
-<li><p>Cons: low computational efficiency, sensitive to incorrect assumptions</p></li>
-</ul>
-</li>
-<li><p><strong>Discriminative</strong>: model <span class="math notranslate nohighlight">\(p(y|x)\)</span></p>
-<ul>
-<li><p>Pros: high accuracy, allow preprocessing, provide calibrated probability estimates, robust to irrelevant features</p></li>
-<li><p>Cons: data-dependent, limited application scope</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Ensemble</strong>: combine a bunch of smaller models together for prediction</p>
-<ul>
-<li><p>Types:</p>
-<ul>
-<li><p><strong>Voting</strong>: majority vote (cls) / average vote (reg)</p></li>
-<li><p><strong>Bagging</strong>: train multiple models with bootstrapped subsets of the same data</p></li>
-<li><p><strong>Boosting</strong>: train sequential models where each new model focuses on the samples that the previous models got wrong.</p></li>
-<li><p><strong>Stacking</strong>: train a meta-model which takes the predictions of multiple base models as input and makes the final prediction as output.</p></li>
-</ul>
-</li>
-<li><p>Performance improvement (relative to single models):</p>
-<ul>
-<li><p><strong>Variance Reduction</strong>: average out different errors on different subsets <span class="math notranslate nohighlight">\(\rightarrow\)</span> higher accuracy &amp; stability</p></li>
-<li><p><strong>Generalization</strong>: reduce bias <span class="math notranslate nohighlight">\(\rightarrow\)</span> better generalization</p></li>
-<li><p><strong>Diversity</strong>: each model has its own unique strength</p></li>
-<li><p><strong>Robustness to Noise &amp; Outliers</strong>: they are averaged out</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="occam-s-razor">
-<h2>Occam’s Razor<a class="headerlink" href="#occam-s-razor" title="Link to this heading">#</a></h2>
-<p>“Simpler solutions are better.”</p>
-<ul class="simple">
-<li><p>Why better?</p>
-<ul>
-<li><p>higher interpretability, fewer computational resources, faster training and easiness to debug/retrain</p></li>
-</ul>
-</li>
-<li><p>Why does it matter?</p>
-<ul>
-<li><p><strong>Model Selection</strong>: If a simpler model reaches comparable performance as a complex model, the simpler model wins.</p></li>
-<li><p><strong>Feature Selection</strong>: If a smaller feature set reaches comparable performance as a larger feature set, the smaller set wins.</p></li>
-<li><p><strong>Generalization</strong>: Overfitting is a core issue in ML. Simpler configs for hyperparameters are best start points to reduce overfitting and lead to better generalization for unseen data.</p></li>
-<li><p><strong>Ensemble methods</strong>: Aggregating simpler models reaches better performance than complex models in many cases.</p></li>
-</ul>
-</li>
-<li><p>Why deep learning if Occam’s Razor holds?</p>
-<ul>
-<li><p><strong>Big Data</strong>: Complex structures work better with larger data</p></li>
-<li><p><strong>Computational Resources</strong>: Thx Nvidia</p></li>
-<li><p><strong>Transformer</strong>: Thx Google</p></li>
-<li><p><strong>Transfer Learning</strong>: We can pretrain a gigantic general-purpose model and finetune it on specialized tasks to reach significantly better performance</p></li>
-</ul>
-</li>
-</ul>
-</section>
 <section id="online-a-b-testing">
-<h2>Online A/B Testing<a class="headerlink" href="#online-a-b-testing" title="Link to this heading">#</a></h2>
+<h3>Online A/B Testing<a class="headerlink" href="#online-a-b-testing" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p><strong>Define Objective</strong>: improving click-through rates, increasing sign-up rates, etc.</p>
+<li><p><strong>Define Objective</strong>: Improve click-through rates, increase sign-up rates, etc.</p>
 <ul class="simple">
-<li><p><strong>Significance level</strong> <span class="math notranslate nohighlight">\((\alpha)\)</span>: threshold of whether the observed difference between control &amp; treatment is statistically significant</p>
+<li><p><strong>Significance level</strong> <span class="math notranslate nohighlight">\((\alpha)\)</span>: Threshold for statistical significance.</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(\alpha=P(FP)\)</span> (i.e., Type I error): probability of rejecting <span class="math notranslate nohighlight">\(H_0\)</span> when it is true.</p></li>
-<li><p>Common values: 0.05 and 0.01</p></li>
-<li><p>A lower <span class="math notranslate nohighlight">\(\alpha\)</span> makes it more challenging to detect difference.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha=P(FP)\)</span> (i.e., Type I error): Probability of rejecting a true <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p>Common values: 0.05, 0.01.</p></li>
+<li><p>Lower <span class="math notranslate nohighlight">\(\alpha\)</span> makes difference detection harder.</p></li>
 </ul>
 </li>
-<li><p><strong>Power</strong> <span class="math notranslate nohighlight">\((1-\beta)\)</span>: probability of rejecting <span class="math notranslate nohighlight">\(H_0\)</span> when it is false (i.e., the ability to detect a meaningful difference when it exists)</p>
+<li><p><strong>Power</strong> <span class="math notranslate nohighlight">\((1-\beta)\)</span>: Probability of rejecting a false <span class="math notranslate nohighlight">\(H_0\)</span>.</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(\beta=P(FN) (i.e., Type II error): probability of not rejecting \)</span>H_0$ when it is false.</p></li>
-<li><p>Common value: 80%</p></li>
-<li><p>A higher power requires larger sample sizes to achieve.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta=P(FN)\)</span> (i.e., Type II error): Probability of not rejecting a false <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p>Common value: 80%.</p></li>
+<li><p>Higher power requires larger sample size.</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><strong>Create Variations</strong>: generate 2/more versions of the element we want to test</p>
+<li><p><strong>Create Variations</strong>: Generate versions to test (e.g., button designs: blue round (<strong>control</strong>) vs green square (<strong>treatment</strong>)).</p></li>
+<li><p><strong>Calculate Traffic</strong>: Calculate required sample size per variation:
+$<span class="math notranslate nohighlight">\(
+m=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\times p(1-p)
+\)</span>$</p>
 <ul class="simple">
-<li><p>e.g., 2 different designs of a button: blue round button <span class="math notranslate nohighlight">\(\rightarrow\)</span> <strong>control group</strong> A; green square button <span class="math notranslate nohighlight">\(\rightarrow\)</span> <strong>treatment group</strong> B</p></li>
+<li><p><strong>Baseline conversion rate</strong> (<span class="math notranslate nohighlight">\(p\)</span>): Event occurrence rate in control.</p></li>
+<li><p><strong>Minimum Detectable Effect</strong> (<span class="math notranslate nohighlight">\(\text{MDE}\)</span>): Smallest detectable difference.</p>
+<ul>
+<li><p>e.g., For <span class="math notranslate nohighlight">\(p\)</span>=10% and desired 2% improvement, <span class="math notranslate nohighlight">\(\text{MDE}\)</span>=20%.</p></li>
+<li><p>Ensure both groups are statistically similar.</p></li>
 </ul>
 </li>
-<li><p><strong>Calculate Traffic</strong>: calculate required sample size per variation
-$<span class="math notranslate nohighlight">\(m=2\times\left(\frac{Z_{\frac{\alpha}{2}}+Z_{\beta}}{\text{MDE}}\right)^2\times p(1-p)\)</span>$</p>
+</ul>
+</li>
+<li><p><strong>Splitting</strong>: Randomly assign users to control and treatment.</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p\)</span> (<strong>Baseline conversion rate</strong>): the occurrence rate of a desired event in the control group</p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{MDE}\)</span> (<strong>Minimum Detectable Effect</strong>): smallest difference in the conversion rate that we want to be able to detect as statistically significant</p>
+<li><p><strong>User-level</strong>: Users consistently see the same variation.</p>
 <ul>
-<li><p>e.g., if <span class="math notranslate nohighlight">\(p=10\%\)</span> and we want a minimum improvement of <span class="math notranslate nohighlight">\(2\%\)</span>, then <span class="math notranslate nohighlight">\(\text{MDE}=20\%\)</span></p></li>
-<li><p>Both groups should be statistically similar in terms of characteristics for a fair comparison</p></li>
+<li><p>Pros: Useful for long-term impact, reduces bias.</p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><strong>Splitting</strong>: randomly assign users into control &amp; treatment groups</p>
-<ul class="simple">
-<li><p><strong>User-level</strong>: The user consistently experience the same variation throughout their entire interaction.</p>
+<li><p><strong>Request-level</strong>: Randomly determine variation per user request.</p>
 <ul>
-<li><p>Pros: useful when the tested variations are expected to have a long-lasting impact on user experience, reducing potential biases or confusion due to inconsistency</p></li>
-</ul>
-</li>
-<li><p><strong>Request-level</strong>: The system randomly determines the variation to be shown at each request made by the user, regardless of previous assignments.</p>
-<ul>
-<li><p>Pros: useful for measuring immediate or session-specific effects of the tested variations, allowing us to capture any potential context-dependent or short-term effects</p></li>
+<li><p>Pros: Useful for short-term impact, captures immediate or session-specific impact of the tested variations.</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><strong>Measurement &amp; Analysis</strong>:</p>
 <ol class="arabic simple">
-<li><p>Track &amp; record user interactions, events, or conversions for both the control and treatment groups.</p></li>
-<li><p>Compare the performance of control &amp; treatment groups using statistical analysis.</p></li>
-<li><p>Determine if there is a statistically significant difference in the metrics we are measuring between the tested variations.</p></li>
+<li><p>Track user interactions &amp; conversions for both groups.</p></li>
+<li><p>Compare performance using statistical analysis.</p></li>
+<li><p>Determine if differences are statistically significant.</p></li>
 </ol>
 </li>
 </ol>
+</section>
 </section>
 </section>
 
@@ -713,21 +611,14 @@ $<span class="math notranslate nohighlight">\(m=2\times\left(\frac{Z_{\frac{\alp
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Overview</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">Problem</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">Modeling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production">Production</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-ml">Types of ML</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#occam-s-razor">Occam’s Razor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-a-b-testing">Online A/B Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production">Production</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#online-a-b-testing">Online A/B Testing</a></li>
 </ul>
 </li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -775,8 +666,8 @@ By Renyi Qu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

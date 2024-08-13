@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Video Processing &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cv/video';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcv/video.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/cv/video.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Video Processing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Video Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-video-formats-and-standards">Digital Video Formats and Standards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frame-rates-resolution-and-aspect-ratios">Frame Rates, Resolution, and Aspect Ratios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-spaces-and-video-compression">Color Spaces and Video Compression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-redundancy-in-video-sequences">Temporal Redundancy in Video Sequences</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-for-video-analysis">Preprocessing for Video Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frame-extraction-and-selection">Frame Extraction and Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-smoothing-and-frame-differencing">Temporal Smoothing and Frame Differencing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motion-estimation-and-optical-flow">Motion Estimation and Optical Flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-subtraction-techniques">Background Subtraction Techniques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-augmentation-for-video">Data Augmentation for Video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection-and-tracking">Object Detection and Tracking</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection-in-consecutive-frames">Object Detection in Consecutive Frames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-object-tracking-mot">Multi-Object Tracking (MOT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kalman-filters-and-particle-filters-in-tracking">Kalman Filters and Particle Filters in Tracking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-approaches-for-video-tracking">Deep Learning Approaches for Video Tracking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-in-occlusion-and-re-identification">Challenges in Occlusion and Re-Identification</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#action-and-activity-recognition">Action and Activity Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-modeling-of-actions">Temporal Modeling of Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatiotemporal-feature-extraction">Spatiotemporal Feature Extraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-networks-rnns-for-video">Recurrent Neural Networks (RNNs) for Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks-c3d">3D Convolutional Networks (C3D)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-mechanisms-for-video-recognition">Attention Mechanisms for Video Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-sports-surveillance-healthcare">Applications: Sports, Surveillance, Healthcare</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#video-segmentation">Video Segmentation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frame-level-segmentation">Frame-Level Segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-segmentation-and-scene-change-detection">Temporal Segmentation and Scene Change Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-video-segmentation">Semantic Video Segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-segmentation-in-video">Instance Segmentation in Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-video-segmentation">Deep Learning Models for Video Segmentation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#video-captioning-and-summarization">Video Captioning and Summarization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-video-captioning-systems">Automatic Video Captioning Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-for-video-captioning">Feature Extraction for Video Captioning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-to-sequence-models-for-video">Sequence-to-Sequence Models for Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstractive-and-extractive-video-summarization">Abstractive and Extractive Video Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-for-video-summarization">Evaluation Metrics for Video Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-generation-and-synthesis">Video Generation and Synthesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-adversarial-networks-gans-for-video">Generative Adversarial Networks (GANs) for Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-prediction-and-frame-synthesis">Video Prediction and Frame Synthesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gans-for-video-generation">Conditional GANs for Video Generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-super-resolution-techniques">Video Super-Resolution Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-animation-virtual-reality-and-content-creation">Applications: Animation, Virtual Reality, and Content Creation</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="video-processing">
+<h1>Video Processing<a class="headerlink" href="#video-processing" title="Link to this heading">#</a></h1>
+<section id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Link to this heading">#</a></h2>
+<section id="digital-video-formats-and-standards">
+<h3>Digital Video Formats and Standards<a class="headerlink" href="#digital-video-formats-and-standards" title="Link to this heading">#</a></h3>
+</section>
+<section id="frame-rates-resolution-and-aspect-ratios">
+<h3>Frame Rates, Resolution, and Aspect Ratios<a class="headerlink" href="#frame-rates-resolution-and-aspect-ratios" title="Link to this heading">#</a></h3>
+</section>
+<section id="color-spaces-and-video-compression">
+<h3>Color Spaces and Video Compression<a class="headerlink" href="#color-spaces-and-video-compression" title="Link to this heading">#</a></h3>
+</section>
+<section id="temporal-redundancy-in-video-sequences">
+<h3>Temporal Redundancy in Video Sequences<a class="headerlink" href="#temporal-redundancy-in-video-sequences" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="preprocessing-for-video-analysis">
+<h2>Preprocessing for Video Analysis<a class="headerlink" href="#preprocessing-for-video-analysis" title="Link to this heading">#</a></h2>
+<section id="frame-extraction-and-selection">
+<h3>Frame Extraction and Selection<a class="headerlink" href="#frame-extraction-and-selection" title="Link to this heading">#</a></h3>
+</section>
+<section id="temporal-smoothing-and-frame-differencing">
+<h3>Temporal Smoothing and Frame Differencing<a class="headerlink" href="#temporal-smoothing-and-frame-differencing" title="Link to this heading">#</a></h3>
+</section>
+<section id="motion-estimation-and-optical-flow">
+<h3>Motion Estimation and Optical Flow<a class="headerlink" href="#motion-estimation-and-optical-flow" title="Link to this heading">#</a></h3>
+</section>
+<section id="background-subtraction-techniques">
+<h3>Background Subtraction Techniques<a class="headerlink" href="#background-subtraction-techniques" title="Link to this heading">#</a></h3>
+</section>
+<section id="data-augmentation-for-video">
+<h3>Data Augmentation for Video<a class="headerlink" href="#data-augmentation-for-video" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="object-detection-and-tracking">
+<h1>Object Detection and Tracking<a class="headerlink" href="#object-detection-and-tracking" title="Link to this heading">#</a></h1>
+<section id="object-detection-in-consecutive-frames">
+<h2>Object Detection in Consecutive Frames<a class="headerlink" href="#object-detection-in-consecutive-frames" title="Link to this heading">#</a></h2>
+</section>
+<section id="multi-object-tracking-mot">
+<h2>Multi-Object Tracking (MOT)<a class="headerlink" href="#multi-object-tracking-mot" title="Link to this heading">#</a></h2>
+</section>
+<section id="kalman-filters-and-particle-filters-in-tracking">
+<h2>Kalman Filters and Particle Filters in Tracking<a class="headerlink" href="#kalman-filters-and-particle-filters-in-tracking" title="Link to this heading">#</a></h2>
+</section>
+<section id="deep-learning-approaches-for-video-tracking">
+<h2>Deep Learning Approaches for Video Tracking<a class="headerlink" href="#deep-learning-approaches-for-video-tracking" title="Link to this heading">#</a></h2>
+</section>
+<section id="challenges-in-occlusion-and-re-identification">
+<h2>Challenges in Occlusion and Re-Identification<a class="headerlink" href="#challenges-in-occlusion-and-re-identification" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="action-and-activity-recognition">
+<h1>Action and Activity Recognition<a class="headerlink" href="#action-and-activity-recognition" title="Link to this heading">#</a></h1>
+<section id="temporal-modeling-of-actions">
+<h2>Temporal Modeling of Actions<a class="headerlink" href="#temporal-modeling-of-actions" title="Link to this heading">#</a></h2>
+</section>
+<section id="spatiotemporal-feature-extraction">
+<h2>Spatiotemporal Feature Extraction<a class="headerlink" href="#spatiotemporal-feature-extraction" title="Link to this heading">#</a></h2>
+</section>
+<section id="recurrent-neural-networks-rnns-for-video">
+<h2>Recurrent Neural Networks (RNNs) for Video<a class="headerlink" href="#recurrent-neural-networks-rnns-for-video" title="Link to this heading">#</a></h2>
+</section>
+<section id="d-convolutional-networks-c3d">
+<h2>3D Convolutional Networks (C3D)<a class="headerlink" href="#d-convolutional-networks-c3d" title="Link to this heading">#</a></h2>
+</section>
+<section id="attention-mechanisms-for-video-recognition">
+<h2>Attention Mechanisms for Video Recognition<a class="headerlink" href="#attention-mechanisms-for-video-recognition" title="Link to this heading">#</a></h2>
+</section>
+<section id="applications-sports-surveillance-healthcare">
+<h2>Applications: Sports, Surveillance, Healthcare<a class="headerlink" href="#applications-sports-surveillance-healthcare" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="video-segmentation">
+<h1>Video Segmentation<a class="headerlink" href="#video-segmentation" title="Link to this heading">#</a></h1>
+<section id="frame-level-segmentation">
+<h2>Frame-Level Segmentation<a class="headerlink" href="#frame-level-segmentation" title="Link to this heading">#</a></h2>
+</section>
+<section id="temporal-segmentation-and-scene-change-detection">
+<h2>Temporal Segmentation and Scene Change Detection<a class="headerlink" href="#temporal-segmentation-and-scene-change-detection" title="Link to this heading">#</a></h2>
+</section>
+<section id="semantic-video-segmentation">
+<h2>Semantic Video Segmentation<a class="headerlink" href="#semantic-video-segmentation" title="Link to this heading">#</a></h2>
+</section>
+<section id="instance-segmentation-in-video">
+<h2>Instance Segmentation in Video<a class="headerlink" href="#instance-segmentation-in-video" title="Link to this heading">#</a></h2>
+</section>
+<section id="deep-learning-models-for-video-segmentation">
+<h2>Deep Learning Models for Video Segmentation<a class="headerlink" href="#deep-learning-models-for-video-segmentation" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="video-captioning-and-summarization">
+<h1>Video Captioning and Summarization<a class="headerlink" href="#video-captioning-and-summarization" title="Link to this heading">#</a></h1>
+<section id="automatic-video-captioning-systems">
+<h2>Automatic Video Captioning Systems<a class="headerlink" href="#automatic-video-captioning-systems" title="Link to this heading">#</a></h2>
+</section>
+<section id="feature-extraction-for-video-captioning">
+<h2>Feature Extraction for Video Captioning<a class="headerlink" href="#feature-extraction-for-video-captioning" title="Link to this heading">#</a></h2>
+</section>
+<section id="sequence-to-sequence-models-for-video">
+<h2>Sequence-to-Sequence Models for Video<a class="headerlink" href="#sequence-to-sequence-models-for-video" title="Link to this heading">#</a></h2>
+</section>
+<section id="abstractive-and-extractive-video-summarization">
+<h2>Abstractive and Extractive Video Summarization<a class="headerlink" href="#abstractive-and-extractive-video-summarization" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-metrics-for-video-summarization">
+<h2>Evaluation Metrics for Video Summarization<a class="headerlink" href="#evaluation-metrics-for-video-summarization" title="Link to this heading">#</a></h2>
+</section>
+<section id="video-generation-and-synthesis">
+<h2>Video Generation and Synthesis<a class="headerlink" href="#video-generation-and-synthesis" title="Link to this heading">#</a></h2>
+</section>
+<section id="generative-adversarial-networks-gans-for-video">
+<h2>Generative Adversarial Networks (GANs) for Video<a class="headerlink" href="#generative-adversarial-networks-gans-for-video" title="Link to this heading">#</a></h2>
+</section>
+<section id="video-prediction-and-frame-synthesis">
+<h2>Video Prediction and Frame Synthesis<a class="headerlink" href="#video-prediction-and-frame-synthesis" title="Link to this heading">#</a></h2>
+</section>
+<section id="conditional-gans-for-video-generation">
+<h2>Conditional GANs for Video Generation<a class="headerlink" href="#conditional-gans-for-video-generation" title="Link to this heading">#</a></h2>
+</section>
+<section id="video-super-resolution-techniques">
+<h2>Video Super-Resolution Techniques<a class="headerlink" href="#video-super-resolution-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="applications-animation-virtual-reality-and-content-creation">
+<h2>Applications: Animation, Virtual Reality, and Content Creation<a class="headerlink" href="#applications-animation-virtual-reality-and-content-creation" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./cv"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Video Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-video-formats-and-standards">Digital Video Formats and Standards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frame-rates-resolution-and-aspect-ratios">Frame Rates, Resolution, and Aspect Ratios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-spaces-and-video-compression">Color Spaces and Video Compression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-redundancy-in-video-sequences">Temporal Redundancy in Video Sequences</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-for-video-analysis">Preprocessing for Video Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frame-extraction-and-selection">Frame Extraction and Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-smoothing-and-frame-differencing">Temporal Smoothing and Frame Differencing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motion-estimation-and-optical-flow">Motion Estimation and Optical Flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-subtraction-techniques">Background Subtraction Techniques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-augmentation-for-video">Data Augmentation for Video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection-and-tracking">Object Detection and Tracking</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection-in-consecutive-frames">Object Detection in Consecutive Frames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-object-tracking-mot">Multi-Object Tracking (MOT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kalman-filters-and-particle-filters-in-tracking">Kalman Filters and Particle Filters in Tracking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-approaches-for-video-tracking">Deep Learning Approaches for Video Tracking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-in-occlusion-and-re-identification">Challenges in Occlusion and Re-Identification</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#action-and-activity-recognition">Action and Activity Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-modeling-of-actions">Temporal Modeling of Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatiotemporal-feature-extraction">Spatiotemporal Feature Extraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-networks-rnns-for-video">Recurrent Neural Networks (RNNs) for Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks-c3d">3D Convolutional Networks (C3D)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-mechanisms-for-video-recognition">Attention Mechanisms for Video Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-sports-surveillance-healthcare">Applications: Sports, Surveillance, Healthcare</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#video-segmentation">Video Segmentation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frame-level-segmentation">Frame-Level Segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-segmentation-and-scene-change-detection">Temporal Segmentation and Scene Change Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-video-segmentation">Semantic Video Segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-segmentation-in-video">Instance Segmentation in Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-video-segmentation">Deep Learning Models for Video Segmentation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#video-captioning-and-summarization">Video Captioning and Summarization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-video-captioning-systems">Automatic Video Captioning Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-for-video-captioning">Feature Extraction for Video Captioning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-to-sequence-models-for-video">Sequence-to-Sequence Models for Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstractive-and-extractive-video-summarization">Abstractive and Extractive Video Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-for-video-summarization">Evaluation Metrics for Video Summarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-generation-and-synthesis">Video Generation and Synthesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-adversarial-networks-gans-for-video">Generative Adversarial Networks (GANs) for Video</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-prediction-and-frame-synthesis">Video Prediction and Frame Synthesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gans-for-video-generation">Conditional GANs for Video Generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-super-resolution-techniques">Video Super-Resolution Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-animation-virtual-reality-and-content-creation">Applications: Animation, Virtual Reality, and Content Creation</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

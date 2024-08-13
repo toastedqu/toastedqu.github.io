@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Metrics &#8212; AI Handbook</title>
+    <title>Evaluation &#8212; AI Handbook</title>
   
   
   
@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
@@ -37,9 +37,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -57,8 +57,6 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'ml/eval';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -141,6 +139,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../intro.html">
   
@@ -162,7 +162,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -174,26 +174,10 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dl/activation.html">Activation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dl/qa.html">Q&amp;A</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Neuroscience</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../neuro/compneuro.html">Computational Neuroscience</a></li>
 
 
 
 
-
-
-
-
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">IRL</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../irl/overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../irl/data.html">Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../irl/coding.html">Coding interview</a></li>
 
 </ul>
 
@@ -351,10 +335,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -362,7 +346,7 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
@@ -380,7 +364,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Metrics</h1>
+    <h1>Evaluation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -390,17 +374,105 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-auc">ROC &amp; AUC</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Evaluation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">Mean Squared Error (MSE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">Mean Absolute Error (MAE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-mean-squared-error-rmse">Root Mean Squared Error (RMSE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-percentage-error-mape">Mean Absolute Percentage Error (MAPE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-logarithmic-error-msle">Mean Squared Logarithmic Error (MSLE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-coefficient-of-determination">R-squared (Coefficient of Determination)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#huber-loss">Huber Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-loss">Quantile Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-cosh-loss">Log-Cosh Loss</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errors">Errors</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explained-variance">Explained Variance</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision">Precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recall">Recall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1 Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specificity">Specificity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity">Sensitivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#balanced-accuracy">Balanced Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-curve-receiver-operating-characteristic">ROC Curve (Receiver Operating Characteristic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auc-area-under-the-roc-curve">AUC (Area Under the ROC Curve)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pr-curve-precision-recall-curve">PR Curve (Precision-Recall Curve)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#average-precision">Average Precision</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-metrics">Probabilistic Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-loss-cross-entropy-loss">Log Loss (Cross-Entropy Loss)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brier-score">Brier Score</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass">Multiclass</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass-accuracy">Multiclass Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#macro-averaged-metrics">Macro-averaged Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#micro-averaged-metrics">Micro-averaged Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-metrics">Weighted Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilabel">Multilabel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hamming-loss">Hamming Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subset-accuracy">Subset Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score-for-multilabel">F1 Score for Multilabel</a></li>
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#information-retrieval">Information Retrieval</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval">Retrieval</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-at-k">Precision at K</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-at-k">Recall at K</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-at-k">F1 at K</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranking">Ranking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-reciprocal-rank-mrr">Mean Reciprocal Rank (MRR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-discounted-cumulative-gain-ndcg">Normalized Discounted Cumulative Gain (NDCG)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hit-rate">Hit Rate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-vision">Computer Vision</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation">Segmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intersection-over-union-iou">Intersection over Union (IoU)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dice-coefficient">Dice Coefficient</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pixel-accuracy">Pixel Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-average-precision-map-for-segmentation">Mean Average Precision (mAP) for Segmentation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection">Object Detection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-average-precision-map-for-object-detection">Mean Average Precision (mAP) for Object Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve-for-object-detection">Precision-Recall Curve for Object Detection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#natural-language-processing">Natural Language Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bleu-score-bilingual-evaluation-understudy">BLEU Score (Bilingual Evaluation Understudy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rouge-score-recall-oriented-understudy-for-gisting-evaluation">ROUGE Score (Recall-Oriented Understudy for Gisting Evaluation)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteor-score">METEOR Score</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretability">Interpretability</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-feature-importance">Permutation Feature Importance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shap-shapley-additive-explanations">SHAP (SHapley Additive exPlanations)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lime-local-interpretable-model-agnostic-explanations">LIME (Local Interpretable Model-agnostic Explanations)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-gradients">Integrated Gradients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grad-cam-gradient-weighted-class-activation-mapping">Grad-CAM (Gradient-weighted Class Activation Mapping)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-robustness">Model Robustness</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-testing">Adversarial Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity-analysis">Sensitivity Analysis</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -411,158 +483,205 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="metrics">
-<h1>Metrics<a class="headerlink" href="#metrics" title="Link to this heading">#</a></h1>
-<section id="classification">
-<h2>Classification<a class="headerlink" href="#classification" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="evaluation">
+<h1>Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="regression">
+<h1>Regression<a class="headerlink" href="#regression" title="Link to this heading">#</a></h1>
+<section id="mean-squared-error-mse">
+<h2>Mean Squared Error (MSE)<a class="headerlink" href="#mean-squared-error-mse" title="Link to this heading">#</a></h2>
+</section>
+<section id="mean-absolute-error-mae">
+<h2>Mean Absolute Error (MAE)<a class="headerlink" href="#mean-absolute-error-mae" title="Link to this heading">#</a></h2>
+</section>
+<section id="root-mean-squared-error-rmse">
+<h2>Root Mean Squared Error (RMSE)<a class="headerlink" href="#root-mean-squared-error-rmse" title="Link to this heading">#</a></h2>
+</section>
+<section id="mean-absolute-percentage-error-mape">
+<h2>Mean Absolute Percentage Error (MAPE)<a class="headerlink" href="#mean-absolute-percentage-error-mape" title="Link to this heading">#</a></h2>
+</section>
+<section id="mean-squared-logarithmic-error-msle">
+<h2>Mean Squared Logarithmic Error (MSLE)<a class="headerlink" href="#mean-squared-logarithmic-error-msle" title="Link to this heading">#</a></h2>
+</section>
+<section id="r-squared-coefficient-of-determination">
+<h2>R-squared (Coefficient of Determination)<a class="headerlink" href="#r-squared-coefficient-of-determination" title="Link to this heading">#</a></h2>
+</section>
+<section id="huber-loss">
+<h2>Huber Loss<a class="headerlink" href="#huber-loss" title="Link to this heading">#</a></h2>
+</section>
+<section id="quantile-loss">
+<h2>Quantile Loss<a class="headerlink" href="#quantile-loss" title="Link to this heading">#</a></h2>
+</section>
+<section id="log-cosh-loss">
+<h2>Log-Cosh Loss<a class="headerlink" href="#log-cosh-loss" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="classification">
+<h1>Classification<a class="headerlink" href="#classification" title="Link to this heading">#</a></h1>
 <section id="confusion-matrix">
-<h3>Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Link to this heading">#</a></h3>
-<center>
-<img width=500 src="/images/ml/confusion_matrix.png"/>
-<br>
-<a href="https://www.datacamp.com/tutorial/what-is-a-confusion-matrix-in-machine-learning">source</a>
-</center>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>Metric</p></th>
-<th class="head text-left"><p>Def</p></th>
-<th class="head text-center"><p>Formula</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p><strong>Type I Error</strong></p></td>
-<td class="text-left"><p>reject <span class="math notranslate nohighlight">\( H_0\)</span> when true (predict P when N)</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(P(FP) \)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><strong>Type II Error</strong></p></td>
-<td class="text-left"><p>accept <span class="math notranslate nohighlight">\( H_0\)</span> when false (predict N when P)</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(P(FN) \)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><strong>Accuracy</strong></p></td>
-<td class="text-left"><p>% of correct predictions</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( P(TP)+P(TN) \)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><strong>Precision</strong></p></td>
-<td class="text-left"><p>% of actual Ps among predicted Ps</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( \frac{TP}{TP+FP} \)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><strong>Recall/Sensitivity</strong></p></td>
-<td class="text-left"><p>% of predicted Ps among actual Ps</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( \frac{TP}{TP+FN} \)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><strong>Specificity</strong></p></td>
-<td class="text-left"><p>% of predicted Ns among actual Ns</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( \frac{TN}{TN+FP} \)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><strong>F1-score</strong></p></td>
-<td class="text-left"><p>Balance tradeoff between precision &amp; recall</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( 2\frac{\text{prec}\*\text{rec}}{\text{prec}+\text{rec}} \)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><strong>F<span class="math notranslate nohighlight">\( \boldsymbol{\beta}\)</span>-score</strong></p></td>
-<td class="text-left"><p>Place importance on recall <span class="math notranslate nohighlight">\(\beta\)</span> times of precision</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\((1+\beta^2)\frac{\text{prec}\*\text{rec}}{(\beta^2\*\text{prec})+\text{rec}} \)</span></p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<h2>Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Link to this heading">#</a></h2>
+<section id="accuracy">
+<h3>Accuracy<a class="headerlink" href="#accuracy" title="Link to this heading">#</a></h3>
 </section>
-<section id="roc-auc">
-<h3>ROC &amp; AUC<a class="headerlink" href="#roc-auc" title="Link to this heading">#</a></h3>
-<center>
-<img width=500 src="/images/ml/ROC.png"/>
-<br>
-<a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.RocCurveDisplay.html#sklearn.metrics.RocCurveDisplay">source</a>
-</center>
-<ul class="simple">
-<li><p><strong>TPR (True Positive Rate)</strong>: = Recall, <span class="math notranslate nohighlight">\( \frac{TP}{TP+FN} \)</span></p></li>
-<li><p><strong>FPR (False Positive Rate)</strong>: = 1 – Specificity, <span class="math notranslate nohighlight">\( \frac{FP}{TN+FP} \)</span></p></li>
-<li><p><strong>Classification threshold</strong>: anything above this defined value is classified as 1, <span class="math notranslate nohighlight">\( P(y=1) \)</span> (default 0.5)</p></li>
-<li><p><strong>ROC (Receiver Operating Characteristic)</strong>: performance at different classification thresholds</p></li>
-<li><p><strong>AUC (Area Under the Curve)</strong>: sum up performance across all classification thresholds</p>
-<ul>
-<li><p><span class="math notranslate nohighlight">\( \text{AUC}=0.5 \)</span>: random guess (worst)</p></li>
-<li><p><span class="math notranslate nohighlight">\( \text{AUC}=1 \)</span>: all correct (best)</p></li>
-<li><p><span class="math notranslate nohighlight">\( \text{AUC}=0 \)</span>: all wrong (reverse)</p></li>
-</ul>
-</li>
-</ul>
+<section id="precision">
+<h3>Precision<a class="headerlink" href="#precision" title="Link to this heading">#</a></h3>
+</section>
+<section id="recall">
+<h3>Recall<a class="headerlink" href="#recall" title="Link to this heading">#</a></h3>
+</section>
+<section id="f1-score">
+<h3>F1 Score<a class="headerlink" href="#f1-score" title="Link to this heading">#</a></h3>
+</section>
+<section id="specificity">
+<h3>Specificity<a class="headerlink" href="#specificity" title="Link to this heading">#</a></h3>
+</section>
+<section id="sensitivity">
+<h3>Sensitivity<a class="headerlink" href="#sensitivity" title="Link to this heading">#</a></h3>
+</section>
+<section id="balanced-accuracy">
+<h3>Balanced Accuracy<a class="headerlink" href="#balanced-accuracy" title="Link to this heading">#</a></h3>
+</section>
+<section id="roc-curve-receiver-operating-characteristic">
+<h3>ROC Curve (Receiver Operating Characteristic)<a class="headerlink" href="#roc-curve-receiver-operating-characteristic" title="Link to this heading">#</a></h3>
+</section>
+<section id="auc-area-under-the-roc-curve">
+<h3>AUC (Area Under the ROC Curve)<a class="headerlink" href="#auc-area-under-the-roc-curve" title="Link to this heading">#</a></h3>
+</section>
+<section id="pr-curve-precision-recall-curve">
+<h3>PR Curve (Precision-Recall Curve)<a class="headerlink" href="#pr-curve-precision-recall-curve" title="Link to this heading">#</a></h3>
+</section>
+<section id="average-precision">
+<h3>Average Precision<a class="headerlink" href="#average-precision" title="Link to this heading">#</a></h3>
 </section>
 </section>
-<section id="regression">
-<h2>Regression<a class="headerlink" href="#regression" title="Link to this heading">#</a></h2>
-<section id="errors">
-<h3>Errors<a class="headerlink" href="#errors" title="Link to this heading">#</a></h3>
-<p>Basically loss functions.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>Metric</p></th>
-<th class="head text-left"><p>Def</p></th>
-<th class="head text-center"><p>Formula</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p><strong>MAE</strong></p></td>
-<td class="text-left"><p>Mean of Residuals</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( \frac{1}{m}\sum_{i=1}^{m}|y_i-\hat{y}_i| \)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><strong>MSE</strong></p></td>
-<td class="text-left"><p>Variance of Residuals</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( \frac{1}{m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2 \)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><strong>RMSE</strong></p></td>
-<td class="text-left"><p>Standard deviation of Residuals</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\( \sqrt{\frac{1}{m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2} \)</span></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Notes:</p>
-<ul class="simple">
-<li><p>MAE is robust against outliers, but MAE doesn’t penalize large errors heavily and is not differentiable.</p></li>
-<li><p>MSE penalizes large errors heavily and is differentiable, but MSE is sensitive to outliers.</p></li>
-<li><p>RMSE has the same units as the dependent variables, so it is generally more preferred than both.</p></li>
-</ul>
+<section id="probabilistic-metrics">
+<h2>Probabilistic Metrics<a class="headerlink" href="#probabilistic-metrics" title="Link to this heading">#</a></h2>
+<section id="log-loss-cross-entropy-loss">
+<h3>Log Loss (Cross-Entropy Loss)<a class="headerlink" href="#log-loss-cross-entropy-loss" title="Link to this heading">#</a></h3>
 </section>
-<section id="explained-variance">
-<h3>Explained Variance<a class="headerlink" href="#explained-variance" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>Metric</p></th>
-<th class="head text-left"><p>Def</p></th>
-<th class="head text-center"><p>Formula</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p><strong>Explained Variance</strong></p></td>
-<td class="text-left"><p>% of <span class="math notranslate nohighlight">\( \text{Var}[y]\)</span> explained by the <span class="math notranslate nohighlight">\(x\)</span>s in the model</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(1-\frac{\text{Var}[y-\hat{y}]}{\text{Var}[y]}=\frac{\text{Var}[\hat{y}]}{\text{Var}[y]} \)</span></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\( \boldsymbol{R}^\textbf{2}\)</span></p></td>
-<td class="text-left"><p>% of <span class="math notranslate nohighlight">\(\text{Var}[y]\)</span> explained by the <span class="math notranslate nohighlight">\(x\)</span>s in the model,<br> but account for systematic offset in prediction</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(1-\frac{\text{Var}[y-\hat{y}]}{\text{Var}[y-\bar{y}]} \)</span></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><strong>Adjusted</strong> <span class="math notranslate nohighlight">\( \boldsymbol{R}^\textbf{2}\)</span></p></td>
-<td class="text-left"><p><span class="math notranslate nohighlight">\(R^2\)</span>, but account for #<span class="math notranslate nohighlight">\(x\)</span>s</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(1-\left[\frac{(1-R^2)(m-1)}{(m-n-1)}\right] \)</span></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Notes:</p>
-<ul class="simple">
-<li><p>Explained variance measures how well the independent variables explain the variance in dependent variables.</p></li>
-<li><p><span class="math notranslate nohighlight">\( R^2 \)</span> is also called Coefficient of Determination, or Goodness of Fit, because it can capture how well unseen samples are likely to be predicted by the model.</p></li>
-<li><p>Adjusted <span class="math notranslate nohighlight">\( R^2\)</span> accounts for the issue that <span class="math notranslate nohighlight">\(R^2\)</span> automatically increases when #<span class="math notranslate nohighlight">\(x \)</span>s increases, which is undesired due to redundancy.</p></li>
-<li><p>Adjusted <span class="math notranslate nohighlight">\( R^2\)</span> is always less than or equal to <span class="math notranslate nohighlight">\(R^2 \)</span>.</p></li>
-</ul>
-<!-- # Cross Validation
-Problem: Model overfits on training data.
-
-Solution: 
-
-# Hyperparameter Tuning
- -->
+<section id="brier-score">
+<h3>Brier Score<a class="headerlink" href="#brier-score" title="Link to this heading">#</a></h3>
 </section>
+</section>
+<section id="multiclass">
+<h2>Multiclass<a class="headerlink" href="#multiclass" title="Link to this heading">#</a></h2>
+<section id="multiclass-accuracy">
+<h3>Multiclass Accuracy<a class="headerlink" href="#multiclass-accuracy" title="Link to this heading">#</a></h3>
+</section>
+<section id="macro-averaged-metrics">
+<h3>Macro-averaged Metrics<a class="headerlink" href="#macro-averaged-metrics" title="Link to this heading">#</a></h3>
+</section>
+<section id="micro-averaged-metrics">
+<h3>Micro-averaged Metrics<a class="headerlink" href="#micro-averaged-metrics" title="Link to this heading">#</a></h3>
+</section>
+<section id="weighted-metrics">
+<h3>Weighted Metrics<a class="headerlink" href="#weighted-metrics" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="multilabel">
+<h2>Multilabel<a class="headerlink" href="#multilabel" title="Link to this heading">#</a></h2>
+<section id="hamming-loss">
+<h3>Hamming Loss<a class="headerlink" href="#hamming-loss" title="Link to this heading">#</a></h3>
+</section>
+<section id="subset-accuracy">
+<h3>Subset Accuracy<a class="headerlink" href="#subset-accuracy" title="Link to this heading">#</a></h3>
+</section>
+<section id="f1-score-for-multilabel">
+<h3>F1 Score for Multilabel<a class="headerlink" href="#f1-score-for-multilabel" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="information-retrieval">
+<h1>Information Retrieval<a class="headerlink" href="#information-retrieval" title="Link to this heading">#</a></h1>
+<section id="retrieval">
+<h2>Retrieval<a class="headerlink" href="#retrieval" title="Link to this heading">#</a></h2>
+<section id="precision-at-k">
+<h3>Precision at K<a class="headerlink" href="#precision-at-k" title="Link to this heading">#</a></h3>
+</section>
+<section id="recall-at-k">
+<h3>Recall at K<a class="headerlink" href="#recall-at-k" title="Link to this heading">#</a></h3>
+</section>
+<section id="f1-at-k">
+<h3>F1 at K<a class="headerlink" href="#f1-at-k" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="ranking">
+<h2>Ranking<a class="headerlink" href="#ranking" title="Link to this heading">#</a></h2>
+<section id="mean-reciprocal-rank-mrr">
+<h3>Mean Reciprocal Rank (MRR)<a class="headerlink" href="#mean-reciprocal-rank-mrr" title="Link to this heading">#</a></h3>
+</section>
+<section id="normalized-discounted-cumulative-gain-ndcg">
+<h3>Normalized Discounted Cumulative Gain (NDCG)<a class="headerlink" href="#normalized-discounted-cumulative-gain-ndcg" title="Link to this heading">#</a></h3>
+</section>
+<section id="hit-rate">
+<h3>Hit Rate<a class="headerlink" href="#hit-rate" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="computer-vision">
+<h1>Computer Vision<a class="headerlink" href="#computer-vision" title="Link to this heading">#</a></h1>
+<section id="segmentation">
+<h2>Segmentation<a class="headerlink" href="#segmentation" title="Link to this heading">#</a></h2>
+<section id="intersection-over-union-iou">
+<h3>Intersection over Union (IoU)<a class="headerlink" href="#intersection-over-union-iou" title="Link to this heading">#</a></h3>
+</section>
+<section id="dice-coefficient">
+<h3>Dice Coefficient<a class="headerlink" href="#dice-coefficient" title="Link to this heading">#</a></h3>
+</section>
+<section id="pixel-accuracy">
+<h3>Pixel Accuracy<a class="headerlink" href="#pixel-accuracy" title="Link to this heading">#</a></h3>
+</section>
+<section id="mean-average-precision-map-for-segmentation">
+<h3>Mean Average Precision (mAP) for Segmentation<a class="headerlink" href="#mean-average-precision-map-for-segmentation" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="object-detection">
+<h2>Object Detection<a class="headerlink" href="#object-detection" title="Link to this heading">#</a></h2>
+<section id="mean-average-precision-map-for-object-detection">
+<h3>Mean Average Precision (mAP) for Object Detection<a class="headerlink" href="#mean-average-precision-map-for-object-detection" title="Link to this heading">#</a></h3>
+</section>
+<section id="precision-recall-curve-for-object-detection">
+<h3>Precision-Recall Curve for Object Detection<a class="headerlink" href="#precision-recall-curve-for-object-detection" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="natural-language-processing">
+<h1>Natural Language Processing<a class="headerlink" href="#natural-language-processing" title="Link to this heading">#</a></h1>
+<section id="bleu-score-bilingual-evaluation-understudy">
+<h2>BLEU Score (Bilingual Evaluation Understudy)<a class="headerlink" href="#bleu-score-bilingual-evaluation-understudy" title="Link to this heading">#</a></h2>
+</section>
+<section id="rouge-score-recall-oriented-understudy-for-gisting-evaluation">
+<h2>ROUGE Score (Recall-Oriented Understudy for Gisting Evaluation)<a class="headerlink" href="#rouge-score-recall-oriented-understudy-for-gisting-evaluation" title="Link to this heading">#</a></h2>
+</section>
+<section id="meteor-score">
+<h2>METEOR Score<a class="headerlink" href="#meteor-score" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="interpretability">
+<h1>Interpretability<a class="headerlink" href="#interpretability" title="Link to this heading">#</a></h1>
+<section id="permutation-feature-importance">
+<h2>Permutation Feature Importance<a class="headerlink" href="#permutation-feature-importance" title="Link to this heading">#</a></h2>
+</section>
+<section id="shap-shapley-additive-explanations">
+<h2>SHAP (SHapley Additive exPlanations)<a class="headerlink" href="#shap-shapley-additive-explanations" title="Link to this heading">#</a></h2>
+</section>
+<section id="lime-local-interpretable-model-agnostic-explanations">
+<h2>LIME (Local Interpretable Model-agnostic Explanations)<a class="headerlink" href="#lime-local-interpretable-model-agnostic-explanations" title="Link to this heading">#</a></h2>
+</section>
+<section id="integrated-gradients">
+<h2>Integrated Gradients<a class="headerlink" href="#integrated-gradients" title="Link to this heading">#</a></h2>
+</section>
+<section id="grad-cam-gradient-weighted-class-activation-mapping">
+<h2>Grad-CAM (Gradient-weighted Class Activation Mapping)<a class="headerlink" href="#grad-cam-gradient-weighted-class-activation-mapping" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="model-robustness">
+<h1>Model Robustness<a class="headerlink" href="#model-robustness" title="Link to this heading">#</a></h1>
+<section id="adversarial-testing">
+<h2>Adversarial Testing<a class="headerlink" href="#adversarial-testing" title="Link to this heading">#</a></h2>
+</section>
+<section id="sensitivity-analysis">
+<h2>Sensitivity Analysis<a class="headerlink" href="#sensitivity-analysis" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -612,17 +731,105 @@ Solution:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-auc">ROC &amp; AUC</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Evaluation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">Mean Squared Error (MSE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">Mean Absolute Error (MAE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-mean-squared-error-rmse">Root Mean Squared Error (RMSE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-percentage-error-mape">Mean Absolute Percentage Error (MAPE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-logarithmic-error-msle">Mean Squared Logarithmic Error (MSLE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-coefficient-of-determination">R-squared (Coefficient of Determination)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#huber-loss">Huber Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-loss">Quantile Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-cosh-loss">Log-Cosh Loss</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errors">Errors</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explained-variance">Explained Variance</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision">Precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recall">Recall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1 Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specificity">Specificity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity">Sensitivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#balanced-accuracy">Balanced Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-curve-receiver-operating-characteristic">ROC Curve (Receiver Operating Characteristic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auc-area-under-the-roc-curve">AUC (Area Under the ROC Curve)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pr-curve-precision-recall-curve">PR Curve (Precision-Recall Curve)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#average-precision">Average Precision</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-metrics">Probabilistic Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-loss-cross-entropy-loss">Log Loss (Cross-Entropy Loss)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brier-score">Brier Score</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass">Multiclass</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass-accuracy">Multiclass Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#macro-averaged-metrics">Macro-averaged Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#micro-averaged-metrics">Micro-averaged Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-metrics">Weighted Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilabel">Multilabel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hamming-loss">Hamming Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subset-accuracy">Subset Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score-for-multilabel">F1 Score for Multilabel</a></li>
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#information-retrieval">Information Retrieval</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval">Retrieval</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-at-k">Precision at K</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-at-k">Recall at K</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-at-k">F1 at K</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranking">Ranking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-reciprocal-rank-mrr">Mean Reciprocal Rank (MRR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-discounted-cumulative-gain-ndcg">Normalized Discounted Cumulative Gain (NDCG)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hit-rate">Hit Rate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-vision">Computer Vision</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation">Segmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intersection-over-union-iou">Intersection over Union (IoU)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dice-coefficient">Dice Coefficient</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pixel-accuracy">Pixel Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-average-precision-map-for-segmentation">Mean Average Precision (mAP) for Segmentation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-detection">Object Detection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-average-precision-map-for-object-detection">Mean Average Precision (mAP) for Object Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve-for-object-detection">Precision-Recall Curve for Object Detection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#natural-language-processing">Natural Language Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bleu-score-bilingual-evaluation-understudy">BLEU Score (Bilingual Evaluation Understudy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rouge-score-recall-oriented-understudy-for-gisting-evaluation">ROUGE Score (Recall-Oriented Understudy for Gisting Evaluation)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteor-score">METEOR Score</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretability">Interpretability</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-feature-importance">Permutation Feature Importance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shap-shapley-additive-explanations">SHAP (SHapley Additive exPlanations)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lime-local-interpretable-model-agnostic-explanations">LIME (Local Interpretable Model-agnostic Explanations)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-gradients">Integrated Gradients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grad-cam-gradient-weighted-class-activation-mapping">Grad-CAM (Gradient-weighted Class Activation Mapping)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-robustness">Model Robustness</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-testing">Adversarial Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity-analysis">Sensitivity Analysis</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
@@ -670,8 +877,8 @@ By Renyi Qu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

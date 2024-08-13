@@ -1,0 +1,836 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Audio Processing &#8212; AI Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nlp/audio';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="AI Handbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="AI Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Deep Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dl/layer.html">Layer</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fnlp/audio.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/nlp/audio.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Audio Processing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Audio Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-data-representation">Audio Data Representation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-audio-formats-and-standards">Digital Audio Formats and Standards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-domain-vs-frequency-domain-representations">Time-Domain vs. Frequency-Domain Representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate-bit-depth-and-channels">Sampling Rate, Bit Depth, and Channels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrograms-mel-spectrograms-and-mfccs">Spectrograms, Mel-Spectrograms, and MFCCs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-compression-and-signal-processing">Audio Compression and Signal Processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-for-audio-analysis">Preprocessing for Audio Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-reduction-and-filtering">Noise Reduction and Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-segmentation-and-silence-removal">Audio Segmentation and Silence Removal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-mfccs-chroma-tonnetz">Feature Extraction: MFCCs, Chroma, Tonnetz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-augmentation-for-audio">Data Augmentation for Audio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-alignment-and-normalization">Temporal Alignment and Normalization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-recognition">Speech Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-speech-recognition-asr-systems">Automatic Speech Recognition (ASR) Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-for-asr">Feature Extraction for ASR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hidden-markov-models-hmm-and-gaussian-mixture-models-gmm">Hidden Markov Models (HMM) and Gaussian Mixture Models (GMM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-approaches-rnns-cnns-and-transformers">Deep Learning Approaches: RNNs, CNNs, and Transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end-speech-recognition-models">End-to-End Speech Recognition Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-word-error-rate-wer-character-error-rate-cer">Evaluation Metrics: Word Error Rate (WER), Character Error Rate (CER)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-classification-and-tagging">Audio Classification and Tagging</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-classification-approaches">Audio Classification Approaches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sound-event-detection-sed">Sound Event Detection (SED)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#music-genre-classification">Music Genre Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-based-vs-end-to-end-models">Feature-Based vs. End-to-End Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning-in-audio-classification">Transfer Learning in Audio Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-music-recommendation-acoustic-scene-classification">Applications: Music Recommendation, Acoustic Scene Classification</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#voice-recognition">Voice Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-independent-vs-text-dependent-speaker-recognition">Text-Independent vs. Text-Dependent Speaker Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speaker-identification-vs-verification">Speaker Identification vs. Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#i-vectors-and-x-vectors">i-Vectors and x-Vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-for-speaker-embedding-extraction">Deep Learning for Speaker Embedding Extraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speaker-diarization-techniques">Speaker Diarization Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-equal-error-rate-eer-det-curves">Evaluation: Equal Error Rate (EER), DET Curves</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-segmentation-and-source-separation">Audio Segmentation and Source Separation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-segmentation-techniques">Audio Segmentation Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-activity-detection-sad">Speech Activity Detection (SAD)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blind-source-separation">Blind Source Separation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-source-separation">Deep Learning Models for Source Separation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-in-music-and-speech-enhancement">Applications in Music and Speech Enhancement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-in-overlapping-speech-and-noise">Challenges in Overlapping Speech and Noise</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-synthesis-and-generation">Audio Synthesis and Generation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-adversarial-networks-gans-for-audio">Generative Adversarial Networks (GANs) for Audio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wavenet-and-wavernn-architectures">WaveNet and WaveRNN Architectures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-to-speech-tts-systems">Text-to-Speech (TTS) Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#voice-conversion-techniques">Voice Conversion Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-vocoders">Neural Vocoders</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-virtual-assistants-speech-synthesis">Applications: Virtual Assistants, Speech Synthesis</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#music-generation-and-processing">Music Generation and Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-music-composition">Deep Learning Models for Music Composition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-networks-rnns-in-music-generation">Recurrent Neural Networks (RNNs) in Music Generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-models-in-music">Transformer Models in Music</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-accompaniment-and-harmonization">Automatic Accompaniment and Harmonization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#music-style-transfer">Music Style Transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-generated-music">Evaluation of Generated Music</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#emotion-and-sentiment-analysis-in-audio">Emotion and Sentiment Analysis in Audio</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acoustic-features-for-emotion-recognition">Acoustic Features for Emotion Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-emotion-recognition-ser">Speech Emotion Recognition (SER)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multimodal-emotion-analysis-audio-and-visual-fusion">Multimodal Emotion Analysis: Audio and Visual Fusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis-in-spoken-language">Sentiment Analysis in Spoken Language</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-emotion-recognition">Deep Learning Models for Emotion Recognition</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="audio-processing">
+<h1>Audio Processing<a class="headerlink" href="#audio-processing" title="Link to this heading">#</a></h1>
+<section id="audio-data-representation">
+<h2>Audio Data Representation<a class="headerlink" href="#audio-data-representation" title="Link to this heading">#</a></h2>
+<section id="digital-audio-formats-and-standards">
+<h3>Digital Audio Formats and Standards<a class="headerlink" href="#digital-audio-formats-and-standards" title="Link to this heading">#</a></h3>
+</section>
+<section id="time-domain-vs-frequency-domain-representations">
+<h3>Time-Domain vs. Frequency-Domain Representations<a class="headerlink" href="#time-domain-vs-frequency-domain-representations" title="Link to this heading">#</a></h3>
+</section>
+<section id="sampling-rate-bit-depth-and-channels">
+<h3>Sampling Rate, Bit Depth, and Channels<a class="headerlink" href="#sampling-rate-bit-depth-and-channels" title="Link to this heading">#</a></h3>
+</section>
+<section id="spectrograms-mel-spectrograms-and-mfccs">
+<h3>Spectrograms, Mel-Spectrograms, and MFCCs<a class="headerlink" href="#spectrograms-mel-spectrograms-and-mfccs" title="Link to this heading">#</a></h3>
+</section>
+<section id="audio-compression-and-signal-processing">
+<h3>Audio Compression and Signal Processing<a class="headerlink" href="#audio-compression-and-signal-processing" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="preprocessing-for-audio-analysis">
+<h2>Preprocessing for Audio Analysis<a class="headerlink" href="#preprocessing-for-audio-analysis" title="Link to this heading">#</a></h2>
+<section id="noise-reduction-and-filtering">
+<h3>Noise Reduction and Filtering<a class="headerlink" href="#noise-reduction-and-filtering" title="Link to this heading">#</a></h3>
+</section>
+<section id="audio-segmentation-and-silence-removal">
+<h3>Audio Segmentation and Silence Removal<a class="headerlink" href="#audio-segmentation-and-silence-removal" title="Link to this heading">#</a></h3>
+</section>
+<section id="feature-extraction-mfccs-chroma-tonnetz">
+<h3>Feature Extraction: MFCCs, Chroma, Tonnetz<a class="headerlink" href="#feature-extraction-mfccs-chroma-tonnetz" title="Link to this heading">#</a></h3>
+</section>
+<section id="data-augmentation-for-audio">
+<h3>Data Augmentation for Audio<a class="headerlink" href="#data-augmentation-for-audio" title="Link to this heading">#</a></h3>
+</section>
+<section id="temporal-alignment-and-normalization">
+<h3>Temporal Alignment and Normalization<a class="headerlink" href="#temporal-alignment-and-normalization" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="speech-recognition">
+<h1>Speech Recognition<a class="headerlink" href="#speech-recognition" title="Link to this heading">#</a></h1>
+<section id="automatic-speech-recognition-asr-systems">
+<h2>Automatic Speech Recognition (ASR) Systems<a class="headerlink" href="#automatic-speech-recognition-asr-systems" title="Link to this heading">#</a></h2>
+</section>
+<section id="feature-extraction-for-asr">
+<h2>Feature Extraction for ASR<a class="headerlink" href="#feature-extraction-for-asr" title="Link to this heading">#</a></h2>
+</section>
+<section id="hidden-markov-models-hmm-and-gaussian-mixture-models-gmm">
+<h2>Hidden Markov Models (HMM) and Gaussian Mixture Models (GMM)<a class="headerlink" href="#hidden-markov-models-hmm-and-gaussian-mixture-models-gmm" title="Link to this heading">#</a></h2>
+</section>
+<section id="deep-learning-approaches-rnns-cnns-and-transformers">
+<h2>Deep Learning Approaches: RNNs, CNNs, and Transformers<a class="headerlink" href="#deep-learning-approaches-rnns-cnns-and-transformers" title="Link to this heading">#</a></h2>
+</section>
+<section id="end-to-end-speech-recognition-models">
+<h2>End-to-End Speech Recognition Models<a class="headerlink" href="#end-to-end-speech-recognition-models" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-metrics-word-error-rate-wer-character-error-rate-cer">
+<h2>Evaluation Metrics: Word Error Rate (WER), Character Error Rate (CER)<a class="headerlink" href="#evaluation-metrics-word-error-rate-wer-character-error-rate-cer" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="audio-classification-and-tagging">
+<h1>Audio Classification and Tagging<a class="headerlink" href="#audio-classification-and-tagging" title="Link to this heading">#</a></h1>
+<section id="audio-classification-approaches">
+<h2>Audio Classification Approaches<a class="headerlink" href="#audio-classification-approaches" title="Link to this heading">#</a></h2>
+</section>
+<section id="sound-event-detection-sed">
+<h2>Sound Event Detection (SED)<a class="headerlink" href="#sound-event-detection-sed" title="Link to this heading">#</a></h2>
+</section>
+<section id="music-genre-classification">
+<h2>Music Genre Classification<a class="headerlink" href="#music-genre-classification" title="Link to this heading">#</a></h2>
+</section>
+<section id="feature-based-vs-end-to-end-models">
+<h2>Feature-Based vs. End-to-End Models<a class="headerlink" href="#feature-based-vs-end-to-end-models" title="Link to this heading">#</a></h2>
+</section>
+<section id="transfer-learning-in-audio-classification">
+<h2>Transfer Learning in Audio Classification<a class="headerlink" href="#transfer-learning-in-audio-classification" title="Link to this heading">#</a></h2>
+</section>
+<section id="applications-music-recommendation-acoustic-scene-classification">
+<h2>Applications: Music Recommendation, Acoustic Scene Classification<a class="headerlink" href="#applications-music-recommendation-acoustic-scene-classification" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="voice-recognition">
+<h1>Voice Recognition<a class="headerlink" href="#voice-recognition" title="Link to this heading">#</a></h1>
+<section id="text-independent-vs-text-dependent-speaker-recognition">
+<h2>Text-Independent vs. Text-Dependent Speaker Recognition<a class="headerlink" href="#text-independent-vs-text-dependent-speaker-recognition" title="Link to this heading">#</a></h2>
+</section>
+<section id="speaker-identification-vs-verification">
+<h2>Speaker Identification vs. Verification<a class="headerlink" href="#speaker-identification-vs-verification" title="Link to this heading">#</a></h2>
+</section>
+<section id="i-vectors-and-x-vectors">
+<h2>i-Vectors and x-Vectors<a class="headerlink" href="#i-vectors-and-x-vectors" title="Link to this heading">#</a></h2>
+</section>
+<section id="deep-learning-for-speaker-embedding-extraction">
+<h2>Deep Learning for Speaker Embedding Extraction<a class="headerlink" href="#deep-learning-for-speaker-embedding-extraction" title="Link to this heading">#</a></h2>
+</section>
+<section id="speaker-diarization-techniques">
+<h2>Speaker Diarization Techniques<a class="headerlink" href="#speaker-diarization-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-equal-error-rate-eer-det-curves">
+<h2>Evaluation: Equal Error Rate (EER), DET Curves<a class="headerlink" href="#evaluation-equal-error-rate-eer-det-curves" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="audio-segmentation-and-source-separation">
+<h1>Audio Segmentation and Source Separation<a class="headerlink" href="#audio-segmentation-and-source-separation" title="Link to this heading">#</a></h1>
+<section id="audio-segmentation-techniques">
+<h2>Audio Segmentation Techniques<a class="headerlink" href="#audio-segmentation-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="speech-activity-detection-sad">
+<h2>Speech Activity Detection (SAD)<a class="headerlink" href="#speech-activity-detection-sad" title="Link to this heading">#</a></h2>
+</section>
+<section id="blind-source-separation">
+<h2>Blind Source Separation<a class="headerlink" href="#blind-source-separation" title="Link to this heading">#</a></h2>
+</section>
+<section id="deep-learning-models-for-source-separation">
+<h2>Deep Learning Models for Source Separation<a class="headerlink" href="#deep-learning-models-for-source-separation" title="Link to this heading">#</a></h2>
+</section>
+<section id="applications-in-music-and-speech-enhancement">
+<h2>Applications in Music and Speech Enhancement<a class="headerlink" href="#applications-in-music-and-speech-enhancement" title="Link to this heading">#</a></h2>
+</section>
+<section id="challenges-in-overlapping-speech-and-noise">
+<h2>Challenges in Overlapping Speech and Noise<a class="headerlink" href="#challenges-in-overlapping-speech-and-noise" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="audio-synthesis-and-generation">
+<h1>Audio Synthesis and Generation<a class="headerlink" href="#audio-synthesis-and-generation" title="Link to this heading">#</a></h1>
+<section id="generative-adversarial-networks-gans-for-audio">
+<h2>Generative Adversarial Networks (GANs) for Audio<a class="headerlink" href="#generative-adversarial-networks-gans-for-audio" title="Link to this heading">#</a></h2>
+</section>
+<section id="wavenet-and-wavernn-architectures">
+<h2>WaveNet and WaveRNN Architectures<a class="headerlink" href="#wavenet-and-wavernn-architectures" title="Link to this heading">#</a></h2>
+</section>
+<section id="text-to-speech-tts-systems">
+<h2>Text-to-Speech (TTS) Systems<a class="headerlink" href="#text-to-speech-tts-systems" title="Link to this heading">#</a></h2>
+</section>
+<section id="voice-conversion-techniques">
+<h2>Voice Conversion Techniques<a class="headerlink" href="#voice-conversion-techniques" title="Link to this heading">#</a></h2>
+</section>
+<section id="neural-vocoders">
+<h2>Neural Vocoders<a class="headerlink" href="#neural-vocoders" title="Link to this heading">#</a></h2>
+</section>
+<section id="applications-virtual-assistants-speech-synthesis">
+<h2>Applications: Virtual Assistants, Speech Synthesis<a class="headerlink" href="#applications-virtual-assistants-speech-synthesis" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="music-generation-and-processing">
+<h1>Music Generation and Processing<a class="headerlink" href="#music-generation-and-processing" title="Link to this heading">#</a></h1>
+<section id="deep-learning-models-for-music-composition">
+<h2>Deep Learning Models for Music Composition<a class="headerlink" href="#deep-learning-models-for-music-composition" title="Link to this heading">#</a></h2>
+</section>
+<section id="recurrent-neural-networks-rnns-in-music-generation">
+<h2>Recurrent Neural Networks (RNNs) in Music Generation<a class="headerlink" href="#recurrent-neural-networks-rnns-in-music-generation" title="Link to this heading">#</a></h2>
+</section>
+<section id="transformer-models-in-music">
+<h2>Transformer Models in Music<a class="headerlink" href="#transformer-models-in-music" title="Link to this heading">#</a></h2>
+</section>
+<section id="automatic-accompaniment-and-harmonization">
+<h2>Automatic Accompaniment and Harmonization<a class="headerlink" href="#automatic-accompaniment-and-harmonization" title="Link to this heading">#</a></h2>
+</section>
+<section id="music-style-transfer">
+<h2>Music Style Transfer<a class="headerlink" href="#music-style-transfer" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluation-of-generated-music">
+<h2>Evaluation of Generated Music<a class="headerlink" href="#evaluation-of-generated-music" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="emotion-and-sentiment-analysis-in-audio">
+<h1>Emotion and Sentiment Analysis in Audio<a class="headerlink" href="#emotion-and-sentiment-analysis-in-audio" title="Link to this heading">#</a></h1>
+<section id="acoustic-features-for-emotion-recognition">
+<h2>Acoustic Features for Emotion Recognition<a class="headerlink" href="#acoustic-features-for-emotion-recognition" title="Link to this heading">#</a></h2>
+</section>
+<section id="speech-emotion-recognition-ser">
+<h2>Speech Emotion Recognition (SER)<a class="headerlink" href="#speech-emotion-recognition-ser" title="Link to this heading">#</a></h2>
+</section>
+<section id="multimodal-emotion-analysis-audio-and-visual-fusion">
+<h2>Multimodal Emotion Analysis: Audio and Visual Fusion<a class="headerlink" href="#multimodal-emotion-analysis-audio-and-visual-fusion" title="Link to this heading">#</a></h2>
+</section>
+<section id="sentiment-analysis-in-spoken-language">
+<h2>Sentiment Analysis in Spoken Language<a class="headerlink" href="#sentiment-analysis-in-spoken-language" title="Link to this heading">#</a></h2>
+</section>
+<section id="deep-learning-models-for-emotion-recognition">
+<h2>Deep Learning Models for Emotion Recognition<a class="headerlink" href="#deep-learning-models-for-emotion-recognition" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nlp"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Audio Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-data-representation">Audio Data Representation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-audio-formats-and-standards">Digital Audio Formats and Standards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-domain-vs-frequency-domain-representations">Time-Domain vs. Frequency-Domain Representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate-bit-depth-and-channels">Sampling Rate, Bit Depth, and Channels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrograms-mel-spectrograms-and-mfccs">Spectrograms, Mel-Spectrograms, and MFCCs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-compression-and-signal-processing">Audio Compression and Signal Processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-for-audio-analysis">Preprocessing for Audio Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-reduction-and-filtering">Noise Reduction and Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-segmentation-and-silence-removal">Audio Segmentation and Silence Removal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-mfccs-chroma-tonnetz">Feature Extraction: MFCCs, Chroma, Tonnetz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-augmentation-for-audio">Data Augmentation for Audio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-alignment-and-normalization">Temporal Alignment and Normalization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-recognition">Speech Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-speech-recognition-asr-systems">Automatic Speech Recognition (ASR) Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-for-asr">Feature Extraction for ASR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hidden-markov-models-hmm-and-gaussian-mixture-models-gmm">Hidden Markov Models (HMM) and Gaussian Mixture Models (GMM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-approaches-rnns-cnns-and-transformers">Deep Learning Approaches: RNNs, CNNs, and Transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end-speech-recognition-models">End-to-End Speech Recognition Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-word-error-rate-wer-character-error-rate-cer">Evaluation Metrics: Word Error Rate (WER), Character Error Rate (CER)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-classification-and-tagging">Audio Classification and Tagging</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-classification-approaches">Audio Classification Approaches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sound-event-detection-sed">Sound Event Detection (SED)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#music-genre-classification">Music Genre Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-based-vs-end-to-end-models">Feature-Based vs. End-to-End Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning-in-audio-classification">Transfer Learning in Audio Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-music-recommendation-acoustic-scene-classification">Applications: Music Recommendation, Acoustic Scene Classification</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#voice-recognition">Voice Recognition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-independent-vs-text-dependent-speaker-recognition">Text-Independent vs. Text-Dependent Speaker Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speaker-identification-vs-verification">Speaker Identification vs. Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#i-vectors-and-x-vectors">i-Vectors and x-Vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-for-speaker-embedding-extraction">Deep Learning for Speaker Embedding Extraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speaker-diarization-techniques">Speaker Diarization Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-equal-error-rate-eer-det-curves">Evaluation: Equal Error Rate (EER), DET Curves</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-segmentation-and-source-separation">Audio Segmentation and Source Separation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-segmentation-techniques">Audio Segmentation Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-activity-detection-sad">Speech Activity Detection (SAD)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blind-source-separation">Blind Source Separation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-source-separation">Deep Learning Models for Source Separation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-in-music-and-speech-enhancement">Applications in Music and Speech Enhancement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-in-overlapping-speech-and-noise">Challenges in Overlapping Speech and Noise</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#audio-synthesis-and-generation">Audio Synthesis and Generation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-adversarial-networks-gans-for-audio">Generative Adversarial Networks (GANs) for Audio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wavenet-and-wavernn-architectures">WaveNet and WaveRNN Architectures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-to-speech-tts-systems">Text-to-Speech (TTS) Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#voice-conversion-techniques">Voice Conversion Techniques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-vocoders">Neural Vocoders</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-virtual-assistants-speech-synthesis">Applications: Virtual Assistants, Speech Synthesis</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#music-generation-and-processing">Music Generation and Processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-music-composition">Deep Learning Models for Music Composition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-networks-rnns-in-music-generation">Recurrent Neural Networks (RNNs) in Music Generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-models-in-music">Transformer Models in Music</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-accompaniment-and-harmonization">Automatic Accompaniment and Harmonization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#music-style-transfer">Music Style Transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-of-generated-music">Evaluation of Generated Music</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#emotion-and-sentiment-analysis-in-audio">Emotion and Sentiment Analysis in Audio</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acoustic-features-for-emotion-recognition">Acoustic Features for Emotion Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-emotion-recognition-ser">Speech Emotion Recognition (SER)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multimodal-emotion-analysis-audio-and-visual-fusion">Multimodal Emotion Analysis: Audio and Visual Fusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis-in-spoken-language">Sentiment Analysis in Spoken Language</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-models-for-emotion-recognition">Deep Learning Models for Emotion Recognition</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Renyi Qu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
